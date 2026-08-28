@@ -1,0 +1,8 @@
+import Link from 'next/link'
+import type { ReactNode } from 'react'
+
+type ButtonLinkProps = { href: string; children: ReactNode; variant?: 'primary' | 'outline'; className?: string }
+
+export function ButtonLink({ href, children, variant = 'primary', className = '' }: ButtonLinkProps) {
+  return <Link href={href} className={`button button-${variant} ${className}`.trim()}>{children}</Link>
+}

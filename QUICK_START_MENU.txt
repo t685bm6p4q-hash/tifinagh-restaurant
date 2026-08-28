@@ -1,0 +1,159 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                  🍽️ SYSTÈME DE MENU DU JOUR - DÉMARRAGE RAPIDE             ║
+║                         Tifinagh Athhomic Design                           ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+✅ FAIT ET VÉRIFIÉ :
+═══════════════════════════════════════════════════════════════════════════
+
+✓ PDF généré      → public/menu-du-jour.pdf (2.7 KB, 1 page PDF valide)
+✓ Script Node.js  → scripts/generate-menu-pdf.js
+✓ Interface web   → http://localhost:5173/admin/menu-setup
+✓ API upload      → POST /api/upload-menu (overwrite automatique)
+✓ Boutons site    → Intégrés partout (accueil, carte, menu-du-jour)
+✓ Personnalisable → Contenu + couleurs
+
+
+🚀 TROIS FAÇONS DE GÉRER LE MENU :
+═══════════════════════════════════════════════════════════════════════════
+
+1️⃣ UPLOAD VIA WEB (PLUS FACILE) 🌐
+   ➜ Va à : http://localhost:5173/admin/menu-setup
+   ➜ Upload un PDF
+   ➜ Done ! L'ancien s'écrase automatiquement
+
+2️⃣ RÉGÉNÉRER VIA TERMINAL 💻
+   ➜ npm run menu:generate
+   ➜ Utilise le contenu du script generate-menu-pdf.js
+
+3️⃣ ÉDITER LE SCRIPT 📝
+   ➜ Ouvre : scripts/generate-menu-pdf.js
+   ➜ Modifie les arrays (entrees, plats, desserts)
+   ➜ Sauvegarde et relance : npm run menu:generate
+
+
+📁 FICHIERS IMPORTANTS :
+═══════════════════════════════════════════════════════════════════════════
+
+Core (ne pas toucher si ça marche) :
+  • public/menu-du-jour.pdf          [PDF généré]
+  • scripts/generate-menu-pdf.js     [Script de génération]
+  • app/api/upload-menu/route.ts     [API d'upload]
+  • app/admin/menu-setup/page.tsx    [Interface web]
+  • components/menu-pdf-button.tsx   [Bouton du site]
+
+Documentation :
+  • README_MENU_PDF.md               [Documentation complète]
+  • GUIDE_MENU_PDF_SIMPLE.md         [Guide simple]
+  • QUICK_START_MENU.txt             [Ce fichier]
+
+Template personnalisable :
+  • scripts/generate-menu-pdf-template.js [Template avancé]
+
+
+🎯 FLUX DE TRAVAIL TYPE :
+═══════════════════════════════════════════════════════════════════════════
+
+Lundi (création du menu du jour) :
+  1. Prépare ton menu du jour (contenu, prix)
+  2. Option A : Édite scripts/generate-menu-pdf.js + npm run menu:generate
+  3. Option B : Upload un PDF via /admin/menu-setup
+  4. Teste sur le site : les boutons affichent le PDF
+
+Vendredi (mise à jour) :
+  1. Même processus
+  2. L'ancien PDF est automatiquement remplacé ✅
+
+
+⚙️ PERSONNALISATION :
+═══════════════════════════════════════════════════════════════════════════
+
+Modifier le contenu :
+  Ouvre : scripts/generate-menu-pdf.js
+  Cherche : const entrees = [ ... ]
+  Édite  : nom, description, prix
+  Exécute: npm run menu:generate
+
+Modifier les couleurs :
+  Ouvre : scripts/generate-menu-pdf.js
+  Cherche : const colors = { ... }
+  Édite  : les valeurs HEX
+  Exécutes: npm run menu:generate
+
+Format du PDF :
+  • Format    : A4
+  • Marges    : 40px
+  • Pages     : 1
+  • Branding  : Tifinagh (en-tête + footer)
+  • Sections  : Entrées | Plats | Desserts
+
+
+🔍 VÉRIFICATION :
+═══════════════════════════════════════════════════════════════════════════
+
+Fichier existe ?
+  ls -la public/menu-du-jour.pdf
+
+C'est un vrai PDF ?
+  file public/menu-du-jour.pdf
+
+Site lance-t-il ?
+  npm run dev
+  Va à http://localhost:5173
+
+PDF visible ?
+  Clique sur un bouton "Voir le menu du jour"
+  Le PDF s'ouvre en consultation (pas téléchargement)
+
+
+❓ DÉPANNAGE RAPIDE :
+═══════════════════════════════════════════════════════════════════════════
+
+404 sur le menu ?
+  → npm run menu:generate
+  → Vide le cache du navigateur (Cmd+Shift+R)
+
+PDF ne change pas après upload ?
+  → Vide le cache (Cmd+Shift+R)
+  → Relance le serveur (npm run dev)
+
+Erreur de génération ?
+  → Vérifie que pdfkit est installé : npm list pdfkit
+  → Réinstalle si besoin : npm install pdfkit
+
+Upload ne marche pas ?
+  → Vérif : c'est un PDF ? < 5MB ?
+  → Regarde la console du navigateur (F12)
+
+
+💡 PRO TIPS :
+═══════════════════════════════════════════════════════════════════════════
+
+• Save la palette de couleurs que tu aimes dans un commentaire du script
+• Crée des versions du script pour différentes saisons (été/hiver)
+• Le template (generate-menu-pdf-template.js) peut être chargé depuis JSON/BD
+• Pour automatiser : crée une tâche cron qui met à jour le menu chaque jour
+
+
+📚 RESSOURCES :
+═══════════════════════════════════════════════════════════════════════════
+
+Documentation complète     : README_MENU_PDF.md
+Guide simple              : GUIDE_MENU_PDF_SIMPLE.md
+Template avancé           : scripts/generate-menu-pdf-template.js
+
+
+✨ C'EST PRÊT !
+═══════════════════════════════════════════════════════════════════════════
+
+Le système est 100% fonctionnel :
+  ✅ PDF généré et consultable
+  ✅ Interface d'upload opérationnelle
+  ✅ Boutons intégrés au site
+  ✅ Ancien fichier écrasé automatiquement
+  ✅ Personnalisable (contenu + design)
+
+Prochaine étape : personnalise le menu avec tes vrais plats ! 🍽️
+
+═══════════════════════════════════════════════════════════════════════════
+Dernière mise à jour : 28 août 2026

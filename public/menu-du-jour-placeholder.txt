@@ -1,0 +1,71 @@
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                ║
+║                          🍽️  TIFINAGH MONTMARTRE  🍽️                          ║
+║                                                                                ║
+║                              MENU DU JOUR                                      ║
+║                                                                                ║
+║                         Vendredi 28 août 2026                                  ║
+║                                                                                ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+
+📌 COMMENT CRÉER VOTRE MENU DU JOUR ?
+
+1. Téléchargez Canva (gratuit) : https://canva.com
+2. Créez un design A4 avec vos plats, prix et spécialités
+3. Exportez en PDF
+4. Remplacez le fichier dans : public/menu-du-jour.pdf
+
+Ou utilisez Word/Google Docs et exportez en PDF.
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+EXEMPLE DE CONTENU (à adapter) :
+
+───────────────────────────────────────────────────────────────────────────────
+            ENTRÉES
+───────────────────────────────────────────────────────────────────────────────
+
+✦ Foie gras maison                           17 €
+  Confiture de figue et toasts
+
+✦ Soupe à l'oignon franc-comtoise            9,50 €
+  Au comté
+
+
+───────────────────────────────────────────────────────────────────────────────
+            PLATS
+───────────────────────────────────────────────────────────────────────────────
+
+✦ Confit de canard maison                    21,50 €
+  Pommes sarladaises
+
+✦ Joue de bœuf braisée à la bourguignonne    23 €
+  Pommes au lard et champignons
+
+✦ Poisson du jour                            25 €
+  (Demandez à votre serveur)
+
+
+───────────────────────────────────────────────────────────────────────────────
+            DESSERTS
+───────────────────────────────────────────────────────────────────────────────
+
+✦ Crème brûlée vanille Bourbon               9 €
+
+✦ Tarte Tatin                                9,50 €
+
+✦ Café gourmand                              10 €
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📞 Réservation
+   WhatsApp : https://wa.me/33679045460
+   Téléphone : 01 42 94 22 40
+
+📍 Tifinagh Montmartre
+   17 Avenue Rachel, 75018 Paris
+
+═══════════════════════════════════════════════════════════════════════════════

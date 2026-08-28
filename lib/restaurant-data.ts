@@ -1,0 +1,43 @@
+export const whatsappNumber = '33679045460'
+
+export const menuSections = [
+  { title: 'Entrées', items: [
+    { name: 'Foie gras maison', description: 'Confiture de figue et toasts', price: '17 €' },
+    { name: "Soupe à l'oignon franc-comtoise", description: 'Au comté', price: '9,50 €' },
+    { name: 'Cassolette d’escargots de Bourgogne', description: 'En persillade, douzaine', price: '17 €' },
+  ]},
+  { title: 'Plats', items: [
+    { name: 'Confit de canard maison', description: 'Pommes sarladaises', price: '21,50 €' },
+    { name: 'Joue de bœuf braisée à la bourguignonne', description: 'Pommes au lard et champignons', price: '23 €' },
+    { name: 'Salade landaise', description: 'Foie gras maison, gésiers de volaille, magret de canard fumé', price: '24 €' },
+    { name: 'Croque-monsieur au comté et jambon blanc', description: 'Accompagné d’une petite salade fraîche', price: '13 €' },
+    { name: 'Entrecôte de bœuf 300 g, origine France', description: 'Sauce poivre, frites maison', price: '34 €' },
+  ]},
+  { title: 'Desserts', items: [
+    { name: 'Crème brûlée vanille Bourbon', description: '', price: '9 €' },
+    { name: 'Tarte Tatin', description: '', price: '9,50 €' },
+    { name: 'Brownie aux noix et boule vanille', description: '', price: '10 €' },
+    { name: 'Café gourmand', description: '', price: '10 €' },
+  ]},
+]
+
+export type Testimonial = { quote: string; author: string }
+
+export const testimonials: Testimonial[] = [
+  { quote: 'Endroit très calme, excellent accueil, cuisine de grande qualité, ce restaurant coche toutes les cases, bravo à toute l’équipe !', author: 'Bertrand V.' },
+  { quote: 'Nous venons de quitter le restaurant, tout était très bien, le service était rapide et aimable, l’ambiance très agréable.', author: 'Vale P.' },
+  { quote: 'L’emplacement nous fait oublier que nous sommes dans Paris de par son calme, zéro bruit de voiture. Un service hyper agréable plein de sourires et un menu entrée + plat à 16€50 et 18€50 en ajoutant le dessert. C’est très bon, avec une touche d’originalité dans toutes les assiettes. Une adresse à garder.', author: 'Celine L.' },
+]
+
+export function whatsappLink(message = 'Bonjour, je souhaite réserver une table chez Tifinagh Montmartre.') {
+  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
+}
+
+export const navItems = [
+  { href: '/', label: 'Accueil' },
+  { href: '/carte', label: 'La carte' },
+  { href: '/menu-du-jour', label: 'Menu du jour' },
+  { href: '/galerie', label: 'Galerie' },
+  { href: '/privatisation', label: 'Privatisation' },
+  { href: '/contact', label: 'Contact' },
+]

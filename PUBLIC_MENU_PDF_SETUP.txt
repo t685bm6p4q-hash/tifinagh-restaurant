@@ -1,0 +1,158 @@
+════════════════════════════════════════════════════════════════════════════════
+  TIFINAGH — SYSTÈME MENU DU JOUR (PDF)
+  Setup Guide Rapide
+════════════════════════════════════════════════════════════════════════════════
+
+
+🚀 DÉMARRAGE RAPIDE (2 étapes)
+
+1. Créez un PDF avec votre menu du jour
+   → Utilisez Canva, Word, Google Docs, Adobe, etc.
+   → Exportez en PDF
+
+2. Uploader le PDF via l'interface admin
+   → Allez sur : http://localhost:3000/admin/menu-setup
+   → Cliquez sur "📤 Sélectionner un PDF"
+   → Choisissez votre fichier
+   → Confirmez
+   → ✅ C'est live !
+
+
+📁 STRUCTURE DE FICHIERS
+
+tifinagh SITE 2/
+├── components/
+│   └── menu-pdf-button.tsx ────────── Composant bouton réutilisable
+├── app/
+│   ├── admin/
+│   │   └── menu-setup/
+│   │       └── page.tsx ────────────── Interface upload admin
+│   ├── api/
+│   │   └── upload-menu/
+│   │       └── route.ts ───────────── Endpoint pour uploader
+│   ├── menu-du-jour/
+│   │   └── page.tsx ────────────────── Page "Menu du jour"
+│   ├── carte/page.tsx ──────────────── Page "La Carte" (avec lien PDF)
+│   └── ...
+├── public/
+│   └── menu-du-jour.pdf ──────────── 🔴 Votre PDF (à créer/remplacer)
+├── GUIDE_MENU_PDF.md ────────────────── Guide complet (ce que tu lis ici)
+└── ...
+
+
+🎯 UTILISATION
+
+INTERFACE WEB (Recommandée)
+──────────────────────────────────────────────────────────────────────────────
+✓ Accès : http://localhost:3000/admin/menu-setup
+✓ Cliquez sur le bouton "📤 Sélectionner un PDF"
+✓ Choisissez votre fichier (max 5 MB)
+✓ Confirmez → Upload automatique
+✓ Message de succès → Menu est live !
+
+
+REMPLACEMENT DIRECT (Avancé)
+──────────────────────────────────────────────────────────────────────────────
+Option 1 : Local (ligne de commande)
+  $ cp /chemin/vers/menu.pdf ./public/menu-du-jour.pdf
+
+Option 2 : Via FTP (Production)
+  Connectez-vous via FTP → Naviguez dans public/ → Remplacez le fichier
+
+Option 3 : API (Automation)
+  POST /api/upload-menu
+  Content-Type: multipart/form-data
+  Body: file=@menu.pdf
+
+
+📍 OÙ LE PDF APPARAÎT
+
+- Bouton sur Accueil (Hero) → "Voir le menu du jour (PDF)"
+- Bouton sur La Carte → "Menu du jour (PDF)"
+- Bouton sur Menu du Jour → "Télécharger le menu (PDF)"
+- Lien direct : /menu-du-jour.pdf
+
+
+🔧 COMPOSANTS MODIFIÉS
+
+1. home-template.tsx
+   ✓ Import MenuPdfButton
+   ✓ Ajout bouton "Voir le menu du jour" dans l'aperçu menu
+
+2. carte/page.tsx
+   ✓ Import MenuPdfButton
+   ✓ Ajout section avec lien PDF
+
+3. menu-du-jour/page.tsx
+   ✓ Import MenuPdfButton
+   ✓ Bouton téléchargement principal
+
+
+📦 NOUVELLES PAGES
+
+✓ /admin/menu-setup → Interface d'upload
+✓ /api/upload-menu → Endpoint pour uploader
+
+
+🎨 DESIGN
+
+- Couleur primaire : Vert WhatsApp #25d366
+- Variantes : primary / secondary / text
+- Tailles : small / medium / large
+- Icône : FileText (lucide-react)
+
+
+🚀 DÉPLOIEMENT (Production)
+
+Pour Vercel / Server Node.js / VPS :
+
+1. Créez un dossier `public/` à la racine du projet
+2. Uploader votre PDF initial via l'interface admin
+3. Ou via FTP : placez `menu-du-jour.pdf` dans le dossier `public/`
+4. Redéployez votre site
+5. L'interface admin fonctionnera immédiatement
+
+
+⚙️ CONFIGURATION (Optionnel)
+
+Vous pouvez modifier ces valeurs dans menu-pdf-button.tsx :
+- Taille max fichier : 5 * 1024 * 1024 (bytes) → modifiez dans app/api/upload-menu/route.ts
+- Accepter d'autres formats : modifiez `accept=".pdf"` dans menu-pdf-button.tsx
+
+
+🆘 FAQ
+
+Q: Le PDF n'est pas à jour après l'upload ?
+A: Essayez un hard refresh (Cmd+Shift+R sur Mac, Ctrl+Shift+R sur Windows)
+
+Q: Impossible d'uploader un fichier PDF ?
+A: Vérifiez que c'est bien un PDF et pas > 5 MB
+
+Q: Comment supprimer le PDF existant ?
+A: Supprimez le fichier public/menu-du-jour.pdf — un message d'erreur s'affichera
+
+Q: Puis-je automatiser les uploads quotidiens ?
+A: Oui ! Utilisez un CRON job + curl pour appeler l'endpoint /api/upload-menu
+
+
+📋 CHECKLIST
+
+Setup initial :
+  [ ] Créer le fichier public/menu-du-jour.pdf (ou via l'interface admin)
+  [ ] Tester le bouton "Voir le menu du jour" sur l'accueil
+  [ ] Vérifier que le PDF s'ouvre bien
+  [ ] Tester l'interface /admin/menu-setup
+
+Utilisation quotidienne :
+  [ ] Créer le menu du jour en PDF
+  [ ] Uploader via http://localhost:3000/admin/menu-setup
+  [ ] Vérifier que le PDF est à jour sur le site
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+🎉 C'est prêt ! Votre système de menu du jour est opérationnel.
+
+Questions ? Consultez GUIDE_MENU_PDF.md pour plus de détails.
+
+═════════════════════════════════════════════════════════════════════════════════
