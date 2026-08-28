@@ -17,7 +17,7 @@ export function MenuPdfButton({
   className = '',
   viewOnly = true,
 }: MenuPdfButtonProps) {
-  const pdfUrl = '/menu-du-jour.pdf'
+  const pdfUrl = '/api/menu-pdf'
 
   // Déterminer les styles selon la variante
   const getStyle = () => {

@@ -6,20 +6,28 @@ import { Header, Footer } from '@/components/site-shell'
 
 export default function MenuSetupAdmin() {
   const [message, setMessage] = useState<{ type: 'success' | 'error' | 'info'; text: string } | null>(null)
+  const [password, setPassword] = useState<string>('')
+  const [isUploading, setIsUploading] = useState<boolean>(false)
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
+    const input = e.target
+    const file = input.files?.[0]
     if (!file) return
 
     if (!file.name.endsWith('.pdf')) {
       setMessage({ type: 'error', text: '❌ Veuillez sélectionner un fichier PDF' })
+      input.value = ''
       return
     }
 
     if (file.size > 5 * 1024 * 1024) {
       setMessage({ type: 'error', text: '❌ Le fichier est trop volumineux (max 5 MB)' })
+      input.value = ''
       return
     }
+
+    setIsUploading(true)
+    setMessage({ type: 'info', text: '⏳ Envoi du menu en cours…' })
 
     try {
       const formData = new FormData()
@@ -28,19 +36,24 @@ export default function MenuSetupAdmin() {
       const response = await fetch('/api/upload-menu', {
         method: 'POST',
         body: formData,
+        headers: password ? { 'x-menu-admin-password': password } : undefined,
       })
+
+      const payload: { message?: string; error?: string } = await response.json().catch(() => ({}))
 
       if (response.ok) {
         setMessage({
           type: 'success',
-          text: '✅ Menu du jour mis à jour avec succès ! Le PDF est désormais accessible sur le site.',
+          text: `✅ ${payload.message ?? 'Menu mis à jour'} — il est déjà visible sur le site.`,
         })
-        e.target.value = '' // Reset input
       } else {
-        setMessage({ type: 'error', text: '❌ Erreur lors de l\'upload' })
+        setMessage({ type: 'error', text: `❌ ${payload.error ?? "Erreur lors de l'upload"}` })
       }
     } catch (error) {
       setMessage({ type: 'error', text: '❌ Erreur : ' + String(error) })
+    } finally {
+      setIsUploading(false)
+      input.value = ''
     }
   }
 
@@ -91,25 +104,48 @@ export default function MenuSetupAdmin() {
             }}
           >
             <FileText size={40} color="var(--gold)" style={{ margin: '0 auto 16px' }} />
-            <label style={{ cursor: 'pointer' }}>
+
+            <input
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              placeholder="Mot de passe administrateur"
+              autoComplete="current-password"
+              aria-label="Mot de passe administrateur"
+              style={{
+                display: 'block',
+                width: '100%',
+                maxWidth: '320px',
+                margin: '0 auto 20px',
+                padding: '12px 14px',
+                borderRadius: '5px',
+                border: '1px solid var(--line)',
+                background: 'var(--background)',
+                color: 'var(--foreground)',
+                fontSize: '14px',
+              }}
+            />
+
+            <label style={{ cursor: isUploading ? 'wait' : 'pointer' }}>
               <input
                 type="file"
                 accept=".pdf"
                 onChange={handleFileUpload}
+                disabled={isUploading}
                 style={{ display: 'none' }}
               />
               <div
                 style={{
-                  background: '#25d366',
+                  background: isUploading ? 'var(--line)' : '#25d366',
                   color: '#fff',
                   padding: '14px 28px',
                   borderRadius: '5px',
                   fontWeight: '600',
                   display: 'inline-block',
-                  cursor: 'pointer',
+                  cursor: isUploading ? 'wait' : 'pointer',
                 }}
               >
-                📤 Sélectionner un PDF
+                {isUploading ? '⏳ Envoi en cours…' : '📤 Sélectionner un PDF'}
               </div>
             </label>
             <p style={{ color: 'var(--muted)', marginTop: '12px', fontSize: '12px' }}>
@@ -163,7 +199,7 @@ export default function MenuSetupAdmin() {
               📁 Menu actuel
             </h3>
             <a
-              href="/menu-du-jour.pdf"
+              href="/api/menu-pdf"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -178,10 +214,10 @@ export default function MenuSetupAdmin() {
               }}
             >
               <FileText size={16} />
-              Ouvrir menu-du-jour.pdf
+              Ouvrir le menu en ligne
             </a>
             <p style={{ color: 'var(--muted)', fontSize: '12px', marginTop: '12px' }}>
-              ✓ Le menu est accessible publiquement sur : /menu-du-jour.pdf
+              ✓ Le menu est accessible publiquement sur : /api/menu-pdf
             </p>
           </div>
 
@@ -197,14 +233,11 @@ export default function MenuSetupAdmin() {
             }}
           >
             <h4 style={{ color: 'var(--foreground)', marginTop: 0, marginBottom: '12px' }}>
-              💡 Conseil
+              💡 Bon à savoir
             </h4>
             <p>
-              <strong>Alternative simple :</strong> Vous pouvez aussi remplacer directement le fichier{' '}
-              <code style={{ background: 'var(--surface)', padding: '2px 6px', borderRadius: '3px' }}>
-                public/menu-du-jour.pdf
-              </code>{' '}
-              sur votre serveur via SFTP ou FTP.
+              Chaque envoi remplace le menu précédent : il n&apos;y a jamais qu&apos;un seul PDF en
+              ligne. Le changement est visible sur le site en moins d&apos;une minute.
             </p>
           </div>
         </div>
