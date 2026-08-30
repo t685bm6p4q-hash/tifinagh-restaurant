@@ -31,8 +31,8 @@ export function HomeTemplate() {
             fill
             priority
             fetchPriority="high"
-            sizes="(max-width: 768px) 100vw, 1200px"
-            quality={68}
+            sizes="(max-width: 768px) 100vw, 1000px"
+            quality={65}
           />
           <div className="hero-overlay" />
           <div className="hero-content">
