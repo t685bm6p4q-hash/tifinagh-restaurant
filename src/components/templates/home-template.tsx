@@ -1,15 +1,26 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 import { ArrowRight, CalendarDays, ChefHat, MessageCircle, Wine } from 'lucide-react'
 import { Header, Footer } from '@/components/site-shell'
-import { ReservationForm } from '@/components/reservation-form'
 import { MenuPdfButton } from '@/components/menu-pdf-button'
 import { SectionHeading } from '@/src/components/molecules/section-heading'
-import { ReviewsSection } from '@/src/components/organisms/reviews-section'
 import { menuSections, testimonials } from '@/lib/restaurant-data'
+import { HERO_IMAGE_MOBILE, HERO_IMAGE_SRCSET } from '@/lib/hero-image'
 
-const HERO_IMAGE =
-  'https://res.cloudinary.com/dc9xmxpvv/image/upload/v1787938428/489A1930_p9tklu.jpg'
+const ReviewsSection = dynamic(
+  () =>
+    import('@/src/components/organisms/reviews-section').then((module) => ({
+      default: module.ReviewsSection,
+    })),
+)
+
+const ReservationForm = dynamic(
+  () =>
+    import('@/components/reservation-form').then((module) => ({
+      default: module.ReservationForm,
+    })),
+)
 
 export function HomeTemplate() {
   return (
@@ -19,14 +30,17 @@ export function HomeTemplate() {
 
         {/* ── Hero ──────────────────────────────────────── */}
         <section className="hero">
-          {/* Element LCP : charge via next/image pour etre preloade et servi en AVIF/WebP. */}
-          <Image
+          {/* LCP : CDN Cloudinary direct, plus rapide que le proxy /_next/image. */}
+          <img
             className="hero-image"
-            src={HERO_IMAGE}
-            alt="Salle du restaurant Tifinagh à Montmartre"
-            fill
-            priority
+            src={HERO_IMAGE_MOBILE}
+            srcSet={HERO_IMAGE_SRCSET}
             sizes="100vw"
+            alt="Salle du restaurant Tifinagh à Montmartre"
+            fetchPriority="high"
+            decoding="async"
+            width={1920}
+            height={1280}
           />
           <div className="hero-overlay" />
           <div className="hero-content">
@@ -61,7 +75,8 @@ export function HomeTemplate() {
               src="/images/tifinagh-dish.webp"
               alt="Plat de canard confit servi au restaurant"
               fill
-              sizes="(max-width: 768px) 100vw, 45vw"
+              quality={65}
+              sizes="(max-width: 768px) 100vw, 480px"
             />
           </div>
           <div className="story-copy">
@@ -103,12 +118,13 @@ export function HomeTemplate() {
           }}
         >
           <Image
-            src="https://res.cloudinary.com/dc9xmxpvv/image/upload/f_webp,q_auto/v1787938623/terasse-tifinagh-restaurant-pigalle_a6a58q.jpg"
+            src="https://res.cloudinary.com/dc9xmxpvv/image/upload/f_auto,q_auto:good,w_1200/v1787938623/terasse-tifinagh-restaurant-pigalle_a6a58q.jpg"
             alt="Terrasse Tifinagh avec clients heureux découvrant la cuisine française"
             fill
-            sizes="(max-width: 768px) 100vw, 100vw"
+            quality={65}
+            sizes="(max-width: 768px) 100vw, 800px"
             style={{ objectFit: 'cover' }}
-            priority={false}
+            loading="lazy"
           />
           <div
             style={{

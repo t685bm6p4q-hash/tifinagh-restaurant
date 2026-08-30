@@ -1,4 +1,4 @@
-import { Analytics } from '@vercel/analytics/next'
+import Script from 'next/script'
 import type { Metadata, Viewport } from 'next'
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
 import { RestaurantSchema } from '@/components/restaurant-schema'
@@ -7,17 +7,19 @@ import './globals.css'
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
+  weight: ['400', '600'],
   style: ['normal', 'italic'],
   variable: '--font-serif',
   display: 'swap',
+  preload: true,
 })
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
-  weight: ['300', '400', '500'],
+  weight: ['400', '500'],
   variable: '--font-sans',
   display: 'swap',
+  preload: true,
 })
 
 export const metadata: Metadata = {
@@ -67,7 +69,9 @@ export default function RootLayout({
       <body>
         <RestaurantSchema />
         {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        {process.env.VERCEL === '1' && (
+          <Script src="/_vercel/insights/script.js" strategy="lazyOnload" />
+        )}
       </body>
     </html>
   )
