@@ -7,9 +7,7 @@ import { MenuPdfButton } from '@/components/menu-pdf-button'
 import { SectionHeading } from '@/src/components/molecules/section-heading'
 import { ReviewsSection } from '@/src/components/organisms/reviews-section'
 import { menuSections, testimonials } from '@/lib/restaurant-data'
-
-const HERO_IMAGE =
-  'https://res.cloudinary.com/dc9xmxpvv/image/upload/v1787938428/489A1930_p9tklu.jpg'
+import { HERO_IMAGE_DEFAULT, HERO_IMAGE_SRCSET } from '@/lib/hero-image'
 
 export function HomeTemplate() {
   return (
@@ -19,15 +17,16 @@ export function HomeTemplate() {
 
         {/* ── Hero ──────────────────────────────────────── */}
         <section className="hero">
-          <Image
+          <img
             className="hero-image"
-            src={HERO_IMAGE}
-            alt="Salle du restaurant Tifinagh à Montmartre"
-            fill
-            priority
-            fetchPriority="high"
+            src={HERO_IMAGE_DEFAULT}
+            srcSet={HERO_IMAGE_SRCSET}
             sizes="100vw"
-            quality={75}
+            alt="Salle du restaurant Tifinagh à Montmartre"
+            fetchPriority="high"
+            decoding="async"
+            width={828}
+            height={620}
           />
           <div className="hero-overlay" />
           <div className="hero-content">

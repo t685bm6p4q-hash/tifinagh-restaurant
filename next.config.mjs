@@ -6,6 +6,9 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react'],
   },
+  async rewrites() {
+    return [{ source: '/favicon.ico', destination: '/icon.webp' }]
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [

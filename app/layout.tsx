@@ -18,11 +18,15 @@ const dmSans = DM_Sans({
   weight: ['400', '500'],
   variable: '--font-sans',
   display: 'swap',
-  preload: true,
+  preload: false,
 })
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  icons: {
+    icon: [{ url: '/icon.webp', type: 'image/webp' }],
+    shortcut: ['/icon.webp'],
+  },
   title: {
     default: 'Tifinagh | Restaurant & Bistrot Traditionnel Français à Montmartre',
     template: '%s | Tifinagh',
@@ -65,6 +69,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="fr" className={`${cormorant.variable} ${dmSans.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="anonymous" />
+      </head>
       <body>
         <RestaurantSchema />
         {children}
