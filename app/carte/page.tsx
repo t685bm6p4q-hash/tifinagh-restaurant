@@ -5,6 +5,7 @@ import { Header, Footer, PageIntro } from '@/components/site-shell'
 import { MenuPdfButton } from '@/components/menu-pdf-button'
 import { MenuSection } from '@/src/components/organisms/menu-section'
 import { menuSections } from '@/lib/restaurant-data'
+import { cloudinaryImage } from '@/lib/cloudinary'
 
 export const metadata: Metadata = {
   title: 'La carte — cuisine française maison',
@@ -34,11 +35,13 @@ export default function Carte() {
           }}
         >
           <Image
-            src="https://res.cloudinary.com/dc9xmxpvv/image/upload/f_webp,q_auto/v1787938623/terasse-tifinagh-restaurant-pigalle_a6a58q.jpg"
+            src={cloudinaryImage('v1787938623/terasse-tifinagh-restaurant-pigalle_a6a58q.jpg', 900)}
             alt="Terrasse Tifinagh Montmartre avec clients heureux sous parasol rouge"
             fill
             style={{ objectFit: 'cover' }}
-            priority
+            sizes="(max-width: 768px) 100vw, 800px"
+            quality={60}
+            loading="lazy"
           />
           <div
             style={{

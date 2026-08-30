@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Phone, MapPin } from 'lucide-react'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
+import { cloudinaryImage } from '@/lib/cloudinary'
 
 export const metadata: Metadata = {
   title: 'Privatisation du restaurant à Montmartre',
@@ -154,32 +155,44 @@ export default function Privatisation() {
               }}
             >
               <Image
-                src="https://res.cloudinary.com/dc9xmxpvv/image/upload/f_webp,q_auto/v1787938623/tifinagh-restaurant-pigalle-salle-restaurant_m5x7br.jpg"
+                src={cloudinaryImage('v1787938623/tifinagh-restaurant-pigalle-salle-restaurant_m5x7br.jpg', 700)}
                 alt="Salle restaurant Tifinagh Montmartre avec décoration rouge et bois"
-                width={600}
-                height={450}
-                style={{ borderRadius: '5px', objectFit: 'cover' }}
+                width={400}
+                height={300}
+                sizes="(max-width: 768px) 100vw, 400px"
+                quality={60}
+                loading="lazy"
+                style={{ borderRadius: '5px', objectFit: 'cover', width: '100%', height: 'auto' }}
               />
               <Image
-                src="https://res.cloudinary.com/dc9xmxpvv/image/upload/f_webp,q_auto/v1787946632/489A2436_gqgbkp.jpg"
+                src={cloudinaryImage('v1787946632/489A2436_gqgbkp.jpg', 700)}
                 alt="Salle restaurant privée Tifinagh rouge intérieur élégant"
-                width={600}
-                height={450}
-                style={{ borderRadius: '5px', objectFit: 'cover' }}
+                width={400}
+                height={300}
+                sizes="(max-width: 768px) 100vw, 400px"
+                quality={60}
+                loading="lazy"
+                style={{ borderRadius: '5px', objectFit: 'cover', width: '100%', height: 'auto' }}
               />
               <Image
-                src="https://res.cloudinary.com/dc9xmxpvv/image/upload/f_webp,q_auto/v1787946632/489A2437_gkrxlq.jpg"
+                src={cloudinaryImage('v1787946632/489A2437_gkrxlq.jpg', 700)}
                 alt="Salle privatisation Tifinagh avec tables nappe vichy bistro"
-                width={600}
-                height={450}
-                style={{ borderRadius: '5px', objectFit: 'cover' }}
+                width={400}
+                height={300}
+                sizes="(max-width: 768px) 100vw, 400px"
+                quality={60}
+                loading="lazy"
+                style={{ borderRadius: '5px', objectFit: 'cover', width: '100%', height: 'auto' }}
               />
               <Image
-                src="https://res.cloudinary.com/dc9xmxpvv/image/upload/f_webp,q_auto/v1787946633/489A2441_yrctak.jpg"
+                src={cloudinaryImage('v1787946633/489A2441_yrctak.jpg', 700)}
                 alt="Salle privatisation événement Tifinagh Montmartre restaurant privé"
-                width={600}
-                height={450}
-                style={{ borderRadius: '5px', objectFit: 'cover' }}
+                width={400}
+                height={300}
+                sizes="(max-width: 768px) 100vw, 400px"
+                quality={60}
+                loading="lazy"
+                style={{ borderRadius: '5px', objectFit: 'cover', width: '100%', height: 'auto' }}
               />
             </div>
           </div>

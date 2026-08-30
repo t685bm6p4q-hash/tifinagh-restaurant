@@ -18,6 +18,7 @@ export function Header() {
           alt="Logo Tifinagh"
           width={92}
           height={92}
+          sizes="92px"
           priority
         />
         <span>TIFINAGH</span>

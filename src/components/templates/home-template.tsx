@@ -1,12 +1,20 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 import { ArrowRight, CalendarDays, ChefHat, MessageCircle, Wine } from 'lucide-react'
 import { Header, Footer } from '@/components/site-shell'
-import { ReservationForm } from '@/components/reservation-form'
 import { MenuPdfButton } from '@/components/menu-pdf-button'
 import { SectionHeading } from '@/src/components/molecules/section-heading'
-import { ReviewsSection } from '@/src/components/organisms/reviews-section'
 import { menuSections, testimonials } from '@/lib/restaurant-data'
+import { cloudinaryImage } from '@/lib/cloudinary'
+
+const ReviewsSection = dynamic(() =>
+  import('@/src/components/organisms/reviews-section').then((m) => m.ReviewsSection),
+)
+
+const ReservationForm = dynamic(() =>
+  import('@/components/reservation-form').then((m) => m.ReservationForm),
+)
 
 export function HomeTemplate() {
   return (
@@ -23,8 +31,8 @@ export function HomeTemplate() {
             fill
             priority
             fetchPriority="high"
-            sizes="100vw"
-            quality={70}
+            sizes="(max-width: 768px) 100vw, 1200px"
+            quality={68}
           />
           <div className="hero-overlay" />
           <div className="hero-content">
@@ -59,8 +67,8 @@ export function HomeTemplate() {
               src="/images/tifinagh-dish.webp"
               alt="Plat de canard confit servi au restaurant"
               fill
-              quality={65}
-              sizes="(max-width: 768px) 100vw, 480px"
+              quality={60}
+              sizes="(max-width: 768px) 100vw, 400px"
             />
           </div>
           <div className="story-copy">
@@ -102,11 +110,11 @@ export function HomeTemplate() {
           }}
         >
           <Image
-            src="https://res.cloudinary.com/dc9xmxpvv/image/upload/f_auto,q_auto:good,w_1200/v1787938623/terasse-tifinagh-restaurant-pigalle_a6a58q.jpg"
+            src={cloudinaryImage('v1787938623/terasse-tifinagh-restaurant-pigalle_a6a58q.jpg', 900)}
             alt="Terrasse Tifinagh avec clients heureux découvrant la cuisine française"
             fill
-            quality={65}
-            sizes="(max-width: 768px) 100vw, 800px"
+            quality={60}
+            sizes="(max-width: 768px) 100vw, 600px"
             style={{ objectFit: 'cover' }}
             loading="lazy"
           />

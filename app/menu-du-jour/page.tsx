@@ -1,9 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight, Sparkles } from 'lucide-react'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
 import { MenuPdfButton } from '@/components/menu-pdf-button'
 import { menuSections } from '@/lib/restaurant-data'
+import { cloudinaryImage } from '@/lib/cloudinary'
+
+const MENU_JOUR_IMAGE = cloudinaryImage('v1787946633/489A2475_u2q4on.jpg', 900)
 
 export const metadata: Metadata = {
   title: 'Menu du jour — suggestions de saison',
@@ -23,55 +27,37 @@ export default function MenuDuJour() {
           text="Découvrez nos spécialités fraîches du jour, préparées avec les meilleurs produits de saison."
         />
 
-        {/* Section Hero - Spécialité du Jour */}
-        <section
-          className="section"
-          style={{
-            background: 'var(--surface)',
-            textAlign: 'center',
-          }}
-        >
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '16px' }}>
-              <Sparkles size={20} color="var(--gold)" />
-              <span
-                style={{
-                  color: 'var(--gold)',
-                  fontSize: '12px',
-                  fontWeight: '600',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.1em',
-                }}
-              >
-                Aujourd&apos;hui à la carte
-              </span>
-              <Sparkles size={20} color="var(--gold)" />
+        <section className="section menu-jour-highlight">
+          <div className="menu-jour-highlight__media" aria-hidden="true">
+            <Image
+              src={MENU_JOUR_IMAGE}
+              alt=""
+              fill
+              className="menu-jour-highlight__image"
+              sizes="(max-width: 768px) 100vw, 900px"
+              quality={60}
+            />
+          </div>
+          <div className="menu-jour-highlight__veil" aria-hidden="true" />
+
+          <div className="menu-jour-highlight__content">
+            <div className="menu-jour-highlight__eyebrow">
+              <Sparkles size={20} color="var(--gold)" aria-hidden="true" />
+              <span>Aujourd&apos;hui à la carte</span>
+              <Sparkles size={20} color="var(--gold)" aria-hidden="true" />
             </div>
 
-            <h2 style={{ color: 'var(--foreground)', marginBottom: '20px', fontSize: 'clamp(28px, 4vw, 48px)' }}>
-              Nos sélections du jour
-            </h2>
+            <h2 className="menu-jour-highlight__title">Nos sélections du jour</h2>
 
-            <p style={{ color: 'var(--muted)', marginBottom: '32px', fontSize: '16px', lineHeight: '1.8' }}>
-              Notre chef prépare chaque jour une sélection spéciale mettant en avant les meilleurs produits du marché.
-              Fruits, légumes, viandes et poissons – tout est frais et de saison.
+            <p className="menu-jour-highlight__copy">
+              Notre chef prépare chaque jour une sélection spéciale mettant en avant les meilleurs
+              produits du marché. Fruits, légumes, viandes et poissons – tout est frais et de saison.
             </p>
 
-            <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <MenuPdfButton variant="primary" size="medium" label="👁️ Consulter le menu du jour" viewOnly />
-              <Link
-                href="/carte"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  color: 'var(--gold)',
-                  borderBottom: '1px solid var(--gold)',
-                  paddingBottom: '4px',
-                  textDecoration: 'none',
-                }}
-              >
-                Voir la carte complète <ArrowRight size={14} />
+            <div className="menu-jour-highlight__actions">
+              <MenuPdfButton variant="primary" size="medium" label="Consulter le menu du jour" viewOnly />
+              <Link href="/carte" className="menu-jour-link">
+                Voir la carte complète <ArrowRight size={14} aria-hidden="true" />
               </Link>
             </div>
           </div>
@@ -125,18 +111,8 @@ export default function MenuDuJour() {
                 href={`https://wa.me/33679045460?text=${encodeURIComponent('Bonjour, j\'aimerais réserver une table chez Tifinagh.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  background: '#25d366',
-                  color: '#fff',
-                  padding: '14px 32px',
-                  borderRadius: '5px',
-                  textDecoration: 'none',
-                  fontSize: '14px',
-                  fontWeight: '600',
-                }}
+                className="button button-whatsapp"
+                style={{ padding: '14px 32px', fontSize: '14px' }}
               >
                 Réserver maintenant
               </a>
