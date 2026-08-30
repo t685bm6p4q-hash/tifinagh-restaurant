@@ -1,5 +1,13 @@
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
+
+export const metadata: Metadata = {
+  title: 'Galerie photos — salle et terrasse',
+  description:
+    'Photos de notre bistrot à Montmartre : terrasse aux parasols rouges, salle chaleureuse et assiettes de cuisine française préparées maison.',
+  alternates: { canonical: '/galerie' },
+}
 
 const photos = [
   {

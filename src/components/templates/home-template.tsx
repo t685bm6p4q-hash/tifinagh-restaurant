@@ -8,6 +8,9 @@ import { SectionHeading } from '@/src/components/molecules/section-heading'
 import { ReviewsSection } from '@/src/components/organisms/reviews-section'
 import { menuSections, testimonials } from '@/lib/restaurant-data'
 
+const HERO_IMAGE =
+  'https://res.cloudinary.com/dc9xmxpvv/image/upload/v1787938428/489A1930_p9tklu.jpg'
+
 export function HomeTemplate() {
   return (
     <>
@@ -16,6 +19,15 @@ export function HomeTemplate() {
 
         {/* ── Hero ──────────────────────────────────────── */}
         <section className="hero">
+          {/* Element LCP : charge via next/image pour etre preloade et servi en AVIF/WebP. */}
+          <Image
+            className="hero-image"
+            src={HERO_IMAGE}
+            alt="Salle du restaurant Tifinagh à Montmartre"
+            fill
+            priority
+            sizes="100vw"
+          />
           <div className="hero-overlay" />
           <div className="hero-content">
             <p className="eyebrow">Montmartre, Paris</p>
@@ -46,7 +58,7 @@ export function HomeTemplate() {
         <section className="story section">
           <div className="story-image">
             <Image
-              src="/images/tifinagh-dish.png"
+              src="/images/tifinagh-dish.webp"
               alt="Plat de canard confit servi au restaurant"
               fill
               sizes="(max-width: 768px) 100vw, 45vw"

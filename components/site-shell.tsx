@@ -14,7 +14,7 @@ export function Header() {
       <Link href="/" className="brand" onClick={() => setOpen(false)}>
         <Image
           className="brand-logo"
-          src="/images/logo-tifinagh-detoure.png"
+          src="/images/logo-tifinagh-detoure.webp"
           alt="Logo Tifinagh"
           width={92}
           height={92}
@@ -65,13 +65,13 @@ export function Footer() {
         </div>
 
         <div>
-          <h4>Horaires d&apos;ouverture</h4>
+          <h2>Horaires d&apos;ouverture</h2>
           <span className="opening-days">Du lundi au dimanche</span>
           <span className="opening-hours">10h – 00h</span>
         </div>
 
         <div>
-          <h4>Nous suivre</h4>
+          <h2>Nous suivre</h2>
           <div className="social-links">
             <a
               href="https://instagram.com/tifinagh_restaurant"

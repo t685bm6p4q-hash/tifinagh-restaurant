@@ -1,6 +1,14 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Clock, MapPin, Phone } from 'lucide-react'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
+
+export const metadata: Metadata = {
+  title: 'Contact, adresse et accès à Montmartre',
+  description:
+    'Tifinagh Montmartre, 17 avenue Rachel, 75018 Paris. Téléphone, horaires et accès par les métros Blanche, Pigalle et Place de Clichy.',
+  alternates: { canonical: '/contact' },
+}
 
 export default function Contact() {
   return (

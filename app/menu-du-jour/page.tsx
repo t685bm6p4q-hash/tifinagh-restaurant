@@ -1,8 +1,16 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Sparkles } from 'lucide-react'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
 import { MenuPdfButton } from '@/components/menu-pdf-button'
 import { menuSections } from '@/lib/restaurant-data'
+
+export const metadata: Metadata = {
+  title: 'Menu du jour — suggestions de saison',
+  description:
+    'Chaque jour, notre chef compose une sélection de plats frais et de saison. Découvrez le menu du jour de notre bistrot français à Montmartre.',
+  alternates: { canonical: '/menu-du-jour' },
+}
 
 export default function MenuDuJour() {
   return (

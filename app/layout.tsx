@@ -1,6 +1,8 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
+import { RestaurantSchema } from '@/components/restaurant-schema'
+import { defaultKeywords, restaurant, siteUrl } from '@/lib/seo'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({
@@ -19,9 +21,37 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'Tifinagh — Bistro français à Montmartre',
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: 'Tifinagh | Restaurant & Bistrot Traditionnel Français à Montmartre',
+    template: '%s | Tifinagh',
+  },
   description:
-    'Tifinagh, restaurant bistronomique au cœur des Abbesses à Paris. Cuisine française authentique, terrasse, vins naturels.',
+    'Découvrez le restaurant Tifinagh à Montmartre : cuisine traditionnelle française, plats faits maison, produits frais et ambiance bistrot authentique.',
+  keywords: defaultKeywords,
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    locale: 'fr_FR',
+    url: siteUrl,
+    siteName: restaurant.name,
+    title: 'Tifinagh | Restaurant & Bistrot Traditionnel Français à Montmartre',
+    description:
+      'Cuisine traditionnelle française, plats faits maison et ambiance bistrot au pied de Montmartre.',
+    images: [{ url: restaurant.image, width: 1200, height: 630, alt: 'Salle du restaurant Tifinagh' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Tifinagh | Restaurant & Bistrot Traditionnel Français',
+    description:
+      'Cuisine traditionnelle française, plats faits maison et ambiance bistrot au pied de Montmartre.',
+    images: [restaurant.image],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+  },
 }
 
 export const viewport: Viewport = {
@@ -35,6 +65,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`${cormorant.variable} ${dmSans.variable}`}>
       <body>
+        <RestaurantSchema />
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

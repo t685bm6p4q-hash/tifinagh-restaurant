@@ -1,9 +1,17 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
 import { MenuPdfButton } from '@/components/menu-pdf-button'
 import { MenuSection } from '@/src/components/organisms/menu-section'
 import { menuSections } from '@/lib/restaurant-data'
+
+export const metadata: Metadata = {
+  title: 'La carte — cuisine française maison',
+  description:
+    'Découvrez la carte de notre bistrot à Montmartre : foie gras, confit de canard, escargots de Bourgogne et desserts maison, préparés chaque jour.',
+  alternates: { canonical: '/carte' },
+}
 
 export default function Carte() {
   return (

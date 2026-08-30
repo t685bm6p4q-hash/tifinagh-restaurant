@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "menu:generate": "node scripts/generate-menu-pdf.js"
+    "menu:generate": "node scripts/generate-menu-pdf.js",
+    "images:optimize": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",

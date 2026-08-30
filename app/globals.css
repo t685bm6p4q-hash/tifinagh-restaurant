@@ -94,7 +94,8 @@ button, input, textarea, select { font: inherit; }
 
 .nav-cta {
   background: #25d366;
-  color: #fff;
+  /* Texte fonce : le blanc sur ce vert ne donne que 1.98:1, sous le seuil WCAG AA. */
+  color: #071b10;
   padding: 9px 16px;
   border-radius: 5px;
   letter-spacing: 0.06em;
@@ -106,7 +107,7 @@ button, input, textarea, select { font: inherit; }
 
 .nav-cta:hover {
   background: #20bd5b;
-  color: #fff;
+  color: #071b10;
 }
 
 .menu-toggle {
@@ -124,7 +125,14 @@ button, input, textarea, select { font: inherit; }
   align-items: center;
   padding: 110px 8vw;
   position: relative;
-  background: url('https://res.cloudinary.com/dc9xmxpvv/image/upload/f_webp,q_auto/v1787938428/489A1930_p9tklu.jpg') center / cover no-repeat;
+  overflow: hidden;
+  background: #17211d;
+}
+
+/* Image de fond servie par next/image : reste sous l'overlay et le contenu. */
+.hero-image {
+  object-fit: cover;
+  object-position: center;
 }
 
 .hero-overlay {
@@ -217,7 +225,8 @@ button, input, textarea, select { font: inherit; }
 
 .button-primary {
   background: #25d366 !important;
-  color: #fff !important;
+  /* Texte fonce : le blanc sur ce vert ne donne que 1.98:1, sous le seuil WCAG AA. */
+  color: #071b10 !important;
   border-color: #25d366 !important;
   font-weight: 600;
 }
@@ -225,7 +234,7 @@ button, input, textarea, select { font: inherit; }
 .button-primary:hover {
   background: #20bd5b !important;
   border-color: #20bd5b !important;
-  color: #fff !important;
+  color: #071b10 !important;
 }
 
 .button-whatsapp {
@@ -616,11 +625,13 @@ button, input, textarea, select { font: inherit; }
   font-weight: bold;
 }
 
-.footer h4 {
+/* h2 pour respecter l'ordre des titres ; l'echelle visuelle reste celle d'un intertitre. */
+.footer h2 {
   color: var(--gold);
   text-transform: uppercase;
   font-size: 11px;
   letter-spacing: 0.14em;
+  margin: 0 0 12px;
 }
 
 .footer p {

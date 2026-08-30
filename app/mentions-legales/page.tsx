@@ -1,4 +1,13 @@
+import type { Metadata } from 'next'
 import { Footer, Header, PageIntro } from '@/components/site-shell'
+
+export const metadata: Metadata = {
+  title: 'Mentions légales et informations',
+  description:
+    'Mentions légales du restaurant Tifinagh Montmartre : éditeur du site, hébergeur, propriété intellectuelle et traitement des données personnelles.',
+  alternates: { canonical: '/mentions-legales' },
+  robots: { index: false, follow: true },
+}
 
 export default function MentionsLegales() {
   return <>

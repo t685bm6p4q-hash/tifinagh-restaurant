@@ -1,7 +1,15 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Phone, MapPin } from 'lucide-react'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
+
+export const metadata: Metadata = {
+  title: 'Privatisation du restaurant à Montmartre',
+  description:
+    'Privatisez tout ou partie de notre bistrot au 17 avenue Rachel, Paris 18 : anniversaires, séminaires, repas de famille et menus sur mesure.',
+  alternates: { canonical: '/privatisation' },
+}
 
 export default function Privatisation() {
   return (
