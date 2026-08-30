@@ -7,7 +7,6 @@ import { MenuPdfButton } from '@/components/menu-pdf-button'
 import { SectionHeading } from '@/src/components/molecules/section-heading'
 import { ReviewsSection } from '@/src/components/organisms/reviews-section'
 import { menuSections, testimonials } from '@/lib/restaurant-data'
-import { HERO_IMAGE_DEFAULT, HERO_IMAGE_SRCSET } from '@/lib/hero-image'
 
 export function HomeTemplate() {
   return (
@@ -17,16 +16,15 @@ export function HomeTemplate() {
 
         {/* ── Hero ──────────────────────────────────────── */}
         <section className="hero">
-          <img
+          <Image
             className="hero-image"
-            src={HERO_IMAGE_DEFAULT}
-            srcSet={HERO_IMAGE_SRCSET}
-            sizes="100vw"
+            src="/images/hero-salle.webp"
             alt="Salle du restaurant Tifinagh à Montmartre"
+            fill
+            priority
             fetchPriority="high"
-            decoding="async"
-            width={828}
-            height={620}
+            sizes="100vw"
+            quality={70}
           />
           <div className="hero-overlay" />
           <div className="hero-content">

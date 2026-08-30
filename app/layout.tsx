@@ -69,9 +69,6 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="fr" className={`${cormorant.variable} ${dmSans.variable}`}>
-      <head>
-        <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="anonymous" />
-      </head>
       <body>
         <RestaurantSchema />
         {children}
