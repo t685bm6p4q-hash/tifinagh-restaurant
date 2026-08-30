@@ -113,6 +113,43 @@ button, input, textarea, select { font: inherit; }
   border: 0;
   color: var(--foreground);
   cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  padding: 4px;
+}
+
+.menu-toggle-close {
+  display: none;
+}
+
+.nav-toggle-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.footer-link-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 /* ── Hero ───────────────────────────────────────────── */
@@ -931,8 +968,16 @@ select:focus { border-color: var(--terracotta); }
     gap: 20px;
   }
 
-  .main-nav.open {
+  .nav-toggle-input:checked ~ .main-nav {
     display: flex;
+  }
+
+  .nav-toggle-input:checked ~ .menu-toggle .menu-toggle-open {
+    display: none;
+  }
+
+  .nav-toggle-input:checked ~ .menu-toggle .menu-toggle-close {
+    display: inline;
   }
 
   .hero {

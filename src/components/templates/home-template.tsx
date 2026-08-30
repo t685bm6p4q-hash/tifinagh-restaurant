@@ -3,7 +3,6 @@ import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import { ArrowRight, CalendarDays, ChefHat, MessageCircle, Wine } from 'lucide-react'
 import { Header, Footer } from '@/components/site-shell'
-import { MenuPdfButton } from '@/components/menu-pdf-button'
 import { SectionHeading } from '@/src/components/molecules/section-heading'
 import { menuSections, testimonials } from '@/lib/restaurant-data'
 import { cloudinaryImage } from '@/lib/cloudinary'
@@ -14,6 +13,10 @@ const ReviewsSection = dynamic(() =>
 
 const ReservationForm = dynamic(() =>
   import('@/components/reservation-form').then((m) => m.ReservationForm),
+)
+
+const MenuPdfButton = dynamic(() =>
+  import('@/components/menu-pdf-button').then((m) => m.MenuPdfButton),
 )
 
 export function HomeTemplate() {
@@ -31,8 +34,8 @@ export function HomeTemplate() {
             fill
             priority
             fetchPriority="high"
-            sizes="(max-width: 768px) 100vw, 1000px"
-            quality={65}
+            sizes="(max-width: 768px) 100vw, 828px"
+            quality={60}
           />
           <div className="hero-overlay" />
           <div className="hero-content">

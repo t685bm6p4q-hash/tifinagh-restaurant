@@ -1,24 +1,16 @@
 import type { Metadata, Viewport } from 'next'
-import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
+import { DM_Sans } from 'next/font/google'
 import { RestaurantSchema } from '@/components/restaurant-schema'
 import { defaultKeywords, restaurant, siteUrl } from '@/lib/seo'
 import './globals.css'
 
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['400', '600'],
-  style: ['normal', 'italic'],
-  variable: '--font-serif',
-  display: 'swap',
-  preload: false,
-})
-
+/** Une seule famille chargee : Cormorant remplace par Georgia (deja en CSS). */
 const dmSans = DM_Sans({
   subsets: ['latin'],
   weight: ['400', '500'],
   variable: '--font-sans',
   display: 'swap',
-  preload: false,
+  preload: true,
 })
 
 export const metadata: Metadata = {
@@ -68,7 +60,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="fr" className={`${cormorant.variable} ${dmSans.variable}`}>
+    <html lang="fr" className={dmSans.variable}>
       <body>
         <RestaurantSchema />
         {children}
