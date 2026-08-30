@@ -44,7 +44,8 @@ export function MenuPdfButton({
       return {
         ...baseStyle,
         background: '#25d366',
-        color: '#fff',
+        /* Texte fonce : le blanc sur ce vert ne donne que 1.98:1 (WCAG AA). */
+        color: '#071b10',
       }
     }
     if (variant === 'secondary') {

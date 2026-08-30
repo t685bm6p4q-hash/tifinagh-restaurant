@@ -122,17 +122,14 @@ export default function Privatisation() {
               </p>
               <Link
                 href="/contact"
+                className="button button-whatsapp"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '8px',
-                  color: '#fff',
-                  background: '#25d366',
                   padding: '12px 24px',
-                  borderRadius: '5px',
-                  textDecoration: 'none',
                   fontSize: '14px',
-                  fontWeight: '600',
+                  textDecoration: 'none',
                 }}
               >
                 Nous contacter
