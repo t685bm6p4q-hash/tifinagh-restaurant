@@ -1,26 +1,15 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import dynamic from 'next/dynamic'
 import { ArrowRight, CalendarDays, ChefHat, MessageCircle, Wine } from 'lucide-react'
 import { Header, Footer } from '@/components/site-shell'
+import { ReservationForm } from '@/components/reservation-form'
 import { MenuPdfButton } from '@/components/menu-pdf-button'
 import { SectionHeading } from '@/src/components/molecules/section-heading'
+import { ReviewsSection } from '@/src/components/organisms/reviews-section'
 import { menuSections, testimonials } from '@/lib/restaurant-data'
-import { HERO_IMAGE_MOBILE, HERO_IMAGE_SRCSET } from '@/lib/hero-image'
 
-const ReviewsSection = dynamic(
-  () =>
-    import('@/src/components/organisms/reviews-section').then((module) => ({
-      default: module.ReviewsSection,
-    })),
-)
-
-const ReservationForm = dynamic(
-  () =>
-    import('@/components/reservation-form').then((module) => ({
-      default: module.ReservationForm,
-    })),
-)
+const HERO_IMAGE =
+  'https://res.cloudinary.com/dc9xmxpvv/image/upload/v1787938428/489A1930_p9tklu.jpg'
 
 export function HomeTemplate() {
   return (
@@ -30,17 +19,15 @@ export function HomeTemplate() {
 
         {/* ── Hero ──────────────────────────────────────── */}
         <section className="hero">
-          {/* LCP : CDN Cloudinary direct, plus rapide que le proxy /_next/image. */}
-          <img
+          <Image
             className="hero-image"
-            src={HERO_IMAGE_MOBILE}
-            srcSet={HERO_IMAGE_SRCSET}
-            sizes="100vw"
+            src={HERO_IMAGE}
             alt="Salle du restaurant Tifinagh à Montmartre"
+            fill
+            priority
             fetchPriority="high"
-            decoding="async"
-            width={1920}
-            height={1280}
+            sizes="100vw"
+            quality={75}
           />
           <div className="hero-overlay" />
           <div className="hero-content">

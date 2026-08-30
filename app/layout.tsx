@@ -1,4 +1,3 @@
-import Script from 'next/script'
 import type { Metadata, Viewport } from 'next'
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
 import { RestaurantSchema } from '@/components/restaurant-schema'
@@ -11,7 +10,7 @@ const cormorant = Cormorant_Garamond({
   style: ['normal', 'italic'],
   variable: '--font-serif',
   display: 'swap',
-  preload: true,
+  preload: false,
 })
 
 const dmSans = DM_Sans({
@@ -69,9 +68,6 @@ export default function RootLayout({
       <body>
         <RestaurantSchema />
         {children}
-        {process.env.VERCEL === '1' && (
-          <Script src="/_vercel/insights/script.js" strategy="lazyOnload" />
-        )}
       </body>
     </html>
   )
