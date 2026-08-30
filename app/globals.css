@@ -660,7 +660,8 @@ button, input, textarea, select { font: inherit; }
   margin-top: 40px;
   padding-top: 18px;
   text-align: center;
-  color: #77756e;
+  /* #77756e ne donnait que 3.94:1 sur ce fond, sous le seuil WCAG AA. */
+  color: #8a887f;
   font-size: 10px;
 }
 
