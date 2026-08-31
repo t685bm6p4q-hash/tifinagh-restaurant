@@ -4,6 +4,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   experimental: {
+    inlineCss: true,
     optimizePackageImports: ['lucide-react'],
   },
   compiler: {

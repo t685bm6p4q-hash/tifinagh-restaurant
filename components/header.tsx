@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { navItems } from '@/lib/restaurant-data'
 
@@ -15,14 +14,14 @@ export function Header() {
     <header className="site-header">
       <input type="checkbox" id="nav-toggle" className="nav-toggle-input" aria-hidden="true" tabIndex={-1} />
       <Link href="/" className="brand">
-        <Image
+        <img
           className="brand-logo"
           src="/images/logo-tifinagh-detoure.webp"
           alt="Logo Tifinagh"
-          width={92}
-          height={92}
-          sizes="92px"
+          width={52}
+          height={52}
           loading="lazy"
+          decoding="async"
         />
         <span>TIFINAGH</span>
       </Link>

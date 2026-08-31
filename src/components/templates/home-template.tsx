@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { Header, Footer } from '@/components/site-shell'
 import { SectionHeading } from '@/src/components/molecules/section-heading'
 import { ReviewsSection } from '@/src/components/organisms/reviews-section'
-import { HomeReservationForm } from '@/components/home-reservation-form'
 import {
   ArrowRightIcon,
   CalendarDaysIcon,
@@ -28,10 +27,12 @@ export function HomeTemplate() {
           {/* Fichier deja optimise en WebP : pas de pipeline /_next/image pour le LCP. */}
           <img
             className="hero-image"
-            src="/images/hero-salle.webp"
+            src="/images/hero-salle-640.webp"
+            srcSet="/images/hero-salle-640.webp 640w, /images/hero-salle.webp 1200w"
+            sizes="100vw"
             alt="Salle du restaurant Tifinagh à Montmartre"
-            width={1920}
-            height={1280}
+            width={640}
+            height={427}
             fetchPriority="high"
             decoding="async"
           />
@@ -174,7 +175,10 @@ export function HomeTemplate() {
               Pour un dîner à deux, une grande tablée, un événement privé ou un repas
               d&apos;entreprise, notre équipe vous accueille avec plaisir.
             </p>
-            <HomeReservationForm />
+            <Link className="button button-primary" href="/reservation">
+              <MessageCircleIcon size={16} />
+              Réserver une table
+            </Link>
           </div>
         </section>
 

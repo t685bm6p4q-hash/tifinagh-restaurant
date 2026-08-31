@@ -1,18 +1,7 @@
 import type { Metadata, Viewport } from 'next'
-import { DM_Sans } from 'next/font/google'
 import { RestaurantSchema } from '@/components/restaurant-schema'
 import { defaultKeywords, restaurant, siteUrl } from '@/lib/seo'
 import './globals.css'
-
-/** Une seule famille chargee : Cormorant remplace par Georgia (deja en CSS). */
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-sans',
-  display: 'swap',
-  preload: true,
-  adjustFontFallback: true,
-})
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -61,7 +50,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="fr" className={dmSans.variable}>
+    <html lang="fr">
       <body>
         <RestaurantSchema />
         {children}
