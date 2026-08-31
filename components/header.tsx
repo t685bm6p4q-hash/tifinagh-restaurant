@@ -22,7 +22,7 @@ export function Header() {
           width={92}
           height={92}
           sizes="92px"
-          priority
+          loading="lazy"
         />
         <span>TIFINAGH</span>
       </Link>

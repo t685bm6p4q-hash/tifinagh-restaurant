@@ -1,23 +1,21 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import dynamic from 'next/dynamic'
-import { ArrowRight, CalendarDays, ChefHat, MessageCircle, Wine } from 'lucide-react'
 import { Header, Footer } from '@/components/site-shell'
 import { SectionHeading } from '@/src/components/molecules/section-heading'
+import { ReviewsSection } from '@/src/components/organisms/reviews-section'
+import { HomeReservationForm } from '@/components/home-reservation-form'
+import {
+  ArrowRightIcon,
+  CalendarDaysIcon,
+  ChefHatIcon,
+  MessageCircleIcon,
+  WineIcon,
+} from '@/components/icons'
 import { menuSections, testimonials } from '@/lib/restaurant-data'
 import { cloudinaryImage } from '@/lib/cloudinary'
 
-const ReviewsSection = dynamic(() =>
-  import('@/src/components/organisms/reviews-section').then((m) => m.ReviewsSection),
-)
-
-const ReservationForm = dynamic(() =>
-  import('@/components/reservation-form').then((m) => m.ReservationForm),
-)
-
-const MenuPdfButton = dynamic(() =>
-  import('@/components/menu-pdf-button').then((m) => m.MenuPdfButton),
-)
+const MAP_STATIC =
+  'https://staticmap.openstreetmap.de/staticmap.php?center=48.885128,2.331444&zoom=16&size=640x400&markers=48.885128,2.331444,red-pushpin'
 
 export function HomeTemplate() {
   return (
@@ -27,15 +25,15 @@ export function HomeTemplate() {
 
         {/* ── Hero ──────────────────────────────────────── */}
         <section className="hero">
-          <Image
+          {/* Fichier deja optimise en WebP : pas de pipeline /_next/image pour le LCP. */}
+          <img
             className="hero-image"
             src="/images/hero-salle.webp"
             alt="Salle du restaurant Tifinagh à Montmartre"
-            fill
-            priority
+            width={1920}
+            height={1280}
             fetchPriority="high"
-            sizes="(max-width: 768px) 100vw, 828px"
-            quality={60}
+            decoding="async"
           />
           <div className="hero-overlay" />
           <div className="hero-content">
@@ -50,7 +48,7 @@ export function HomeTemplate() {
             </p>
             <div className="actions">
               <Link className="button button-primary" href="/reservation">
-                <MessageCircle size={16} />
+                <MessageCircleIcon size={16} />
                 Réserver une table
               </Link>
               <Link className="text-link" href="/carte">
@@ -90,12 +88,12 @@ export function HomeTemplate() {
             </p>
             <div className="feature-list">
               <div>
-                <ChefHat size={20} />
+                <ChefHatIcon size={20} />
                 <strong>Fait maison</strong>
                 <span>Des produits bruts, une cuisine sincère.</span>
               </div>
               <div>
-                <Wine size={20} />
+                <WineIcon size={20} />
                 <strong>Vins vivants</strong>
                 <span>Une sélection de vignerons indépendants.</span>
               </div>
@@ -104,40 +102,21 @@ export function HomeTemplate() {
         </section>
 
         {/* ── Bandeau Carte ─────────────────────────────── */}
-        <section
-          style={{
-            position: 'relative',
-            height: '300px',
-            overflow: 'hidden',
-            marginBottom: '0',
-          }}
-        >
+        <section className="home-banner">
           <Image
             src={cloudinaryImage('v1787938623/terasse-tifinagh-restaurant-pigalle_a6a58q.jpg', 900)}
             alt="Terrasse Tifinagh avec clients heureux découvrant la cuisine française"
             fill
             quality={60}
             sizes="(max-width: 768px) 100vw, 600px"
-            style={{ objectFit: 'cover' }}
+            className="home-banner-image"
             loading="lazy"
           />
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'linear-gradient(135deg, rgba(17, 18, 16, 0.5) 0%, rgba(17, 18, 16, 0.2) 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              textAlign: 'center',
-            }}
-          >
-            <div style={{ maxWidth: '500px', color: '#fff' }}>
-              <h2 style={{ fontSize: '40px', margin: '0 0 12px', fontFamily: 'Georgia, serif', fontWeight: '300' }}>
-                Notre sélection du jour
-              </h2>
-              <Link className="text-link" href="/carte" style={{ borderColor: '#fff', color: '#fff' }}>
-                Découvrir la carte complète <ArrowRight size={14} />
+          <div className="home-banner-overlay">
+            <div className="home-banner-content">
+              <h2>Notre sélection du jour</h2>
+              <Link className="text-link home-banner-link" href="/carte">
+                Découvrir la carte complète <ArrowRightIcon size={14} />
               </Link>
             </div>
           </div>
@@ -166,10 +145,18 @@ export function HomeTemplate() {
               </div>
             ))}
           </div>
-          <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', marginTop: '40px', flexWrap: 'wrap' }}>
-            <MenuPdfButton variant="secondary" label="📋 Consulter le menu du jour" viewOnly />
+          <div className="menu-preview-actions">
+            <a
+              href="/api/menu-pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="menu-pdf-link menu-pdf-link-secondary"
+              aria-label="Consulter le menu du jour"
+            >
+              📋 Consulter le menu du jour
+            </a>
             <Link className="text-link" href="/carte">
-              Voir toute la carte <ArrowRight size={14} />
+              Voir toute la carte <ArrowRightIcon size={14} />
             </Link>
           </div>
         </section>
@@ -180,14 +167,14 @@ export function HomeTemplate() {
         {/* ── Réservation ───────────────────────────────── */}
         <section className="reservation-banner section">
           <div>
-            <CalendarDays size={24} />
+            <CalendarDaysIcon size={24} />
             <p className="eyebrow">Une table vous attend</p>
             <h2>Réservez votre moment</h2>
             <p>
               Pour un dîner à deux, une grande tablée, un événement privé ou un repas
               d&apos;entreprise, notre équipe vous accueille avec plaisir.
             </p>
-            <ReservationForm />
+            <HomeReservationForm />
           </div>
         </section>
 
@@ -206,16 +193,26 @@ export function HomeTemplate() {
               target="_blank"
               rel="noreferrer"
             >
-              Voir l&apos;itinéraire <ArrowRight size={14} />
+              Voir l&apos;itinéraire <ArrowRightIcon size={14} />
             </Link>
           </div>
-          <iframe
-            className="map-frame"
-            title="Plan et localisation de Tifinagh Montmartre"
-            src="https://www.google.com/maps?q=17+Av.+Rachel,+75018+Paris&output=embed"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+          <a
+            className="map-frame map-static-link"
+            href="https://maps.google.com/?q=17+Av.+Rachel+75018+Paris"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Ouvrir la carte Google Maps — 17 avenue Rachel, Paris 18e"
+          >
+            <img
+              src={MAP_STATIC}
+              alt="Carte — 17 avenue Rachel, Paris 18e"
+              width={640}
+              height={400}
+              loading="lazy"
+              decoding="async"
+              className="map-static-image"
+            />
+          </a>
         </section>
 
       </main>

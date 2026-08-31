@@ -559,31 +559,14 @@ button, input, textarea, select { font: inherit; }
 .review-quote {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 6;
   overflow: hidden;
   margin-bottom: 8px;
 }
 
-.review-quote.expanded {
+.review-quote-full {
   display: block;
   overflow: visible;
-}
-
-.review-more {
-  display: inline-block;
-  padding: 0;
-  margin: 0 0 14px;
-  border: 0;
-  background: transparent;
-  color: var(--gold);
-  font-size: 11px;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  cursor: pointer;
-}
-
-.review-more:hover {
-  color: var(--peach);
 }
 
 /* ── Réservation ────────────────────────────────────── */
@@ -689,6 +672,87 @@ button, input, textarea, select { font: inherit; }
   border: 1px solid var(--line);
   filter: grayscale(1) sepia(0.18) contrast(1.05);
   display: block;
+}
+
+.map-static-link {
+  overflow: hidden;
+}
+
+.map-static-image {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Bandeau home ───────────────────────────────────── */
+.home-banner {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.home-banner-image {
+  object-fit: cover;
+}
+
+.home-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(17, 18, 16, 0.5) 0%, rgba(17, 18, 16, 0.2) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.home-banner-content {
+  max-width: 500px;
+  color: #fff;
+}
+
+.home-banner-content h2 {
+  font-size: 40px;
+  margin: 0 0 12px;
+  font-family: var(--font-serif, Georgia, serif);
+  font-weight: 300;
+}
+
+.home-banner-link {
+  border-color: #fff;
+  color: #fff;
+}
+
+.menu-preview-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.menu-pdf-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  font-size: 14px;
+  padding: 12px 20px;
+}
+
+.menu-pdf-link-secondary {
+  background: var(--surface);
+  color: var(--gold);
+  border: 1px solid var(--gold);
+}
+
+.menu-pdf-link-secondary:hover {
+  background: var(--surface-2);
 }
 
 /* ── Galerie ────────────────────────────────────────── */

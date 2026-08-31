@@ -7,10 +7,11 @@ import './globals.css'
 /** Une seule famille chargee : Cormorant remplace par Georgia (deja en CSS). */
 const dmSans = DM_Sans({
   subsets: ['latin'],
-  weight: ['400', '500'],
+  weight: ['400'],
   variable: '--font-sans',
   display: 'swap',
   preload: true,
+  adjustFontFallback: true,
 })
 
 export const metadata: Metadata = {
