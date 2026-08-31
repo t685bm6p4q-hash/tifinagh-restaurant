@@ -82,29 +82,31 @@ button, input, textarea, select { font: inherit; }
   font-family: var(--font-sans, Arial, sans-serif);
 }
 
-.main-nav a {
+.main-nav a:not(.nav-cta) {
   color: var(--muted);
   transition: color 0.2s;
 }
 
 .main-nav a:hover:not(.nav-cta) { color: var(--terracotta); }
 
-/* Specificite .main-nav a + .nav-cta pour eviter d heriter de color: var(--muted). */
+/* Meme contraste que .button-primary : !important + background-color explicite. */
 .main-nav a.nav-cta {
-  background: #25d366;
-  color: #071b10;
+  background-color: #25d366 !important;
+  color: #000 !important;
   padding: 9px 16px;
   border-radius: 5px;
   letter-spacing: 0.06em;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  transition: background-color 0.2s;
 }
 
 .main-nav a.nav-cta:hover {
-  background: #20bd5b;
-  color: #071b10;
+  background-color: #20bd5b !important;
+  color: #000 !important;
 }
 
 .menu-toggle {

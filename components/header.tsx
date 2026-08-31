@@ -32,7 +32,11 @@ export function Header() {
             {item.label}
           </Link>
         ))}
-        <Link className="nav-cta" href="/reservation">
+        <Link
+          className="nav-cta"
+          href="/reservation"
+          style={{ color: '#000', backgroundColor: '#25d366' }}
+        >
           <MessageCircleIcon />
           Réserver
         </Link>
