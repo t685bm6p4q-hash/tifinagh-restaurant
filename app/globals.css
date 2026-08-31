@@ -87,11 +87,11 @@ button, input, textarea, select { font: inherit; }
   transition: color 0.2s;
 }
 
-.main-nav a:hover { color: var(--terracotta); }
+.main-nav a:hover:not(.nav-cta) { color: var(--terracotta); }
 
-.nav-cta {
+/* Specificite .main-nav a + .nav-cta pour eviter d heriter de color: var(--muted). */
+.main-nav a.nav-cta {
   background: #25d366;
-  /* Texte fonce : le blanc sur ce vert ne donne que 1.98:1, sous le seuil WCAG AA. */
   color: #071b10;
   padding: 9px 16px;
   border-radius: 5px;
@@ -102,7 +102,7 @@ button, input, textarea, select { font: inherit; }
   gap: 6px;
 }
 
-.nav-cta:hover {
+.main-nav a.nav-cta:hover {
   background: #20bd5b;
   color: #071b10;
 }
