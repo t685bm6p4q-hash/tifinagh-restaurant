@@ -10,9 +10,9 @@ import { cloudinaryImage } from '@/lib/cloudinary'
 const MENU_JOUR_IMAGE = cloudinaryImage('v1787946633/489A2475_u2q4on.jpg', 900)
 
 export const metadata: Metadata = {
-  title: 'Menu du jour — suggestions de saison',
+  title: 'Menu du jour PDF — formules fraîches à Montmartre',
   description:
-    'Chaque jour, notre chef compose une sélection de plats frais et de saison. Découvrez le menu du jour de notre bistrot français à Montmartre.',
+    'Formules et suggestions du jour en PDF : plats frais de saison préparés le matin par la brigade Tifinagh, bistrot français à Montmartre.',
   alternates: { canonical: '/menu-du-jour' },
 }
 
@@ -23,8 +23,8 @@ export default function MenuDuJour() {
       <main>
         <PageIntro
           eyebrow="Sélection du jour"
-          title="Menu du Jour"
-          text="Découvrez nos spécialités fraîches du jour, préparées avec les meilleurs produits de saison."
+          title="Menu du jour (PDF)"
+          text="Les formules du jour, en complément de la carte permanente — préparées chaque matin avec des produits frais."
         />
 
         <section className="section menu-jour-highlight">

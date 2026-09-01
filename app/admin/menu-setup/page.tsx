@@ -36,6 +36,7 @@ export default function MenuSetupAdmin() {
       const response = await fetch('/api/upload-menu', {
         method: 'POST',
         body: formData,
+        credentials: 'same-origin',
         headers: password ? { 'x-menu-admin-password': password } : undefined,
       })
 
@@ -67,7 +68,7 @@ export default function MenuSetupAdmin() {
               Menu du Jour
             </h1>
             <p style={{ color: 'var(--muted)', fontSize: '16px' }}>
-              Gérez facilement votre menu du jour en PDF
+              Espace privé (Basic Auth) — mise à jour du menu PDF
             </p>
           </div>
 
@@ -82,13 +83,13 @@ export default function MenuSetupAdmin() {
             }}
           >
             <h2 style={{ color: 'var(--gold)', marginBottom: '16px', fontSize: '18px' }}>
-              📋 Comment ça marche ?
+              Sécurité &amp; usage
             </h2>
             <ol style={{ color: 'var(--muted)', lineHeight: '1.8', margin: 0, paddingLeft: '20px' }}>
-              <li>Préparez votre menu du jour en PDF (Canva, Word, Adobe, etc.)</li>
-              <li>Cliquez sur le bouton ci-dessous pour sélectionner le fichier</li>
-              <li>Confirmez l&apos;upload</li>
-              <li>Le menu est immédiatement accessible sur le site !</li>
+              <li>Cette page est protégée par authentification HTTP (navigateur).</li>
+              <li>Saisissez le même mot de passe admin pour autoriser l&apos;upload API.</li>
+              <li>Préparez un PDF ≤ 5 Mo, puis sélectionnez-le ci-dessous.</li>
+              <li>Le fichier remplace immédiatement le menu du jour public.</li>
             </ol>
           </div>
 
@@ -137,7 +138,7 @@ export default function MenuSetupAdmin() {
               <div
                 style={{
                   background: isUploading ? 'var(--line)' : '#25d366',
-                  color: '#fff',
+                  color: '#000',
                   padding: '14px 28px',
                   borderRadius: '5px',
                   fontWeight: '600',
@@ -145,7 +146,7 @@ export default function MenuSetupAdmin() {
                   cursor: isUploading ? 'wait' : 'pointer',
                 }}
               >
-                {isUploading ? '⏳ Envoi en cours…' : '📤 Sélectionner un PDF'}
+                {isUploading ? 'Envoi en cours…' : 'Sélectionner un PDF'}
               </div>
             </label>
             <p style={{ color: 'var(--muted)', marginTop: '12px', fontSize: '12px' }}>

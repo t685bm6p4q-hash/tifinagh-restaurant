@@ -1,3 +1,5 @@
+import { isAdminAuthorized } from '@/lib/admin-auth'
+
 export const MENU_PDF_PATHNAME = 'menu-du-jour.pdf'
 
 /** Repli servi tant qu'aucun PDF n'a ete televerse. */
@@ -9,10 +11,7 @@ export function isBlobConfigured(): boolean {
   return Boolean(process.env.BLOB_READ_WRITE_TOKEN)
 }
 
+/** Fail-closed : refuse si le mot de passe env est absent ou incorrect. */
 export function isUploadAuthorized(request: Request): boolean {
-  const expected = process.env.MENU_ADMIN_PASSWORD
-  if (!expected) return true
-
-  const provided = request.headers.get('x-menu-admin-password')
-  return provided === expected
+  return isAdminAuthorized(request)
 }

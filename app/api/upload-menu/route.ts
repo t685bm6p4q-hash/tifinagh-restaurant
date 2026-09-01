@@ -11,7 +11,13 @@ import {
 
 export async function POST(request: NextRequest) {
   if (!isUploadAuthorized(request)) {
-    return NextResponse.json({ error: 'Mot de passe invalide' }, { status: 401 })
+    return NextResponse.json(
+      {
+        error:
+          'Accès refusé : authentification admin requise (MENU_ADMIN_PASSWORD).',
+      },
+      { status: 401 },
+    )
   }
 
   try {

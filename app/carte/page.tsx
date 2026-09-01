@@ -8,9 +8,9 @@ import { menuSections } from '@/lib/restaurant-data'
 import { cloudinaryImage } from '@/lib/cloudinary'
 
 export const metadata: Metadata = {
-  title: 'La carte — cuisine française maison',
+  title: 'Carte permanente — plats français maison à Montmartre',
   description:
-    'Découvrez la carte de notre bistrot à Montmartre : foie gras, confit de canard, escargots de Bourgogne et desserts maison, préparés chaque jour.',
+    'Carte permanente du bistrot Tifinagh : foie gras, confit de canard, escargots de Bourgogne et desserts maison, au 17 avenue Rachel, Paris 18.',
   alternates: { canonical: '/carte' },
 }
 
@@ -21,8 +21,8 @@ export default function Carte() {
       <main>
         <PageIntro
           eyebrow="À table"
-          title="La carte"
-          text="Une cuisine française de saison, pensée chaque jour par notre brigade."
+          title="La carte permanente"
+          text="Notre carte de bistrot français, renouvelée au fil des saisons — distincte du menu du jour PDF."
         />
 
         {/* Hero Banner - Terrasse ambiance */}

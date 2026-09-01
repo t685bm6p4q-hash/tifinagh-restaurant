@@ -1,4 +1,30 @@
 /** @type {import('next').NextConfig} */
+const securityHeaders = [
+  { key: 'X-Content-Type-Options', value: 'nosniff' },
+  { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+  { key: 'X-Frame-Options', value: 'DENY' },
+  {
+    key: 'Permissions-Policy',
+    value: 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
+  },
+  {
+    key: 'Content-Security-Policy',
+    value: [
+      "default-src 'self'",
+      "base-uri 'self'",
+      "frame-ancestors 'none'",
+      "object-src 'none'",
+      "form-action 'self' https://wa.me https://api.whatsapp.com",
+      "img-src 'self' data: blob: https://res.cloudinary.com https://staticmap.openstreetmap.de",
+      "font-src 'self' data:",
+      "style-src 'self' 'unsafe-inline'",
+      "script-src 'self' 'unsafe-inline'",
+      "connect-src 'self' https://wa.me https://api.whatsapp.com https://*.public.blob.vercel-storage.com",
+      "upgrade-insecure-requests",
+    ].join('; '),
+  },
+]
+
 const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
@@ -15,6 +41,17 @@ const nextConfig = {
   },
   async headers() {
     return [
+      {
+        source: '/:path*',
+        headers: securityHeaders,
+      },
+      {
+        source: '/admin/:path*',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
+          { key: 'Cache-Control', value: 'no-store' },
+        ],
+      },
       {
         source: '/images/:path*',
         headers: [
