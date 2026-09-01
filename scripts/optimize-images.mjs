@@ -17,6 +17,8 @@ const MAX_WIDTH = {
   'tifinagh-dish': 800,
   'hero-salle': 1200,
   'hero-salle-640': 640,
+  'home-banner-640': 640,
+  'home-banner-600': 600,
   'tifinagh-facade': 900,
   'tifinagh-gallery': 900,
 }
@@ -26,7 +28,9 @@ const WEBP_QUALITY = {
   'logo-tifinagh-rond': 72,
   'tifinagh-dish': 72,
   'hero-salle': 48,
-  'hero-salle-640': 48,
+  'hero-salle-640': 42,
+  'home-banner-640': 62,
+  'home-banner-600': 62,
   'tifinagh-facade': 72,
   'tifinagh-gallery': 72,
 }

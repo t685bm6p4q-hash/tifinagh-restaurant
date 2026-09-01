@@ -12,16 +12,7 @@ import {
   WineIcon,
 } from '@/components/icons'
 import { menuSections, testimonials } from '@/lib/restaurant-data'
-import { cloudinaryImage } from '@/lib/cloudinary'
 import { restaurant } from '@/lib/seo'
-
-const HOME_BANNER_PATH = 'v1787938623/terasse-tifinagh-restaurant-pigalle_a6a58q.jpg'
-const HOME_BANNER_SRC = cloudinaryImage(HOME_BANNER_PATH, 640)
-const HOME_BANNER_SRCSET = [
-  `${cloudinaryImage(HOME_BANNER_PATH, 640)} 640w`,
-  `${cloudinaryImage(HOME_BANNER_PATH, 900)} 900w`,
-  `${cloudinaryImage(HOME_BANNER_PATH, 1200)} 1200w`,
-].join(', ')
 
 export function HomeTemplate() {
   return (
@@ -114,17 +105,18 @@ export function HomeTemplate() {
 
         {/* ── Bandeau Carte ─────────────────────────────── */}
         <section className="home-banner">
-          <img
-            className="home-banner-image"
-            src={HOME_BANNER_SRC}
-            srcSet={HOME_BANNER_SRCSET}
-            sizes="(max-width: 768px) 100vw, 600px"
-            alt="Terrasse Tifinagh avec clients heureux découvrant la cuisine française"
-            width={900}
-            height={300}
-            loading="lazy"
-            decoding="async"
-          />
+          <picture>
+            <source media="(min-width: 769px)" srcSet="/images/home-banner-600.webp" />
+            <img
+              className="home-banner-image"
+              src="/images/home-banner-640.webp"
+              alt="Terrasse Tifinagh avec clients heureux découvrant la cuisine française"
+              width={640}
+              height={300}
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
           <div className="home-banner-overlay">
             <div className="home-banner-content">
               <h2>Notre sélection du jour</h2>
