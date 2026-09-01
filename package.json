@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "check:any": "node -e \"const {execSync}=require('child_process'); try { const o=execSync(\\\"grep -RInE '\\\\bas any\\\\b|: any\\\\b|<any>|Record<string,\\\\s*any>' --include='*.ts' --include='*.tsx' --exclude-dir=node_modules --exclude-dir=.next .\\\",{encoding:'utf8'}); if(o.trim()){console.error(o); process.exit(1)} } catch(e){ if(e.status===1){console.log('OK: zero any'); process.exit(0)} throw e }\"",
     "menu:generate": "node scripts/generate-menu-pdf.js",
     "images:optimize": "node scripts/optimize-images.mjs"
   },

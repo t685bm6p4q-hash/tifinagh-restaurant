@@ -27,9 +27,6 @@ const securityHeaders = [
 ]
 
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   experimental: {
     inlineCss: true,
     optimizePackageImports: ['lucide-react'],
