@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { AlertCircle, CheckCircle, FileText } from 'lucide-react'
-import { Header, Footer } from '@/components/site-shell'
 
 export default function MenuSetupAdmin() {
   const [message, setMessage] = useState<{ type: 'success' | 'error' | 'info'; text: string } | null>(null)
@@ -59,9 +58,7 @@ export default function MenuSetupAdmin() {
   }
 
   return (
-    <>
-      <Header />
-      <main style={{ background: 'var(--background)', minHeight: '100vh' }}>
+    <main style={{ background: 'var(--background)', minHeight: '100vh' }}>
         <div style={{ maxWidth: '700px', margin: '0 auto', padding: '60px 20px' }}>
           <div style={{ textAlign: 'center', marginBottom: '48px' }}>
             <h1 style={{ color: 'var(--foreground)', marginBottom: '12px', fontSize: '42px' }}>
@@ -243,7 +240,5 @@ export default function MenuSetupAdmin() {
           </div>
         </div>
       </main>
-      <Footer />
-    </>
   )
 }

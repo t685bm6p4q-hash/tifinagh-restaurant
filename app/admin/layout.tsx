@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Header, Footer } from '@/components/site-shell'
 
 export const metadata: Metadata = {
   title: 'Administration menu du jour',
@@ -10,5 +11,11 @@ export const metadata: Metadata = {
 export default function AdminLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return children
+  return (
+    <>
+      <Header />
+      {children}
+      <Footer />
+    </>
+  )
 }
