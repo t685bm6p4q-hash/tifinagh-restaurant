@@ -1,14 +1,15 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Phone, MapPin } from 'lucide-react'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
+import { BookingChannels } from '@/components/booking-channels'
+import { phoneDisplay, phoneTel, whatsappLink } from '@/lib/restaurant-data'
 import { cloudinaryImage } from '@/lib/cloudinary'
 
 export const metadata: Metadata = {
   title: 'Privatisation du restaurant à Montmartre',
   description:
-    'Privatisez tout ou partie de notre bistrot au 17 avenue Rachel, Paris 18 : anniversaires, séminaires, repas de famille et menus sur mesure.',
+    'Privatisez Tifinagh Montmartre : partielle dès 15 couverts, totale jusqu’à 40. Anniversaires, entreprises, familles — sur devis.',
   alternates: { canonical: '/privatisation' },
 }
 
@@ -20,178 +21,88 @@ export default function Privatisation() {
         <PageIntro
           eyebrow="Événements privés"
           title="Privatisation"
-          text="Organisez votre événement spécial dans notre restaurant."
+          text="Des chiffres clairs, des formats concrets, une salle prête pour votre soirée."
         />
 
         <section className="section">
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-            <h2 style={{ marginBottom: '24px', color: 'var(--foreground)' }}>
-              Envie d&apos;organiser un événement privé chez Tifinagh ?
-            </h2>
+          <div style={{ maxWidth: '880px', margin: '0 auto' }}>
+            <div className="privatisation-stats">
+              <div className="privatisation-stat">
+                <strong>15+</strong>
+                <span>Privatisation partielle<br />dès 15 couverts</span>
+              </div>
+              <div className="privatisation-stat">
+                <strong>40</strong>
+                <span>Privatisation totale<br />jusqu&apos;à 40 couverts</span>
+              </div>
+              <div className="privatisation-stat">
+                <strong>Sur devis</strong>
+                <span>Menus &amp; budget<br />selon votre brief</span>
+              </div>
+            </div>
 
-            <p style={{ color: 'var(--muted)', lineHeight: '1.8', marginBottom: '32px', fontSize: '16px' }}>
-              Nous vous offrons la possibilité de privatiser tout ou partie de notre établissement
-              pour vos occasions spéciales :<br /><br />
-              <strong style={{ color: 'var(--foreground)' }}>
-                ✦ Anniversaires<br />
-                ✦ Soirées en groupe<br />
-                ✦ Événements professionnels<br />
-                ✦ Séminaires & Team building<br />
-                ✦ Repas de famille<br />
-                ✦ Mariages & réceptions
-              </strong>
-            </p>
+            <h2 style={{ marginBottom: '16px', color: 'var(--foreground)', fontWeight: 400 }}>
+              Formats les plus demandés
+            </h2>
+            <ul className="privatisation-formats">
+              <li>Anniversaires &amp; fêtes entre amis</li>
+              <li>Repas d&apos;entreprise / afterwork</li>
+              <li>Séminaires &amp; team building</li>
+              <li>Repas de famille &amp; réunions</li>
+              <li>Avant-spectacle (Pigalle / Moulin Rouge)</li>
+              <li>Réceptions &amp; événements privés</li>
+            </ul>
+
+            <div className="privatisation-photos">
+              <Image
+                src={cloudinaryImage('v1787938623/tifinagh-restaurant-pigalle-salle-restaurant_m5x7br.jpg', 800)}
+                alt="Salle privatisable du restaurant Tifinagh à Montmartre"
+                width={560}
+                height={360}
+                sizes="(max-width: 768px) 100vw, 440px"
+                quality={60}
+                loading="lazy"
+              />
+              <Image
+                src={cloudinaryImage('v1787946632/489A2436_gqgbkp.jpg', 800)}
+                alt="Espace privatisation Tifinagh — salle intérieure élégante"
+                width={560}
+                height={360}
+                sizes="(max-width: 768px) 100vw, 440px"
+                quality={60}
+                loading="lazy"
+              />
+            </div>
 
             <div
               style={{
                 background: 'var(--surface)',
                 border: '1px solid var(--line)',
                 borderRadius: '5px',
-                padding: '32px',
-                marginBottom: '40px',
-              }}
-            >
-              <h3 style={{ marginBottom: '20px', color: 'var(--gold)', fontSize: '18px' }}>
-                Nous contacter pour les modalités
-              </h3>
-              <p style={{ color: 'var(--muted)', marginBottom: '24px' }}>
-                Pour connaître les tarifs, les menus proposés et organiser votre événement,
-                merci de nous contacter directement par téléphone ou en visitant notre restaurant.
-              </p>
-
-              <div style={{ display: 'grid', gap: '16px' }}>
-                <a
-                  href="tel:+33142942240"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    color: 'var(--gold)',
-                    fontSize: '15px',
-                    textDecoration: 'none',
-                    borderBottom: '1px solid var(--gold)',
-                    paddingBottom: '4px',
-                  }}
-                >
-                  <Phone size={18} />
-                  <strong>01 42 94 22 40</strong>
-                </a>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', color: 'var(--muted)', fontSize: '15px' }}>
-                  <MapPin size={18} style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <div>
-                    <strong style={{ color: 'var(--foreground)', display: 'block', marginBottom: '4px' }}>
-                      Tifinagh Montmartre
-                    </strong>
-                    17 Avenue Rachel<br />
-                    75018 Paris
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div style={{ marginBottom: '40px' }}>
-              <h3 style={{ marginBottom: '20px', color: 'var(--foreground)', fontSize: '18px' }}>
-                Nos services
-              </h3>
-              <ul
-                style={{
-                  color: 'var(--muted)',
-                  lineHeight: '1.9',
-                  paddingLeft: '20px',
-                  listStyleType: 'none',
-                }}
-              >
-                <li>✓ Privatisation totale ou partielle du restaurant</li>
-                <li>✓ Menus personnalisés et à la carte</li>
-                <li>✓ Service & équipe dédiés à votre événement</li>
-                <li>✓ Ambiance chaleureuse et authentique</li>
-                <li>✓ Localisation idéale à Montmartre</li>
-              </ul>
-            </div>
-
-            <div
-              style={{
-                background: 'var(--surface-2)',
-                borderRadius: '5px',
                 padding: '28px',
-                textAlign: 'center',
+                marginBottom: '28px',
               }}
             >
-              <p style={{ color: 'var(--muted)', marginBottom: '16px', fontSize: '14px' }}>
-                Découvrez notre établissement et discutez de votre projet avec notre équipe !
+              <h3 style={{ margin: '0 0 12px', color: 'var(--gold)', fontSize: '18px', fontWeight: 400 }}>
+                Comment ça se passe ?
+              </h3>
+              <p style={{ color: 'var(--muted)', margin: '0 0 18px', lineHeight: 1.7 }}>
+                Appelez-nous ou écrivez-nous avec la date, le nombre de convives et le type
+                d&apos;événement. Nous revenons avec une proposition (menu, service, privatisation
+                partielle ou totale) — <strong style={{ color: 'var(--foreground)' }}>toujours sur devis</strong>.
               </p>
-              <Link
-                href="/contact"
-                className="button button-whatsapp"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '12px 24px',
-                  fontSize: '14px',
-                  textDecoration: 'none',
-                }}
-              >
-                Nous contacter
-              </Link>
+              <p style={{ margin: 0 }}>
+                <a href={phoneTel} style={{ color: 'var(--gold)' }}>
+                  {phoneDisplay}
+                </a>
+                {' · '}
+                <Link href={whatsappLink('Bonjour, je souhaite un devis de privatisation chez Tifinagh.')} style={{ color: 'var(--gold)' }}>
+                  WhatsApp
+                </Link>
+              </p>
             </div>
-          </div>
-        </section>
 
-        {/* Galerie Privatisation */}
-        <section className="section">
-          <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-            <h2 style={{ color: 'var(--foreground)', textAlign: 'center', marginBottom: '40px', fontSize: '36px' }}>
-              Nos espaces de privatisation
-            </h2>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                gap: '20px',
-              }}
-            >
-              <Image
-                src={cloudinaryImage('v1787938623/tifinagh-restaurant-pigalle-salle-restaurant_m5x7br.jpg', 700)}
-                alt="Salle restaurant Tifinagh Montmartre avec décoration rouge et bois"
-                width={400}
-                height={300}
-                sizes="(max-width: 768px) 100vw, 400px"
-                quality={60}
-                loading="lazy"
-                style={{ borderRadius: '5px', objectFit: 'cover', width: '100%', height: 'auto' }}
-              />
-              <Image
-                src={cloudinaryImage('v1787946632/489A2436_gqgbkp.jpg', 700)}
-                alt="Salle restaurant privée Tifinagh rouge intérieur élégant"
-                width={400}
-                height={300}
-                sizes="(max-width: 768px) 100vw, 400px"
-                quality={60}
-                loading="lazy"
-                style={{ borderRadius: '5px', objectFit: 'cover', width: '100%', height: 'auto' }}
-              />
-              <Image
-                src={cloudinaryImage('v1787946632/489A2437_gkrxlq.jpg', 700)}
-                alt="Salle privatisation Tifinagh avec tables nappe vichy bistro"
-                width={400}
-                height={300}
-                sizes="(max-width: 768px) 100vw, 400px"
-                quality={60}
-                loading="lazy"
-                style={{ borderRadius: '5px', objectFit: 'cover', width: '100%', height: 'auto' }}
-              />
-              <Image
-                src={cloudinaryImage('v1787946633/489A2441_yrctak.jpg', 700)}
-                alt="Salle privatisation événement Tifinagh Montmartre restaurant privé"
-                width={400}
-                height={300}
-                sizes="(max-width: 768px) 100vw, 400px"
-                quality={60}
-                loading="lazy"
-                style={{ borderRadius: '5px', objectFit: 'cover', width: '100%', height: 'auto' }}
-              />
-            </div>
+            <BookingChannels title="Parler de votre événement" />
           </div>
         </section>
       </main>

@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Header, Footer } from '@/components/site-shell'
+import { TonightStrip } from '@/components/tonight-strip'
+import { BookingChannels } from '@/components/booking-channels'
 import { SectionHeading } from '@/src/components/molecules/section-heading'
 import { ReviewsSection } from '@/src/components/organisms/reviews-section'
 import {
@@ -20,6 +22,7 @@ export function HomeTemplate() {
   return (
     <>
       <Header />
+      <TonightStrip />
       <main>
 
         {/* ── Hero ──────────────────────────────────────── */}
@@ -175,10 +178,7 @@ export function HomeTemplate() {
               Pour un dîner à deux, une grande tablée, un événement privé ou un repas
               d&apos;entreprise, notre équipe vous accueille avec plaisir.
             </p>
-            <Link className="button button-primary" href="/reservation">
-              <MessageCircleIcon size={16} />
-              Réserver une table
-            </Link>
+            <BookingChannels />
           </div>
         </section>
 

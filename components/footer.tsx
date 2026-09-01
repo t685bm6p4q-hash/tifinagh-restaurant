@@ -40,7 +40,7 @@ export function Footer() {
           </p>
           <p>
             <PhoneIcon />
-            01 42 94 22 40
+            <a href="tel:+33142942240">01 42 94 22 40</a>
           </p>
         </div>
 
@@ -74,6 +74,14 @@ export function Footer() {
             <MessageCircleIcon />
             Réserver sur WhatsApp
           </Link>
+          <a
+            href="https://www.google.com/maps/reserve/v/dine/c/aSAIKaVSmBM"
+            className="footer-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Réserver avec Google
+          </a>
           <Link href="/mentions-legales" className="footer-link">
             Mentions légales
           </Link>

@@ -154,6 +154,243 @@ button, input, textarea, select { font: inherit; }
   gap: 6px;
 }
 
+/* ── Bandeau ce soir ────────────────────────────────── */
+.tonight-strip {
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+  padding: 10px max(16px, 4vw);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.tonight-strip p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.tonight-strip-strong {
+  color: var(--gold);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.tonight-strip-sep {
+  color: var(--line);
+  margin: 0 0.55em;
+}
+
+.tonight-strip a {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.tonight-strip a:hover {
+  color: var(--gold);
+}
+
+/* ── Canaux reservation ─────────────────────────────── */
+.booking-channels {
+  margin-top: 28px;
+}
+
+.booking-channels-title {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 14px;
+}
+
+.booking-channels-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.booking-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border: 1px solid var(--line);
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.booking-chip-phone {
+  background: var(--surface-2);
+  color: var(--foreground);
+}
+
+.booking-chip-phone:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.booking-chip-google {
+  background: #fff;
+  color: #1f1f1f;
+  border-color: #dadce0;
+}
+
+.booking-chip-google:hover {
+  background: #f8f9fa;
+}
+
+.booking-chip-whatsapp {
+  background: #25d366;
+  color: #000;
+  border-color: #25d366;
+}
+
+.booking-chip-whatsapp:hover {
+  background: #20bd5b;
+  border-color: #20bd5b;
+}
+
+/* ── Badge avis Google ──────────────────────────────── */
+.google-reviews-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 auto 36px;
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--foreground);
+  text-decoration: none;
+  transition: border-color 0.15s;
+}
+
+.google-reviews-badge:hover {
+  border-color: var(--gold);
+}
+
+.google-reviews-badge-text {
+  display: grid;
+  gap: 2px;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.google-reviews-badge-text strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.google-reviews-badge-text span {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.reviews .section-heading {
+  margin-bottom: 28px;
+}
+
+.reviews-google-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+/* ── Privatisation chiffres ─────────────────────────── */
+.privatisation-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 0 0 36px;
+}
+
+.privatisation-stat {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 22px 16px;
+  text-align: center;
+}
+
+.privatisation-stat strong {
+  display: block;
+  color: var(--gold);
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 500;
+  font-family: Georgia, serif;
+  margin-bottom: 6px;
+}
+
+.privatisation-stat span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.privatisation-formats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 24px;
+  margin: 0 0 36px;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.privatisation-formats li::before {
+  content: '✦ ';
+  color: var(--gold);
+}
+
+.privatisation-photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 40px 0;
+}
+
+.privatisation-photos img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 5px;
+  display: block;
+}
+
+@media (max-width: 700px) {
+  .privatisation-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .privatisation-formats {
+    grid-template-columns: 1fr;
+  }
+
+  .privatisation-photos {
+    grid-template-columns: 1fr;
+  }
+
+  .privatisation-photos img {
+    height: 220px;
+  }
+
+  .booking-channels-row {
+    flex-direction: column;
+  }
+
+  .booking-chip {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
 /* ── Hero ───────────────────────────────────────────── */
 .hero {
   min-height: 650px;

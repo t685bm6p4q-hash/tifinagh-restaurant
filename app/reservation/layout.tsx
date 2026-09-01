@@ -5,9 +5,9 @@ import type { Metadata } from 'next'
  * exporter de metadata : elle est portee par ce layout.
  */
 export const metadata: Metadata = {
-  title: 'Réserver une table par WhatsApp',
+  title: 'Réserver une table — appel, Google ou WhatsApp',
   description:
-    'Réservez votre table chez Tifinagh Montmartre en quelques secondes par WhatsApp. Bistrot français traditionnel au 17 avenue Rachel, Paris 18.',
+    'Réservez chez Tifinagh Montmartre en quelques secondes : téléphone, Google Reserve ou WhatsApp. 17 avenue Rachel, Paris 18.',
   alternates: { canonical: '/reservation' },
 }
 

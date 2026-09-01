@@ -1,5 +1,16 @@
 export const whatsappNumber = '33679045460'
 
+/** Lien Google Reserve (Réservation via Google Maps). */
+export const googleReserveUrl =
+  'https://www.google.com/maps/reserve/v/dine/c/aSAIKaVSmBM'
+
+/** Fiche Google Maps / avis. */
+export const googleMapsUrl =
+  'https://www.google.com/maps/search/?api=1&query=Tifinagh+17+Avenue+Rachel+75018+Paris'
+
+export const phoneTel = 'tel:+33142942240'
+export const phoneDisplay = '01 42 94 22 40'
+
 export const menuSections = [
   { title: 'Entrées', items: [
     { name: 'Foie gras maison', description: 'Confiture de figue et toasts', price: '17 €' },
