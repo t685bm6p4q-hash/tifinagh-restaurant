@@ -20,8 +20,8 @@ export function Header() {
           alt="Logo Tifinagh"
           width={52}
           height={52}
-          loading="lazy"
           decoding="async"
+          fetchPriority="low"
         />
         <span>TIFINAGH</span>
       </Link>

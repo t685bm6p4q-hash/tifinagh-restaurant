@@ -3,7 +3,19 @@ import Link from 'next/link'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
 import { LocalQuartierDetails } from '@/components/local-quartier-details'
+import { cloudinaryImage } from '@/lib/cloudinary'
 import { restaurant } from '@/lib/seo'
+
+const AROUND_BANNER_PATH =
+  'v1788266025/bandeau-image-autour-de-nous-pigalle-montmartre-tifinagh_rqhety.png'
+
+const AROUND_BANNER_SRC = cloudinaryImage(AROUND_BANNER_PATH, 640)
+const AROUND_BANNER_SRCSET = [
+  `${cloudinaryImage(AROUND_BANNER_PATH, 640)} 640w`,
+  `${cloudinaryImage(AROUND_BANNER_PATH, 960)} 960w`,
+  `${cloudinaryImage(AROUND_BANNER_PATH, 1200)} 1200w`,
+  `${cloudinaryImage(AROUND_BANNER_PATH, 1600)} 1600w`,
+].join(', ')
 
 const localPages = [
   {
@@ -40,6 +52,20 @@ export default function AutourDeNous() {
           title="Autour de nous"
           text="Un bistrot de quartier au 17 avenue Rachel — entre Montmartre, Pigalle et la Place de Clichy."
         />
+
+        <section className="around-banner" aria-label="Montmartre, Pigalle et le quartier">
+          <img
+            className="around-banner__image"
+            src={AROUND_BANNER_SRC}
+            srcSet={AROUND_BANNER_SRCSET}
+            sizes="100vw"
+            alt="Panorama de nuit : Sacré-Cœur, Moulin Rouge, théâtres et rues de Montmartre et Pigalle"
+            width={1600}
+            height={420}
+            loading="lazy"
+            decoding="async"
+          />
+        </section>
 
         <section className="local-page section">
           <article className="local-card">

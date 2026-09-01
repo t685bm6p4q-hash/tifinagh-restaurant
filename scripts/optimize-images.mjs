@@ -12,19 +12,21 @@ const SOURCE_DIR = 'public/images'
 
 /** Largeur max alignee sur l'affichage Next.js (sizes) pour eviter le sur-chargement. */
 const MAX_WIDTH = {
-  'logo-tifinagh-detoure': 256,
-  'logo-tifinagh-rond': 256,
+  'logo-tifinagh-detoure': 104,
+  'logo-tifinagh-rond': 104,
   'tifinagh-dish': 800,
   'hero-salle': 1200,
+  'hero-salle-640': 640,
   'tifinagh-facade': 900,
   'tifinagh-gallery': 900,
 }
 
 const WEBP_QUALITY = {
-  'logo-tifinagh-detoure': 78,
-  'logo-tifinagh-rond': 78,
+  'logo-tifinagh-detoure': 72,
+  'logo-tifinagh-rond': 72,
   'tifinagh-dish': 72,
-  'hero-salle': 70,
+  'hero-salle': 55,
+  'hero-salle-640': 50,
   'tifinagh-facade': 72,
   'tifinagh-gallery': 72,
 }
