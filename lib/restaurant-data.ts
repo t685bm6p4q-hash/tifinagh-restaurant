@@ -11,6 +11,9 @@ export const googleMapsUrl =
 /** Presence Google (recherche locale). */
 export const googleSearchUrl = 'https://www.google.com/search?q=tifinagh+restaurant'
 
+/** Fiche PagesJaunes. */
+export const pagesJaunesUrl = 'https://www.pagesjaunes.fr/pros/08679356'
+
 export const phoneTel = 'tel:+33142942240'
 export const phoneDisplay = '01 42 94 22 40'
 

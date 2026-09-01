@@ -35,6 +35,7 @@ export const restaurant = {
   social: [
     'https://instagram.com/tifinagh_restaurant',
     'https://facebook.com/profile.php?id=100068081029708',
+    'https://www.pagesjaunes.fr/pros/08679356',
   ],
 } as const
 

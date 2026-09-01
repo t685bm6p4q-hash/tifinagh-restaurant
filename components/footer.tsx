@@ -2,6 +2,7 @@ import Link from 'next/link'
 import {
   googleReserveUrl,
   googleSearchUrl,
+  pagesJaunesUrl,
   whatsappLink,
 } from '@/lib/restaurant-data'
 import { restaurant } from '@/lib/seo'
@@ -93,6 +94,15 @@ export function Footer() {
               title="Voir Tifinagh sur Google"
             >
               <GoogleGIcon size={18} />
+            </a>
+            <a
+              href={pagesJaunesUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Tifinagh sur PagesJaunes"
+              title="Voir Tifinagh sur PagesJaunes"
+            >
+              <span className="pagesjaunes-mark" aria-hidden="true">PJ</span>
             </a>
           </div>
           <Link href={whatsappLink()} className="footer-link footer-link-inline">
