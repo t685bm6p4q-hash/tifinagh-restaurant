@@ -15,9 +15,6 @@ import {
 import { menuSections, testimonials } from '@/lib/restaurant-data'
 import { cloudinaryImage } from '@/lib/cloudinary'
 
-const MAP_STATIC =
-  'https://staticmap.openstreetmap.de/staticmap.php?center=48.885128,2.331444&zoom=16&size=640x400&markers=48.885128,2.331444,red-pushpin'
-
 export function HomeTemplate() {
   return (
     <>
@@ -200,23 +197,13 @@ export function HomeTemplate() {
               Voir l&apos;itinéraire <ArrowRightIcon size={14} />
             </Link>
           </div>
-          <a
-            className="map-frame map-static-link"
-            href="https://maps.google.com/?q=17+Av.+Rachel+75018+Paris"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Ouvrir la carte Google Maps — 17 avenue Rachel, Paris 18e"
-          >
-            <img
-              src={MAP_STATIC}
-              alt="Carte — 17 avenue Rachel, Paris 18e"
-              width={640}
-              height={400}
-              loading="lazy"
-              decoding="async"
-              className="map-static-image"
-            />
-          </a>
+          <iframe
+            className="map-frame"
+            title="Plan et localisation de Tifinagh Montmartre"
+            src="https://www.google.com/maps?q=17+Av.+Rachel,+75018+Paris&output=embed"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
         </section>
 
       </main>
