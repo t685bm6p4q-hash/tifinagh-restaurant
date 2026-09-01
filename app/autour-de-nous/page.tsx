@@ -53,9 +53,9 @@ export default function AutourDeNous() {
           text="Un bistrot de quartier au 17 avenue Rachel — entre Montmartre, Pigalle et la Place de Clichy."
         />
 
-        <section className="around-banner" aria-label="Montmartre, Pigalle et le quartier">
+        <section className="page-banner" aria-label="Montmartre, Pigalle et le quartier">
           <img
-            className="around-banner__image"
+            className="page-banner__image"
             src={AROUND_BANNER_SRC}
             srcSet={AROUND_BANNER_SRCSET}
             sizes="100vw"

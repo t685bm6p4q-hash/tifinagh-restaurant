@@ -1519,7 +1519,7 @@ select:focus { border-color: var(--terracotta); }
   line-height: 1.6;
 }
 
-.around-banner {
+.page-banner {
   position: relative;
   width: 100%;
   max-height: 360px;
@@ -1527,7 +1527,7 @@ select:focus { border-color: var(--terracotta); }
   background: var(--surface-2);
 }
 
-.around-banner__image {
+.page-banner__image {
   display: block;
   width: 100%;
   height: auto;
@@ -1537,8 +1537,8 @@ select:focus { border-color: var(--terracotta); }
 }
 
 @media (max-width: 700px) {
-  .around-banner,
-  .around-banner__image {
+  .page-banner,
+  .page-banner__image {
     max-height: 220px;
   }
 }

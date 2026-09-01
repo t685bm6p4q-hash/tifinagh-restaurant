@@ -6,6 +6,16 @@ import { BookingChannels } from '@/components/booking-channels'
 import { phoneDisplay, phoneTel, whatsappLink } from '@/lib/restaurant-data'
 import { cloudinaryImage } from '@/lib/cloudinary'
 
+const PRIVATISATION_BANNER_PATH = 'v1787946633/489A2441_yrctak.jpg'
+
+const PRIVATISATION_BANNER_SRC = cloudinaryImage(PRIVATISATION_BANNER_PATH, 640)
+const PRIVATISATION_BANNER_SRCSET = [
+  `${cloudinaryImage(PRIVATISATION_BANNER_PATH, 640)} 640w`,
+  `${cloudinaryImage(PRIVATISATION_BANNER_PATH, 960)} 960w`,
+  `${cloudinaryImage(PRIVATISATION_BANNER_PATH, 1200)} 1200w`,
+  `${cloudinaryImage(PRIVATISATION_BANNER_PATH, 1600)} 1600w`,
+].join(', ')
+
 export const metadata: Metadata = {
   title: 'Privatisation du restaurant à Montmartre',
   description:
@@ -23,6 +33,20 @@ export default function Privatisation() {
           title="Privatisation"
           text="Des chiffres clairs, des formats concrets, une salle prête pour votre soirée."
         />
+
+        <section className="page-banner" aria-label="Salle privatisable Tifinagh Montmartre">
+          <img
+            className="page-banner__image"
+            src={PRIVATISATION_BANNER_SRC}
+            srcSet={PRIVATISATION_BANNER_SRCSET}
+            sizes="100vw"
+            alt="Salle d'événement privé élégante et spacieuse au restaurant Tifinagh Montmartre"
+            width={1600}
+            height={420}
+            loading="lazy"
+            decoding="async"
+          />
+        </section>
 
         <section className="section">
           <div style={{ maxWidth: '880px', margin: '0 auto' }}>
