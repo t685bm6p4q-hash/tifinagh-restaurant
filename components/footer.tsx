@@ -125,6 +125,9 @@ export function Footer() {
           </Link>
           <div className="footer-quartier">
             <p className="footer-quartier-label">Autour de nous</p>
+            <Link href="/restaurant-montmartre" className="footer-link">
+              Restaurant Montmartre
+            </Link>
             <Link href="/restaurant-pigalle" className="footer-link">
               Restaurant Pigalle
             </Link>

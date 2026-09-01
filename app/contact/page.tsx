@@ -62,11 +62,15 @@ export default function Contact() {
               La Fourche (ligne 13) : également très accessible.&ensp;
               Abbesses (ligne 12) : à proximité en grimpant vers le cœur de Montmartre.
             </p>
-            <p style={{ marginTop: '16px' }}>
+            <p className="contact-local-links">
+              <Link className="text-link" href="/restaurant-montmartre">
+                Restaurant Montmartre
+              </Link>
+              <span className="contact-local-sep" aria-hidden="true">·</span>
               <Link className="text-link" href="/restaurant-pigalle">
                 Restaurant à Pigalle
               </Link>
-              <span style={{ color: 'var(--line)', margin: '0 10px' }}>·</span>
+              <span className="contact-local-sep" aria-hidden="true">·</span>
               <Link className="text-link" href="/restaurant-place-de-clichy">
                 Restaurant Place de Clichy
               </Link>
