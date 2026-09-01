@@ -123,6 +123,15 @@ export function Footer() {
           <Link href="/mentions-legales" className="footer-link">
             Mentions légales
           </Link>
+          <div className="footer-quartier">
+            <p className="footer-quartier-label">Autour de nous</p>
+            <Link href="/restaurant-pigalle" className="footer-link">
+              Restaurant Pigalle
+            </Link>
+            <Link href="/restaurant-place-de-clichy" className="footer-link">
+              Restaurant Place de Clichy
+            </Link>
+          </div>
         </div>
       </div>
 

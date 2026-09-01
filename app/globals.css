@@ -1284,6 +1284,78 @@ select:focus { border-color: var(--terracotta); }
   padding-top: 22px;
 }
 
+/* ── Pages locales SEO ──────────────────────────────── */
+.local-page {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.local-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: clamp(28px, 5vw, 52px);
+}
+
+.local-card h2 {
+  color: var(--gold);
+  font-size: 22px;
+  font-weight: 400;
+  margin: 0 0 12px;
+}
+
+.local-card h2:not(:first-child) {
+  margin-top: 32px;
+}
+
+.local-card p,
+.local-card li {
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 15px;
+}
+
+.local-card p {
+  margin: 0 0 8px;
+}
+
+.local-card ul {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.local-card li {
+  margin-bottom: 8px;
+}
+
+.local-card strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.local-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  margin: 36px 0 8px;
+}
+
+.footer-quartier {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.footer-quartier-label {
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 11px;
+  margin: 0 0 2px;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
 /* ── Sticky appel mobile ────────────────────────────── */
 .sticky-call-bar {
   display: none;

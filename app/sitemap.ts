@@ -10,6 +10,8 @@ const routes = [
   { path: '/privatisation', priority: 0.7 },
   { path: '/reservation', priority: 0.8 },
   { path: '/contact', priority: 0.6 },
+  { path: '/restaurant-pigalle', priority: 0.65 },
+  { path: '/restaurant-place-de-clichy', priority: 0.65 },
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {

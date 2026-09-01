@@ -36,6 +36,7 @@ export const restaurant = {
     'https://instagram.com/tifinagh_restaurant',
     'https://facebook.com/profile.php?id=100068081029708',
     'https://www.pagesjaunes.fr/pros/08679356',
+    'https://www.google.com/maps/search/?api=1&query=Tifinagh+17+Avenue+Rachel+75018+Paris',
   ],
 } as const
 
@@ -47,5 +48,7 @@ export const defaultKeywords = [
   'fait maison',
   'restaurant Montmartre',
   'restaurant Paris 18',
+  'restaurant Pigalle',
+  'restaurant Place de Clichy',
   'Tifinagh',
 ]
