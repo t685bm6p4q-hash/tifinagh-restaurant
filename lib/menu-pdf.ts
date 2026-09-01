@@ -16,6 +16,8 @@ export function pdfInlineResponseHeaders(): HeadersInit {
     'Content-Disposition': 'inline; filename="menu-du-jour.pdf"',
     'Cache-Control': 'no-store',
     'X-Frame-Options': 'SAMEORIGIN',
+    /** Autorise l'iframe same-origin sur /menu-du-jour (sinon frame-ancestors 'none' bloque). */
+    'Content-Security-Policy': "frame-ancestors 'self'",
   }
 }
 

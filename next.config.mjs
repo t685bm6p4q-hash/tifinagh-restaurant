@@ -51,16 +51,25 @@ const nextConfig = {
         ],
       },
       {
+        source: '/images/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+      /* PDF menu : autoriser l'iframe (frame-ancestors 'self') — doit être après /:path* */
+      {
+        source: '/api/menu-pdf',
+        headers: [
+          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          { key: 'Content-Security-Policy', value: "frame-ancestors 'self'" },
+        ],
+      },
+      {
         source: '/menu-du-jour.pdf',
         headers: [
           { key: 'Content-Disposition', value: 'inline; filename="menu-du-jour.pdf"' },
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
-        ],
-      },
-      {
-        source: '/images/:path*',
-        headers: [
-          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+          { key: 'Content-Security-Policy', value: "frame-ancestors 'self'" },
         ],
       },
     ]
