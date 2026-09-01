@@ -4,6 +4,7 @@ import {
   googleSearchUrl,
   whatsappLink,
 } from '@/lib/restaurant-data'
+import { restaurant } from '@/lib/seo'
 
 function MapPinIcon() {
   return (
@@ -61,8 +62,8 @@ export function Footer() {
 
         <div>
           <h2>Horaires d&apos;ouverture</h2>
-          <span className="opening-days">Du lundi au dimanche</span>
-          <span className="opening-hours">10h – 00h</span>
+          <span className="opening-days">{restaurant.openingHours.labelDays}</span>
+          <span className="opening-hours">{restaurant.openingHours.labelHours}</span>
         </div>
 
         <div>

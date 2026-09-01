@@ -130,9 +130,7 @@ export default function MenuDuJour() {
           <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
             <h3 style={{ color: 'var(--foreground)', marginBottom: '16px' }}>Horaires d&apos;ouverture</h3>
             <p style={{ color: 'var(--muted)', marginBottom: '20px', lineHeight: '1.8' }}>
-              <strong>Lundi – Jeudi :</strong> 19h – 23h30<br />
-              <strong>Vendredi – Samedi :</strong> 19h – 00h<br />
-              <strong>Dimanche :</strong> 12h – 15h / 19h – 23h
+              <strong>Tous les jours :</strong> 10h – 00h
             </p>
             <p style={{ color: 'var(--muted)', fontSize: '13px' }}>
               Tél. : <strong>01 42 94 22 40</strong>

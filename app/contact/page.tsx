@@ -47,9 +47,8 @@ export default function Contact() {
             <Clock size={22} />
             <h2>Horaires</h2>
             <p>
-              Lundi – Jeudi<br />19h – 23h30<br /><br />
-              Vendredi – Samedi<br />19h – 00h<br /><br />
-              Dimanche<br />12h – 15h / 19h – 23h
+              Tous les jours<br />
+              10h – 00h
             </p>
           </div>
 

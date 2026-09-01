@@ -1,13 +1,14 @@
 import Link from 'next/link'
+import { restaurant } from '@/lib/seo'
 
-/** Bandeau info "ce soir" — CSS pur, hors hero, zero JS / zero image. */
+/** Bandeau info — CSS pur, hors hero, zero JS / zero image. */
 export function TonightStrip() {
   return (
     <div className="tonight-strip" role="status">
       <p>
-        <span className="tonight-strip-strong">Ouvert ce soir</span>
+        <span className="tonight-strip-strong">Ouvert aujourd&apos;hui</span>
         <span className="tonight-strip-sep" aria-hidden="true">·</span>
-        Service dès 19h
+        {restaurant.openingHours.labelHours}
         <span className="tonight-strip-sep" aria-hidden="true">·</span>
         <Link href="/menu-du-jour">Menu du jour à jour</Link>
       </p>

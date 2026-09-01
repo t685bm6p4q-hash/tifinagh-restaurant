@@ -22,7 +22,15 @@ export const restaurant = {
   priceRange: '€€',
   /** Capacite max privatisation totale (couverts). */
   maximumAttendeeCapacity: 40,
-  openingHours: { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: '10:00', closes: '00:00' },
+  /** Horaires : tous les jours 10h – 00h (coherent partout). */
+  openingHours: {
+    days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as const,
+    opens: '10:00',
+    closes: '00:00',
+    labelDays: 'Du lundi au dimanche',
+    labelHours: '10h – 00h',
+    labelFull: 'Ouvert tous les jours · 10h – 00h',
+  },
   image: 'https://res.cloudinary.com/dc9xmxpvv/image/upload/v1787938428/489A1930_p9tklu.jpg',
   social: [
     'https://instagram.com/tifinagh_restaurant',

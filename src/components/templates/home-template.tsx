@@ -14,6 +14,7 @@ import {
 } from '@/components/icons'
 import { menuSections, testimonials } from '@/lib/restaurant-data'
 import { cloudinaryImage } from '@/lib/cloudinary'
+import { restaurant } from '@/lib/seo'
 
 export function HomeTemplate() {
   return (
@@ -58,7 +59,7 @@ export function HomeTemplate() {
             </div>
           </div>
           <div className="hero-note">
-            Ouvert du lundi au dimanche <span>·</span> Service du soir dès 19h
+            {restaurant.openingHours.labelFull}
           </div>
         </section>
 
