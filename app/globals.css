@@ -70,6 +70,7 @@ button, input, textarea, select { font: inherit; }
   object-fit: contain;
   border-radius: 50%;
   flex-shrink: 0;
+  background: transparent;
 }
 
 .main-nav {
