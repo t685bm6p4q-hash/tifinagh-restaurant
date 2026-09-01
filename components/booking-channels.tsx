@@ -6,7 +6,7 @@ import {
   phoneTel,
   whatsappLink,
 } from '@/lib/restaurant-data'
-import { PagesJaunesIcon } from '@/components/icons'
+import { PagesJaunesIcon } from '@/components/pagesjaunes-logo'
 
 function PhoneIcon({ size = 16 }: { size?: number }) {
   return (
@@ -107,7 +107,7 @@ export function PagesJaunesReviewsBadge() {
       rel="noopener noreferrer"
       aria-label="Voir la fiche PagesJaunes de Tifinagh Montmartre"
     >
-      <PagesJaunesIcon size={22} variant="wordmark" />
+      <PagesJaunesIcon size={26} variant="wordmark" />
     </a>
   )
 }

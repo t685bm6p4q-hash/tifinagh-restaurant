@@ -55,66 +55,37 @@ export function CalendarDaysIcon({ size = 24 }: IconProps) {
 }
 
 /**
- * Logo PagesJaunes (marque jaune + clin d'oeil) — SVG inline, zero asset externe.
- * variant "mark" = icone ronde ; "wordmark" = jaune + texte pagesjaunes.
+ * @deprecated Import depuis `@/components/pagesjaunes-logo` — re-export conservé.
  */
-export function PagesJaunesIcon({
-  size = 22,
-  variant = 'mark',
-}: IconProps & { variant?: 'mark' | 'wordmark' }) {
-  if (variant === 'wordmark') {
-    return (
-      <svg
-        width={Math.round(size * 4.2)}
-        height={size}
-        viewBox="0 0 120 28"
-        aria-hidden="true"
-        className="pagesjaunes-logo"
-      >
-        <rect width="120" height="28" rx="4" fill="#FFCC00" />
-        {/* Clin d'oeil PagesJaunes */}
-        <circle cx="12" cy="11" r="1.6" fill="#111" />
-        <path d="M17.2 9.2c1.1 1.4 1.1 2.4 0 3.6" fill="none" stroke="#111" strokeWidth="1.7" strokeLinecap="round" />
-        <path d="M8 16.5c3.2 2.8 9 2.8 12.2 0" fill="none" stroke="#111" strokeWidth="1.7" strokeLinecap="round" />
-        <text
-          x="34"
-          y="18.5"
-          fill="#111"
-          fontFamily="Arial, Helvetica, sans-serif"
-          fontSize="11"
-          fontWeight="800"
-          letterSpacing="-0.02em"
-        >
-          pagesjaunes
-        </text>
-      </svg>
-    )
-  }
+export { PagesJaunesIcon } from '@/components/pagesjaunes-logo'
 
+/** Logo Instagram en degradé officiel — SVG inline, zero asset externe. */
+export function InstagramIcon({ size = 20 }: IconProps) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 32 32"
-      aria-hidden="true"
-      className="pagesjaunes-logo"
-    >
-      <rect width="32" height="32" rx="7" fill="#FFCC00" />
-      {/* Clin d'oeil / sourire — identite PagesJaunes */}
-      <circle cx="11" cy="12" r="2" fill="#111" />
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" className="instagram-logo">
+      <defs>
+        <linearGradient id="ig-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#F58529" />
+          <stop offset="40%" stopColor="#DD2A7B" />
+          <stop offset="100%" stopColor="#8134AF" />
+        </linearGradient>
+      </defs>
+      <rect width="24" height="24" rx="6" fill="url(#ig-gradient)" />
+      <rect x="5.5" y="5.5" width="13" height="13" rx="4" fill="none" stroke="#fff" strokeWidth="1.8" />
+      <circle cx="12" cy="12" r="3.2" fill="none" stroke="#fff" strokeWidth="1.8" />
+      <circle cx="17.2" cy="6.8" r="1.1" fill="#fff" />
+    </svg>
+  )
+}
+
+/** Logo Facebook bleu officiel — SVG inline, zero asset externe. */
+export function FacebookIcon({ size = 20 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" className="facebook-logo">
+      <circle cx="12" cy="12" r="12" fill="#1877F2" />
       <path
-        d="M18.5 9.5c1.8 2 1.8 3.5 0 5.5"
-        fill="none"
-        stroke="#111"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M8 19c4.2 3.6 11.8 3.6 16 0"
-        fill="none"
-        stroke="#111"
-        strokeWidth="2.2"
-        strokeLinecap="round"
+        fill="#fff"
+        d="M13.2 8.5h1.8V6.2c-.3 0-1.3-.1-2.5-.1-2.5 0-4.1 1.5-4.1 4.3v2H6.5v2.4h2.9V18h3v-3.2h2.4l.4-2.4h-2.8v-1.6c0-.7.2-1.2 1.3-1.2z"
       />
     </svg>
   )

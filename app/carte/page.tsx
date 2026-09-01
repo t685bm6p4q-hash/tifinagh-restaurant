@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import Image from 'next/image'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
-import { MenuPdfButton } from '@/components/menu-pdf-button'
 import { MenuSection } from '@/src/components/organisms/menu-section'
 import { menuSections } from '@/lib/restaurant-data'
 import { cloudinaryImage } from '@/lib/cloudinary'
@@ -22,7 +20,7 @@ export default function Carte() {
         <PageIntro
           eyebrow="À table"
           title="La carte permanente"
-          text="Notre carte de bistrot français, renouvelée au fil des saisons — distincte du menu du jour PDF."
+          text="Notre carte de bistrot français, renouvelée au fil des saisons."
         />
 
         {/* Hero Banner - Terrasse ambiance */}
@@ -61,31 +59,6 @@ export default function Carte() {
               <p style={{ fontSize: '18px', margin: '0', color: 'rgba(255, 255, 255, 0.9)' }}>
                 Une sélection de plats généreux, préparés chaque jour avec les meilleurs produits.
               </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="section" style={{ textAlign: 'center', marginBottom: '20px' }}>
-          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-            <p style={{ color: 'var(--muted)', marginBottom: '16px', fontSize: '14px' }}>
-              Vous préférez une version PDF ? Téléchargez notre menu du jour avec les spécialités fraîches du jour.
-            </p>
-            <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <MenuPdfButton variant="primary" size="medium" label="👁️ Consulter le menu du jour" viewOnly />
-              <Link
-                href="/menu-du-jour"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  color: 'var(--gold)',
-                  borderBottom: '1px solid var(--gold)',
-                  paddingBottom: '4px',
-                  textDecoration: 'none',
-                }}
-              >
-                Page menu du jour
-              </Link>
             </div>
           </div>
         </section>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Clock, MapPin, Phone } from 'lucide-react'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
+import { localSeoLinks, nearbyMetroStations } from '@/lib/restaurant-data'
 
 export const metadata: Metadata = {
   title: 'Contact, adresse et accès à Montmartre',
@@ -55,25 +56,29 @@ export default function Contact() {
           <div className="contact-card contact-transit">
             <MapPin size={22} />
             <h2>Stations de métro à proximité</h2>
-            <p>
-              Place de Clichy (lignes 2 et 13) : à quelques minutes à pied.&ensp;
-              Blanche (ligne 2) : très proche, au pied de Montmartre.&ensp;
-              Pigalle (lignes 2 et 12) : à deux pas.&ensp;
-              La Fourche (ligne 13) : également très accessible.&ensp;
-              Abbesses (ligne 12) : à proximité en grimpant vers le cœur de Montmartre.
-            </p>
+            <ul className="contact-metro-list">
+              {nearbyMetroStations.map((station) => (
+                <li key={station.name}>
+                  <span aria-hidden="true">🚇</span>
+                  <span>
+                    {station.name} (lignes {station.lines}) : {station.note}
+                  </span>
+                </li>
+              ))}
+            </ul>
             <p className="contact-local-links">
-              <Link className="text-link" href="/restaurant-montmartre">
-                Restaurant Montmartre
-              </Link>
-              <span className="contact-local-sep" aria-hidden="true">·</span>
-              <Link className="text-link" href="/restaurant-pigalle">
-                Restaurant à Pigalle
-              </Link>
-              <span className="contact-local-sep" aria-hidden="true">·</span>
-              <Link className="text-link" href="/restaurant-place-de-clichy">
-                Restaurant Place de Clichy
-              </Link>
+              {localSeoLinks.map((link, index) => (
+                <span key={link.href}>
+                  {index > 0 ? (
+                    <span className="contact-local-sep" aria-hidden="true">
+                      ·
+                    </span>
+                  ) : null}
+                  <Link className="text-link" href={link.href}>
+                    {link.label}
+                  </Link>
+                </span>
+              ))}
             </p>
           </div>
         </section>

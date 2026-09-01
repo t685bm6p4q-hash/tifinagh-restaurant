@@ -51,6 +51,13 @@ const nextConfig = {
         ],
       },
       {
+        source: '/menu-du-jour.pdf',
+        headers: [
+          { key: 'Content-Disposition', value: 'inline; filename="menu-du-jour.pdf"' },
+          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+        ],
+      },
+      {
         source: '/images/:path*',
         headers: [
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },

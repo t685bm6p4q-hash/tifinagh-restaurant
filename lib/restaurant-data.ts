@@ -50,11 +50,32 @@ export function whatsappLink(message = 'Bonjour, je souhaite réserver une table
   return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
 }
 
+export type MetroStation = {
+  name: string
+  lines: string
+  note: string
+}
+
+export const nearbyMetroStations: MetroStation[] = [
+  { name: 'Place de Clichy', lines: '2 et 13', note: 'à quelques minutes à pied' },
+  { name: 'Blanche', lines: '2', note: 'très proche, au pied de Montmartre' },
+  { name: 'Pigalle', lines: '2 et 12', note: 'à deux pas' },
+  { name: 'La Fourche', lines: '13', note: 'également très accessible' },
+  { name: 'Abbesses', lines: '12', note: 'à proximité en grimpant vers le cœur de Montmartre' },
+]
+
+export const localSeoLinks = [
+  { href: '/restaurant-montmartre', label: 'Restaurant Montmartre' },
+  { href: '/restaurant-pigalle', label: 'Restaurant à Pigalle' },
+  { href: '/restaurant-place-de-clichy', label: 'Restaurant Place de Clichy' },
+] as const
+
 export const navItems = [
   { href: '/', label: 'Accueil' },
   { href: '/carte', label: 'La carte' },
   { href: '/menu-du-jour', label: 'Menu du jour' },
   { href: '/galerie', label: 'Galerie' },
   { href: '/privatisation', label: 'Privatisation' },
+  { href: '/autour-de-nous', label: 'Autour de nous' },
   { href: '/contact', label: 'Contact' },
 ]

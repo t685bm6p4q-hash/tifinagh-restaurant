@@ -10,6 +10,7 @@ const routes = [
   { path: '/privatisation', priority: 0.7 },
   { path: '/reservation', priority: 0.8 },
   { path: '/contact', priority: 0.6 },
+  { path: '/autour-de-nous', priority: 0.65 },
   { path: '/restaurant-montmartre', priority: 0.7 },
   { path: '/restaurant-pigalle', priority: 0.65 },
   { path: '/restaurant-place-de-clichy', priority: 0.65 },

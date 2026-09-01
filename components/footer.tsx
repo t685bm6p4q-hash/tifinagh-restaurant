@@ -2,11 +2,14 @@ import Link from 'next/link'
 import {
   googleReserveUrl,
   googleSearchUrl,
+  localSeoLinks,
+  nearbyMetroStations,
   pagesJaunesUrl,
   whatsappLink,
 } from '@/lib/restaurant-data'
 import { restaurant } from '@/lib/seo'
-import { PagesJaunesIcon } from '@/components/icons'
+import { PagesJaunesIcon } from '@/components/pagesjaunes-logo'
+import { InstagramIcon, FacebookIcon } from '@/components/icons'
 
 function MapPinIcon() {
   return (
@@ -60,12 +63,42 @@ export function Footer() {
             <PhoneIcon />
             <a href="tel:+33142942240">01 42 94 22 40</a>
           </p>
+          <div className="footer-hours">
+            <h2>Horaires d&apos;ouverture</h2>
+            <span className="opening-days">{restaurant.openingHours.labelDays}</span>
+            <span className="opening-hours">{restaurant.openingHours.labelHours}</span>
+          </div>
         </div>
 
-        <div>
-          <h2>Horaires d&apos;ouverture</h2>
-          <span className="opening-days">{restaurant.openingHours.labelDays}</span>
-          <span className="opening-hours">{restaurant.openingHours.labelHours}</span>
+        <div className="footer-metro">
+          <h2>
+            <span className="footer-metro-title-icon" aria-hidden="true">🚇</span>
+            Stations de métro à proximité
+          </h2>
+          <ul className="footer-metro-list">
+            {nearbyMetroStations.map((station) => (
+              <li key={station.name}>
+                <span className="footer-metro-emoji" aria-hidden="true">🚇</span>
+                <span>
+                  <strong>{station.name}</strong> (lignes {station.lines}) : {station.note}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <p className="footer-local-links">
+            {localSeoLinks.map((link, index) => (
+              <span key={link.href}>
+                {index > 0 ? (
+                  <span className="footer-local-sep" aria-hidden="true">
+                    ·
+                  </span>
+                ) : null}
+                <Link href={link.href} className="footer-link footer-link-inline">
+                  {link.label}
+                </Link>
+              </span>
+            ))}
+          </p>
         </div>
 
         <div>
@@ -73,19 +106,21 @@ export function Footer() {
           <div className="social-links">
             <a
               href="https://instagram.com/tifinagh_restaurant"
+              className="social-link-instagram"
               target="_blank"
               rel="noreferrer"
               aria-label="Instagram de Tifinagh"
             >
-              <span className="instagram-mark" aria-hidden="true">◎</span>
+              <InstagramIcon size={22} />
             </a>
             <a
               href="https://facebook.com/profile.php?id=100068081029708"
+              className="social-link-facebook"
               target="_blank"
               rel="noreferrer"
               aria-label="Facebook de Tifinagh"
             >
-              <span className="facebook-mark" aria-hidden="true">f</span>
+              <FacebookIcon size={22} />
             </a>
             <a
               href={googleSearchUrl}
@@ -104,7 +139,7 @@ export function Footer() {
               aria-label="Tifinagh sur PagesJaunes"
               title="Voir Tifinagh sur PagesJaunes"
             >
-              <PagesJaunesIcon size={22} />
+              <PagesJaunesIcon size={28} variant="wordmark" />
             </a>
           </div>
           <Link href={whatsappLink()} className="footer-link footer-link-inline">
@@ -123,18 +158,6 @@ export function Footer() {
           <Link href="/mentions-legales" className="footer-link">
             Mentions légales
           </Link>
-          <div className="footer-quartier">
-            <p className="footer-quartier-label">Autour de nous</p>
-            <Link href="/restaurant-montmartre" className="footer-link">
-              Restaurant Montmartre
-            </Link>
-            <Link href="/restaurant-pigalle" className="footer-link">
-              Restaurant Pigalle
-            </Link>
-            <Link href="/restaurant-place-de-clichy" className="footer-link">
-              Restaurant Place de Clichy
-            </Link>
-          </div>
         </div>
       </div>
 
