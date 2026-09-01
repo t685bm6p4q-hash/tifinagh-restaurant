@@ -1247,8 +1247,52 @@ select:focus { border-color: var(--terracotta); }
   padding-top: 22px;
 }
 
+/* ── Sticky appel mobile ────────────────────────────── */
+.sticky-call-bar {
+  display: none;
+}
+
 /* ── Responsive ─────────────────────────────────────── */
 @media(max-width:700px) {
+  body {
+    padding-bottom: 72px;
+  }
+
+  .sticky-call-bar {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 60;
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(180deg, transparent, rgba(17, 18, 16, 0.92) 28%, var(--background) 100%);
+    pointer-events: none;
+  }
+
+  .sticky-call-bar-link {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 5px;
+    background: #25d366;
+    color: #000;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  .sticky-call-bar-link:hover,
+  .sticky-call-bar-link:active {
+    background: #20bd5b;
+  }
+
   .site-header {
     height: 62px;
     padding: 0 5vw;

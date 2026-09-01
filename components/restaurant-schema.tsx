@@ -16,8 +16,24 @@ export function RestaurantSchema() {
     image: restaurant.image,
     servesCuisine: restaurant.cuisine,
     priceRange: restaurant.priceRange,
+    maximumAttendeeCapacity: restaurant.maximumAttendeeCapacity,
     currenciesAccepted: 'EUR',
     acceptsReservations: 'True',
+    potentialAction: {
+      '@type': 'ReserveAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${siteUrl}/reservation`,
+        actionPlatform: [
+          'http://schema.org/DesktopWebPlatform',
+          'http://schema.org/MobileWebPlatform',
+        ],
+      },
+      result: {
+        '@type': 'Reservation',
+        name: 'Réservation de table',
+      },
+    },
     address: {
       '@type': 'PostalAddress',
       streetAddress: restaurant.streetAddress,

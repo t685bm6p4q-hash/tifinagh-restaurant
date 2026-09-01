@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { RestaurantSchema } from '@/components/restaurant-schema'
+import { StickyCallBar } from '@/components/sticky-call-bar'
 import { defaultKeywords, restaurant, siteUrl } from '@/lib/seo'
 import './globals.css'
 
@@ -54,6 +55,7 @@ export default function RootLayout({
       <body>
         <RestaurantSchema />
         {children}
+        <StickyCallBar />
       </body>
     </html>
   )

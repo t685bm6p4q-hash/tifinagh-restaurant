@@ -20,6 +20,8 @@ export const restaurant = {
   latitude: 48.885128,
   longitude: 2.331444,
   priceRange: '€€',
+  /** Capacite max privatisation totale (couverts). */
+  maximumAttendeeCapacity: 40,
   openingHours: { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: '10:00', closes: '00:00' },
   image: 'https://res.cloudinary.com/dc9xmxpvv/image/upload/v1787938428/489A1930_p9tklu.jpg',
   social: [
