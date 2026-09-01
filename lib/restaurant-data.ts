@@ -8,6 +8,9 @@ export const googleReserveUrl =
 export const googleMapsUrl =
   'https://www.google.com/maps/search/?api=1&query=Tifinagh+17+Avenue+Rachel+75018+Paris'
 
+/** Presence Google (recherche locale). */
+export const googleSearchUrl = 'https://www.google.com/search?q=tifinagh+restaurant'
+
 export const phoneTel = 'tel:+33142942240'
 export const phoneDisplay = '01 42 94 22 40'
 

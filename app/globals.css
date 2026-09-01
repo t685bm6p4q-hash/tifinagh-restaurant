@@ -1140,6 +1140,15 @@ button, input, textarea, select { font: inherit; }
   line-height: 0.75;
 }
 
+.social-links a .google-g-mark {
+  display: block;
+}
+
+.social-links a:hover .google-g-mark path {
+  /* Conserve les couleurs officielles Google au survol. */
+  opacity: 0.92;
+}
+
 /* ── Page intro ─────────────────────────────────────── */
 .page-intro {
   text-align: center;
