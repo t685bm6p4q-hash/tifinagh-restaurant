@@ -299,7 +299,10 @@ button, input, textarea, select { font: inherit; }
 
 .reviews-google-wrap {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
 }
 
 /* ── Privatisation chiffres ─────────────────────────── */

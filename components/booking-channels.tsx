@@ -1,6 +1,7 @@
 import {
   googleMapsUrl,
   googleReserveUrl,
+  pagesJaunesUrl,
   phoneDisplay,
   phoneTel,
   whatsappLink,
@@ -91,6 +92,24 @@ export function GoogleReviewsBadge() {
       <span className="google-reviews-badge-text">
         <strong>Avis Google</strong>
         <span>Voir sur Google Maps</span>
+      </span>
+    </a>
+  )
+}
+
+export function PagesJaunesReviewsBadge() {
+  return (
+    <a
+      className="google-reviews-badge pagesjaunes-reviews-badge"
+      href={pagesJaunesUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Voir la fiche PagesJaunes de Tifinagh Montmartre"
+    >
+      <span className="pagesjaunes-mark" aria-hidden="true">PJ</span>
+      <span className="google-reviews-badge-text">
+        <strong>PagesJaunes</strong>
+        <span>Voir la fiche</span>
       </span>
     </a>
   )
