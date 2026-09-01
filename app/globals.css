@@ -89,6 +89,19 @@ button, input, textarea, select { font: inherit; }
 
 .main-nav a:hover:not(.nav-cta):not(.nav-menu-jour) { color: var(--terracotta); }
 
+.main-nav a.nav-active:not(.nav-cta):not(.nav-menu-jour) {
+  color: var(--foreground);
+}
+
+.main-nav a.nav-active:not(.nav-cta):not(.nav-menu-jour)::after {
+  content: '';
+  display: block;
+  height: 2px;
+  margin-top: 5px;
+  background: var(--terracotta);
+  border-radius: 1px;
+}
+
 .main-nav a.nav-menu-jour {
   background-color: #ffeb01 !important;
   color: #1c171d !important;
@@ -105,6 +118,11 @@ button, input, textarea, select { font: inherit; }
   background-color: #fff066 !important;
   color: #1c171d !important;
   border-color: #1c171d;
+}
+
+.main-nav a.nav-menu-jour.nav-active {
+  border-color: var(--terracotta);
+  box-shadow: 0 2px 0 var(--terracotta);
 }
 
 /* Meme contraste que .button-primary : !important + background-color explicite. */
@@ -125,6 +143,11 @@ button, input, textarea, select { font: inherit; }
 .main-nav a.nav-cta:hover {
   background-color: #20bd5b !important;
   color: #000 !important;
+}
+
+.main-nav a.nav-cta.nav-active {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
 }
 
 .menu-toggle {
