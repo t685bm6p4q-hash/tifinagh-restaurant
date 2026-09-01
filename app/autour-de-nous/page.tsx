@@ -2,14 +2,14 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
-import { nearbyMetroStations } from '@/lib/restaurant-data'
+import { LocalQuartierDetails } from '@/components/local-quartier-details'
 import { restaurant } from '@/lib/seo'
 
 const localPages = [
   {
     href: '/restaurant-montmartre',
-    title: 'Montmartre',
-    text: 'Bistrot au pied de la butte, au calme de l’avenue Rachel — loin du tumulte touristique.',
+    title: 'Montmartre & Sacré-Cœur',
+    text: 'Au pied de la butte, au calme de l’avenue Rachel — loin du tumulte touristique direct.',
   },
   {
     href: '/restaurant-pigalle',
@@ -24,9 +24,9 @@ const localPages = [
 ] as const
 
 export const metadata: Metadata = {
-  title: 'Autour de nous — Montmartre, Pigalle, Place de Clichy',
+  title: 'Autour de nous — Montmartre, théâtres, cinémas et métro',
   description:
-    'Tifinagh au 17 avenue Rachel : restaurant français entre Montmartre, Pigalle et la Place de Clichy. Accès métro, horaires et réservation.',
+    'Tifinagh au 17 avenue Rachel : près du cimetière de Montmartre, théâtres, cinémas Pathé Wepler, métros Clichy, Blanche et Pigalle. Pause gourmande au calme.',
   alternates: { canonical: '/autour-de-nous' },
 }
 
@@ -38,7 +38,7 @@ export default function AutourDeNous() {
         <PageIntro
           eyebrow="Paris 18"
           title="Autour de nous"
-          text="Un bistrot de quartier au 17 avenue Rachel — proche de Montmartre, Pigalle et la Place de Clichy."
+          text="Un bistrot de quartier au 17 avenue Rachel — entre Montmartre, Pigalle et la Place de Clichy."
         />
 
         <section className="local-page section">
@@ -61,19 +61,7 @@ export default function AutourDeNous() {
               ))}
             </ul>
 
-            <h2>Stations de métro à proximité</h2>
-            <ul className="footer-metro-list around-metro-list">
-              {nearbyMetroStations.map((station) => (
-                <li key={station.name}>
-                  <span className="footer-metro-emoji" aria-hidden="true">
-                    🚇
-                  </span>
-                  <span>
-                    <strong>{station.name}</strong> (lignes {station.lines}) : {station.note}
-                  </span>
-                </li>
-              ))}
-            </ul>
+            <LocalQuartierDetails />
 
             <p>
               Ouvert <strong>tous les jours</strong>, {restaurant.openingHours.labelHours}.{' '}

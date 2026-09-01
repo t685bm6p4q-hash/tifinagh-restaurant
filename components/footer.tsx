@@ -111,7 +111,7 @@ export function Footer() {
               rel="noreferrer"
               aria-label="Instagram de Tifinagh"
             >
-              <InstagramIcon size={22} />
+              <InstagramIcon size={24} />
             </a>
             <a
               href="https://facebook.com/profile.php?id=100068081029708"
@@ -120,16 +120,17 @@ export function Footer() {
               rel="noreferrer"
               aria-label="Facebook de Tifinagh"
             >
-              <FacebookIcon size={22} />
+              <FacebookIcon size={24} />
             </a>
             <a
               href={googleSearchUrl}
+              className="social-link-google"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Tifinagh sur Google"
               title="Voir Tifinagh sur Google"
             >
-              <GoogleGIcon size={18} />
+              <GoogleGIcon size={24} />
             </a>
             <a
               href={pagesJaunesUrl}
@@ -139,7 +140,7 @@ export function Footer() {
               aria-label="Tifinagh sur PagesJaunes"
               title="Voir Tifinagh sur PagesJaunes"
             >
-              <PagesJaunesIcon size={28} variant="wordmark" />
+              <PagesJaunesIcon size={24} variant="wordmark" />
             </a>
           </div>
           <Link href={whatsappLink()} className="footer-link footer-link-inline">

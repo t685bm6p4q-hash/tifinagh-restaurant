@@ -64,6 +64,40 @@ export const nearbyMetroStations: MetroStation[] = [
   { name: 'Abbesses', lines: '12', note: 'à proximité en grimpant vers le cœur de Montmartre' },
 ]
 
+/** Métros mis en avant (accès direct au restaurant). */
+export const metroAccessStations: MetroStation[] = [
+  { name: 'Place de Clichy', lines: '2 et 13', note: '' },
+  { name: 'Blanche', lines: '2', note: '' },
+  { name: 'Pigalle', lines: '2 et 12', note: '' },
+  { name: 'La Fourche', lines: '13', note: '' },
+]
+
+export type LocalVenue = { name: string; note: string }
+
+export const quartierLandmarks = [
+  {
+    title: 'Cimetière de Montmartre',
+    text: "Niché juste sur l'avenue Rachel, au niveau de l'accès au cimetière : la halte idéale pour une pause calme et gourmande.",
+  },
+  {
+    title: 'Montmartre & Sacré-Cœur',
+    text: 'Au pied de la butte Montmartre, préservé du tumulte touristique direct.',
+  },
+] as const
+
+export const nearbyTheatres: LocalVenue[] = [
+  { name: 'Théâtre des Deux Ânes', note: 'à 3 min à pied sur le boulevard de Clichy' },
+  { name: "Théâtre de l'Européen", note: 'à 5 min à pied, rue Biot / Place de Clichy' },
+  { name: "Théâtre de l'Œuvre", note: 'rue de Clichy' },
+  { name: 'La Cigale & Le Trianon', note: 'boulevard de Rochechouart' },
+  { name: "Théâtre de l'Atelier", note: 'place Charles Dullin' },
+]
+
+export const nearbyCinemas: LocalVenue[] = [
+  { name: 'Pathé Wepler', note: 'Place de Clichy' },
+  { name: 'Cinéma des Cinéastes', note: 'Avenue de Clichy' },
+]
+
 export const localSeoLinks = [
   { href: '/restaurant-montmartre', label: 'Restaurant Montmartre' },
   { href: '/restaurant-pigalle', label: 'Restaurant à Pigalle' },

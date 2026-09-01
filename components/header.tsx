@@ -27,7 +27,11 @@ export function Header() {
       </Link>
       <nav className="main-nav" aria-label="Navigation principale">
         {navItems.map((item) => (
-          <Link key={item.href} href={item.href}>
+          <Link
+            key={item.href}
+            href={item.href}
+            className={item.href === '/menu-du-jour' ? 'nav-menu-jour' : undefined}
+          >
             {item.label}
           </Link>
         ))}

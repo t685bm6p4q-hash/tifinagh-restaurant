@@ -2,18 +2,19 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
+import { LocalQuartierDetails } from '@/components/local-quartier-details'
 import { restaurant } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'Restaurant Montmartre — bistrot français au pied de la butte',
   description:
-    'Restaurant Tifinagh à Montmartre : bistrot français traditionnel, cuisine maison, terrasse calme avenue Rachel, à deux pas du Sacré-Cœur, Pigalle et du cimetière de Montmartre.',
+    'Restaurant Tifinagh à Montmartre : près du cimetière de Montmartre et du Sacré-Cœur, idéal avant ou après spectacle. Cuisine maison, avenue Rachel.',
   keywords: [
     'restaurant Montmartre',
+    'restaurant cimetière Montmartre',
+    'restaurant avant spectacle Paris',
     'bistrot Montmartre',
-    'restaurant Paris 18 Montmartre',
-    'restaurant Abbesses',
-    'restaurant avenue Rachel',
+    'restaurant Sacré-Cœur',
     'Tifinagh',
   ],
   alternates: { canonical: '/restaurant-montmartre' },
@@ -32,15 +33,7 @@ export default function RestaurantMontmartre() {
 
         <section className="local-page section">
           <article className="local-card">
-            <h2>Un bistrot authentique au pied de la butte</h2>
-            <p>
-              Montmartre attire des millions de visiteurs chaque année. Beaucoup cherchent une
-              table de <strong>cuisine française traditionnelle</strong>, faite maison, sans
-              l&apos;ambiance des chaînes touristiques. Tifinagh se trouve au{' '}
-              <strong>17 avenue Rachel</strong>, dans une impasse paisible entre le cimetière de
-              Montmartre et les Abbesses — assez proche du Sacré-Cœur pour en profiter, assez
-              éloigné pour dîner sereinement.
-            </p>
+            <LocalQuartierDetails />
 
             <h2>Ce qui nous distingue</h2>
             <ul>
@@ -50,14 +43,6 @@ export default function RestaurantMontmartre() {
               <li>Ambiance bistrot parisien : bois, nappes vichy, service chaleureux</li>
               <li>Ouvert tous les jours · {restaurant.openingHours.labelHours}</li>
             </ul>
-
-            <h2>Accès depuis Montmartre</h2>
-            <p>
-              Métro <strong>Blanche</strong> (ligne 2) et <strong>Pigalle</strong> (lignes 2 et 12)
-              : quelques minutes à pied. <strong>Abbesses</strong> (ligne 12) est également
-              proche en descendant vers l&apos;avenue Rachel. L&apos;adresse est facile à trouver
-              sur Google Maps — le restaurant est au calme, sans bruit de voiture.
-            </p>
 
             <h2>Privatisation &amp; groupes</h2>
             <p>
@@ -74,7 +59,10 @@ export default function RestaurantMontmartre() {
                 Voir la carte
               </Link>
               <Link className="text-link" href="/galerie">
-                Galerie photos
+                Photos
+              </Link>
+              <Link className="text-link" href="/autour-de-nous">
+                Autour de nous
               </Link>
               <Link className="text-link" href="/contact">
                 Accès &amp; contact
