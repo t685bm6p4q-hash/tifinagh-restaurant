@@ -6,7 +6,7 @@ import { BookingChannels } from '@/components/booking-channels'
 import { phoneDisplay, phoneTel, whatsappLink } from '@/lib/restaurant-data'
 import { cloudinaryImage } from '@/lib/cloudinary'
 
-const PRIVATISATION_BANNER_PATH = 'v1787946633/489A2441_yrctak.jpg'
+const PRIVATISATION_BANNER_PATH = 'v1787946632/489A2436_gqgbkp.jpg'
 
 const PRIVATISATION_BANNER_SRC = cloudinaryImage(PRIVATISATION_BANNER_PATH, 640)
 const PRIVATISATION_BANNER_SRCSET = [
@@ -40,7 +40,7 @@ export default function Privatisation() {
             src={PRIVATISATION_BANNER_SRC}
             srcSet={PRIVATISATION_BANNER_SRCSET}
             sizes="100vw"
-            alt="Salle d'événement privé élégante et spacieuse au restaurant Tifinagh Montmartre"
+            alt="Salle du restaurant Tifinagh avec banquettes rouges, tables en bois et espace privatisable"
             width={1600}
             height={420}
             loading="lazy"
