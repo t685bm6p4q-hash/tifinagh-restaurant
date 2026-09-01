@@ -6,6 +6,7 @@ import {
   whatsappLink,
 } from '@/lib/restaurant-data'
 import { restaurant } from '@/lib/seo'
+import { PagesJaunesIcon } from '@/components/icons'
 
 function MapPinIcon() {
   return (
@@ -97,12 +98,13 @@ export function Footer() {
             </a>
             <a
               href={pagesJaunesUrl}
+              className="social-link-pagesjaunes"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Tifinagh sur PagesJaunes"
               title="Voir Tifinagh sur PagesJaunes"
             >
-              <span className="pagesjaunes-mark" aria-hidden="true">PJ</span>
+              <PagesJaunesIcon size={22} />
             </a>
           </div>
           <Link href={whatsappLink()} className="footer-link footer-link-inline">

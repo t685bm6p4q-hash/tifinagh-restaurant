@@ -6,6 +6,7 @@ import {
   phoneTel,
   whatsappLink,
 } from '@/lib/restaurant-data'
+import { PagesJaunesIcon } from '@/components/icons'
 
 function PhoneIcon({ size = 16 }: { size?: number }) {
   return (
@@ -106,11 +107,7 @@ export function PagesJaunesReviewsBadge() {
       rel="noopener noreferrer"
       aria-label="Voir la fiche PagesJaunes de Tifinagh Montmartre"
     >
-      <span className="pagesjaunes-mark" aria-hidden="true">PJ</span>
-      <span className="google-reviews-badge-text">
-        <strong>PagesJaunes</strong>
-        <span>Voir la fiche</span>
-      </span>
+      <PagesJaunesIcon size={22} variant="wordmark" />
     </a>
   )
 }

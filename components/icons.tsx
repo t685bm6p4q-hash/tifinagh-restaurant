@@ -53,3 +53,69 @@ export function CalendarDaysIcon({ size = 24 }: IconProps) {
     </svg>
   )
 }
+
+/**
+ * Logo PagesJaunes (marque jaune + clin d'oeil) — SVG inline, zero asset externe.
+ * variant "mark" = icone ronde ; "wordmark" = jaune + texte pagesjaunes.
+ */
+export function PagesJaunesIcon({
+  size = 22,
+  variant = 'mark',
+}: IconProps & { variant?: 'mark' | 'wordmark' }) {
+  if (variant === 'wordmark') {
+    return (
+      <svg
+        width={Math.round(size * 4.2)}
+        height={size}
+        viewBox="0 0 120 28"
+        aria-hidden="true"
+        className="pagesjaunes-logo"
+      >
+        <rect width="120" height="28" rx="4" fill="#FFCC00" />
+        {/* Clin d'oeil PagesJaunes */}
+        <circle cx="12" cy="11" r="1.6" fill="#111" />
+        <path d="M17.2 9.2c1.1 1.4 1.1 2.4 0 3.6" fill="none" stroke="#111" strokeWidth="1.7" strokeLinecap="round" />
+        <path d="M8 16.5c3.2 2.8 9 2.8 12.2 0" fill="none" stroke="#111" strokeWidth="1.7" strokeLinecap="round" />
+        <text
+          x="34"
+          y="18.5"
+          fill="#111"
+          fontFamily="Arial, Helvetica, sans-serif"
+          fontSize="11"
+          fontWeight="800"
+          letterSpacing="-0.02em"
+        >
+          pagesjaunes
+        </text>
+      </svg>
+    )
+  }
+
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 32 32"
+      aria-hidden="true"
+      className="pagesjaunes-logo"
+    >
+      <rect width="32" height="32" rx="7" fill="#FFCC00" />
+      {/* Clin d'oeil / sourire — identite PagesJaunes */}
+      <circle cx="11" cy="12" r="2" fill="#111" />
+      <path
+        d="M18.5 9.5c1.8 2 1.8 3.5 0 5.5"
+        fill="none"
+        stroke="#111"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M8 19c4.2 3.6 11.8 3.6 16 0"
+        fill="none"
+        stroke="#111"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+      />
+    </svg>
+  )
+}

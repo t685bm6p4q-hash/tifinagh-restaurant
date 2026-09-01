@@ -1143,25 +1143,38 @@ button, input, textarea, select { font: inherit; }
   line-height: 0.75;
 }
 
-.pagesjaunes-mark {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  color: #1a1a1a;
-  background: #ffcc00;
-  border-radius: 3px;
-  padding: 3px 5px;
-  line-height: 1;
-}
-
 .social-links a .google-g-mark {
   display: block;
 }
 
 .social-links a:hover .google-g-mark path {
-  /* Conserve les couleurs officielles Google au survol. */
   opacity: 0.92;
+}
+
+.social-links a.social-link-pagesjaunes {
+  background: #ffcc00;
+  border-color: #ffcc00;
+  overflow: hidden;
+}
+
+.social-links a.social-link-pagesjaunes:hover {
+  background: #ffd633;
+  border-color: #ffd633;
+}
+
+.pagesjaunes-reviews-badge {
+  padding: 8px 12px;
+  background: transparent;
+  border-color: var(--line);
+}
+
+.pagesjaunes-reviews-badge:hover {
+  border-color: #ffcc00;
+}
+
+.pagesjaunes-logo {
+  display: block;
+  flex-shrink: 0;
 }
 
 /* ── Page intro ─────────────────────────────────────── */
