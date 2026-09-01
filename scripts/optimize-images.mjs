@@ -25,8 +25,8 @@ const WEBP_QUALITY = {
   'logo-tifinagh-detoure': 72,
   'logo-tifinagh-rond': 72,
   'tifinagh-dish': 72,
-  'hero-salle': 55,
-  'hero-salle-640': 50,
+  'hero-salle': 48,
+  'hero-salle-640': 48,
   'tifinagh-facade': 72,
   'tifinagh-gallery': 72,
 }

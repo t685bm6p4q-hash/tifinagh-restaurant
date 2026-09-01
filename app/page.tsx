@@ -1,7 +1,23 @@
-import { preload } from 'react-dom'
 import { HomeTemplate } from '@/src/components/templates/home-template'
 
 export default function Home() {
-  preload('/images/hero-salle-640.webp', { as: 'image', fetchPriority: 'high' })
-  return <HomeTemplate />
+  return (
+    <>
+      <link
+        rel="preload"
+        as="image"
+        href="/images/hero-salle-640.webp"
+        media="(max-width: 768px)"
+        fetchPriority="high"
+      />
+      <link
+        rel="preload"
+        as="image"
+        href="/images/hero-salle.webp"
+        media="(min-width: 769px)"
+        fetchPriority="high"
+      />
+      <HomeTemplate />
+    </>
+  )
 }

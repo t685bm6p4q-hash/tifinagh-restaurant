@@ -25,18 +25,19 @@ export function HomeTemplate() {
 
         {/* ── Hero ──────────────────────────────────────── */}
         <section className="hero">
-          {/* Fichier deja optimise en WebP : pas de pipeline /_next/image pour le LCP. */}
-          <img
-            className="hero-image"
-            src="/images/hero-salle-640.webp"
-            srcSet="/images/hero-salle-640.webp 640w, /images/hero-salle.webp 1200w"
-            sizes="100vw"
-            alt="Salle du restaurant Tifinagh à Montmartre"
-            width={640}
-            height={427}
-            fetchPriority="high"
-            decoding="async"
-          />
+          {/* picture : mobile force 640w (evite le 1200w sur ecrans retina = LCP). */}
+          <picture>
+            <source media="(min-width: 769px)" srcSet="/images/hero-salle.webp" />
+            <img
+              className="hero-image"
+              src="/images/hero-salle-640.webp"
+              alt="Salle du restaurant Tifinagh à Montmartre"
+              width={640}
+              height={427}
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
           <div className="hero-overlay" />
           <div className="hero-content">
             <p className="eyebrow">Montmartre, Paris</p>
