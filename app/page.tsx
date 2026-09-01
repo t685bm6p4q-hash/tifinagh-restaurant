@@ -6,7 +6,8 @@ export default function Home() {
       <link
         rel="preload"
         as="image"
-        href="/images/hero-salle-640.webp"
+        href="/images/hero-salle-480.avif"
+        type="image/avif"
         media="(max-width: 768px)"
         fetchPriority="high"
       />

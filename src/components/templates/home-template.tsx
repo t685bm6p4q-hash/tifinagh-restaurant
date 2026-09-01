@@ -18,22 +18,22 @@ export function HomeTemplate() {
   return (
     <>
       <Header />
-      <TonightStrip />
       <main>
 
-        {/* ── Hero ──────────────────────────────────────── */}
+        {/* ── Hero (LCP) — avant le bandeau info pour decouverte HTML prioritaire ── */}
         <section className="hero">
-          {/* picture : mobile force 640w (evite le 1200w sur ecrans retina = LCP). */}
           <picture>
-            <source media="(min-width: 769px)" srcSet="/images/hero-salle.webp" />
+            <source media="(min-width: 769px)" srcSet="/images/hero-salle.webp" type="image/webp" />
+            <source media="(max-width: 768px)" srcSet="/images/hero-salle-480.avif" type="image/avif" />
+            <source media="(max-width: 768px)" srcSet="/images/hero-salle-480.webp" type="image/webp" />
             <img
               className="hero-image"
-              src="/images/hero-salle-640.webp"
+              src="/images/hero-salle-480.webp"
               alt="Salle du restaurant Tifinagh à Montmartre"
-              width={640}
-              height={427}
+              width={480}
+              height={320}
               fetchPriority="high"
-              decoding="async"
+              decoding="sync"
             />
           </picture>
           <div className="hero-overlay" />
@@ -61,6 +61,8 @@ export function HomeTemplate() {
             {restaurant.openingHours.labelFull}
           </div>
         </section>
+
+        <TonightStrip />
 
         {/* ── L'esprit Tifinagh ─────────────────────────── */}
         <section className="story section">

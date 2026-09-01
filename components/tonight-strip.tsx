@@ -10,7 +10,7 @@ export function TonightStrip() {
         <span className="tonight-strip-sep" aria-hidden="true">·</span>
         {restaurant.openingHours.labelHours}
         <span className="tonight-strip-sep" aria-hidden="true">·</span>
-        <Link href="/menu-du-jour">Menu du jour à jour</Link>
+        <Link href="/menu-du-jour" prefetch={false}>Menu du jour à jour</Link>
       </p>
     </div>
   )
