@@ -52,7 +52,7 @@ export function Footer() {
     <footer className="footer">
       <div className="footer-grid">
         <div>
-          <Link href="/" className="footer-brand">
+          <Link href="/" className="footer-brand" prefetch={false}>
             Tifinagh Montmartre
           </Link>
           <p>
@@ -93,7 +93,7 @@ export function Footer() {
                     ·
                   </span>
                 ) : null}
-                <Link href={link.href} className="footer-link footer-link-inline">
+                <Link href={link.href} prefetch={false} className="footer-link footer-link-inline">
                   {link.label}
                 </Link>
               </span>
@@ -156,7 +156,7 @@ export function Footer() {
             <GoogleGIcon size={14} />
             Réserver avec Google
           </a>
-          <Link href="/mentions-legales" className="footer-link">
+          <Link href="/mentions-legales" prefetch={false} className="footer-link">
             Mentions légales
           </Link>
         </div>

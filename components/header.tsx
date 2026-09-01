@@ -13,7 +13,7 @@ export function Header() {
   return (
     <header className="site-header">
       <input type="checkbox" id="nav-toggle" className="nav-toggle-input" aria-hidden="true" tabIndex={-1} />
-      <Link href="/" className="brand">
+      <Link href="/" className="brand" prefetch={false}>
         <img
           className="brand-logo"
           src="/images/logo-tifinagh-detoure.webp"
@@ -30,6 +30,7 @@ export function Header() {
           <Link
             key={item.href}
             href={item.href}
+            prefetch={false}
             className={item.href === '/menu-du-jour' ? 'nav-menu-jour' : undefined}
           >
             {item.label}
@@ -38,6 +39,7 @@ export function Header() {
         <Link
           className="nav-cta"
           href="/reservation"
+          prefetch={false}
           style={{ color: '#000', backgroundColor: '#25d366' }}
         >
           <MessageCircleIcon />

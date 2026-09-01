@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { Header, Footer } from '@/components/site-shell'
 import { TonightStrip } from '@/components/tonight-strip'
 import { BookingChannels } from '@/components/booking-channels'
@@ -15,6 +14,14 @@ import {
 import { menuSections, testimonials } from '@/lib/restaurant-data'
 import { cloudinaryImage } from '@/lib/cloudinary'
 import { restaurant } from '@/lib/seo'
+
+const HOME_BANNER_PATH = 'v1787938623/terasse-tifinagh-restaurant-pigalle_a6a58q.jpg'
+const HOME_BANNER_SRC = cloudinaryImage(HOME_BANNER_PATH, 640)
+const HOME_BANNER_SRCSET = [
+  `${cloudinaryImage(HOME_BANNER_PATH, 640)} 640w`,
+  `${cloudinaryImage(HOME_BANNER_PATH, 900)} 900w`,
+  `${cloudinaryImage(HOME_BANNER_PATH, 1200)} 1200w`,
+].join(', ')
 
 export function HomeTemplate() {
   return (
@@ -50,11 +57,11 @@ export function HomeTemplate() {
               et l&apos;âme d&apos;un vrai bistrot de quartier.
             </p>
             <div className="actions">
-              <Link className="button button-primary" href="/reservation">
+              <Link className="button button-primary" href="/reservation" prefetch={false}>
                 <MessageCircleIcon size={16} />
                 Réserver une table
               </Link>
-              <Link className="text-link" href="/carte">
+              <Link className="text-link" href="/carte" prefetch={false}>
                 Découvrir la carte
               </Link>
             </div>
@@ -67,12 +74,13 @@ export function HomeTemplate() {
         {/* ── L'esprit Tifinagh ─────────────────────────── */}
         <section className="story section">
           <div className="story-image">
-            <Image
+            <img
               src="/images/tifinagh-dish.webp"
               alt="Plat de canard confit servi au restaurant"
-              fill
-              quality={60}
-              sizes="(max-width: 768px) 100vw, 400px"
+              width={800}
+              height={560}
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <div className="story-copy">
@@ -106,19 +114,21 @@ export function HomeTemplate() {
 
         {/* ── Bandeau Carte ─────────────────────────────── */}
         <section className="home-banner">
-          <Image
-            src={cloudinaryImage('v1787938623/terasse-tifinagh-restaurant-pigalle_a6a58q.jpg', 900)}
-            alt="Terrasse Tifinagh avec clients heureux découvrant la cuisine française"
-            fill
-            quality={60}
-            sizes="(max-width: 768px) 100vw, 600px"
+          <img
             className="home-banner-image"
+            src={HOME_BANNER_SRC}
+            srcSet={HOME_BANNER_SRCSET}
+            sizes="(max-width: 768px) 100vw, 600px"
+            alt="Terrasse Tifinagh avec clients heureux découvrant la cuisine française"
+            width={900}
+            height={300}
             loading="lazy"
+            decoding="async"
           />
           <div className="home-banner-overlay">
             <div className="home-banner-content">
               <h2>Notre sélection du jour</h2>
-              <Link className="text-link home-banner-link" href="/carte">
+              <Link className="text-link home-banner-link" href="/carte" prefetch={false}>
                 Découvrir la carte complète <ArrowRightIcon size={14} />
               </Link>
             </div>
@@ -158,7 +168,7 @@ export function HomeTemplate() {
             >
               📋 Consulter le menu du jour
             </a>
-            <Link className="text-link" href="/carte">
+            <Link className="text-link" href="/carte" prefetch={false}>
               Voir toute la carte <ArrowRightIcon size={14} />
             </Link>
           </div>
@@ -190,22 +200,31 @@ export function HomeTemplate() {
               Retrouvez-nous au 17 avenue Rachel, entre Pigalle,
               la Place de Clichy et le Cimetière de Montmartre.
             </p>
-            <Link
+            <a
               className="text-link"
               href="https://maps.google.com/?q=17+Av.+Rachel+75018+Paris"
               target="_blank"
               rel="noreferrer"
             >
               Voir l&apos;itinéraire <ArrowRightIcon size={14} />
-            </Link>
+            </a>
           </div>
-          <iframe
-            className="map-frame"
-            title="Plan et localisation de Tifinagh Montmartre"
-            src="https://www.google.com/maps?q=17+Av.+Rachel,+75018+Paris&output=embed"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+          <a
+            className="map-frame map-frame-link"
+            href="https://maps.google.com/?q=17+Av.+Rachel+75018+Paris"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Ouvrir Tifinagh sur Google Maps"
+          >
+            <img
+              src="/images/tifinagh-facade.webp"
+              alt="Façade du restaurant Tifinagh, 17 avenue Rachel à Montmartre"
+              width={640}
+              height={360}
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
         </section>
 
       </main>
