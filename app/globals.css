@@ -1668,6 +1668,13 @@ select:focus { border-color: var(--terracotta); }
   background: #fff;
 }
 
+.menu-pdf-viewer--image {
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  object-fit: contain;
+}
+
 .menu-pdf-viewer-fallback {
   margin: 0;
   padding: 12px 16px;

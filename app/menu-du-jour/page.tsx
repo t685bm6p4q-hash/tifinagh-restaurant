@@ -20,7 +20,7 @@ export default function MenuDuJour() {
           text="Formules du jour mises à jour chaque matin — lisez le menu directement ci-dessous."
         />
 
-        <section className="section menu-pdf-section" aria-label="Menu du jour en PDF">
+        <section className="section menu-pdf-section" aria-label="Menu du jour">
           <MenuPdfViewer />
         </section>
 

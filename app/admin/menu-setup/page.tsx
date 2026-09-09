@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { AlertCircle, CheckCircle, FileText } from 'lucide-react'
+import { AlertCircle, CheckCircle } from 'lucide-react'
 
 export default function MenuSetupAdmin() {
   const [message, setMessage] = useState<{ type: 'success' | 'error' | 'info'; text: string } | null>(null)
@@ -14,8 +14,10 @@ export default function MenuSetupAdmin() {
     const file = input.files?.[0]
     if (!file) return
 
-    if (!file.name.endsWith('.pdf')) {
-      setMessage({ type: 'error', text: '❌ PDF seulement' })
+    const name = file.name.toLowerCase()
+    const allowed = name.endsWith('.pdf') || name.endsWith('.jpg') || name.endsWith('.jpeg') || name.endsWith('.png')
+    if (!allowed) {
+      setMessage({ type: 'error', text: '❌ PDF, JPEG ou PNG uniquement' })
       input.value = ''
       return
     }
@@ -80,7 +82,7 @@ export default function MenuSetupAdmin() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Tifparis18#"
+              placeholder="Mot de passe"
               autoComplete="current-password"
               style={{
                 display: 'block',
@@ -126,7 +128,7 @@ export default function MenuSetupAdmin() {
         <label style={{ cursor: isUploading ? 'wait' : 'pointer', display: 'block' }}>
           <input
             type="file"
-            accept=".pdf"
+            accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"
             onChange={handleFileUpload}
             disabled={isUploading}
             style={{ display: 'none' }}
@@ -145,7 +147,7 @@ export default function MenuSetupAdmin() {
               transition: 'all 0.2s',
             }}
           >
-            {isUploading ? '⏳ Envoi…' : '📁 Sélectionner PDF'}
+            {isUploading ? '⏳ Envoi…' : '📁 Sélectionner PDF, JPEG ou PNG'}
           </div>
         </label>
 
