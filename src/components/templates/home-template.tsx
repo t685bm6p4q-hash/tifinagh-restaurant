@@ -107,18 +107,6 @@ export function HomeTemplate() {
 
         {/* ── Bandeau Carte ─────────────────────────────── */}
         <section className="home-banner">
-          <picture>
-            <source media="(min-width: 769px)" srcSet="/images/home-banner-600.webp" />
-            <img
-              className="home-banner-image"
-              src="/images/home-banner-640.webp"
-              alt="Terrasse Tifinagh avec clients heureux découvrant la cuisine française"
-              width={640}
-              height={300}
-              loading="lazy"
-              decoding="async"
-            />
-          </picture>
           <div className="home-banner-overlay">
             <div className="home-banner-content">
               <h2>Notre sélection du jour</h2>

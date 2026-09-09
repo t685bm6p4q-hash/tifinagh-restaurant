@@ -7,6 +7,7 @@ export default function MenuSetupAdmin() {
   const [message, setMessage] = useState<{ type: 'success' | 'error' | 'info'; text: string } | null>(null)
   const [password, setPassword] = useState<string>('')
   const [isUploading, setIsUploading] = useState<boolean>(false)
+  const [chef, setChef] = useState<string>('')
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target
@@ -14,19 +15,19 @@ export default function MenuSetupAdmin() {
     if (!file) return
 
     if (!file.name.endsWith('.pdf')) {
-      setMessage({ type: 'error', text: '❌ Veuillez sélectionner un fichier PDF' })
+      setMessage({ type: 'error', text: '❌ PDF seulement' })
       input.value = ''
       return
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      setMessage({ type: 'error', text: '❌ Le fichier est trop volumineux (max 5 MB)' })
+      setMessage({ type: 'error', text: '❌ Fichier trop gros (max 5 MB)' })
       input.value = ''
       return
     }
 
     setIsUploading(true)
-    setMessage({ type: 'info', text: '⏳ Envoi du menu en cours…' })
+    setMessage({ type: 'info', text: '⏳ Envoi en cours…' })
 
     try {
       const formData = new FormData()
@@ -44,10 +45,10 @@ export default function MenuSetupAdmin() {
       if (response.ok) {
         setMessage({
           type: 'success',
-          text: `✅ ${payload.message ?? 'Menu mis à jour'} — il est déjà visible sur le site.`,
+          text: `✅ Menu à jour! ${chef ? `(${chef})` : ''}`,
         })
       } else {
-        setMessage({ type: 'error', text: `❌ ${payload.error ?? "Erreur lors de l'upload"}` })
+        setMessage({ type: 'error', text: `❌ ${payload.error ?? "Erreur"}` })
       }
     } catch (error) {
       setMessage({ type: 'error', text: '❌ Erreur : ' + String(error) })
@@ -58,187 +59,158 @@ export default function MenuSetupAdmin() {
   }
 
   return (
-    <main style={{ background: 'var(--background)', minHeight: '100vh' }}>
-        <div style={{ maxWidth: '700px', margin: '0 auto', padding: '60px 20px' }}>
-          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <h1 style={{ color: 'var(--foreground)', marginBottom: '12px', fontSize: '42px' }}>
-              Menu du Jour
-            </h1>
-            <p style={{ color: 'var(--muted)', fontSize: '16px' }}>
-              Espace privé (Basic Auth) — mise à jour du menu PDF
-            </p>
-          </div>
+    <main style={{ background: 'var(--background)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ maxWidth: '500px', width: '100%', margin: '0 auto', padding: '40px 20px' }}>
+        
+        {/* Titre */}
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <h1 style={{ color: 'var(--foreground)', marginBottom: '8px', fontSize: '36px', margin: 0 }}>
+            📋 Menu du Jour
+          </h1>
+          <p style={{ color: 'var(--muted)', fontSize: '14px', margin: 0 }}>
+            Mise à jour rapide
+          </p>
+        </div>
 
-          {/* Info */}
-          <div
-            style={{
-              background: 'var(--surface)',
-              border: '1px solid var(--line)',
-              borderRadius: '5px',
-              padding: '24px',
-              marginBottom: '32px',
-            }}
-          >
-            <h2 style={{ color: 'var(--gold)', marginBottom: '16px', fontSize: '18px' }}>
-              Sécurité &amp; usage
-            </h2>
-            <ol style={{ color: 'var(--muted)', lineHeight: '1.8', margin: 0, paddingLeft: '20px' }}>
-              <li>Cette page est protégée par authentification HTTP (navigateur).</li>
-              <li>Saisissez le même mot de passe admin pour autoriser l&apos;upload API.</li>
-              <li>Préparez un PDF ≤ 5 Mo, puis sélectionnez-le ci-dessous.</li>
-              <li>Le fichier remplace immédiatement le menu du jour public.</li>
-            </ol>
-          </div>
-
-          {/* Upload */}
-          <div
-            style={{
-              background: 'var(--surface)',
-              border: '2px dashed var(--line)',
-              borderRadius: '5px',
-              padding: '40px 20px',
-              textAlign: 'center',
-              marginBottom: '32px',
-            }}
-          >
-            <FileText size={40} color="var(--gold)" style={{ margin: '0 auto 16px' }} />
-
+        {/* Champs */}
+        <div style={{ marginBottom: '24px' }}>
+          <label style={{ display: 'block', marginBottom: '12px' }}>
+            <span style={{ color: 'var(--foreground)', fontSize: '14px', fontWeight: '600' }}>Mot de passe</span>
             <input
               type="password"
               value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              placeholder="Mot de passe administrateur"
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Tifparis18#"
               autoComplete="current-password"
-              aria-label="Mot de passe administrateur"
               style={{
                 display: 'block',
                 width: '100%',
-                maxWidth: '320px',
-                margin: '0 auto 20px',
-                padding: '12px 14px',
+                marginTop: '6px',
+                padding: '12px',
                 borderRadius: '5px',
                 border: '1px solid var(--line)',
                 background: 'var(--background)',
                 color: 'var(--foreground)',
                 fontSize: '14px',
+                boxSizing: 'border-box',
               }}
             />
-
-            <label style={{ cursor: isUploading ? 'wait' : 'pointer' }}>
-              <input
-                type="file"
-                accept=".pdf"
-                onChange={handleFileUpload}
-                disabled={isUploading}
-                style={{ display: 'none' }}
-              />
-              <div
-                style={{
-                  background: isUploading ? 'var(--line)' : '#25d366',
-                  color: '#000',
-                  padding: '14px 28px',
-                  borderRadius: '5px',
-                  fontWeight: '600',
-                  display: 'inline-block',
-                  cursor: isUploading ? 'wait' : 'pointer',
-                }}
-              >
-                {isUploading ? 'Envoi en cours…' : 'Sélectionner un PDF'}
-              </div>
-            </label>
-            <p style={{ color: 'var(--muted)', marginTop: '12px', fontSize: '12px' }}>
-              Taille max : 5 MB
-            </p>
-          </div>
-
-          {/* Message */}
-          {message && (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: '12px',
-                padding: '16px',
-                borderRadius: '5px',
-                marginBottom: '32px',
-                background:
-                  message.type === 'success'
-                    ? 'rgba(37, 211, 102, 0.1)'
-                    : message.type === 'error'
-                      ? 'rgba(255, 100, 100, 0.1)'
-                      : 'rgba(212, 173, 69, 0.1)',
-                border:
-                  message.type === 'success'
-                    ? '1px solid #25d366'
-                    : message.type === 'error'
-                      ? '1px solid #ff6464'
-                      : '1px solid var(--gold)',
-              }}
-            >
-              {message.type === 'success' ? (
-                <CheckCircle size={20} color="#25d366" style={{ flexShrink: 0 }} />
-              ) : (
-                <AlertCircle size={20} color="var(--gold)" style={{ flexShrink: 0 }} />
-              )}
-              <p style={{ color: 'var(--foreground)', margin: 0 }}>{message.text}</p>
-            </div>
-          )}
-
-          {/* Menu actuel */}
-          <div
-            style={{
-              background: 'var(--surface)',
-              border: '1px solid var(--line)',
-              borderRadius: '5px',
-              padding: '24px',
-            }}
-          >
-            <h3 style={{ color: 'var(--gold)', marginBottom: '12px', fontSize: '16px' }}>
-              📁 Menu actuel
-            </h3>
-            <a
-              href="/api/menu-pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                color: '#25d366',
-                textDecoration: 'none',
-                padding: '8px 12px',
-                borderRadius: '5px',
-                background: 'rgba(37, 211, 102, 0.1)',
-              }}
-            >
-              <FileText size={16} />
-              Ouvrir le menu en ligne
-            </a>
-            <p style={{ color: 'var(--muted)', fontSize: '12px', marginTop: '12px' }}>
-              ✓ Le menu est accessible publiquement sur : /api/menu-pdf
-            </p>
-          </div>
-
-          {/* Instructions supplémentaires */}
-          <div
-            style={{
-              background: 'var(--surface-2)',
-              borderRadius: '5px',
-              padding: '20px',
-              marginTop: '32px',
-              fontSize: '13px',
-              color: 'var(--muted)',
-            }}
-          >
-            <h4 style={{ color: 'var(--foreground)', marginTop: 0, marginBottom: '12px' }}>
-              💡 Bon à savoir
-            </h4>
-            <p>
-              Chaque envoi remplace le menu précédent : il n&apos;y a jamais qu&apos;un seul PDF en
-              ligne. Le changement est visible sur le site en moins d&apos;une minute.
-            </p>
-          </div>
+          </label>
         </div>
-      </main>
+
+        <div style={{ marginBottom: '28px' }}>
+          <label style={{ display: 'block', marginBottom: '12px' }}>
+            <span style={{ color: 'var(--foreground)', fontSize: '14px', fontWeight: '600' }}>Votre nom (optionnel)</span>
+            <input
+              type="text"
+              value={chef}
+              onChange={(e) => setChef(e.target.value)}
+              placeholder="ex: Chef Pierre"
+              style={{
+                display: 'block',
+                width: '100%',
+                marginTop: '6px',
+                padding: '12px',
+                borderRadius: '5px',
+                border: '1px solid var(--line)',
+                background: 'var(--background)',
+                color: 'var(--foreground)',
+                fontSize: '14px',
+                boxSizing: 'border-box',
+              }}
+            />
+          </label>
+        </div>
+
+        {/* Upload Button */}
+        <label style={{ cursor: isUploading ? 'wait' : 'pointer', display: 'block' }}>
+          <input
+            type="file"
+            accept=".pdf"
+            onChange={handleFileUpload}
+            disabled={isUploading}
+            style={{ display: 'none' }}
+          />
+          <div
+            style={{
+              background: isUploading ? 'var(--line)' : '#25d366',
+              color: '#000',
+              padding: '16px 24px',
+              borderRadius: '8px',
+              fontWeight: '600',
+              display: 'block',
+              cursor: isUploading ? 'wait' : 'pointer',
+              textAlign: 'center',
+              fontSize: '16px',
+              transition: 'all 0.2s',
+            }}
+          >
+            {isUploading ? '⏳ Envoi…' : '📁 Sélectionner PDF'}
+          </div>
+        </label>
+
+        {/* Message */}
+        {message && (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '12px',
+              padding: '14px',
+              borderRadius: '5px',
+              marginTop: '20px',
+              background:
+                message.type === 'success'
+                  ? 'rgba(37, 211, 102, 0.1)'
+                  : message.type === 'error'
+                    ? 'rgba(255, 100, 100, 0.1)'
+                    : 'rgba(212, 173, 69, 0.1)',
+              border:
+                message.type === 'success'
+                  ? '1px solid #25d366'
+                  : message.type === 'error'
+                    ? '1px solid #ff6464'
+                    : '1px solid var(--gold)',
+            }}
+          >
+            {message.type === 'success' ? (
+              <CheckCircle size={18} color="#25d366" style={{ flexShrink: 0, marginTop: '1px' }} />
+            ) : (
+              <AlertCircle size={18} color={message.type === 'error' ? '#ff6464' : 'var(--gold)'} style={{ flexShrink: 0, marginTop: '1px' }} />
+            )}
+            <p style={{ color: 'var(--foreground)', margin: 0, fontSize: '14px' }}>{message.text}</p>
+          </div>
+        )}
+
+        {/* Lien menu */}
+        <div style={{ marginTop: '32px', textAlign: 'center' }}>
+          <a
+            href="/api/menu-pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'inline-block',
+              color: '#25d366',
+              textDecoration: 'none',
+              fontSize: '13px',
+              padding: '8px 16px',
+              borderRadius: '4px',
+              background: 'rgba(37, 211, 102, 0.1)',
+              transition: 'all 0.2s',
+            }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget as HTMLAnchorElement
+              el.style.background = 'rgba(37, 211, 102, 0.2)'
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget as HTMLAnchorElement
+              el.style.background = 'rgba(37, 211, 102, 0.1)'
+            }}
+          >
+            👀 Voir le menu en ligne
+          </a>
+        </div>
+      </div>
+    </main>
   )
 }
