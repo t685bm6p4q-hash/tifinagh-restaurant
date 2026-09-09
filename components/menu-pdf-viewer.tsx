@@ -1,9 +1,10 @@
-import { MENU_PDF_URL } from '@/lib/menu-pdf'
+import { MENU_PDF_URL, menuDuJourAlt } from '@/lib/menu-pdf'
 import { getPublicMenuKind } from '@/lib/menu-kind'
 
 /** Menu du jour — iframe pour un PDF, image pour un JPEG/PNG. */
 export async function MenuPdfViewer() {
   const kind = await getPublicMenuKind()
+  const label = menuDuJourAlt()
 
   if (kind === 'image') {
     return (
@@ -11,7 +12,7 @@ export async function MenuPdfViewer() {
         <img
           className="menu-pdf-viewer menu-pdf-viewer--image"
           src={MENU_PDF_URL}
-          alt="Menu du jour — Tifinagh Montmartre"
+          alt={label}
         />
         <p className="menu-pdf-viewer-fallback">
           <a href={MENU_PDF_URL} target="_blank" rel="noopener noreferrer">
@@ -27,7 +28,7 @@ export async function MenuPdfViewer() {
       <iframe
         className="menu-pdf-viewer"
         src={MENU_PDF_URL}
-        title="Menu du jour — Tifinagh Montmartre"
+        title={label}
       />
       <p className="menu-pdf-viewer-fallback">
         <a href={MENU_PDF_URL} target="_blank" rel="noopener noreferrer">

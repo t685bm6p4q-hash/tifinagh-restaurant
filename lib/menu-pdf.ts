@@ -12,6 +12,12 @@ export const MAX_MENU_PDF_BYTES = Math.floor(4.5 * 1024 * 1024)
 export const PDF_TOO_HEAVY_MESSAGE = 'Le PDF est trop lourd, veuillez le compresser.'
 export const MAX_MENU_UPLOAD_BYTES = 10 * 1024 * 1024
 
+/** Alt / title du menu, avec la date du jour à Paris. */
+export function menuDuJourAlt(): string {
+  const today = new Date().toLocaleDateString('fr-FR', { timeZone: 'Europe/Paris' })
+  return `Menu du jour Le Tifinagh Paris 18 - ${today}`
+}
+
 export type MenuMediaKind = 'pdf' | 'image'
 
 const JPEG = 'image/jpeg'

@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
 import { MenuPdfViewer } from '@/components/menu-pdf-viewer'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Menu du jour PDF — formules fraîches à Montmartre',
   description:
