@@ -3,7 +3,7 @@ import sharp from 'sharp'
 export const MAX_MENU_WEBP_BYTES = 1024 * 1024
 
 async function encodeWebp(input: Buffer, width: number, quality: number): Promise<Buffer> {
-  return sharp(input)
+  const encoded = await sharp(input)
     .rotate()
     .resize({
       width,
@@ -13,6 +13,7 @@ async function encodeWebp(input: Buffer, width: number, quality: number): Promis
     })
     .webp({ quality, effort: 4 })
     .toBuffer()
+  return Buffer.from(encoded)
 }
 
 /** Convertit une photo de menu en WebP d'au plus 1 Mo. */
@@ -35,5 +36,5 @@ export async function compressMenuImageToWebp(input: Buffer): Promise<Buffer> {
     throw new Error('IMAGE_TOO_HEAVY')
   }
 
-  return output
+  return Buffer.from(output)
 }

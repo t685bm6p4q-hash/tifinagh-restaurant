@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
     let contentType = sniffed
     if (!isPdf) {
       try {
-        buffer = await compressMenuImageToWebp(buffer)
+        buffer = Buffer.from(await compressMenuImageToWebp(buffer))
         contentType = 'image/webp'
       } catch (error) {
         if (error instanceof Error && error.message === 'IMAGE_TOO_HEAVY') {
