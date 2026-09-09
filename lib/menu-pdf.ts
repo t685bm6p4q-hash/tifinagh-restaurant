@@ -8,7 +8,8 @@ export const MENU_PDF_URL = '/api/menu-pdf'
 /** Repli servi tant qu'aucun fichier n'a ete televerse. */
 export const MENU_PDF_STATIC_FALLBACK = '/menu-du-jour.pdf'
 
-export const MAX_MENU_PDF_BYTES = 5 * 1024 * 1024
+export const MAX_MENU_PDF_BYTES = Math.floor(4.5 * 1024 * 1024)
+export const PDF_TOO_HEAVY_MESSAGE = 'Le PDF est trop lourd, veuillez le compresser.'
 export const MAX_MENU_UPLOAD_BYTES = 10 * 1024 * 1024
 
 export type MenuMediaKind = 'pdf' | 'image'

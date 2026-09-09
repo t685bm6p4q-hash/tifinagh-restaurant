@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { AlertCircle, CheckCircle, Eye, EyeOff } from 'lucide-react'
+import { compressMenuImageInBrowser } from '@/lib/compress-menu-browser'
+import { MAX_MENU_PDF_BYTES, MAX_MENU_UPLOAD_BYTES, PDF_TOO_HEAVY_MESSAGE } from '@/lib/menu-pdf'
 
 export default function MenuSetupAdmin() {
   const [message, setMessage] = useState<{ type: 'success' | 'error' | 'info'; text: string } | null>(null)
@@ -28,18 +30,33 @@ export default function MenuSetupAdmin() {
       return
     }
 
-    if (file.size > 10 * 1024 * 1024) {
+    const isPdf = name.endsWith('.pdf')
+
+    if (isPdf && file.size > MAX_MENU_PDF_BYTES) {
+      setMessage({
+        type: 'error',
+        text: `❌ ${PDF_TOO_HEAVY_MESSAGE}`,
+      })
+      input.value = ''
+      return
+    }
+
+    if (!isPdf && file.size > MAX_MENU_UPLOAD_BYTES) {
       setMessage({ type: 'error', text: '❌ Fichier trop gros (max 10 MB)' })
       input.value = ''
       return
     }
 
     setIsUploading(true)
-    setMessage({ type: 'info', text: '⏳ Envoi en cours…' })
+    setMessage({
+      type: 'info',
+      text: isPdf ? '⏳ Envoi en cours…' : '⏳ Compression puis mise en ligne…',
+    })
 
     try {
+      const uploadFile = isPdf ? file : await compressMenuImageInBrowser(file)
       const formData = new FormData()
-      formData.append('file', file)
+      formData.append('file', uploadFile)
 
       const response = await fetch('/api/upload-menu', {
         method: 'POST',
@@ -59,7 +76,12 @@ export default function MenuSetupAdmin() {
         setMessage({ type: 'error', text: `❌ ${payload.error ?? "Erreur"}` })
       }
     } catch (error) {
-      setMessage({ type: 'error', text: '❌ Erreur : ' + String(error) })
+      const reason = error instanceof Error ? error.message : String(error)
+      if (reason === 'IMAGE_TOO_HEAVY') {
+        setMessage({ type: 'error', text: '❌ Impossible de compresser cette image sous 1 Mo' })
+      } else {
+        setMessage({ type: 'error', text: '❌ Erreur : ' + reason })
+      }
     } finally {
       setIsUploading(false)
       input.value = ''
@@ -178,7 +200,7 @@ export default function MenuSetupAdmin() {
           </div>
         </label>
         <p style={{ color: 'var(--muted)', fontSize: '12px', textAlign: 'center', marginTop: '10px' }}>
-          Les photos sont compressées automatiquement en WebP (1 Mo max).
+          Les photos (PNG, JPEG…) jusqu’à 10 Mo sont compressées puis mises en ligne automatiquement.
         </p>
 
         {/* Message */}

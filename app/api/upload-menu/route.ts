@@ -7,6 +7,7 @@ import {
   MAX_MENU_PDF_BYTES,
   MAX_MENU_UPLOAD_BYTES,
   MENU_PDF_PATHNAME,
+  PDF_TOO_HEAVY_MESSAGE,
   isBlobConfigured,
   isUploadAuthorized,
   resolveMenuUpload,
@@ -44,7 +45,7 @@ export async function POST(request: NextRequest) {
     const maxBytes = isPdf ? MAX_MENU_PDF_BYTES : MAX_MENU_UPLOAD_BYTES
     if (file.size > maxBytes) {
       return NextResponse.json(
-        { error: isPdf ? 'Le PDF est trop volumineux (max 5 MB)' : 'La photo est trop volumineuse (max 10 MB)' },
+        { error: isPdf ? PDF_TOO_HEAVY_MESSAGE : 'La photo est trop volumineuse (max 10 MB)' },
         { status: 400 },
       )
     }
