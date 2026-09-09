@@ -1,11 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { AlertCircle, CheckCircle } from 'lucide-react'
+import { AlertCircle, CheckCircle, Eye, EyeOff } from 'lucide-react'
 
 export default function MenuSetupAdmin() {
   const [message, setMessage] = useState<{ type: 'success' | 'error' | 'info'; text: string } | null>(null)
   const [password, setPassword] = useState<string>('')
+  const [showPassword, setShowPassword] = useState<boolean>(false)
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [chef, setChef] = useState<string>('')
 
@@ -78,25 +79,46 @@ export default function MenuSetupAdmin() {
         <div style={{ marginBottom: '24px' }}>
           <label style={{ display: 'block', marginBottom: '12px' }}>
             <span style={{ color: 'var(--foreground)', fontSize: '14px', fontWeight: '600' }}>Mot de passe</span>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Mot de passe"
-              autoComplete="current-password"
-              style={{
-                display: 'block',
-                width: '100%',
-                marginTop: '6px',
-                padding: '12px',
-                borderRadius: '5px',
-                border: '1px solid var(--line)',
-                background: 'var(--background)',
-                color: 'var(--foreground)',
-                fontSize: '14px',
-                boxSizing: 'border-box',
-              }}
-            />
+            <div style={{ position: 'relative', marginTop: '6px' }}>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Mot de passe"
+                autoComplete="current-password"
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  padding: '12px 44px 12px 12px',
+                  borderRadius: '5px',
+                  border: '1px solid var(--line)',
+                  background: 'var(--background)',
+                  color: 'var(--foreground)',
+                  fontSize: '14px',
+                  boxSizing: 'border-box',
+                }}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((visible) => !visible)}
+                aria-label={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  right: '8px',
+                  transform: 'translateY(-50%)',
+                  background: 'transparent',
+                  border: 0,
+                  padding: '6px',
+                  cursor: 'pointer',
+                  color: 'var(--muted)',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
           </label>
         </div>
 
