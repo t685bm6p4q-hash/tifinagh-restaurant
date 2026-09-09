@@ -2,8 +2,10 @@ import { writeFile } from 'fs/promises'
 import { join } from 'path'
 import { put } from '@vercel/blob'
 import { NextRequest, NextResponse } from 'next/server'
+import { compressMenuImageToWebp } from '@/lib/compress-menu-image'
 import {
   MAX_MENU_PDF_BYTES,
+  MAX_MENU_UPLOAD_BYTES,
   MENU_PDF_PATHNAME,
   isBlobConfigured,
   isUploadAuthorized,
@@ -33,29 +35,49 @@ export async function POST(request: NextRequest) {
     const resolved = resolveMenuUpload(file)
     if (!resolved) {
       return NextResponse.json(
-        { error: 'Le fichier doit être un PDF, un JPEG ou un PNG' },
+        { error: 'Le fichier doit être un PDF, un JPEG, un PNG ou un WebP' },
         { status: 400 },
       )
     }
 
-    if (file.size > MAX_MENU_PDF_BYTES) {
-      return NextResponse.json({ error: 'Le fichier est trop volumineux (max 5 MB)' }, { status: 400 })
+    const isPdf = resolved.contentType === 'application/pdf'
+    const maxBytes = isPdf ? MAX_MENU_PDF_BYTES : MAX_MENU_UPLOAD_BYTES
+    if (file.size > maxBytes) {
+      return NextResponse.json(
+        { error: isPdf ? 'Le PDF est trop volumineux (max 5 MB)' : 'La photo est trop volumineuse (max 10 MB)' },
+        { status: 400 },
+      )
     }
 
-    const buffer = Buffer.from(await file.arrayBuffer())
+    let buffer = Buffer.from(await file.arrayBuffer())
     const sniffed = sniffMenuContentType(new Uint8Array(buffer))
     if (!sniffed || sniffed !== resolved.contentType) {
       return NextResponse.json(
-        { error: 'Le fichier ne correspond pas à un PDF, JPEG ou PNG valide' },
+        { error: 'Le fichier ne correspond pas à un PDF, JPEG, PNG ou WebP valide' },
         { status: 400 },
       )
     }
 
+    let contentType = sniffed
+    if (!isPdf) {
+      try {
+        buffer = await compressMenuImageToWebp(buffer)
+        contentType = 'image/webp'
+      } catch (error) {
+        if (error instanceof Error && error.message === 'IMAGE_TOO_HEAVY') {
+          return NextResponse.json(
+            { error: 'Impossible de compresser cette image sous 1 Mo' },
+            { status: 400 },
+          )
+        }
+        throw error
+      }
+    }
+
     if (isBlobConfigured()) {
-      // Un pathname fixe sans suffixe aleatoire garantit que le menu precedent est remplace.
       const blob = await put(MENU_PDF_PATHNAME, buffer, {
         access: 'public',
-        contentType: sniffed,
+        contentType,
         addRandomSuffix: false,
         allowOverwrite: true,
         cacheControlMaxAge: 60,
@@ -63,17 +85,20 @@ export async function POST(request: NextRequest) {
 
       return NextResponse.json({
         success: true,
-        message: 'Menu du jour mis à jour avec succès',
+        message: isPdf
+          ? 'Menu du jour mis à jour avec succès'
+          : 'Menu compressé en WebP (1 Mo max) et mis à jour',
         url: blob.url,
       })
     }
 
-    // Sans Blob (developpement local), on ecrit directement dans public/.
     await writeFile(join(process.cwd(), 'public', MENU_PDF_PATHNAME), buffer)
 
     return NextResponse.json({
       success: true,
-      message: 'Menu du jour mis à jour localement',
+      message: isPdf
+        ? 'Menu du jour mis à jour localement'
+        : 'Menu compressé en WebP (1 Mo max) et mis à jour localement',
       url: `/${MENU_PDF_PATHNAME}`,
     })
   } catch (error) {

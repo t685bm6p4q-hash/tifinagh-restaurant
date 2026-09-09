@@ -16,15 +16,20 @@ export default function MenuSetupAdmin() {
     if (!file) return
 
     const name = file.name.toLowerCase()
-    const allowed = name.endsWith('.pdf') || name.endsWith('.jpg') || name.endsWith('.jpeg') || name.endsWith('.png')
+    const allowed =
+      name.endsWith('.pdf') ||
+      name.endsWith('.jpg') ||
+      name.endsWith('.jpeg') ||
+      name.endsWith('.png') ||
+      name.endsWith('.webp')
     if (!allowed) {
-      setMessage({ type: 'error', text: '❌ PDF, JPEG ou PNG uniquement' })
+      setMessage({ type: 'error', text: '❌ PDF, JPEG, PNG ou WebP uniquement' })
       input.value = ''
       return
     }
 
-    if (file.size > 5 * 1024 * 1024) {
-      setMessage({ type: 'error', text: '❌ Fichier trop gros (max 5 MB)' })
+    if (file.size > 10 * 1024 * 1024) {
+      setMessage({ type: 'error', text: '❌ Fichier trop gros (max 10 MB)' })
       input.value = ''
       return
     }
@@ -150,7 +155,7 @@ export default function MenuSetupAdmin() {
         <label style={{ cursor: isUploading ? 'wait' : 'pointer', display: 'block' }}>
           <input
             type="file"
-            accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"
+            accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
             onChange={handleFileUpload}
             disabled={isUploading}
             style={{ display: 'none' }}
@@ -169,9 +174,12 @@ export default function MenuSetupAdmin() {
               transition: 'all 0.2s',
             }}
           >
-            {isUploading ? '⏳ Envoi…' : '📁 Sélectionner PDF, JPEG ou PNG'}
+            {isUploading ? '⏳ Envoi et compression…' : '📁 Sélectionner PDF, JPEG, PNG ou WebP'}
           </div>
         </label>
+        <p style={{ color: 'var(--muted)', fontSize: '12px', textAlign: 'center', marginTop: '10px' }}>
+          Les photos sont compressées automatiquement en WebP (1 Mo max).
+        </p>
 
         {/* Message */}
         {message && (

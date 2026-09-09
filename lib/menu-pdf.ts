@@ -9,11 +9,13 @@ export const MENU_PDF_URL = '/api/menu-pdf'
 export const MENU_PDF_STATIC_FALLBACK = '/menu-du-jour.pdf'
 
 export const MAX_MENU_PDF_BYTES = 5 * 1024 * 1024
+export const MAX_MENU_UPLOAD_BYTES = 10 * 1024 * 1024
 
 export type MenuMediaKind = 'pdf' | 'image'
 
 const JPEG = 'image/jpeg'
 const PNG = 'image/png'
+const WEBP = 'image/webp'
 const PDF = 'application/pdf'
 
 export function sniffMenuContentType(bytes: Uint8Array): string | null {
@@ -36,6 +38,19 @@ export function sniffMenuContentType(bytes: Uint8Array): string | null {
   ) {
     return PNG
   }
+  if (
+    bytes.length >= 12 &&
+    bytes[0] === 0x52 &&
+    bytes[1] === 0x49 &&
+    bytes[2] === 0x46 &&
+    bytes[3] === 0x46 &&
+    bytes[8] === 0x57 &&
+    bytes[9] === 0x45 &&
+    bytes[10] === 0x42 &&
+    bytes[11] === 0x50
+  ) {
+    return WEBP
+  }
   return null
 }
 
@@ -52,6 +67,9 @@ export function resolveMenuUpload(file: File): { contentType: string; filename: 
   if (type === PNG || name.endsWith('.png')) {
     return { contentType: PNG, filename: 'menu-du-jour.png' }
   }
+  if (type === WEBP || name.endsWith('.webp')) {
+    return { contentType: WEBP, filename: 'menu-du-jour.webp' }
+  }
   return null
 }
 
@@ -62,9 +80,11 @@ export function menuKindFromContentType(contentType: string): MenuMediaKind {
 export function menuInlineResponseHeaders(contentType: string): HeadersInit {
   const filename = contentType.includes('png')
     ? 'menu-du-jour.png'
-    : contentType.startsWith('image/')
-      ? 'menu-du-jour.jpg'
-      : 'menu-du-jour.pdf'
+    : contentType.includes('webp')
+      ? 'menu-du-jour.webp'
+      : contentType.startsWith('image/')
+        ? 'menu-du-jour.jpg'
+        : 'menu-du-jour.pdf'
 
   return {
     'Content-Type': contentType,
