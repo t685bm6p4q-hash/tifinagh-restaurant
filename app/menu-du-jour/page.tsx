@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
+import { MenuCrossLink } from '@/components/menu-cross-link'
 import { MenuPdfViewer } from '@/components/menu-pdf-viewer'
+import { getI18n } from '@/lib/i18n'
 
 export const dynamic = 'force-dynamic'
 
@@ -11,7 +13,9 @@ export const metadata: Metadata = {
   alternates: { canonical: '/menu-du-jour' },
 }
 
-export default function MenuDuJour() {
+export default async function MenuDuJour() {
+  const { dictionary } = await getI18n()
+
   return (
     <>
       <Header />
@@ -20,6 +24,15 @@ export default function MenuDuJour() {
           eyebrow="Sélection du jour"
           title="Menu du jour"
           text="Formules du jour mises à jour chaque matin — lisez le menu directement ci-dessous."
+        />
+
+        <MenuCrossLink
+          eyebrow={dictionary.dailyMenuPage.carteInviteEyebrow}
+          title={dictionary.dailyMenuPage.carteInviteTitle}
+          text={dictionary.dailyMenuPage.carteInviteText}
+          href="/carte"
+          cta={dictionary.dailyMenuPage.carteInviteCta}
+          variant="to-carte"
         />
 
         <section className="section menu-pdf-section" aria-label="Menu du jour">
@@ -53,6 +66,15 @@ export default function MenuDuJour() {
             </p>
           </div>
         </section>
+
+        <MenuCrossLink
+          eyebrow={dictionary.dailyMenuPage.carteInviteEyebrow}
+          title={dictionary.dailyMenuPage.carteInviteTitle}
+          text={dictionary.dailyMenuPage.carteInviteText}
+          href="/carte"
+          cta={dictionary.dailyMenuPage.carteInviteCta}
+          variant="to-carte"
+        />
       </main>
       <Footer />
     </>

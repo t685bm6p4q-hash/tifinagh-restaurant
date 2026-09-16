@@ -1,17 +1,9 @@
-import { Suspense } from 'react'
 import { headers } from 'next/headers'
 import { HeaderShell } from '@/components/header-nav'
+import { getI18n } from '@/lib/i18n'
 
-async function HeaderAsync() {
+export async function Header() {
   const pathname = (await headers()).get('x-pathname') ?? '/'
-  return <HeaderShell pathname={pathname} />
-}
-
-/** Nav active via serveur, streamée en Suspense pour ne pas bloquer le LCP. */
-export function Header() {
-  return (
-    <Suspense fallback={<HeaderShell pathname="" />}>
-      <HeaderAsync />
-    </Suspense>
-  )
+  const { locale, dictionary } = await getI18n()
+  return <HeaderShell pathname={pathname} locale={locale} dictionary={dictionary} />
 }

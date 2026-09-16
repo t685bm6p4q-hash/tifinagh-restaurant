@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
+import { MenuCrossLink } from '@/components/menu-cross-link'
 import { MenuSection } from '@/src/components/organisms/menu-section'
-import { menuSections } from '@/lib/restaurant-data'
 import { cloudinaryImage } from '@/lib/cloudinary'
+import { getI18n, localizeMenu } from '@/lib/i18n'
 
 export const metadata: Metadata = {
   title: 'Carte permanente — plats français maison à Montmartre',
@@ -12,15 +13,18 @@ export const metadata: Metadata = {
   alternates: { canonical: '/carte' },
 }
 
-export default function Carte() {
+export default async function Carte() {
+  const { dictionary } = await getI18n()
+  const menu = localizeMenu(dictionary)
+
   return (
     <>
       <Header />
       <main>
         <PageIntro
-          eyebrow="À table"
-          title="La carte permanente"
-          text="Notre carte de bistrot français, renouvelée au fil des saisons."
+          eyebrow={dictionary.carte.eyebrow}
+          title={dictionary.carte.title}
+          text={dictionary.carte.text}
         />
 
         {/* Hero Banner - Terrasse ambiance */}
@@ -29,12 +33,11 @@ export default function Carte() {
             position: 'relative',
             height: '400px',
             overflow: 'hidden',
-            marginBottom: '40px',
           }}
         >
           <Image
             src={cloudinaryImage('v1787938623/terasse-tifinagh-restaurant-pigalle_a6a58q.jpg', 900)}
-            alt="Terrasse Tifinagh Montmartre avec clients heureux sous parasol rouge"
+            alt={dictionary.carte.terraceAlt}
             fill
             style={{ objectFit: 'cover' }}
             sizes="(max-width: 768px) 100vw, 800px"
@@ -54,20 +57,38 @@ export default function Carte() {
           >
             <div style={{ maxWidth: '600px', color: '#fff' }}>
               <h2 style={{ fontSize: '48px', margin: '0 0 16px', fontFamily: 'Georgia, serif', fontWeight: '300' }}>
-                Des saveurs d&apos;authenticité
+                {dictionary.carte.bannerTitle}
               </h2>
               <p style={{ fontSize: '18px', margin: '0', color: 'rgba(255, 255, 255, 0.9)' }}>
-                Une sélection de plats généreux, préparés chaque jour avec les meilleurs produits.
+                {dictionary.carte.bannerText}
               </p>
             </div>
           </div>
         </section>
 
+        <MenuCrossLink
+          eyebrow={dictionary.carte.dailyInviteEyebrow}
+          title={dictionary.carte.dailyInviteTitle}
+          text={dictionary.carte.dailyInviteText}
+          href="/menu-du-jour"
+          cta={dictionary.carte.dailyInviteCta}
+          variant="to-daily"
+        />
+
         <section className="menu-page section">
-          {menuSections.map((section) => (
+          {menu.map((section) => (
             <MenuSection key={section.title} title={section.title} items={section.items} />
           ))}
         </section>
+
+        <MenuCrossLink
+          eyebrow={dictionary.carte.dailyInviteEyebrow}
+          title={dictionary.carte.dailyInviteTitle}
+          text={dictionary.carte.dailyInviteText}
+          href="/menu-du-jour"
+          cta={dictionary.carte.dailyInviteCta}
+          variant="to-daily"
+        />
       </main>
       <Footer />
     </>

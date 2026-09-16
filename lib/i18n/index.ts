@@ -1,0 +1,8 @@
+export { defaultLocale, isLocale, localeMeta, locales, localeCookieName } from './config'
+export type { Locale } from './config'
+export type { Dictionary } from './types'
+export { dictionaries } from './dictionaries'
+export { getDictionary, getI18n, getLocale } from './get-locale'
+export { setLocaleAction } from './actions'
+export { localizeMenu, localizeMetro, localizeSeoLinks, localizeTestimonials } from './localize'
+export { fr } from './fr'

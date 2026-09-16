@@ -2,14 +2,12 @@ import Link from 'next/link'
 import {
   googleReserveUrl,
   googleSearchUrl,
-  localSeoLinks,
-  nearbyMetroStations,
   pagesJaunesUrl,
   whatsappLink,
 } from '@/lib/restaurant-data'
-import { restaurant } from '@/lib/seo'
 import { PagesJaunesIcon } from '@/components/pagesjaunes-logo'
 import { InstagramIcon, FacebookIcon } from '@/components/icons'
+import { getI18n, localizeMetro, localizeSeoLinks } from '@/lib/i18n'
 
 function MapPinIcon() {
   return (
@@ -47,7 +45,11 @@ function GoogleGIcon({ size = 16 }: { size?: number }) {
   )
 }
 
-export function Footer() {
+export async function Footer() {
+  const { dictionary } = await getI18n()
+  const metroStations = localizeMetro(dictionary)
+  const seoLinks = localizeSeoLinks(dictionary)
+
   return (
     <footer className="footer">
       <div className="footer-grid">
@@ -64,29 +66,29 @@ export function Footer() {
             <a href="tel:+33142942240">01 42 94 22 40</a>
           </p>
           <div className="footer-hours">
-            <h2>Horaires d&apos;ouverture</h2>
-            <span className="opening-days">{restaurant.openingHours.labelDays}</span>
-            <span className="opening-hours">{restaurant.openingHours.labelHours}</span>
+            <h2>{dictionary.footer.openingHours}</h2>
+            <span className="opening-days">{dictionary.hours.days}</span>
+            <span className="opening-hours">{dictionary.hours.hours}</span>
           </div>
         </div>
 
         <div className="footer-metro">
           <h2>
             <span className="footer-metro-title-icon" aria-hidden="true">🚇</span>
-            Stations de métro à proximité
+            {dictionary.footer.nearbyMetro}
           </h2>
           <ul className="footer-metro-list">
-            {nearbyMetroStations.map((station) => (
+            {metroStations.map((station) => (
               <li key={station.name}>
                 <span className="footer-metro-emoji" aria-hidden="true">🚇</span>
                 <span>
-                  <strong>{station.name}</strong> (lignes {station.lines}) : {station.note}
+                  <strong>{station.name}</strong> ({station.lines}) : {station.note}
                 </span>
               </li>
             ))}
           </ul>
           <p className="footer-local-links">
-            {localSeoLinks.map((link, index) => (
+            {seoLinks.map((link, index) => (
               <span key={link.href}>
                 {index > 0 ? (
                   <span className="footer-local-sep" aria-hidden="true">
@@ -102,14 +104,14 @@ export function Footer() {
         </div>
 
         <div>
-          <h2>Nous suivre</h2>
+          <h2>{dictionary.footer.followUs}</h2>
           <div className="social-links">
             <a
               href="https://instagram.com/tifinagh_restaurant"
               className="social-link-instagram"
               target="_blank"
               rel="noreferrer"
-              aria-label="Instagram de Tifinagh"
+              aria-label={dictionary.footer.instagramAria}
             >
               <InstagramIcon size={24} />
             </a>
@@ -118,7 +120,7 @@ export function Footer() {
               className="social-link-facebook"
               target="_blank"
               rel="noreferrer"
-              aria-label="Facebook de Tifinagh"
+              aria-label={dictionary.footer.facebookAria}
             >
               <FacebookIcon size={24} />
             </a>
@@ -127,8 +129,8 @@ export function Footer() {
               className="social-link-google"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Tifinagh sur Google"
-              title="Voir Tifinagh sur Google"
+              aria-label={dictionary.footer.googleAria}
+              title={dictionary.footer.googleAria}
             >
               <GoogleGIcon size={24} />
             </a>
@@ -137,15 +139,15 @@ export function Footer() {
               className="social-link-pagesjaunes"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Tifinagh sur PagesJaunes"
-              title="Voir Tifinagh sur PagesJaunes"
+              aria-label={dictionary.footer.pagesJaunesAria}
+              title={dictionary.footer.pagesJaunesAria}
             >
               <PagesJaunesIcon size={24} variant="wordmark" />
             </a>
           </div>
-          <Link href={whatsappLink()} className="footer-link footer-link-inline">
+          <Link href={whatsappLink(dictionary.booking.whatsappMessage)} className="footer-link footer-link-inline">
             <MessageCircleIcon />
-            Réserver sur WhatsApp
+            {dictionary.footer.bookWhatsapp}
           </Link>
           <a
             href={googleReserveUrl}
@@ -154,16 +156,16 @@ export function Footer() {
             rel="noopener noreferrer"
           >
             <GoogleGIcon size={14} />
-            Réserver avec Google
+            {dictionary.footer.bookGoogle}
           </a>
           <Link href="/mentions-legales" prefetch={false} className="footer-link">
-            Mentions légales
+            {dictionary.footer.legal}
           </Link>
         </div>
       </div>
 
       <div className="copyright">
-        © 2026 Tifinagh Montmartre. Bistro chic &amp; cuisine authentique.
+        {dictionary.footer.copyright}
       </div>
     </footer>
   )

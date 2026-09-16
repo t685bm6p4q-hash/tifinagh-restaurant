@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { navItems } from '@/lib/restaurant-data'
 import { isNavActive } from '@/lib/nav-active'
+import { LanguageSwitcher } from '@/components/language-switcher'
+import { defaultLocale, fr, type Dictionary, type Locale } from '@/lib/i18n'
 
 function MessageCircleIcon() {
   return (
@@ -10,9 +12,15 @@ function MessageCircleIcon() {
   )
 }
 
-export function HeaderNav({ pathname }: { pathname: string }) {
+export function HeaderNav({
+  pathname,
+  dictionary,
+}: {
+  pathname: string
+  dictionary: Dictionary
+}) {
   return (
-    <nav className="main-nav" aria-label="Navigation principale">
+    <nav className="main-nav" aria-label={dictionary.nav.ariaMain}>
       {navItems.map((item) => {
         const active = isNavActive(pathname, item.href)
         const className = [
@@ -30,7 +38,7 @@ export function HeaderNav({ pathname }: { pathname: string }) {
             className={className || undefined}
             aria-current={active ? 'page' : undefined}
           >
-            {item.label}
+            {dictionary.nav[item.key]}
           </Link>
         )
       })}
@@ -42,13 +50,21 @@ export function HeaderNav({ pathname }: { pathname: string }) {
         style={{ color: '#000', backgroundColor: '#25d366' }}
       >
         <MessageCircleIcon />
-        Réserver
+        {dictionary.nav.book}
       </Link>
     </nav>
   )
 }
 
-export function HeaderShell({ pathname }: { pathname: string }) {
+export function HeaderShell({
+  pathname,
+  locale = defaultLocale,
+  dictionary = fr,
+}: {
+  pathname: string
+  locale?: Locale
+  dictionary?: Dictionary
+}) {
   return (
     <header className="site-header">
       <input type="checkbox" id="nav-toggle" className="nav-toggle-input" aria-hidden="true" tabIndex={-1} />
@@ -64,12 +80,15 @@ export function HeaderShell({ pathname }: { pathname: string }) {
         />
         <span>TIFINAGH</span>
       </Link>
-      <HeaderNav pathname={pathname} />
-      <label htmlFor="nav-toggle" className="menu-toggle">
-        <span className="menu-toggle-open" aria-hidden="true">☰</span>
-        <span className="menu-toggle-close" aria-hidden="true">✕</span>
-        <span className="sr-only">Ouvrir ou fermer le menu</span>
-      </label>
+      <HeaderNav pathname={pathname} dictionary={dictionary} />
+      <div className="header-tools">
+        <LanguageSwitcher locale={locale} dictionary={dictionary} />
+        <label htmlFor="nav-toggle" className="menu-toggle">
+          <span className="menu-toggle-open" aria-hidden="true">☰</span>
+          <span className="menu-toggle-close" aria-hidden="true">✕</span>
+          <span className="sr-only">{dictionary.nav.toggleMenu}</span>
+        </label>
+      </div>
     </header>
   )
 }

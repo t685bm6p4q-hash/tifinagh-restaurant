@@ -7,6 +7,7 @@ import {
   whatsappLink,
 } from '@/lib/restaurant-data'
 import { PagesJaunesIcon } from '@/components/pagesjaunes-logo'
+import { getI18n } from '@/lib/i18n'
 
 function PhoneIcon({ size = 16 }: { size?: number }) {
   return (
@@ -45,17 +46,20 @@ type BookingChannelsProps = {
 /**
  * 3 canaux de reservation — 100 % serveur, aucun JS, aucun asset externe.
  */
-export function BookingChannels({
-  title = 'Réservez en quelques secondes',
+export async function BookingChannels({
+  title,
   className = '',
 }: BookingChannelsProps) {
+  const { dictionary } = await getI18n()
+  const heading = title ?? dictionary.booking.title
+
   return (
     <div className={`booking-channels ${className}`.trim()}>
-      {title ? <p className="booking-channels-title">{title}</p> : null}
+      {heading ? <p className="booking-channels-title">{heading}</p> : null}
       <div className="booking-channels-row">
         <a className="booking-chip booking-chip-phone" href={phoneTel}>
           <PhoneIcon />
-          Appeler · {phoneDisplay}
+          {dictionary.booking.call} · {phoneDisplay}
         </a>
         <a
           className="booking-chip booking-chip-google"
@@ -64,35 +68,37 @@ export function BookingChannels({
           rel="noopener noreferrer"
         >
           <GoogleGIcon />
-          Réserver avec Google
+          {dictionary.booking.google}
         </a>
         <a
           className="booking-chip booking-chip-whatsapp"
-          href={whatsappLink()}
+          href={whatsappLink(dictionary.booking.whatsappMessage)}
           target="_blank"
           rel="noopener noreferrer"
         >
           <WhatsAppIcon />
-          WhatsApp
+          {dictionary.booking.whatsapp}
         </a>
       </div>
     </div>
   )
 }
 
-export function GoogleReviewsBadge() {
+export async function GoogleReviewsBadge() {
+  const { dictionary } = await getI18n()
+
   return (
     <a
       className="google-reviews-badge"
       href={googleMapsUrl}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Voir les avis Google de Tifinagh Montmartre"
+      aria-label={dictionary.home.googleReviewsAria}
     >
       <GoogleGIcon size={18} />
       <span className="google-reviews-badge-text">
-        <strong>Avis Google</strong>
-        <span>Voir sur Google Maps</span>
+        <strong>{dictionary.home.googleReviewsTitle}</strong>
+        <span>{dictionary.home.googleReviewsSubtitle}</span>
       </span>
     </a>
   )

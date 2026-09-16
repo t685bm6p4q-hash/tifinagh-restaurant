@@ -11,10 +11,13 @@ import {
   MessageCircleIcon,
   WineIcon,
 } from '@/components/icons'
-import { menuSections, testimonials } from '@/lib/restaurant-data'
-import { restaurant } from '@/lib/seo'
+import { getI18n, localizeMenu, localizeTestimonials } from '@/lib/i18n'
 
-export function HomeTemplate() {
+export async function HomeTemplate() {
+  const { dictionary } = await getI18n()
+  const menu = localizeMenu(dictionary)
+  const reviews = localizeTestimonials(dictionary)
+
   return (
     <>
       <Header />
@@ -29,7 +32,7 @@ export function HomeTemplate() {
             <img
               className="hero-image"
               src="/images/hero-salle-480.webp"
-              alt="Salle du restaurant Tifinagh à Montmartre"
+              alt={dictionary.home.heroImageAlt}
               width={480}
               height={320}
               fetchPriority="high"
@@ -38,27 +41,26 @@ export function HomeTemplate() {
           </picture>
           <div className="hero-overlay" />
           <div className="hero-content">
-            <p className="eyebrow">Montmartre, Paris</p>
+            <p className="eyebrow">{dictionary.home.heroEyebrow}</p>
             <h1>
-              Le goût de Paris,<br />
-              <em>sans détour.</em>
+              {dictionary.home.heroTitle}<br />
+              <em>{dictionary.home.heroTitleEm}</em>
             </h1>
             <p className="hero-copy">
-              Une cuisine française généreuse, des produits frais de saison
-              et l&apos;âme d&apos;un vrai bistrot de quartier.
+              {dictionary.home.heroCopy}
             </p>
             <div className="actions">
               <Link className="button button-primary" href="/reservation" prefetch={false}>
                 <MessageCircleIcon size={16} />
-                Réserver une table
+                {dictionary.home.bookTable}
               </Link>
               <Link className="text-link" href="/carte" prefetch={false}>
-                Découvrir la carte
+                {dictionary.home.discoverMenu}
               </Link>
             </div>
           </div>
           <div className="hero-note">
-            {restaurant.openingHours.labelFull}
+            {dictionary.hours.full}
           </div>
         </section>
 
@@ -69,7 +71,7 @@ export function HomeTemplate() {
           <div className="story-image">
             <img
               src="/images/tifinagh-dish.webp"
-              alt="Plat de canard confit servi au restaurant"
+              alt={dictionary.home.dishAlt}
               width={800}
               height={560}
               loading="lazy"
@@ -77,29 +79,24 @@ export function HomeTemplate() {
             />
           </div>
           <div className="story-copy">
-            <p className="eyebrow">L&apos;esprit Tifinagh</p>
-            <h2>L&apos;authenticité française au pied de Montmartre et de Pigalle</h2>
+            <p className="eyebrow">{dictionary.home.storyEyebrow}</p>
+            <h2>{dictionary.home.storyTitle}</h2>
             <p>
-              Restaurant français traditionnel niché entre la Place de Clichy,
-              Pigalle et le Moulin Rouge, au pied de Montmartre, près du cimetière
-              où repose Dalida, au calme d&apos;une impasse. Profitez de notre terrasse
-              ombragée et des théâtres à proximité.
+              {dictionary.home.storyP1}
             </p>
             <p>
-              Une cuisine française authentique et 100&nbsp;% maison, préparée chaque
-              matin avec des produits frais et de saison. En couple, entre amis ou
-              en famille, pensez à réserver pour vos soirs de spectacle et vos week-ends.
+              {dictionary.home.storyP2}
             </p>
             <div className="feature-list">
               <div>
                 <ChefHatIcon size={20} />
-                <strong>Fait maison</strong>
-                <span>Des produits bruts, une cuisine sincère.</span>
+                <strong>{dictionary.home.homemadeTitle}</strong>
+                <span>{dictionary.home.homemadeText}</span>
               </div>
               <div>
                 <WineIcon size={20} />
-                <strong>Vins vivants</strong>
-                <span>Une sélection de vignerons indépendants.</span>
+                <strong>{dictionary.home.wineTitle}</strong>
+                <span>{dictionary.home.wineText}</span>
               </div>
             </div>
           </div>
@@ -109,9 +106,9 @@ export function HomeTemplate() {
         <section className="home-banner">
           <div className="home-banner-overlay">
             <div className="home-banner-content">
-              <h2>Notre sélection du jour</h2>
+              <h2>{dictionary.home.bannerTitle}</h2>
               <Link className="text-link home-banner-link" href="/carte" prefetch={false}>
-                Découvrir la carte complète <ArrowRightIcon size={14} />
+                {dictionary.home.bannerLink} <ArrowRightIcon size={14} />
               </Link>
             </div>
           </div>
@@ -120,12 +117,12 @@ export function HomeTemplate() {
         {/* ── Aperçu de la carte ────────────────────────── */}
         <section className="menu-preview section section-dark">
           <SectionHeading
-            eyebrow="La carte"
-            title="Le marché dans l'assiette"
-            text="Une carte courte, renouvelée au fil des saisons."
+            eyebrow={dictionary.home.menuEyebrow}
+            title={dictionary.home.menuTitle}
+            text={dictionary.home.menuText}
           />
           <div className="menu-columns">
-            {menuSections.slice(0, 2).map((section) => (
+            {menu.slice(0, 2).map((section) => (
               <div className="menu-group" key={section.title}>
                 <h3>{section.title}</h3>
                 {section.items.slice(0, 3).map((item) => (
@@ -146,41 +143,39 @@ export function HomeTemplate() {
               target="_blank"
               rel="noopener noreferrer"
               className="menu-pdf-link menu-pdf-link-secondary"
-              aria-label="Consulter le menu du jour"
+              aria-label={dictionary.home.dailyMenuAria}
             >
-              📋 Consulter le menu du jour
+              📋 {dictionary.home.dailyMenuLink}
             </a>
             <Link className="text-link" href="/carte" prefetch={false}>
-              Voir toute la carte <ArrowRightIcon size={14} />
+              {dictionary.home.fullMenuLink} <ArrowRightIcon size={14} />
             </Link>
           </div>
         </section>
 
         {/* ── Avis clients ──────────────────────────────── */}
-        <ReviewsSection reviews={testimonials} />
+        <ReviewsSection reviews={reviews} />
 
         {/* ── Réservation ───────────────────────────────── */}
         <section className="reservation-banner section">
           <div>
             <CalendarDaysIcon size={24} />
-            <p className="eyebrow">Une table vous attend</p>
-            <h2>Réservez votre moment</h2>
+            <p className="eyebrow">{dictionary.home.reserveEyebrow}</p>
+            <h2>{dictionary.home.reserveTitle}</h2>
             <p>
-              Pour un dîner à deux, une grande tablée, un événement privé ou un repas
-              d&apos;entreprise, notre équipe vous accueille avec plaisir.
+              {dictionary.home.reserveText}
             </p>
-            <BookingChannels />
+            <BookingChannels title={dictionary.booking.title} />
           </div>
         </section>
 
         {/* ── Plan ──────────────────────────────────────── */}
         <section className="map-section section">
           <div>
-            <p className="eyebrow">Le quartier</p>
-            <h2>Le Tifinagh au cœur de Paris&nbsp;18</h2>
+            <p className="eyebrow">{dictionary.home.mapEyebrow}</p>
+            <h2>{dictionary.home.mapTitle}</h2>
             <p>
-              Retrouvez-nous au 17 avenue Rachel, entre Pigalle,
-              la Place de Clichy et le Cimetière de Montmartre.
+              {dictionary.home.mapText}
             </p>
             <a
               className="text-link"
@@ -188,7 +183,7 @@ export function HomeTemplate() {
               target="_blank"
               rel="noreferrer"
             >
-              Voir l&apos;itinéraire <ArrowRightIcon size={14} />
+              {dictionary.common.directions} <ArrowRightIcon size={14} />
             </a>
           </div>
           <a
@@ -196,11 +191,11 @@ export function HomeTemplate() {
             href="https://maps.google.com/?q=17+Av.+Rachel+75018+Paris"
             target="_blank"
             rel="noreferrer"
-            aria-label="Ouvrir Tifinagh sur Google Maps"
+            aria-label={dictionary.home.mapAria}
           >
             <img
               src="/images/tifinagh-facade.webp"
-              alt="Façade du restaurant Tifinagh, 17 avenue Rachel à Montmartre"
+              alt={dictionary.home.facadeAlt}
               width={640}
               height={360}
               loading="lazy"

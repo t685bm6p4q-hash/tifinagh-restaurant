@@ -4,14 +4,17 @@ import {
   PagesJaunesReviewsBadge,
 } from '@/components/booking-channels'
 import { SectionHeading } from '../molecules/section-heading'
+import { getI18n } from '@/lib/i18n'
 import type { Testimonial } from '@/lib/restaurant-data'
 
-export function ReviewsSection({ reviews }: { reviews: Testimonial[] }) {
+export async function ReviewsSection({ reviews }: { reviews: Testimonial[] }) {
+  const { dictionary } = await getI18n()
+
   return (
     <section className="reviews section">
       <SectionHeading
-        eyebrow="Le mot des habitués"
-        title="Ce que nos clients disent de nous"
+        eyebrow={dictionary.home.reviewsEyebrow}
+        title={dictionary.home.reviewsTitle}
       />
       <div className="reviews-google-wrap">
         <GoogleReviewsBadge />

@@ -1,0 +1,192 @@
+import type { Dictionary } from './types'
+
+export const fr: Dictionary = {
+  nav: {
+    home: 'Accueil',
+    carte: 'La carte',
+    dailyMenu: 'Menu du jour',
+    gallery: 'Galerie',
+    privatisation: 'Privatisation',
+    around: 'Autour de nous',
+    contact: 'Contact',
+    book: 'Réserver',
+    toggleMenu: 'Ouvrir ou fermer le menu',
+    ariaMain: 'Navigation principale',
+    language: 'Langue',
+    chooseLanguage: 'Choisir la langue',
+  },
+  common: {
+    directions: "Voir l'itinéraire",
+    hoursRange: '10h – 00h',
+  },
+  hours: {
+    days: 'Du lundi au dimanche',
+    hours: '10h – 00h',
+    full: 'Ouvert tous les jours · 10h – 00h',
+    openToday: "Ouvert aujourd'hui",
+  },
+  booking: {
+    title: 'Réservez en quelques secondes',
+    call: 'Appeler',
+    google: 'Réserver avec Google',
+    whatsapp: 'WhatsApp',
+    whatsappMessage: 'Bonjour, je souhaite réserver une table chez Tifinagh Montmartre.',
+  },
+  sticky: {
+    aria: 'Appel rapide',
+    call: 'Appeler',
+  },
+  footer: {
+    openingHours: "Horaires d'ouverture",
+    nearbyMetro: 'Stations de métro à proximité',
+    followUs: 'Nous suivre',
+    bookWhatsapp: 'Réserver sur WhatsApp',
+    bookGoogle: 'Réserver avec Google',
+    legal: 'Mentions légales',
+    copyright: '© 2026 Tifinagh Montmartre. Bistro chic & cuisine authentique.',
+    instagramAria: 'Instagram de Tifinagh',
+    facebookAria: 'Facebook de Tifinagh',
+    googleAria: 'Tifinagh sur Google',
+    pagesJaunesAria: 'Tifinagh sur PagesJaunes',
+  },
+  localLinks: {
+    montmartre: 'Restaurant Montmartre',
+    pigalle: 'Restaurant à Pigalle',
+    clichy: 'Restaurant Place de Clichy',
+  },
+  metro: {
+    clichy: { lines: 'lignes 2 et 13', note: 'à quelques minutes à pied' },
+    blanche: { lines: 'ligne 2', note: 'très proche, au pied de Montmartre' },
+    pigalle: { lines: 'lignes 2 et 12', note: 'à deux pas' },
+    fourche: { lines: 'ligne 13', note: 'également très accessible' },
+    abbesses: { lines: 'ligne 12', note: 'à proximité en grimpant vers le cœur de Montmartre' },
+  },
+  home: {
+    heroEyebrow: 'Montmartre, Paris',
+    heroTitle: 'Le goût de Paris,',
+    heroTitleEm: 'sans détour.',
+    heroCopy:
+      "Une cuisine française généreuse, des produits frais de saison et l'âme d'un vrai bistrot de quartier.",
+    bookTable: 'Réserver une table',
+    discoverMenu: 'Découvrir la carte',
+    heroImageAlt: 'Salle du restaurant Tifinagh à Montmartre',
+    storyEyebrow: "L'esprit Tifinagh",
+    storyTitle: "L'authenticité française au pied de Montmartre et de Pigalle",
+    storyP1:
+      "Restaurant français traditionnel niché entre la Place de Clichy, Pigalle et le Moulin Rouge, au pied de Montmartre, près du cimetière où repose Dalida, au calme d'une impasse. Profitez de notre terrasse ombragée et des théâtres à proximité.",
+    storyP2:
+      'Une cuisine française authentique et 100 % maison, préparée chaque matin avec des produits frais et de saison. En couple, entre amis ou en famille, pensez à réserver pour vos soirs de spectacle et vos week-ends.',
+    homemadeTitle: 'Fait maison',
+    homemadeText: 'Des produits bruts, une cuisine sincère.',
+    wineTitle: 'Vins vivants',
+    wineText: 'Une sélection de vignerons indépendants.',
+    dishAlt: 'Plat de canard confit servi au restaurant',
+    bannerTitle: 'Notre sélection du jour',
+    bannerLink: 'Découvrir la carte complète',
+    menuEyebrow: 'La carte',
+    menuTitle: "Le marché dans l'assiette",
+    menuText: 'Une carte courte, renouvelée au fil des saisons.',
+    dailyMenuLink: 'Consulter le menu du jour',
+    dailyMenuAria: 'Consulter le menu du jour',
+    fullMenuLink: 'Voir toute la carte',
+    reviewsEyebrow: 'Le mot des habitués',
+    reviewsTitle: 'Ce que nos clients disent de nous',
+    googleReviewsAria: 'Voir les avis Google de Tifinagh Montmartre',
+    googleReviewsTitle: 'Avis Google',
+    googleReviewsSubtitle: 'Voir sur Google Maps',
+    reserveEyebrow: 'Une table vous attend',
+    reserveTitle: 'Réservez votre moment',
+    reserveText:
+      "Pour un dîner à deux, une grande tablée, un événement privé ou un repas d'entreprise, notre équipe vous accueille avec plaisir.",
+    mapEyebrow: 'Le quartier',
+    mapTitle: 'Le Tifinagh au cœur de Paris 18',
+    mapText: 'Retrouvez-nous au 17 avenue Rachel, entre Pigalle, la Place de Clichy et le Cimetière de Montmartre.',
+    mapAria: 'Ouvrir Tifinagh sur Google Maps',
+    facadeAlt: 'Façade du restaurant Tifinagh, 17 avenue Rachel à Montmartre',
+    tonightMenu: 'Menu du jour à jour',
+    quotes: {
+      bertrand:
+        'Endroit très calme, excellent accueil, cuisine de grande qualité, ce restaurant coche toutes les cases, bravo à toute l’équipe !',
+      vale:
+        'Nous venons de quitter le restaurant, tout était très bien, le service était rapide et aimable, l’ambiance très agréable.',
+      celine:
+        'L’emplacement nous fait oublier que nous sommes dans Paris de par son calme, zéro bruit de voiture. Un service hyper agréable plein de sourires et un menu entrée + plat à 16€50 et 18€50 en ajoutant le dessert. C’est très bon, avec une touche d’originalité dans toutes les assiettes. Une adresse à garder.',
+    },
+  },
+  carte: {
+    eyebrow: 'À table',
+    title: 'La carte permanente',
+    text: 'Notre carte de bistrot français, renouvelée au fil des saisons.',
+    bannerTitle: "Des saveurs d'authenticité",
+    bannerText: 'Une sélection de plats généreux, préparés chaque jour avec les meilleurs produits.',
+    terraceAlt: 'Terrasse Tifinagh Montmartre avec clients heureux sous parasol rouge',
+    dailyInviteEyebrow: 'Sélection du jour',
+    dailyInviteTitle: 'Envie de suggestions fraîches ?',
+    dailyInviteText:
+      'Découvrez notre menu du jour, préparé chaque matin avec des produits de saison.',
+    dailyInviteCta: 'Découvrir le menu du jour',
+  },
+  dailyMenuPage: {
+    carteInviteEyebrow: 'La carte permanente',
+    carteInviteTitle: 'Envie de feuilleter toute la carte ?',
+    carteInviteText:
+      'Retrouvez nos entrées, plats et desserts de saison, à savourer tout au long de l’année.',
+    carteInviteCta: 'Consulter la carte générale',
+  },
+  menu: {
+    starters: {
+      title: 'Entrées',
+      items: {
+        foieGras: { name: 'Foie gras maison', description: 'Confiture de figue et toasts' },
+        onionSoup: { name: "Soupe à l'oignon franc-comtoise", description: 'Au comté' },
+        snails: { name: 'Cassolette d’escargots de Bourgogne', description: 'En persillade, douzaine' },
+      },
+    },
+    mains: {
+      title: 'Plats',
+      items: {
+        duckConfit: { name: 'Confit de canard maison', description: 'Pommes sarladaises' },
+        beefCheek: {
+          name: 'Joue de bœuf braisée à la bourguignonne',
+          description: 'Pommes au lard et champignons',
+        },
+        landaiseSalad: {
+          name: 'Salade landaise',
+          description: 'Foie gras maison, gésiers de volaille, magret de canard fumé',
+        },
+        croqueMonsieur: {
+          name: 'Croque-monsieur au comté et jambon blanc',
+          description: 'Accompagné d’une petite salade fraîche',
+        },
+        entrecote: {
+          name: 'Entrecôte de bœuf 300 g, origine France',
+          description: 'Sauce poivre, frites maison',
+        },
+      },
+    },
+    desserts: {
+      title: 'Desserts',
+      items: {
+        cremeBrulee: { name: 'Crème brûlée vanille Bourbon', description: '' },
+        tarteTatin: { name: 'Tarte Tatin', description: '' },
+        brownie: { name: 'Brownie aux noix et boule vanille', description: '' },
+        cafeGourmand: { name: 'Café gourmand', description: '' },
+      },
+    },
+  },
+  contact: {
+    eyebrow: 'Nous trouver',
+    title: 'Contact',
+    text: 'Au cœur des Abbesses, à quelques pas du Sacré-Cœur.',
+    address: 'Adresse',
+    phone: 'Téléphone',
+    phoneNote: 'Réponse du lundi au dimanche',
+    hours: 'Horaires',
+    hoursDays: 'Tous les jours',
+    nearbyMetro: 'Stations de métro à proximité',
+    mapEyebrow: 'Le quartier',
+    mapTitle: 'Nous trouver à Montmartre',
+    mapText: 'À deux pas de Pigalle et du Cimetière de Montmartre.',
+    mapIframeTitle: 'Localisation de Tifinagh Montmartre',
+  },
+}

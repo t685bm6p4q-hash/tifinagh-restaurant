@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { RestaurantSchema } from '@/components/restaurant-schema'
 import { StickyCallBar } from '@/components/sticky-call-bar'
+import { getI18n, localeMeta } from '@/lib/i18n'
 import { defaultKeywords, restaurant, siteUrl } from '@/lib/seo'
 import './globals.css'
 
@@ -47,11 +48,12 @@ export const viewport: Viewport = {
   themeColor: '#181a17',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const { locale } = await getI18n()
   return (
-    <html lang="fr">
+    <html lang={localeMeta[locale].htmlLang}>
       <body>
         <RestaurantSchema />
         {children}

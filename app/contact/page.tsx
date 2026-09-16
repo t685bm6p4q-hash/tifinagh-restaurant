@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Clock, MapPin, Phone } from 'lucide-react'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
-import { localSeoLinks, nearbyMetroStations } from '@/lib/restaurant-data'
+import { getI18n, localizeMetro, localizeSeoLinks } from '@/lib/i18n'
 
 export const metadata: Metadata = {
   title: 'Contact, adresse et accès à Montmartre',
@@ -11,21 +11,25 @@ export const metadata: Metadata = {
   alternates: { canonical: '/contact' },
 }
 
-export default function Contact() {
+export default async function Contact() {
+  const { dictionary } = await getI18n()
+  const metroStations = localizeMetro(dictionary)
+  const seoLinks = localizeSeoLinks(dictionary)
+
   return (
     <>
       <Header />
       <main>
         <PageIntro
-          eyebrow="Nous trouver"
-          title="Contact"
-          text="Au cœur des Abbesses, à quelques pas du Sacré-Cœur."
+          eyebrow={dictionary.contact.eyebrow}
+          title={dictionary.contact.title}
+          text={dictionary.contact.text}
         />
 
         <section className="contact-grid section">
           <div className="contact-card">
             <MapPin size={22} />
-            <h2>Adresse</h2>
+            <h2>{dictionary.contact.address}</h2>
             <p>17 Av. Rachel<br />75018 Paris</p>
             <Link
               className="text-link"
@@ -33,41 +37,41 @@ export default function Contact() {
               target="_blank"
               rel="noreferrer"
             >
-              Voir l&apos;itinéraire <ArrowRight size={12} />
+              {dictionary.common.directions} <ArrowRight size={12} />
             </Link>
           </div>
 
           <div className="contact-card">
             <Phone size={22} />
-            <h2>Téléphone</h2>
+            <h2>{dictionary.contact.phone}</h2>
             <p>01 42 94 22 40</p>
-            <p>Réponse du lundi au dimanche</p>
+            <p>{dictionary.contact.phoneNote}</p>
           </div>
 
           <div className="contact-card">
             <Clock size={22} />
-            <h2>Horaires</h2>
+            <h2>{dictionary.contact.hours}</h2>
             <p>
-              Tous les jours<br />
-              10h – 00h
+              {dictionary.contact.hoursDays}<br />
+              {dictionary.common.hoursRange}
             </p>
           </div>
 
           <div className="contact-card contact-transit">
             <MapPin size={22} />
-            <h2>Stations de métro à proximité</h2>
+            <h2>{dictionary.contact.nearbyMetro}</h2>
             <ul className="contact-metro-list">
-              {nearbyMetroStations.map((station) => (
+              {metroStations.map((station) => (
                 <li key={station.name}>
                   <span aria-hidden="true">🚇</span>
                   <span>
-                    {station.name} (lignes {station.lines}) : {station.note}
+                    {station.name} ({station.lines}) : {station.note}
                   </span>
                 </li>
               ))}
             </ul>
             <p className="contact-local-links">
-              {localSeoLinks.map((link, index) => (
+              {seoLinks.map((link, index) => (
                 <span key={link.href}>
                   {index > 0 ? (
                     <span className="contact-local-sep" aria-hidden="true">
@@ -85,13 +89,13 @@ export default function Contact() {
 
         <section className="map-section section">
           <div>
-            <p className="eyebrow">Le quartier</p>
-            <h2>Nous trouver à Montmartre</h2>
-            <p>À deux pas de Pigalle et du Cimetière de Montmartre.</p>
+            <p className="eyebrow">{dictionary.contact.mapEyebrow}</p>
+            <h2>{dictionary.contact.mapTitle}</h2>
+            <p>{dictionary.contact.mapText}</p>
           </div>
           <iframe
             className="map-frame"
-            title="Localisation de Tifinagh Montmartre"
+            title={dictionary.contact.mapIframeTitle}
             src="https://www.google.com/maps?q=17+Av.+Rachel,+75018+Paris&output=embed"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
