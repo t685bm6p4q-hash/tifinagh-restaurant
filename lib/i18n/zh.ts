@@ -8,6 +8,7 @@ export const zh: Dictionary = {
     gallery: '相册',
     privatisation: '包场活动',
     around: '周边',
+    reservation: '预订',
     contact: '联系我们',
     book: '预订',
     toggleMenu: '打开或关闭菜单',

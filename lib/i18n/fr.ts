@@ -8,6 +8,7 @@ export const fr: Dictionary = {
     gallery: 'Galerie',
     privatisation: 'Privatisation',
     around: 'Autour de nous',
+    reservation: 'Réservation',
     contact: 'Contact',
     book: 'Réserver',
     toggleMenu: 'Ouvrir ou fermer le menu',

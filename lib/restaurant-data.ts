@@ -112,7 +112,15 @@ export const localSeoLinks = [
   { href: '/restaurant-place-de-clichy', key: 'clichy' as const, label: 'Restaurant Place de Clichy' },
 ] as const
 
-export type NavKey = 'home' | 'carte' | 'dailyMenu' | 'gallery' | 'privatisation' | 'around' | 'contact'
+export type NavKey =
+  | 'home'
+  | 'carte'
+  | 'dailyMenu'
+  | 'gallery'
+  | 'privatisation'
+  | 'around'
+  | 'reservation'
+  | 'contact'
 
 export const navItems: { href: string; key: NavKey; label: string }[] = [
   { href: '/', key: 'home', label: 'Accueil' },
@@ -121,5 +129,6 @@ export const navItems: { href: string; key: NavKey; label: string }[] = [
   { href: '/galerie', key: 'gallery', label: 'Galerie' },
   { href: '/privatisation', key: 'privatisation', label: 'Privatisation' },
   { href: '/autour-de-nous', key: 'around', label: 'Autour de nous' },
+  { href: '/reservation', key: 'reservation', label: 'Réservation' },
   { href: '/contact', key: 'contact', label: 'Contact' },
 ]

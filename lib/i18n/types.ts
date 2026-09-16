@@ -16,6 +16,7 @@ export type Dictionary = {
     gallery: string
     privatisation: string
     around: string
+    reservation: string
     contact: string
     book: string
     toggleMenu: string

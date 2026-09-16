@@ -76,25 +76,25 @@ button, input, textarea, select { font: inherit; }
 .main-nav {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 20px;
   text-transform: uppercase;
   font-size: 10px;
   letter-spacing: 0.14em;
   font-family: system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
 }
 
-.main-nav a:not(.nav-cta):not(.nav-menu-jour) {
+.main-nav a:not(.nav-menu-jour) {
   color: var(--muted);
   transition: color 0.2s;
 }
 
-.main-nav a:hover:not(.nav-cta):not(.nav-menu-jour) { color: var(--terracotta); }
+.main-nav a:hover:not(.nav-menu-jour) { color: var(--terracotta); }
 
-.main-nav a.nav-active:not(.nav-cta):not(.nav-menu-jour) {
+.main-nav a.nav-active:not(.nav-menu-jour) {
   color: var(--foreground);
 }
 
-.main-nav a.nav-active:not(.nav-cta):not(.nav-menu-jour)::after {
+.main-nav a.nav-active:not(.nav-menu-jour)::after {
   content: '';
   display: block;
   height: 2px;
@@ -127,7 +127,7 @@ button, input, textarea, select { font: inherit; }
 }
 
 /* Meme contraste que .button-primary : !important + background-color explicite. */
-.main-nav a.nav-cta {
+a.nav-cta {
   background-color: #25d366 !important;
   color: #000 !important;
   padding: 9px 16px;
@@ -138,15 +138,18 @@ button, input, textarea, select { font: inherit; }
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  font-family: system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
   transition: background-color 0.2s;
 }
 
-.main-nav a.nav-cta:hover {
+a.nav-cta:hover {
   background-color: #20bd5b !important;
   color: #000 !important;
 }
 
-.main-nav a.nav-cta.nav-active {
+a.nav-cta.nav-active {
   outline: 2px solid var(--foreground);
   outline-offset: 2px;
 }
@@ -1933,6 +1936,43 @@ select:focus { border-color: var(--terracotta); }
 /* ── Sticky appel mobile ────────────────────────────── */
 .sticky-call-bar {
   display: none;
+}
+
+/* ── Nav compacte tablette : l'onglet Réservation ne doit pas sortir du header. */
+@media (max-width: 1320px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .main-nav {
+    display: none;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    background: #111210;
+    padding: 25px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .nav-toggle-input:checked ~ .main-nav {
+    display: flex;
+  }
+
+  .nav-toggle-input:checked ~ .header-tools .menu-toggle-open {
+    display: none;
+  }
+
+  .nav-toggle-input:checked ~ .header-tools .menu-toggle-close {
+    display: inline;
+  }
+
+  a.nav-cta {
+    padding: 7px 12px;
+    font-size: 10px;
+  }
 }
 
 /* ── Responsive ─────────────────────────────────────── */

@@ -12,6 +12,27 @@ function MessageCircleIcon() {
   )
 }
 
+function ReservationCta({
+  pathname,
+  dictionary,
+}: {
+  pathname: string
+  dictionary: Dictionary
+}) {
+  const active = pathname === '/reservation'
+  return (
+    <Link
+      className={`nav-cta${active ? ' nav-active' : ''}`}
+      href="/reservation"
+      prefetch={false}
+      aria-current={active ? 'page' : undefined}
+    >
+      <MessageCircleIcon />
+      {dictionary.nav.book}
+    </Link>
+  )
+}
+
 export function HeaderNav({
   pathname,
   dictionary,
@@ -42,16 +63,6 @@ export function HeaderNav({
           </Link>
         )
       })}
-      <Link
-        className={`nav-cta${pathname === '/reservation' ? ' nav-active' : ''}`}
-        href="/reservation"
-        prefetch={false}
-        aria-current={pathname === '/reservation' ? 'page' : undefined}
-        style={{ color: '#000', backgroundColor: '#25d366' }}
-      >
-        <MessageCircleIcon />
-        {dictionary.nav.book}
-      </Link>
     </nav>
   )
 }
@@ -82,6 +93,7 @@ export function HeaderShell({
       </Link>
       <HeaderNav pathname={pathname} dictionary={dictionary} />
       <div className="header-tools">
+        <ReservationCta pathname={pathname} dictionary={dictionary} />
         <LanguageSwitcher locale={locale} dictionary={dictionary} />
         <label htmlFor="nav-toggle" className="menu-toggle">
           <span className="menu-toggle-open" aria-hidden="true">☰</span>
