@@ -59,8 +59,8 @@ export function CookieConsentBanner() {
       <div className="cookie-banner__panel">
         <p className="cookie-banner__title">Cookies & audience</p>
         <p className="cookie-banner__text">
-          Les cookies essentiels permettent la navigation et la réservation. Google Analytics
-          n&apos;est activé qu&apos;avec votre accord, pour une mesure d&apos;audience anonymisée.{' '}
+          Les cookies essentiels permettent la navigation et la réservation. Google Analytics et
+          le pixel Meta ne sont activés qu&apos;avec votre accord.{' '}
           <Link href="/mentions-legales" className="cookie-banner__link">
             En savoir plus
           </Link>
@@ -74,6 +74,9 @@ export function CookieConsentBanner() {
             <p>
               <strong>Analytiques (GA4)</strong> — chargés uniquement après « Accepter » (13 mois max.,
               CNIL).
+            </p>
+            <p>
+              <strong>Meta Pixel</strong> — Facebook / Instagram, uniquement après « Accepter ».
             </p>
             {status && (
               <p className="cookie-banner__muted">

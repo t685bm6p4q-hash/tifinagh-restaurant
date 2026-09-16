@@ -68,11 +68,13 @@ export default function MentionsLegales() {
             <h2>Cookies et mesure d&apos;audience</h2>
             <p>
               Des cookies techniques strictement nécessaires (langue, sécurité, hébergeur) sont
-              déposés sans consentement. Google Analytics 4 (mesure d&apos;audience anonymisée)
-              n&apos;est chargé qu&apos;après votre accord via le bandeau cookies ; vous pouvez
+              déposés sans consentement. Google Analytics 4 (mesure d&apos;audience anonymisée) et
+              le pixel Meta (mesure des campagnes Facebook / Instagram, cookies _fbp et _fbc) ne
+              sont chargés qu&apos;après votre accord via le bandeau cookies ; vous pouvez
               refuser ou modifier votre choix à tout moment (lien « Cookies » en pied de page).
-              Durée maximale des cookies analytiques : 13 mois (recommandation CNIL). Aucun cookie
-              publicitaire.
+              Durée maximale des cookies de mesure : 13 mois (recommandation CNIL). Meta Platforms
+              Ireland Ltd. / Meta Platforms, Inc. peut traiter ces données hors de l&apos;Union
+              européenne selon sa politique de confidentialité.
             </p>
 
             <h2>Vos droits (RGPD)</h2>

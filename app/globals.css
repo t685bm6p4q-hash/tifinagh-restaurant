@@ -1366,6 +1366,21 @@ a.nav-cta.nav-active {
   margin-top: 10px;
 }
 
+/* Sans reset, le <button> garde le fond gris UA : or sur gris ~1.8:1, Lighthouse échoue.
+   Couleurs en hex + !important : les audits ne résolvent pas toujours var(--gold). */
+button.footer-link {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  font-size: 12px;
+  color: #d6ad45 !important;
+}
+
 .copyright {
   border-top: 1px solid var(--line);
   margin-top: 40px;
