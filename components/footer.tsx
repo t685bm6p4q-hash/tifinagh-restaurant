@@ -7,6 +7,7 @@ import {
 } from '@/lib/restaurant-data'
 import { PagesJaunesIcon } from '@/components/pagesjaunes-logo'
 import { InstagramIcon, FacebookIcon } from '@/components/icons'
+import { CookieSettingsButton } from '@/components/cookie-settings-button'
 import { getI18n, localizeMetro, localizeSeoLinks } from '@/lib/i18n'
 
 function MapPinIcon() {
@@ -161,6 +162,7 @@ export async function Footer() {
           <Link href="/mentions-legales" prefetch={false} className="footer-link">
             {dictionary.footer.legal}
           </Link>
+          <CookieSettingsButton label={dictionary.footer.cookies} />
         </div>
       </div>
 

@@ -44,6 +44,7 @@ export const en: Dictionary = {
     bookWhatsapp: 'Book on WhatsApp',
     bookGoogle: 'Book with Google',
     legal: 'Legal notice',
+    cookies: 'Cookies',
     copyright: '© 2026 Tifinagh Montmartre. Chic bistro & authentic cooking.',
     instagramAria: 'Tifinagh on Instagram',
     facebookAria: 'Tifinagh on Facebook',

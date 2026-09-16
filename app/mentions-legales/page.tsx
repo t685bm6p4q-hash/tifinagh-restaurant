@@ -67,9 +67,12 @@ export default function MentionsLegales() {
 
             <h2>Cookies et mesure d&apos;audience</h2>
             <p>
-              Ce site n&apos;utilise pas de cookies publicitaires ni de traceurs de mesure
-              d&apos;audience tiers. Des cookies techniques strictement nécessaires au
-              fonctionnement (session, sécurité, hébergeur) peuvent être déposés.
+              Des cookies techniques strictement nécessaires (langue, sécurité, hébergeur) sont
+              déposés sans consentement. Google Analytics 4 (mesure d&apos;audience anonymisée)
+              n&apos;est chargé qu&apos;après votre accord via le bandeau cookies ; vous pouvez
+              refuser ou modifier votre choix à tout moment (lien « Cookies » en pied de page).
+              Durée maximale des cookies analytiques : 13 mois (recommandation CNIL). Aucun cookie
+              publicitaire.
             </p>
 
             <h2>Vos droits (RGPD)</h2>

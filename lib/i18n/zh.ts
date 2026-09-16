@@ -44,6 +44,7 @@ export const zh: Dictionary = {
     bookWhatsapp: '通过 WhatsApp 预订',
     bookGoogle: '通过 Google 预订',
     legal: '法律声明',
+    cookies: 'Cookie',
     copyright: '© 2026 Tifinagh Montmartre. 精致小酒馆与地道法餐。',
     instagramAria: 'Tifinagh 的 Instagram',
     facebookAria: 'Tifinagh 的 Facebook',

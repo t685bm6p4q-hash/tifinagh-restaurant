@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { RestaurantSchema } from '@/components/restaurant-schema'
+import { SiteConsent } from '@/components/site-consent'
 import { StickyCallBar } from '@/components/sticky-call-bar'
 import { getI18n, localeMeta } from '@/lib/i18n'
 import { defaultKeywords, restaurant, siteUrl } from '@/lib/seo'
@@ -58,6 +59,7 @@ export default async function RootLayout({
         <RestaurantSchema />
         {children}
         <StickyCallBar />
+        <SiteConsent />
       </body>
     </html>
   )

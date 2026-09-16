@@ -52,6 +52,7 @@ export type Dictionary = {
     bookWhatsapp: string
     bookGoogle: string
     legal: string
+    cookies: string
     copyright: string
     instagramAria: string
     facebookAria: string
