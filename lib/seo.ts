@@ -1,10 +1,9 @@
 /**
  * Source unique des donnees SEO et des informations d'etablissement.
- * Passer NEXT_PUBLIC_SITE_URL en variable d'environnement lors de la mise
- * en place du nom de domaine definitif.
+ * Surcharge possible via NEXT_PUBLIC_SITE_URL (preview, staging).
  */
 export const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tifinagh-restaurant-seven.vercel.app'
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tifinagh.fr'
 
 export const restaurant = {
   name: 'Tifinagh Montmartre',
