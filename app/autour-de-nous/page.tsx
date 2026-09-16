@@ -5,6 +5,7 @@ import { BookingChannels } from '@/components/booking-channels'
 import { LocalQuartierDetails } from '@/components/local-quartier-details'
 import { cloudinaryImage } from '@/lib/cloudinary'
 import { restaurant } from '@/lib/seo'
+import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
 const AROUND_BANNER_PATH =
   'v1788266025/bandeau-image-autour-de-nous-pigalle-montmartre-tifinagh_rqhety.png'
@@ -35,11 +36,8 @@ const localPages = [
   },
 ] as const
 
-export const metadata: Metadata = {
-  title: 'Autour de nous — Montmartre, théâtres, cinémas et métro',
-  description:
-    'Tifinagh au 17 avenue Rachel : près du cimetière de Montmartre, théâtres, cinémas Pathé Wepler, métros Clichy, Blanche et Pigalle. Pause gourmande au calme.',
-  alternates: { canonical: '/autour-de-nous' },
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata('autourDeNous')
 }
 
 export default function AutourDeNous() {

@@ -5,6 +5,7 @@ import { Header, Footer, PageIntro } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
 import { phoneDisplay, phoneTel, whatsappLink } from '@/lib/restaurant-data'
 import { cloudinaryImage } from '@/lib/cloudinary'
+import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
 const PRIVATISATION_BANNER_PATH = 'v1787946632/489A2436_gqgbkp.jpg'
 
@@ -16,11 +17,8 @@ const PRIVATISATION_BANNER_SRCSET = [
   `${cloudinaryImage(PRIVATISATION_BANNER_PATH, 1600)} 1600w`,
 ].join(', ')
 
-export const metadata: Metadata = {
-  title: 'Privatisation du restaurant à Montmartre',
-  description:
-    'Privatisez Tifinagh Montmartre : partielle dès 15 couverts, totale jusqu’à 40. Anniversaires, entreprises, familles — sur devis.',
-  alternates: { canonical: '/privatisation' },
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata('privatisation')
 }
 
 export default function Privatisation() {

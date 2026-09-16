@@ -3,19 +3,10 @@ import Link from 'next/link'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
 import { restaurant } from '@/lib/seo'
+import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
-export const metadata: Metadata = {
-  title: 'Restaurant à Pigalle — bistrot français près du Moulin Rouge',
-  description:
-    'Restaurant Tifinagh à deux pas de Pigalle : cuisine française maison, terrasse calme avenue Rachel, idéal avant un spectacle au Moulin Rouge ou dans les théâtres du quartier.',
-  keywords: [
-    'restaurant Pigalle',
-    'bistrot Pigalle',
-    'restaurant près Moulin Rouge',
-    'dîner Pigalle',
-    'Tifinagh',
-  ],
-  alternates: { canonical: '/restaurant-pigalle' },
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata('restaurantPigalle')
 }
 
 export default function RestaurantPigalle() {

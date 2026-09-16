@@ -3,6 +3,12 @@ export type MenuItemCopy = {
   description: string
 }
 
+export type SeoPageCopy = {
+  title: string
+  description: string
+  keywords?: string[]
+}
+
 export type MetroCopy = {
   lines: string
   note: string
@@ -177,5 +183,31 @@ export type Dictionary = {
     mapTitle: string
     mapText: string
     mapIframeTitle: string
+  }
+  seo: {
+    site: {
+      defaultTitle: string
+      titleTemplate: string
+      description: string
+      ogDescription: string
+      twitterTitle: string
+      twitterDescription: string
+      ogImageAlt: string
+      keywords: string[]
+    }
+    pages: {
+      home: SeoPageCopy
+      carte: SeoPageCopy
+      menuDuJour: SeoPageCopy
+      contact: SeoPageCopy
+      mentionsLegales: SeoPageCopy
+      galerie: SeoPageCopy
+      privatisation: SeoPageCopy
+      autourDeNous: SeoPageCopy
+      reservation: SeoPageCopy
+      restaurantMontmartre: SeoPageCopy
+      restaurantPigalle: SeoPageCopy
+      restaurantPlaceDeClichy: SeoPageCopy
+    }
   }
 }

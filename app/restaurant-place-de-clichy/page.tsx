@@ -3,19 +3,10 @@ import Link from 'next/link'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
 import { restaurant } from '@/lib/seo'
+import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
-export const metadata: Metadata = {
-  title: 'Restaurant Place de Clichy — bistrot français Paris 17/18',
-  description:
-    'Restaurant Tifinagh près de la Place de Clichy : bistrot français traditionnel, plats faits maison, accès métro lignes 2 et 13, au calme de l’avenue Rachel.',
-  keywords: [
-    'restaurant Place de Clichy',
-    'bistrot Place de Clichy',
-    'restaurant Paris 17',
-    'restaurant Paris 18 Clichy',
-    'Tifinagh',
-  ],
-  alternates: { canonical: '/restaurant-place-de-clichy' },
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata('restaurantPlaceDeClichy')
 }
 
 export default function RestaurantPlaceDeClichy() {

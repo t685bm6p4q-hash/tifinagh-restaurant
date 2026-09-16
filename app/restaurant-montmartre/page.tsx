@@ -4,20 +4,10 @@ import { Header, Footer, PageIntro } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
 import { LocalQuartierDetails } from '@/components/local-quartier-details'
 import { restaurant } from '@/lib/seo'
+import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
-export const metadata: Metadata = {
-  title: 'Restaurant Montmartre — bistrot français au pied de la butte',
-  description:
-    'Restaurant Tifinagh à Montmartre : près du cimetière de Montmartre et du Sacré-Cœur, idéal avant ou après spectacle. Cuisine maison, avenue Rachel.',
-  keywords: [
-    'restaurant Montmartre',
-    'restaurant cimetière Montmartre',
-    'restaurant avant spectacle Paris',
-    'bistrot Montmartre',
-    'restaurant Sacré-Cœur',
-    'Tifinagh',
-  ],
-  alternates: { canonical: '/restaurant-montmartre' },
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata('restaurantMontmartre')
 }
 
 export default function RestaurantMontmartre() {

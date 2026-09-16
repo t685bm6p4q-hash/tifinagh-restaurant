@@ -1,4 +1,5 @@
 import type { Dictionary } from './types'
+import { seoByLocale } from './seo-copy'
 
 export const zh: Dictionary = {
   nav: {
@@ -185,4 +186,5 @@ export const zh: Dictionary = {
     mapText: '紧邻皮加勒与蒙马特公墓。',
     mapIframeTitle: 'Tifinagh Montmartre 位置',
   },
+  seo: seoByLocale.zh,
 }

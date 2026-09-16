@@ -22,9 +22,11 @@ function ChevronIcon() {
 export function LanguageSwitcher({
   locale,
   dictionary,
+  pathname = '/',
 }: {
   locale: Locale
   dictionary: Dictionary
+  pathname?: string
 }) {
   const current = localeMeta[locale]
 
@@ -42,6 +44,7 @@ export function LanguageSwitcher({
           return (
             <form action={setLocaleAction} key={code}>
               <input type="hidden" name="locale" value={code} />
+              <input type="hidden" name="returnTo" value={pathname} />
               <button
                 type="submit"
                 className={active ? 'lang-option is-active' : 'lang-option'}

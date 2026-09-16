@@ -3,14 +3,12 @@ import { Header, Footer, PageIntro } from '@/components/site-shell'
 import { MenuCrossLink } from '@/components/menu-cross-link'
 import { MenuPdfViewer } from '@/components/menu-pdf-viewer'
 import { getI18n } from '@/lib/i18n'
+import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
 export const dynamic = 'force-dynamic'
 
-export const metadata: Metadata = {
-  title: 'Menu du jour PDF — formules fraîches à Montmartre',
-  description:
-    'Formules et suggestions du jour en PDF : plats frais de saison préparés le matin par la brigade Tifinagh, bistrot français à Montmartre.',
-  alternates: { canonical: '/menu-du-jour' },
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata('menuDuJour')
 }
 
 export default async function MenuDuJour() {

@@ -2,6 +2,7 @@
 
 import { cookies } from 'next/headers'
 import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 import { isLocale, localeCookieName } from './config'
 
 export async function setLocaleAction(formData: FormData) {
@@ -16,4 +17,10 @@ export async function setLocaleAction(formData: FormData) {
   })
 
   revalidatePath('/', 'layout')
+
+  const returnTo = formData.get('returnTo')
+  if (typeof returnTo === 'string' && returnTo.startsWith('/') && !returnTo.startsWith('//')) {
+    redirect(returnTo)
+  }
+  redirect('/')
 }

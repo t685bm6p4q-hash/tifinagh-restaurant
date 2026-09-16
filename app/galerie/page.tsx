@@ -2,12 +2,10 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
 import { cloudinaryImage } from '@/lib/cloudinary'
+import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
-export const metadata: Metadata = {
-  title: 'Galerie photos — salle et terrasse',
-  description:
-    'Photos de notre bistrot à Montmartre : terrasse aux parasols rouges, salle chaleureuse et assiettes de cuisine française préparées maison.',
-  alternates: { canonical: '/galerie' },
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata('galerie')
 }
 
 const photos = [

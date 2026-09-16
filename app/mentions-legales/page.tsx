@@ -1,12 +1,9 @@
 import type { Metadata } from 'next'
 import { Footer, Header, PageIntro } from '@/components/site-shell'
+import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
-export const metadata: Metadata = {
-  title: 'Mentions légales et confidentialité',
-  description:
-    'Mentions légales et politique de confidentialité du restaurant Tifinagh Montmartre : éditeur, hébergeur, données personnelles, WhatsApp et droits RGPD.',
-  alternates: { canonical: '/mentions-legales' },
-  robots: { index: false, follow: true },
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata('mentionsLegales', { robots: { index: false, follow: true } })
 }
 
 export default function MentionsLegales() {

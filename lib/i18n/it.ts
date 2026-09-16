@@ -1,4 +1,5 @@
 import type { Dictionary } from './types'
+import { seoByLocale } from './seo-copy'
 
 export const it: Dictionary = {
   nav: {
@@ -190,4 +191,5 @@ export const it: Dictionary = {
     mapText: 'A due passi da Pigalle e dal Cimitero di Montmartre.',
     mapIframeTitle: 'Posizione di Tifinagh Montmartre',
   },
+  seo: seoByLocale.it,
 }

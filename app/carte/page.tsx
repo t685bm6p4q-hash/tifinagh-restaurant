@@ -5,12 +5,10 @@ import { MenuCrossLink } from '@/components/menu-cross-link'
 import { MenuSection } from '@/src/components/organisms/menu-section'
 import { cloudinaryImage } from '@/lib/cloudinary'
 import { getI18n, localizeMenu } from '@/lib/i18n'
+import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
-export const metadata: Metadata = {
-  title: 'Carte permanente — plats français maison à Montmartre',
-  description:
-    'Carte permanente du bistrot Tifinagh : foie gras, confit de canard, escargots de Bourgogne et desserts maison, au 17 avenue Rachel, Paris 18.',
-  alternates: { canonical: '/carte' },
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata('carte')
 }
 
 export default async function Carte() {

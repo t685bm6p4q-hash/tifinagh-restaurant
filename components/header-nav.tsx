@@ -94,7 +94,7 @@ export function HeaderShell({
       <HeaderNav pathname={pathname} dictionary={dictionary} />
       <div className="header-tools">
         <ReservationCta pathname={pathname} dictionary={dictionary} />
-        <LanguageSwitcher locale={locale} dictionary={dictionary} />
+        <LanguageSwitcher locale={locale} dictionary={dictionary} pathname={pathname} />
         <label htmlFor="nav-toggle" className="menu-toggle">
           <span className="menu-toggle-open" aria-hidden="true">☰</span>
           <span className="menu-toggle-close" aria-hidden="true">✕</span>
