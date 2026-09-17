@@ -1,5 +1,10 @@
 import type { Locale } from './config'
 import type { PagesCopy } from './types'
+import { pagesDe } from './pages/de'
+import { pagesPt } from './pages/pt'
+import { pagesRu } from './pages/ru'
+import { pagesSv } from './pages/sv'
+import { pagesZgh } from './pages/zgh'
 
 const pagesFr: PagesCopy = {
   around: {
@@ -964,4 +969,9 @@ export const pagesByLocale: Record<Locale, PagesCopy> = {
   es: pagesEs,
   it: pagesIt,
   zh: pagesZh,
+  de: pagesDe,
+  pt: pagesPt,
+  ru: pagesRu,
+  sv: pagesSv,
+  zgh: pagesZgh,
 }

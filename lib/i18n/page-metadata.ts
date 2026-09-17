@@ -27,6 +27,11 @@ const openGraphLocale: Record<Locale, string> = {
   es: 'es_ES',
   it: 'it_IT',
   zh: 'zh_CN',
+  de: 'de_DE',
+  pt: 'pt_PT',
+  ru: 'ru_RU',
+  sv: 'sv_SE',
+  zgh: 'fr_FR',
 }
 
 /** Textes SEO alignés sur le contenu visible (i18n) quand la page est traduite. */

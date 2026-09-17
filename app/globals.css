@@ -21,6 +21,23 @@ html {
   background: var(--background);
 }
 
+@font-face {
+  font-family: 'Noto Sans Tifinagh';
+  font-style: normal;
+  font-weight: 400;
+  font-display: optional;
+  src: url('https://fonts.gstatic.com/s/notosanstifinagh/v16/0n1cY9yM-JkXMe1hb6Pf1r_OA.woff2') format('woff2');
+  unicode-range: U+2D30-2D7F;
+}
+
+html[lang='zgh'] body,
+html[lang='zgh'] button,
+html[lang='zgh'] input,
+html[lang='zgh'] textarea,
+html[lang='zgh'] select {
+  font-family: 'Noto Sans Tifinagh', system-ui, -apple-system, 'Segoe UI', Arial, Helvetica, sans-serif;
+}
+
 body {
   margin: 0;
   background: var(--background);

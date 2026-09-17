@@ -41,20 +41,16 @@ export function LocalQuartierDetails({ dictionary }: { dictionary: Dictionary })
 
       <h2>{q.metroTitle}</h2>
       <ul className="footer-metro-list around-metro-list">
-        {metroAccessStations.map((station) => {
-          const metro = dictionary.metro[station.id]
-          return (
-            <li key={station.name}>
-              <span className="footer-metro-emoji" aria-hidden="true">
-                🚇
-              </span>
-              <span>
-                <strong>{station.name}</strong> ({q.metroLinesPrefix}
-                {metro.lines})
-              </span>
-            </li>
-          )
-        })}
+        {metroAccessStations.map(({ id, name }) => (
+          <li key={name}>
+            <span className="footer-metro-emoji" aria-hidden="true">
+              🚇
+            </span>
+            <span>
+              <strong>{name}</strong> ({dictionary.metro[id].lines})
+            </span>
+          </li>
+        ))}
       </ul>
     </>
   )

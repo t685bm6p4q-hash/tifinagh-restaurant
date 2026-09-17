@@ -1,5 +1,10 @@
 import type { Locale } from './config'
 import type { Dictionary } from './types'
+import { seoDe } from './seo/de'
+import { seoPt } from './seo/pt'
+import { seoRu } from './seo/ru'
+import { seoSv } from './seo/sv'
+import { seoZgh } from './seo/zgh'
 
 const seoFr: Dictionary['seo'] = {
   site: {
@@ -144,9 +149,9 @@ const seoEn: Dictionary['seo'] = {
         'Discover Tifinagh in Montmartre: traditional French cuisine, homemade dishes, fresh seasonal produce and an authentic neighborhood bistro atmosphere.',
     },
     carte: {
-      title: 'À la carte menu — homemade French dishes in Montmartre',
+      title: 'French Classics — homemade French dishes in Montmartre',
       description:
-        'Tifinagh bistro à la carte: foie gras, duck confit, Burgundy snails and homemade desserts at 17 avenue Rachel, Paris 18.',
+        'Tifinagh bistro French Classics: foie gras, duck confit, Burgundy snails and homemade desserts at 17 avenue Rachel, Paris 18.',
     },
     menuDuJour: {
       title: "Today's menu PDF — fresh set menus in Montmartre",
@@ -548,4 +553,9 @@ export const seoByLocale: Record<Locale, Dictionary['seo']> = {
   es: seoEs,
   it: seoIt,
   zh: seoZh,
+  de: seoDe,
+  pt: seoPt,
+  ru: seoRu,
+  sv: seoSv,
+  zgh: seoZgh,
 }

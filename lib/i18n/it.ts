@@ -68,7 +68,7 @@ export const it: Dictionary = {
   home: {
     heroEyebrow: 'Montmartre, Parigi',
     heroTitle: 'Il gusto di Parigi,',
-    heroTitleEm: 'senza giri di parole.',
+    heroTitleEm: 'puro e semplice.',
     heroCopy:
       'Una cucina francese generosa, prodotti freschi di stagione e l’anima di un vero bistrot di quartiere.',
     bookTable: 'Prenota un tavolo',
