@@ -118,8 +118,9 @@ export const en: Dictionary = {
   },
   carte: {
     eyebrow: 'At the table',
-    title: 'The à la carte menu',
-    text: 'Our French bistro menu, refreshed with the seasons.',
+    title: 'French Classics',
+    text:
+      'Our permanent à la carte — traditional French bistro dishes you’ll find here all year, prepared with the same care every day.',
     bannerTitle: 'Flavours of authenticity',
     bannerText: 'A selection of generous dishes, prepared every day with the finest produce.',
     terraceAlt: 'Tifinagh Montmartre terrace with happy guests under a red parasol',
@@ -138,9 +139,10 @@ export const en: Dictionary = {
     hoursLine: 'Every day: 10am – 12am',
     phoneLabel: 'Tel.:',
     whatsappReserveMessage: 'Hello, I would like to book a table at Tifinagh.',
-    carteInviteEyebrow: 'The à la carte menu',
-    carteInviteTitle: 'Want to browse the full menu?',
-    carteInviteText: 'Explore our seasonal starters, mains and desserts, served throughout the year.',
+    carteInviteEyebrow: 'French Classics',
+    carteInviteTitle: 'Explore our permanent menu',
+    carteInviteText:
+      'Starters, mains and desserts from our traditional à la carte — available throughout the year, not just today’s specials.',
     carteInviteCta: 'See the full menu',
   },
   reservationPage: {
