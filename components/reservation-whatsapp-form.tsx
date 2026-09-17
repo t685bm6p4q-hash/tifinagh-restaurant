@@ -2,6 +2,7 @@
 
 import { FormEvent } from 'react'
 import { whatsappLink } from '@/lib/restaurant-data'
+import type { Dictionary } from '@/lib/i18n/types'
 
 function MessageCircleIcon() {
   return (
@@ -11,7 +12,11 @@ function MessageCircleIcon() {
   )
 }
 
-export function ReservationWhatsAppForm() {
+export function ReservationWhatsAppForm({
+  copy,
+}: {
+  copy: Dictionary['reservationPage']
+}) {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
@@ -22,49 +27,49 @@ export function ReservationWhatsAppForm() {
     const personnes = data.get('personnes')
     const message = data.get('message')
     const text =
-      `Bonjour, je souhaite réserver une table chez Tifinagh Montmartre.\n\n` +
-      `Nom : ${nom}\nTéléphone : ${telephone}\nDate : ${date}\nHeure : ${heure}` +
-      `\nNombre de personnes : ${personnes}` +
-      (message ? `\nMessage : ${message}` : '')
+      `${copy.whatsappIntro}` +
+      `${copy.whatsappName} : ${nom}\n${copy.whatsappPhone} : ${telephone}\n${copy.whatsappDate} : ${date}\n${copy.whatsappTime} : ${heure}` +
+      `\n${copy.whatsappGuests} : ${personnes}` +
+      (message ? `\n${copy.whatsappMessage} : ${message}` : '')
     window.open(whatsappLink(text), '_blank', 'noopener,noreferrer')
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Nom
-        <input name="nom" required placeholder="Votre nom" />
+        {copy.nameLabel}
+        <input name="nom" required placeholder={copy.namePlaceholder} />
       </label>
       <label>
-        Téléphone
-        <input name="telephone" required type="tel" placeholder="06 00 00 00 00" />
+        {copy.phoneLabel}
+        <input name="telephone" required type="tel" placeholder={copy.phonePlaceholder} />
       </label>
       <div className="form-row">
         <label>
-          Date
+          {copy.dateLabel}
           <input name="date" required type="date" />
         </label>
         <label>
-          Heure
+          {copy.timeLabel}
           <input name="heure" required type="time" />
         </label>
       </div>
       <label>
-        Nombre de personnes
-        <select name="personnes" defaultValue="2 personnes">
-          <option>2 personnes</option>
-          <option>3 personnes</option>
-          <option>4 personnes</option>
-          <option>5 personnes ou plus</option>
+        {copy.guestsLabel}
+        <select name="personnes" defaultValue={copy.guestOptions[0]}>
+          {copy.guestOptions.map((option) => (
+            <option key={option}>{option}</option>
+          ))}
         </select>
       </label>
       <label>
-        Message <span className="optional">(facultatif)</span>
-        <textarea name="message" rows={4} placeholder="Une occasion particulière ?" />
+        {copy.messageLabel}{' '}
+        <span className="optional">{copy.messageOptional}</span>
+        <textarea name="message" rows={4} placeholder={copy.messagePlaceholder} />
       </label>
       <button className="button button-whatsapp" type="submit">
         <MessageCircleIcon />
-        Envoyer sur WhatsApp
+        {copy.submitButton}
       </button>
     </form>
   )

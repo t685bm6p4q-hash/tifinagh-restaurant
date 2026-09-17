@@ -81,8 +81,8 @@ export function resolvePageSeo(
       }
     case 'reservation':
       return {
-        title: dictionary.nav.reservation,
-        description: dictionary.booking.title,
+        title: dictionary.reservationPage.introTitle,
+        description: dictionary.reservationPage.introText,
       }
     default:
       return dictionary.seo.pages[pageId]

@@ -262,6 +262,32 @@ export type Dictionary = {
     carteInviteText: string
     carteInviteCta: string
   }
+  reservationPage: {
+    introEyebrow: string
+    introTitle: string
+    introText: string
+    channelsTitle: string
+    whatsappHint: string
+    nameLabel: string
+    namePlaceholder: string
+    phoneLabel: string
+    phonePlaceholder: string
+    dateLabel: string
+    timeLabel: string
+    guestsLabel: string
+    guestOptions: [string, string, string, string]
+    messageLabel: string
+    messageOptional: string
+    messagePlaceholder: string
+    submitButton: string
+    whatsappIntro: string
+    whatsappName: string
+    whatsappPhone: string
+    whatsappDate: string
+    whatsappTime: string
+    whatsappGuests: string
+    whatsappMessage: string
+  }
   menu: {
     starters: {
       title: string
