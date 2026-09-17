@@ -4,7 +4,7 @@ import { Header, Footer, PageIntro } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
 import { LocalQuartierDetails } from '@/components/local-quartier-details'
 import { cloudinaryImage } from '@/lib/cloudinary'
-import { restaurant } from '@/lib/seo'
+import { getI18n } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
 const AROUND_BANNER_PATH =
@@ -18,46 +18,33 @@ const AROUND_BANNER_SRCSET = [
   `${cloudinaryImage(AROUND_BANNER_PATH, 1600)} 1600w`,
 ].join(', ')
 
-const localPages = [
-  {
-    href: '/restaurant-montmartre',
-    title: 'Montmartre & Sacré-Cœur',
-    text: 'Au pied de la butte, au calme de l’avenue Rachel — loin du tumulte touristique direct.',
-  },
-  {
-    href: '/restaurant-pigalle',
-    title: 'Pigalle & Moulin Rouge',
-    text: 'À quelques minutes à pied de Pigalle : idéal avant ou après un spectacle.',
-  },
-  {
-    href: '/restaurant-place-de-clichy',
-    title: 'Place de Clichy',
-    text: 'Sortie métro lignes 2 et 13 : un repas fait maison sans traverser tout Montmartre.',
-  },
-] as const
+const localPageLinks = [
+  { href: '/restaurant-montmartre', key: 'montmartre' as const },
+  { href: '/restaurant-pigalle', key: 'pigalle' as const },
+  { href: '/restaurant-place-de-clichy', key: 'clichy' as const },
+]
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildPageMetadata('autourDeNous')
 }
 
-export default function AutourDeNous() {
+export default async function AutourDeNous() {
+  const { dictionary } = await getI18n()
+  const p = dictionary.pages.around
+
   return (
     <>
       <Header />
       <main>
-        <PageIntro
-          eyebrow="Paris 18"
-          title="Autour de nous"
-          text="Un bistrot de quartier au 17 avenue Rachel — entre Montmartre, Pigalle et la Place de Clichy."
-        />
+        <PageIntro eyebrow={p.introEyebrow} title={p.introTitle} text={p.introText} />
 
-        <section className="page-banner" aria-label="Montmartre, Pigalle et le quartier">
+        <section className="page-banner" aria-label={p.bannerAria}>
           <img
             className="page-banner__image"
             src={AROUND_BANNER_SRC}
             srcSet={AROUND_BANNER_SRCSET}
             sizes="100vw"
-            alt="Panorama de nuit : Sacré-Cœur, Moulin Rouge, théâtres et rues de Montmartre et Pigalle"
+            alt={p.bannerAlt}
             width={1600}
             height={420}
             loading="lazy"
@@ -67,43 +54,47 @@ export default function AutourDeNous() {
 
         <section className="local-page section">
           <article className="local-card">
-            <h2>Nos quartiers</h2>
+            <h2>{p.neighborhoodsTitle}</h2>
             <p>
-              Tifinagh se situe dans une impasse calme, à distance de marche des grands axes du
-              18<sup>e</sup>. Que vous veniez de Montmartre, Pigalle ou Clichy, vous trouvez ici une{' '}
-              <strong>cuisine française traditionnelle</strong>, 100&nbsp;% maison.
+              {p.neighborhoodsIntro1}
+              <strong>{p.neighborhoodsIntroStrong}</strong>
+              {p.neighborhoodsIntro2}
             </p>
 
             <ul className="around-links">
-              {localPages.map((page) => (
-                <li key={page.href}>
-                  <Link href={page.href} className="around-link-card">
-                    <strong>{page.title}</strong>
-                    <span>{page.text}</span>
-                  </Link>
-                </li>
-              ))}
+              {localPageLinks.map((page) => {
+                const link = p.localLinks[page.key]
+                return (
+                  <li key={page.href}>
+                    <Link href={page.href} className="around-link-card">
+                      <strong>{link.title}</strong>
+                      <span>{link.text}</span>
+                    </Link>
+                  </li>
+                )
+              })}
             </ul>
 
-            <LocalQuartierDetails />
+            <LocalQuartierDetails dictionary={dictionary} />
 
             <p>
-              Ouvert <strong>tous les jours</strong>, {restaurant.openingHours.labelHours}.{' '}
+              {p.openPrefix}
+              <strong>{p.openEveryDay}</strong>, {dictionary.common.hoursRange}.{' '}
               <Link href="/contact" className="text-link">
-                Accès &amp; plan
+                {p.accessPlan}
               </Link>
             </p>
 
             <div className="local-actions">
               <Link className="button button-primary" href="/reservation">
-                Réserver une table
+                {dictionary.home.bookTable}
               </Link>
               <Link className="text-link" href="/carte">
-                Voir la carte
+                {dictionary.home.fullMenuLink}
               </Link>
             </div>
 
-            <BookingChannels title="Nous contacter" />
+            <BookingChannels title={p.contactUs} />
           </article>
         </section>
       </main>

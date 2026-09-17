@@ -9,6 +9,119 @@ export type SeoPageCopy = {
   keywords?: string[]
 }
 
+export type AroundLocalLinkCopy = { title: string; text: string }
+
+export type PagesCopy = {
+  around: {
+    introEyebrow: string
+    introTitle: string
+    introText: string
+    bannerAria: string
+    bannerAlt: string
+    neighborhoodsTitle: string
+    neighborhoodsIntro1: string
+    neighborhoodsIntroStrong: string
+    neighborhoodsIntro2: string
+    openPrefix: string
+    openEveryDay: string
+    accessPlan: string
+    contactUs: string
+    localLinks: {
+      montmartre: AroundLocalLinkCopy
+      pigalle: AroundLocalLinkCopy
+      clichy: AroundLocalLinkCopy
+    }
+  }
+  gallery: {
+    introEyebrow: string
+    introTitle: string
+    introText: string
+    photoAlts: string[]
+  }
+  privatisation: {
+    introEyebrow: string
+    introTitle: string
+    introText: string
+    bannerAria: string
+    bannerAlt: string
+    statPartialValue: string
+    statPartialLabel: string
+    statTotalValue: string
+    statTotalLabel: string
+    statQuoteValue: string
+    statQuoteLabel: string
+    formatsTitle: string
+    formats: string[]
+    howTitle: string
+    howText: string
+    howStrong: string
+    whatsappQuoteMessage: string
+    bookingTitle: string
+    photoAlts: [string, string]
+  }
+  montmartre: {
+    introEyebrow: string
+    introTitle: string
+    introText: string
+    distinguishTitle: string
+    distinguishItems: string[]
+    privatisationTitle: string
+    privatisationText: string
+    photosLink: string
+    aroundLink: string
+    accessContact: string
+    bookingTitle: string
+  }
+  pigalle: {
+    introEyebrow: string
+    introTitle: string
+    introText: string
+    whyTitle: string
+    whyP1Before: string
+    whyStrong1: string
+    whyP1Mid: string
+    whyStrong2: string
+    whyP1After: string
+    showTitle: string
+    showText: string
+    onSiteTitle: string
+    onSiteItems: string[]
+    directionsTitle: string
+    directionsText: string
+    accessContact: string
+    bookingTitle: string
+  }
+  clichy: {
+    introEyebrow: string
+    introTitle: string
+    introText: string
+    metroTitle: string
+    metroP1Before: string
+    metroStrong1: string
+    metroP1After: string
+    accessTitle: string
+    accessText: string
+    audienceTitle: string
+    audienceItems: string[]
+    hoursTitle: string
+    hoursTextBefore: string
+    hoursEveryDay: string
+    hoursTextAfter: string
+    privatizeLink: string
+    bookingTitle: string
+  }
+  quartier: {
+    landmarks: [{ title: string; text: string }, { title: string; text: string }]
+    theatresTitle: string
+    theatresIntro: string
+    cinemasTitle: string
+    metroTitle: string
+    metroLinesPrefix: string
+    theatreNotes: string[]
+    cinemaNotes: string[]
+  }
+}
+
 export type MetroCopy = {
   lines: string
   note: string
@@ -135,6 +248,15 @@ export type Dictionary = {
     dailyInviteCta: string
   }
   dailyMenuPage: {
+    introEyebrow: string
+    introTitle: string
+    introText: string
+    limitedNote: string
+    bookNow: string
+    hoursTitle: string
+    hoursLine: string
+    phoneLabel: string
+    whatsappReserveMessage: string
     carteInviteEyebrow: string
     carteInviteTitle: string
     carteInviteText: string
@@ -184,6 +306,7 @@ export type Dictionary = {
     mapText: string
     mapIframeTitle: string
   }
+  pages: PagesCopy
   seo: {
     site: {
       defaultTitle: string

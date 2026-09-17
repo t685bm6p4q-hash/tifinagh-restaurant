@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { localeMeta, type Locale } from './config'
 import { getDictionary, getLocale } from './get-locale'
-import type { Dictionary } from './types'
+import type { Dictionary, SeoPageCopy } from './types'
 import { restaurant, siteUrl } from '@/lib/seo'
 
 export type SeoPageId = keyof Dictionary['seo']['pages']
@@ -29,14 +29,104 @@ const openGraphLocale: Record<Locale, string> = {
   zh: 'zh_CN',
 }
 
+/** Textes SEO alignés sur le contenu visible (i18n) quand la page est traduite. */
+export function resolvePageSeo(
+  dictionary: Dictionary,
+  pageId: SeoPageId,
+): SeoPageCopy {
+  switch (pageId) {
+    case 'carte':
+      return { title: dictionary.carte.title, description: dictionary.carte.text }
+    case 'contact':
+      return { title: dictionary.contact.title, description: dictionary.contact.text }
+    case 'autourDeNous':
+      return {
+        title: dictionary.pages.around.introTitle,
+        description: dictionary.pages.around.introText,
+      }
+    case 'galerie':
+      return {
+        title: dictionary.pages.gallery.introTitle,
+        description: dictionary.pages.gallery.introText,
+      }
+    case 'privatisation':
+      return {
+        title: dictionary.pages.privatisation.introTitle,
+        description: dictionary.pages.privatisation.introText,
+      }
+    case 'menuDuJour':
+      return {
+        title: dictionary.dailyMenuPage.introTitle,
+        description: dictionary.dailyMenuPage.introText,
+      }
+    case 'restaurantMontmartre':
+      return {
+        title: dictionary.pages.montmartre.introTitle,
+        description: dictionary.pages.montmartre.introText,
+      }
+    case 'restaurantPigalle':
+      return {
+        title: dictionary.pages.pigalle.introTitle,
+        description: dictionary.pages.pigalle.introText,
+      }
+    case 'restaurantPlaceDeClichy':
+      return {
+        title: dictionary.pages.clichy.introTitle,
+        description: dictionary.pages.clichy.introText,
+      }
+    case 'home':
+      return {
+        title: dictionary.seo.pages.home.title,
+        description: dictionary.seo.pages.home.description,
+      }
+    case 'reservation':
+      return {
+        title: dictionary.nav.reservation,
+        description: dictionary.booking.title,
+      }
+    default:
+      return dictionary.seo.pages[pageId]
+  }
+}
+
 export function formatDocumentTitle(
   dictionary: Dictionary,
   pageId: SeoPageId,
 ): string {
-  const page = dictionary.seo.pages[pageId]
+  const page = resolvePageSeo(dictionary, pageId)
   if (pageId === 'home') return page.title
   const template = dictionary.seo.site.titleTemplate
   return template.replace('%s', page.title)
+}
+
+function buildSocialMetadata(
+  locale: Locale,
+  page: SeoPageCopy,
+  canonical: string,
+  documentTitle: string,
+): Pick<Metadata, 'openGraph' | 'twitter'> {
+  const url = new URL(canonical, siteUrl).href
+  return {
+    openGraph: {
+      type: 'website',
+      locale: openGraphLocale[locale],
+      url,
+      siteName: restaurant.name,
+      title: documentTitle,
+      description: page.description,
+      images: [{ url: restaurant.image, width: 1200, height: 630, alt: dictionaryOgImageAlt(locale) }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: documentTitle,
+      description: page.description,
+      images: [restaurant.image],
+    },
+  }
+}
+
+function dictionaryOgImageAlt(locale: Locale): string {
+  return getDictionary(locale).seo.site.ogImageAlt
 }
 
 export async function buildSiteMetadata(): Promise<Metadata> {
@@ -86,13 +176,16 @@ export async function buildPageMetadata(
 ): Promise<Metadata> {
   const locale = await getLocale()
   const dictionary = getDictionary(locale)
-  const page = dictionary.seo.pages[pageId]
+  const page = resolvePageSeo(dictionary, pageId)
   const canonical = seoPagePaths[pageId]
+  const documentTitle = formatDocumentTitle(dictionary, pageId)
+  const fallbackSeo = dictionary.seo.pages[pageId]
 
   const metadata: Metadata = {
     description: page.description,
     alternates: { canonical },
-    ...(page.keywords ? { keywords: page.keywords } : {}),
+    ...(fallbackSeo.keywords ? { keywords: fallbackSeo.keywords } : {}),
+    ...buildSocialMetadata(locale, page, canonical, documentTitle),
     ...extra,
   }
 

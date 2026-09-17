@@ -1,4 +1,5 @@
 import type { Dictionary } from './types'
+import { pagesByLocale } from './pages-copy'
 import { seoByLocale } from './seo-copy'
 
 export const it: Dictionary = {
@@ -129,6 +130,17 @@ export const it: Dictionary = {
     dailyInviteCta: 'Scopri il menu del giorno',
   },
   dailyMenuPage: {
+    introEyebrow: 'Selezione del giorno',
+    introTitle: 'Menu del giorno',
+    introText:
+      'Formule del giorno aggiornate ogni mattina — leggete il menu direttamente sotto.',
+    limitedNote:
+      'Le quantità sono limitate — consigliamo di prenotare per garantire il vostro posto.',
+    bookNow: 'Prenota ora',
+    hoursTitle: 'Orari di apertura',
+    hoursLine: 'Tutti i giorni: 10h – 00h',
+    phoneLabel: 'Tel.:',
+    whatsappReserveMessage: 'Buongiorno, vorrei prenotare un tavolo da Tifinagh.',
     carteInviteEyebrow: 'Il menu alla carta',
     carteInviteTitle: 'Vuoi sfogliare tutto il menu?',
     carteInviteText:
@@ -191,5 +203,6 @@ export const it: Dictionary = {
     mapText: 'A due passi da Pigalle e dal Cimitero di Montmartre.',
     mapIframeTitle: 'Posizione di Tifinagh Montmartre',
   },
+  pages: pagesByLocale.it,
   seo: seoByLocale.it,
 }

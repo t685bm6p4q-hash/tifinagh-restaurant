@@ -1,4 +1,5 @@
 import type { Dictionary } from './types'
+import { pagesByLocale } from './pages-copy'
 import { seoByLocale } from './seo-copy'
 
 export const fr: Dictionary = {
@@ -130,6 +131,17 @@ export const fr: Dictionary = {
     dailyInviteCta: 'Découvrir le menu du jour',
   },
   dailyMenuPage: {
+    introEyebrow: 'Sélection du jour',
+    introTitle: 'Menu du jour',
+    introText:
+      'Formules du jour mises à jour chaque matin — lisez le menu directement ci-dessous.',
+    limitedNote:
+      'Les quantités sont limitées — nous vous conseillons de réserver pour garantir votre place.',
+    bookNow: 'Réserver maintenant',
+    hoursTitle: "Horaires d'ouverture",
+    hoursLine: 'Tous les jours : 10h – 00h',
+    phoneLabel: 'Tél. :',
+    whatsappReserveMessage: 'Bonjour, j\'aimerais réserver une table chez Tifinagh.',
     carteInviteEyebrow: 'La carte permanente',
     carteInviteTitle: 'Envie de feuilleter toute la carte ?',
     carteInviteText:
@@ -192,5 +204,6 @@ export const fr: Dictionary = {
     mapText: 'À deux pas de Pigalle et du Cimetière de Montmartre.',
     mapIframeTitle: 'Localisation de Tifinagh Montmartre',
   },
+  pages: pagesByLocale.fr,
   seo: seoByLocale.fr,
 }

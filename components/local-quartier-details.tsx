@@ -2,56 +2,59 @@ import {
   metroAccessStations,
   nearbyCinemas,
   nearbyTheatres,
-  quartierLandmarks,
 } from '@/lib/restaurant-data'
+import type { Dictionary } from '@/lib/i18n/types'
 
 /** Blocs quartier partagés : Autour de nous + page Montmartre. */
-export function LocalQuartierDetails() {
+export function LocalQuartierDetails({ dictionary }: { dictionary: Dictionary }) {
+  const q = dictionary.pages.quartier
+
   return (
     <>
-      {quartierLandmarks.map((landmark) => (
+      {q.landmarks.map((landmark) => (
         <div key={landmark.title} className="local-spot">
           <h2>{landmark.title}</h2>
           <p>{landmark.text}</p>
         </div>
       ))}
 
-      <h2>Théâtres &amp; salles de spectacle (avant / après spectacle)</h2>
-      <p>
-        Idéalement situé pour un dîner rapide avant le rideau ou un repas convivial après la
-        représentation (service continu &amp; ouverture jusqu&apos;à minuit)&nbsp;:
-      </p>
+      <h2>{q.theatresTitle}</h2>
+      <p>{q.theatresIntro}</p>
       <ul className="local-venue-list">
-        {nearbyTheatres.map((venue) => (
+        {nearbyTheatres.map((venue, index) => (
           <li key={venue.name}>
             <strong>{venue.name}</strong>
-            {venue.note ? <> ({venue.note})</> : null}
+            {q.theatreNotes[index] ? <> ({q.theatreNotes[index]})</> : null}
           </li>
         ))}
       </ul>
 
-      <h2>Cinémas à proximité</h2>
+      <h2>{q.cinemasTitle}</h2>
       <ul className="local-venue-list">
-        {nearbyCinemas.map((venue) => (
+        {nearbyCinemas.map((venue, index) => (
           <li key={venue.name}>
             <strong>{venue.name}</strong>
-            {venue.note ? <> — {venue.note}</> : null}
+            {q.cinemaNotes[index] ? <> — {q.cinemaNotes[index]}</> : null}
           </li>
         ))}
       </ul>
 
-      <h2>Accessibilité métro</h2>
+      <h2>{q.metroTitle}</h2>
       <ul className="footer-metro-list around-metro-list">
-        {metroAccessStations.map((station) => (
-          <li key={station.name}>
-            <span className="footer-metro-emoji" aria-hidden="true">
-              🚇
-            </span>
-            <span>
-              <strong>{station.name}</strong> (lignes {station.lines})
-            </span>
-          </li>
-        ))}
+        {metroAccessStations.map((station) => {
+          const metro = dictionary.metro[station.id]
+          return (
+            <li key={station.name}>
+              <span className="footer-metro-emoji" aria-hidden="true">
+                🚇
+              </span>
+              <span>
+                <strong>{station.name}</strong> ({q.metroLinesPrefix}
+                {metro.lines})
+              </span>
+            </li>
+          )
+        })}
       </ul>
     </>
   )

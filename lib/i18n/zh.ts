@@ -1,4 +1,5 @@
 import type { Dictionary } from './types'
+import { pagesByLocale } from './pages-copy'
 import { seoByLocale } from './seo-copy'
 
 export const zh: Dictionary = {
@@ -125,6 +126,15 @@ export const zh: Dictionary = {
     dailyInviteCta: '查看今日菜单',
   },
   dailyMenuPage: {
+    introEyebrow: '今日精选',
+    introTitle: '今日菜单',
+    introText: '每日套餐于清晨更新 — 请直接在下方阅读菜单。',
+    limitedNote: '数量有限 — 建议预订以确保座位。',
+    bookNow: '立即预订',
+    hoursTitle: '营业时间',
+    hoursLine: '每天：10:00 – 00:00',
+    phoneLabel: '电话：',
+    whatsappReserveMessage: '您好，我想在 Tifinagh 预订一张桌子。',
     carteInviteEyebrow: '常年菜单',
     carteInviteTitle: '想浏览完整菜单？',
     carteInviteText: '查看我们的当季前菜、主菜与甜点，全年供应。',
@@ -186,5 +196,6 @@ export const zh: Dictionary = {
     mapText: '紧邻皮加勒与蒙马特公墓。',
     mapIframeTitle: 'Tifinagh Montmartre 位置',
   },
+  pages: pagesByLocale.zh,
   seo: seoByLocale.zh,
 }

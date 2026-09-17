@@ -3,63 +3,56 @@ import Link from 'next/link'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
 import { LocalQuartierDetails } from '@/components/local-quartier-details'
-import { restaurant } from '@/lib/seo'
+import { getI18n } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildPageMetadata('restaurantMontmartre')
 }
 
-export default function RestaurantMontmartre() {
+export default async function RestaurantMontmartre() {
+  const { dictionary } = await getI18n()
+  const p = dictionary.pages.montmartre
+
   return (
     <>
       <Header />
       <main>
-        <PageIntro
-          eyebrow="Paris 18 · Montmartre"
-          title="Restaurant à Montmartre"
-          text="Un vrai bistrot de quartier, au calme de l’avenue Rachel — loin du tumulte des artères touristiques."
-        />
+        <PageIntro eyebrow={p.introEyebrow} title={p.introTitle} text={p.introText} />
 
         <section className="local-page section">
           <article className="local-card">
-            <LocalQuartierDetails />
+            <LocalQuartierDetails dictionary={dictionary} />
 
-            <h2>Ce qui nous distingue</h2>
+            <h2>{p.distinguishTitle}</h2>
             <ul>
-              <li>Plats 100&nbsp;% maison, préparés chaque matin avec des produits frais</li>
-              <li>Carte courte de saison + menu du jour en PDF mis à jour</li>
-              <li>Terrasse ombragée avec parasols rouges quand le temps le permet</li>
-              <li>Ambiance bistrot parisien : bois, nappes vichy, service chaleureux</li>
-              <li>Ouvert tous les jours · {restaurant.openingHours.labelHours}</li>
+              {p.distinguishItems.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
 
-            <h2>Privatisation &amp; groupes</h2>
-            <p>
-              Anniversaires, repas d&apos;entreprise ou événements privés : privatisation partielle
-              dès 15 personnes, salle entière jusqu&apos;à 40 couverts. Devis sur demande par
-              téléphone ou WhatsApp.
-            </p>
+            <h2>{p.privatisationTitle}</h2>
+            <p>{p.privatisationText}</p>
 
             <div className="local-actions">
               <Link className="button button-primary" href="/reservation">
-                Réserver une table
+                {dictionary.home.bookTable}
               </Link>
               <Link className="text-link" href="/carte">
-                Voir la carte
+                {dictionary.home.fullMenuLink}
               </Link>
               <Link className="text-link" href="/galerie">
-                Photos
+                {p.photosLink}
               </Link>
               <Link className="text-link" href="/autour-de-nous">
-                Autour de nous
+                {p.aroundLink}
               </Link>
               <Link className="text-link" href="/contact">
-                Accès &amp; contact
+                {p.accessContact}
               </Link>
             </div>
 
-            <BookingChannels title="Réserver à Montmartre" />
+            <BookingChannels title={p.bookingTitle} />
           </article>
         </section>
       </main>
