@@ -4,6 +4,7 @@ import { getAdminPassword, safeEqual } from '@/lib/admin-auth'
 
 function withPathname(response: NextResponse, pathname: string) {
   response.headers.set('x-pathname', pathname)
+  response.headers.set('Vary', 'Cookie')
   return response
 }
 

@@ -6,6 +6,8 @@ import { StickyCallBar } from '@/components/sticky-call-bar'
 import { buildSiteMetadata, getI18n, localeMeta } from '@/lib/i18n'
 import './globals.css'
 
+export const dynamic = 'force-dynamic'
+
 export async function generateMetadata(): Promise<Metadata> {
   return buildSiteMetadata()
 }
