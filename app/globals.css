@@ -453,15 +453,41 @@ a.nav-cta.nav-active {
 .booking-chip {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 11px 16px;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 18px;
   border-radius: 5px;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.04em;
+  line-height: 1.25;
   text-decoration: none;
   border: 1px solid var(--line);
   transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.booking-chip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+}
+
+.booking-chip-icon svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.booking-chip-label {
+  text-align: left;
+}
+
+.booking-chip-phone .booking-chip-icon {
+  color: var(--gold);
 }
 
 .booking-chip-phone {
@@ -486,13 +512,18 @@ a.nav-cta.nav-active {
 
 .booking-chip-whatsapp {
   background: #25d366;
-  color: #000;
+  color: #fff;
   border-color: #25d366;
+}
+
+.booking-chip-whatsapp .booking-chip-icon {
+  color: #fff;
 }
 
 .booking-chip-whatsapp:hover {
   background: #20bd5b;
   border-color: #20bd5b;
+  color: #fff;
 }
 
 /* ── Badge avis Google ──────────────────────────────── */
@@ -1062,9 +1093,13 @@ a.nav-cta.nav-active {
   margin: auto;
 }
 
-.reservation-banner svg {
+.reservation-banner > div > svg:first-of-type {
   color: var(--gold);
   margin-bottom: 20px;
+}
+
+.reservation-banner .booking-chip svg {
+  color: inherit;
 }
 
 .reservation-banner p:not(.eyebrow) {
