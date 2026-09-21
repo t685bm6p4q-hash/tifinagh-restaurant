@@ -1,7 +1,11 @@
 'use client'
 
 import { FormEvent } from 'react'
+import type { Locale } from '@/lib/i18n/config'
 import { whatsappLink } from '@/lib/restaurant-data'
+import { trackGaEvent } from '@/lib/analytics-events'
+import { formatReservationGuests, reservationGuestCounts } from '@/lib/reservation-guests'
+import { minReservationDateParis } from '@/lib/reservation-date'
 import type { Dictionary } from '@/lib/i18n/types'
 
 function MessageCircleIcon() {
@@ -14,9 +18,12 @@ function MessageCircleIcon() {
 
 export function ReservationWhatsAppForm({
   copy,
+  locale,
 }: {
   copy: Dictionary['reservationPage']
+  locale: Locale
 }) {
+  const guestCounts = reservationGuestCounts()
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
@@ -31,6 +38,7 @@ export function ReservationWhatsAppForm({
       `${copy.whatsappName} : ${nom}\n${copy.whatsappPhone} : ${telephone}\n${copy.whatsappDate} : ${date}\n${copy.whatsappTime} : ${heure}` +
       `\n${copy.whatsappGuests} : ${personnes}` +
       (message ? `\n${copy.whatsappMessage} : ${message}` : '')
+    trackGaEvent('generate_lead', { method: 'whatsapp_form' })
     window.open(whatsappLink(text), '_blank', 'noopener,noreferrer')
   }
 
@@ -47,7 +55,7 @@ export function ReservationWhatsAppForm({
       <div className="form-row">
         <label>
           {copy.dateLabel}
-          <input name="date" required type="date" />
+          <input name="date" required type="date" min={minReservationDateParis()} />
         </label>
         <label>
           {copy.timeLabel}
@@ -56,10 +64,15 @@ export function ReservationWhatsAppForm({
       </div>
       <label>
         {copy.guestsLabel}
-        <select name="personnes" defaultValue={copy.guestOptions[0]}>
-          {copy.guestOptions.map((option) => (
-            <option key={option}>{option}</option>
-          ))}
+        <select name="personnes" defaultValue={formatReservationGuests(locale, 2)}>
+          {guestCounts.map((count) => {
+            const label = formatReservationGuests(locale, count)
+            return (
+              <option key={count} value={label}>
+                {label}
+              </option>
+            )
+          })}
         </select>
       </label>
       <label>

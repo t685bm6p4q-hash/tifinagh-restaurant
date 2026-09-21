@@ -37,9 +37,6 @@ export function isAdminAuthorized(request: Request): boolean {
   const expected = getAdminPassword()
   if (!expected) return false
 
-  const fromCustom = request.headers.get('x-menu-admin-password')
-  if (fromCustom && safeEqual(fromCustom, expected)) return true
-
   const fromBasic = passwordFromBasicAuth(request.headers.get('authorization'))
   if (fromBasic && safeEqual(fromBasic, expected)) return true
 

@@ -160,7 +160,6 @@ export const ru: Dictionary = {
     dateLabel: 'Дата',
     timeLabel: 'Время',
     guestsLabel: 'Количество гостей',
-    guestOptions: ['2 гостя', '3 гостя', '4 гостя', '5 гостей или больше'],
     messageLabel: 'Сообщение',
     messageOptional: '(необязательно)',
     messagePlaceholder: 'Особый повод?',

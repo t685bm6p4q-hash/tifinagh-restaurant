@@ -4,7 +4,7 @@ import { ReservationWhatsAppForm } from '@/components/reservation-whatsapp-form'
 import { getI18n } from '@/lib/i18n'
 
 export default async function Reservation() {
-  const { dictionary } = await getI18n()
+  const { dictionary, locale } = await getI18n()
   const p = dictionary.reservationPage
 
   return (
@@ -17,7 +17,7 @@ export default async function Reservation() {
           <p className="optional" style={{ margin: '28px 0 12px', display: 'block', textAlign: 'center' }}>
             {p.whatsappHint}
           </p>
-          <ReservationWhatsAppForm copy={p} />
+          <ReservationWhatsAppForm copy={p} locale={locale} />
         </section>
       </main>
       <Footer />

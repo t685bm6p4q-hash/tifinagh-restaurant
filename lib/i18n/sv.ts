@@ -160,7 +160,6 @@ export const sv: Dictionary = {
     dateLabel: 'Datum',
     timeLabel: 'Tid',
     guestsLabel: 'Antal gäster',
-    guestOptions: ['2 gäster', '3 gäster', '4 gäster', '5 gäster eller mer'],
     messageLabel: 'Meddelande',
     messageOptional: '(valfritt)',
     messagePlaceholder: 'Ett speciellt tillfälle?',

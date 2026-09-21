@@ -154,7 +154,6 @@ export const zh: Dictionary = {
     dateLabel: '日期',
     timeLabel: '时间',
     guestsLabel: '人数',
-    guestOptions: ['2 人', '3 人', '4 人', '5 人及以上'],
     messageLabel: '留言',
     messageOptional: '（选填）',
     messagePlaceholder: '有特殊场合吗？',

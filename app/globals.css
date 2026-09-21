@@ -2019,7 +2019,7 @@ select:focus { border-color: var(--terracotta); }
   display: none;
 }
 
-/* ── Nav compacte tablette : l'onglet Réservation ne doit pas sortir du header. */
+/* ── Nav compacte : burger + langue ; Réservation dans le menu déroulant. */
 @media (max-width: 1320px) {
   .menu-toggle {
     display: inline-flex;
@@ -2042,9 +2042,8 @@ select:focus { border-color: var(--terracotta); }
     display: flex;
   }
 
-  a.nav-cta {
-    padding: 7px 12px;
-    font-size: 10px;
+  .header-tools .nav-cta {
+    display: none;
   }
 }
 

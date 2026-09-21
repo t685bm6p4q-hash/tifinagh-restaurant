@@ -1,14 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { AlertCircle, CheckCircle, Eye, EyeOff } from 'lucide-react'
+import { AlertCircle, CheckCircle } from 'lucide-react'
 import { compressMenuImageInBrowser } from '@/lib/compress-menu-browser'
 import { MAX_MENU_PDF_BYTES, MAX_MENU_UPLOAD_BYTES, PDF_TOO_HEAVY_MESSAGE } from '@/lib/menu-pdf'
 
 export default function MenuSetupAdmin() {
   const [message, setMessage] = useState<{ type: 'success' | 'error' | 'info'; text: string } | null>(null)
-  const [password, setPassword] = useState<string>('')
-  const [showPassword, setShowPassword] = useState<boolean>(false)
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [chef, setChef] = useState<string>('')
 
@@ -62,10 +60,17 @@ export default function MenuSetupAdmin() {
         method: 'POST',
         body: formData,
         credentials: 'same-origin',
-        headers: password ? { 'x-menu-admin-password': password } : undefined,
       })
 
       const payload: { message?: string; error?: string } = await response.json().catch(() => ({}))
+
+      if (response.status === 401) {
+        setMessage({
+          type: 'error',
+          text: '❌ Session expirée : rechargez la page et reconnectez-vous avec le mot de passe admin du navigateur.',
+        })
+        return
+      }
 
       if (response.ok) {
         setMessage({
@@ -73,7 +78,7 @@ export default function MenuSetupAdmin() {
           text: `✅ Menu à jour! ${chef ? `(${chef})` : ''}`,
         })
       } else {
-        setMessage({ type: 'error', text: `❌ ${payload.error ?? "Erreur"}` })
+        setMessage({ type: 'error', text: `❌ ${payload.error ?? 'Erreur'}` })
       }
     } catch (error) {
       const reason = error instanceof Error ? error.message : String(error)
@@ -91,62 +96,14 @@ export default function MenuSetupAdmin() {
   return (
     <main style={{ background: 'var(--background)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div style={{ maxWidth: '500px', width: '100%', margin: '0 auto', padding: '40px 20px' }}>
-        
-        {/* Titre */}
+
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <h1 style={{ color: 'var(--foreground)', marginBottom: '8px', fontSize: '36px', margin: 0 }}>
             📋 Menu du Jour
           </h1>
           <p style={{ color: 'var(--muted)', fontSize: '14px', margin: 0 }}>
-            Mise à jour rapide
+            Mise à jour rapide — authentification via le navigateur
           </p>
-        </div>
-
-        {/* Champs */}
-        <div style={{ marginBottom: '24px' }}>
-          <label style={{ display: 'block', marginBottom: '12px' }}>
-            <span style={{ color: 'var(--foreground)', fontSize: '14px', fontWeight: '600' }}>Mot de passe</span>
-            <div style={{ position: 'relative', marginTop: '6px' }}>
-              <input
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Mot de passe"
-                autoComplete="current-password"
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  padding: '12px 44px 12px 12px',
-                  borderRadius: '5px',
-                  border: '1px solid var(--line)',
-                  background: 'var(--background)',
-                  color: 'var(--foreground)',
-                  fontSize: '14px',
-                  boxSizing: 'border-box',
-                }}
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword((visible) => !visible)}
-                aria-label={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
-                style={{
-                  position: 'absolute',
-                  top: '50%',
-                  right: '8px',
-                  transform: 'translateY(-50%)',
-                  background: 'transparent',
-                  border: 0,
-                  padding: '6px',
-                  cursor: 'pointer',
-                  color: 'var(--muted)',
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-              >
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-              </button>
-            </div>
-          </label>
         </div>
 
         <div style={{ marginBottom: '28px' }}>
@@ -173,7 +130,6 @@ export default function MenuSetupAdmin() {
           </label>
         </div>
 
-        {/* Upload Button */}
         <label style={{ cursor: isUploading ? 'wait' : 'pointer', display: 'block' }}>
           <input
             type="file"
@@ -203,7 +159,6 @@ export default function MenuSetupAdmin() {
           Les photos (PNG, JPEG…) jusqu’à 10 Mo sont compressées puis mises en ligne automatiquement.
         </p>
 
-        {/* Message */}
         {message && (
           <div
             style={{
@@ -236,7 +191,6 @@ export default function MenuSetupAdmin() {
           </div>
         )}
 
-        {/* Lien menu */}
         <div style={{ marginTop: '32px', textAlign: 'center' }}>
           <a
             href="/api/menu-pdf"
@@ -251,14 +205,6 @@ export default function MenuSetupAdmin() {
               borderRadius: '4px',
               background: 'rgba(37, 211, 102, 0.1)',
               transition: 'all 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement
-              el.style.background = 'rgba(37, 211, 102, 0.2)'
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement
-              el.style.background = 'rgba(37, 211, 102, 0.1)'
             }}
           >
             👀 Voir le menu en ligne

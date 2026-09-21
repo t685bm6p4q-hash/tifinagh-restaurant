@@ -162,7 +162,6 @@ export const es: Dictionary = {
     dateLabel: 'Fecha',
     timeLabel: 'Hora',
     guestsLabel: 'Número de comensales',
-    guestOptions: ['2 personas', '3 personas', '4 personas', '5 personas o más'],
     messageLabel: 'Mensaje',
     messageOptional: '(opcional)',
     messagePlaceholder: '¿Una ocasión especial?',

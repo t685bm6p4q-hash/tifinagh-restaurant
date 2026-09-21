@@ -276,7 +276,6 @@ export type Dictionary = {
     dateLabel: string
     timeLabel: string
     guestsLabel: string
-    guestOptions: [string, string, string, string]
     messageLabel: string
     messageOptional: string
     messagePlaceholder: string

@@ -158,7 +158,6 @@ export const zgh: Dictionary = {
     dateLabel: 'ⴰⵙⵙⴰⵙ',
     timeLabel: 'ⴰⴽⵓⴷ',
     guestsLabel: 'ⵓⵟⵟⵓⵏ ⵏ ⵉⵎⵙⵙⵏⵉ',
-    guestOptions: ['2 ⵉⵎⵙⵙⵏⵉ', '3 ⵉⵎⵙⵙⵏⵉ', '4 ⵉⵎⵙⵙⵏⵉ', '5 ⵉⵎⵙⵙⵏⵉ ⵏⵖ ⵓⴳⴳⴰⵔ'],
     messageLabel: 'ⵉⵣⵏ',
     messageOptional: '(ⵓⵔ ⵉⵜⵜⵓⵙⵙⵓⵎⵔ)',
     messagePlaceholder: 'ⵓⵙⵙⵓ ⵉⵎⵣⵡⴰⵔ?',
