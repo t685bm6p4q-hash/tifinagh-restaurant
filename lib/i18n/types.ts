@@ -139,6 +139,7 @@ export type Dictionary = {
     contact: string
     book: string
     toggleMenu: string
+    menuButton: string
     ariaMain: string
     language: string
     chooseLanguage: string

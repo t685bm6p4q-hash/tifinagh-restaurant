@@ -14,6 +14,7 @@ export const ru: Dictionary = {
     contact: 'Контакты',
     book: 'Забронировать',
     toggleMenu: 'Открыть или закрыть меню',
+    menuButton: 'Меню',
     ariaMain: 'Основная навигация',
     language: 'Язык',
     chooseLanguage: 'Выберите язык',

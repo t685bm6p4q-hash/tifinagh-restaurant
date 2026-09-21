@@ -2,6 +2,12 @@ import type { MetadataRoute } from 'next'
 import { siteUrl } from '@/lib/seo'
 
 export default function robots(): MetadataRoute.Robots {
+  if (process.env.VERCEL_ENV === 'preview') {
+    return {
+      rules: [{ userAgent: '*', disallow: '/' }],
+    }
+  }
+
   return {
     rules: [
       {
@@ -11,5 +17,6 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,
+    host: siteUrl,
   }
 }

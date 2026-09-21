@@ -1,9 +1,33 @@
 /**
- * Source unique des donnees SEO et des informations d'etablissement.
- * Surcharge possible via NEXT_PUBLIC_SITE_URL (preview, staging).
+ * Hôte public unique. Vercel redirige déjà tifinagh.fr → www ;
+ * le canonique et le sitemap doivent viser www, jamais l'apex
+ * (sinon Googlebot tourne en boucle : www → canonique apex → 308 www).
  */
-export const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tifinagh.fr'
+export const canonicalHost = 'www.tifinagh.fr'
+export const canonicalOrigin = `https://${canonicalHost}`
+
+function resolveSiteUrl(): string {
+  const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim()
+  if (!raw) return canonicalOrigin
+
+  try {
+    const origin = new URL(raw).origin
+    const hostname = new URL(origin).hostname
+    if (
+      hostname === 'tifinagh.fr' ||
+      hostname === canonicalHost ||
+      hostname.endsWith('.vercel.app')
+    ) {
+      return canonicalOrigin
+    }
+    return origin
+  } catch {
+    return canonicalOrigin
+  }
+}
+
+/** URL canonique (sitemap, Open Graph, JSON-LD). Jamais l'apex ni *.vercel.app. */
+export const siteUrl = resolveSiteUrl()
 
 export const restaurant = {
   name: 'Tifinagh Montmartre',

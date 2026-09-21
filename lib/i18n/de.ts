@@ -14,6 +14,7 @@ export const de: Dictionary = {
     contact: 'Kontakt',
     book: 'Reservieren',
     toggleMenu: 'Menü öffnen oder schließen',
+    menuButton: 'Menü',
     ariaMain: 'Hauptnavigation',
     language: 'Sprache',
     chooseLanguage: 'Sprache wählen',

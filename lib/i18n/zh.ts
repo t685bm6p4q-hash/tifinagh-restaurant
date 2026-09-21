@@ -14,6 +14,7 @@ export const zh: Dictionary = {
     contact: '联系我们',
     book: '预订',
     toggleMenu: '打开或关闭菜单',
+    menuButton: '菜单',
     ariaMain: '主导航',
     language: '语言',
     chooseLanguage: '选择语言',

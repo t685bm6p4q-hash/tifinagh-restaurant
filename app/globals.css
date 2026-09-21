@@ -300,17 +300,66 @@ a.nav-cta.nav-active {
 
 .menu-toggle {
   display: none;
-  background: none;
-  border: 0;
-  color: var(--foreground);
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 2px solid #ffeb01;
+  border-radius: 5px;
+  background: rgba(255, 235, 1, 0.1);
+  color: #ffeb01;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
   line-height: 1;
-  padding: 4px;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+
+.menu-toggle:hover {
+  background: rgba(255, 235, 1, 0.2);
+  border-color: #fff066;
+  color: #fff066;
+}
+
+.menu-toggle:has(:focus-visible) {
+  outline: 2px solid #fff066;
+  outline-offset: 2px;
+}
+
+.menu-toggle-open,
+.menu-toggle-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
 }
 
 .menu-toggle-close {
   display: none;
+}
+
+.menu-toggle-icon {
+  flex-shrink: 0;
+}
+
+.menu-toggle-label {
+  display: inline;
+  line-height: 1;
+}
+
+.nav-toggle-input:checked ~ .header-tools .menu-toggle-open {
+  display: none;
+}
+
+.nav-toggle-input:checked ~ .header-tools .menu-toggle-close {
+  display: inline-flex;
 }
 
 .nav-toggle-input {
@@ -1973,7 +2022,7 @@ select:focus { border-color: var(--terracotta); }
 /* ── Nav compacte tablette : l'onglet Réservation ne doit pas sortir du header. */
 @media (max-width: 1320px) {
   .menu-toggle {
-    display: block;
+    display: inline-flex;
   }
 
   .main-nav {
@@ -1991,14 +2040,6 @@ select:focus { border-color: var(--terracotta); }
 
   .nav-toggle-input:checked ~ .main-nav {
     display: flex;
-  }
-
-  .nav-toggle-input:checked ~ .header-tools .menu-toggle-open {
-    display: none;
-  }
-
-  .nav-toggle-input:checked ~ .header-tools .menu-toggle-close {
-    display: inline;
   }
 
   a.nav-cta {
@@ -2034,18 +2075,23 @@ select:focus { border-color: var(--terracotta); }
     width: 100%;
     padding: 14px 18px;
     border-radius: 5px;
-    background: #25d366;
-    color: #000;
+    background: var(--surface);
+    color: var(--gold);
+    border: 2px solid var(--gold);
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.04em;
     text-decoration: none;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
   }
 
   .sticky-call-bar-link:hover,
   .sticky-call-bar-link:active {
-    background: #20bd5b;
+    background: #ffeb01;
+    color: #1c171d;
+    border-color: #1c171d;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
   }
 
   .site-header {
@@ -2054,7 +2100,7 @@ select:focus { border-color: var(--terracotta); }
   }
 
   .menu-toggle {
-    display: block;
+    display: inline-flex;
   }
 
   .main-nav {
@@ -2072,14 +2118,6 @@ select:focus { border-color: var(--terracotta); }
 
   .nav-toggle-input:checked ~ .main-nav {
     display: flex;
-  }
-
-  .nav-toggle-input:checked ~ .header-tools .menu-toggle-open {
-    display: none;
-  }
-
-  .nav-toggle-input:checked ~ .header-tools .menu-toggle-close {
-    display: inline;
   }
 
   .lang-switcher-trigger {

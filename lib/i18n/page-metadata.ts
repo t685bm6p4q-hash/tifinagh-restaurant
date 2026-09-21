@@ -142,8 +142,12 @@ export async function buildSiteMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(siteUrl),
     icons: {
-      icon: [{ url: '/icon.webp', type: 'image/webp' }],
-      shortcut: ['/icon.webp'],
+      icon: [
+        { url: '/favicon.ico', sizes: 'any', type: 'image/x-icon' },
+        { url: '/icon.png', type: 'image/png', sizes: '192x192' },
+      ],
+      shortcut: '/favicon.ico',
+      apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
     },
     title: {
       default: site.defaultTitle,
@@ -151,7 +155,7 @@ export async function buildSiteMetadata(): Promise<Metadata> {
     },
     description: site.description,
     keywords: site.keywords,
-    alternates: { canonical: '/' },
+    alternates: { canonical: siteUrl },
     openGraph: {
       type: 'website',
       locale: openGraphLocale[locale],
@@ -167,11 +171,14 @@ export async function buildSiteMetadata(): Promise<Metadata> {
       description: site.twitterDescription,
       images: [restaurant.image],
     },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
-    },
+    robots:
+      process.env.VERCEL_ENV === 'preview'
+        ? { index: false, follow: false }
+        : {
+            index: true,
+            follow: true,
+            googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+          },
   }
 }
 
@@ -182,7 +189,8 @@ export async function buildPageMetadata(
   const locale = await getLocale()
   const dictionary = getDictionary(locale)
   const page = resolvePageSeo(dictionary, pageId)
-  const canonical = seoPagePaths[pageId]
+  const canonicalPath = seoPagePaths[pageId]
+  const canonical = new URL(canonicalPath, siteUrl).href
   const documentTitle = formatDocumentTitle(dictionary, pageId)
   const fallbackSeo = dictionary.seo.pages[pageId]
 

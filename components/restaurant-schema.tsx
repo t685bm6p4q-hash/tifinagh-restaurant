@@ -14,6 +14,7 @@ export function RestaurantSchema() {
     url: siteUrl,
     telephone: restaurant.telephone,
     image: restaurant.image,
+    logo: `${siteUrl}/icon.png`,
     servesCuisine: restaurant.cuisine,
     priceRange: restaurant.priceRange,
     maximumAttendeeCapacity: restaurant.maximumAttendeeCapacity,

@@ -12,6 +12,22 @@ function MessageCircleIcon() {
   )
 }
 
+function MenuIcon() {
+  return (
+    <svg className="menu-toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" aria-hidden="true">
+      <path d="M4 7h16M4 12h16M4 17h16" />
+    </svg>
+  )
+}
+
+function CloseMenuIcon() {
+  return (
+    <svg className="menu-toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" aria-hidden="true">
+      <path d="M6 6l12 12M18 6 6 18" />
+    </svg>
+  )
+}
+
 function ReservationCta({
   pathname,
   dictionary,
@@ -93,13 +109,18 @@ export function HeaderShell({
       </Link>
       <HeaderNav pathname={pathname} dictionary={dictionary} />
       <div className="header-tools">
-        <ReservationCta pathname={pathname} dictionary={dictionary} />
-        <LanguageSwitcher locale={locale} dictionary={dictionary} pathname={pathname} />
         <label htmlFor="nav-toggle" className="menu-toggle">
-          <span className="menu-toggle-open" aria-hidden="true">☰</span>
-          <span className="menu-toggle-close" aria-hidden="true">✕</span>
+          <span className="menu-toggle-open" aria-hidden="true">
+            <span className="menu-toggle-label">{dictionary.nav.menuButton}</span>
+            <MenuIcon />
+          </span>
+          <span className="menu-toggle-close" aria-hidden="true">
+            <CloseMenuIcon />
+          </span>
           <span className="sr-only">{dictionary.nav.toggleMenu}</span>
         </label>
+        <LanguageSwitcher locale={locale} dictionary={dictionary} pathname={pathname} />
+        <ReservationCta pathname={pathname} dictionary={dictionary} />
       </div>
     </header>
   )

@@ -14,6 +14,7 @@ export const sv: Dictionary = {
     contact: 'Kontakt',
     book: 'Boka',
     toggleMenu: 'Öppna eller stäng menyn',
+    menuButton: 'Meny',
     ariaMain: 'Huvudnavigering',
     language: 'Språk',
     chooseLanguage: 'Välj språk',

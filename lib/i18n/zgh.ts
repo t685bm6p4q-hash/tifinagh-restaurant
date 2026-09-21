@@ -14,6 +14,7 @@ export const zgh: Dictionary = {
     contact: 'ⴰⵏⴰⵎⵎⴰⵙ',
     book: 'ⴰⵙⴳⴳⵯⴰⵙ',
     toggleMenu: 'ⵙⵍⵍⵓ ⵏⵖ ⵙⵎⵙⵍ ⵜⴰⵎⵓⵔⵜ',
+    menuButton: 'ⵜⴰⵎⵓⵔⵜ',
     ariaMain: 'ⴰⵙⵉⴱⴰⵏ ⴰⵎⵣⵡⴰⵔ',
     language: 'ⵜⵓⵜⵍⴰⵢⵜ',
     chooseLanguage: 'ⴼⵔⵏ ⵜⵓⵜⵍⴰⵢⵜ',
