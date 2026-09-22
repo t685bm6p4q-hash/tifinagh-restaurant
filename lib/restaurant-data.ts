@@ -8,6 +8,10 @@ export const googleReserveUrl =
 export const googleMapsUrl =
   'https://www.google.com/maps/search/?api=1&query=Tifinagh+17+Avenue+Rachel+75018+Paris'
 
+/** Carte intégrée (accueil, contact). */
+export const googleMapsEmbedUrl =
+  'https://www.google.com/maps?q=17+Av.+Rachel,+75018+Paris&output=embed'
+
 /** Presence Google (recherche locale). */
 export const googleSearchUrl = 'https://www.google.com/search?q=tifinagh+restaurant'
 

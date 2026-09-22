@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Clock, MapPin, Phone } from 'lucide-react'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
-import { googleMapsUrl } from '@/lib/restaurant-data'
+import { googleMapsEmbedUrl, googleMapsUrl } from '@/lib/restaurant-data'
 import { getI18n, localizeMetro, localizeSeoLinks } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
@@ -106,13 +106,15 @@ export default async function Contact() {
               {dictionary.common.directions} <ArrowRight size={14} aria-hidden="true" />
             </a>
           </div>
-          <iframe
-            className="map-frame"
-            title={dictionary.contact.mapIframeTitle}
-            src="https://www.google.com/maps?q=17+Av.+Rachel,+75018+Paris&output=embed"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+          <div className="map-section-map map-frame">
+            <iframe
+              className="map-section-iframe"
+              title={dictionary.contact.mapIframeTitle}
+              src={googleMapsEmbedUrl}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
         </section>
       </main>
       <Footer />

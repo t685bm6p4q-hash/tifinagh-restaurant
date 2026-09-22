@@ -11,7 +11,7 @@ import {
   MessageCircleIcon,
   WineIcon,
 } from '@/components/icons'
-import { googleMapsUrl } from '@/lib/restaurant-data'
+import { googleMapsEmbedUrl, googleMapsUrl } from '@/lib/restaurant-data'
 import { getI18n, localizeMenu, localizeTestimonials } from '@/lib/i18n'
 
 export async function HomeTemplate() {
@@ -191,22 +191,15 @@ export async function HomeTemplate() {
               {dictionary.common.directions} <ArrowRightIcon size={14} />
             </a>
           </div>
-          <a
-            className="map-frame map-frame-link"
-            href={googleMapsUrl}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={dictionary.home.mapAria}
-          >
-            <img
-              src="/images/tifinagh-facade.webp"
-              alt={dictionary.home.facadeAlt}
-              width={640}
-              height={360}
+          <div className="map-section-map map-frame">
+            <iframe
+              className="map-section-iframe"
+              title={dictionary.home.mapAria}
+              src={googleMapsEmbedUrl}
               loading="lazy"
-              decoding="async"
+              referrerPolicy="no-referrer-when-downgrade"
             />
-          </a>
+          </div>
         </section>
 
       </main>
