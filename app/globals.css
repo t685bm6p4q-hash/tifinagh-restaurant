@@ -2129,8 +2129,52 @@ select:focus { border-color: var(--terracotta); }
   }
 
   .site-header {
-    height: 62px;
-    padding: 0 5vw;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-sizing: border-box;
+    min-height: calc(62px + env(safe-area-inset-top, 0px));
+    padding: env(safe-area-inset-top, 0px) 5vw 0;
+    background: #ffeb01;
+    border-bottom: 2px solid #1c171d;
+  }
+
+  .site-header .brand {
+    color: #1c171d;
+  }
+
+  .site-header .menu-toggle {
+    border-color: #1c171d;
+    background: rgba(28, 23, 29, 0.08);
+    color: #1c171d;
+  }
+
+  .site-header .menu-toggle:hover {
+    background: rgba(28, 23, 29, 0.14);
+    border-color: #1c171d;
+    color: #1c171d;
+  }
+
+  .site-header .menu-toggle:has(:focus-visible) {
+    outline-color: #1c171d;
+  }
+
+  .site-header .lang-switcher {
+    z-index: 110;
+  }
+
+  .site-header .lang-switcher-trigger {
+    padding: 6px 9px;
+    border-color: #1c171d;
+    background: rgba(28, 23, 29, 0.06);
+    color: #1c171d;
+  }
+
+  .site-header .lang-switcher-trigger:hover,
+  .site-header .lang-switcher[open] .lang-switcher-trigger {
+    border-color: #1c171d;
+    color: #1c171d;
+    background: rgba(28, 23, 29, 0.12);
   }
 
   .menu-toggle {
@@ -2140,9 +2184,10 @@ select:focus { border-color: var(--terracotta); }
   .main-nav {
     display: none;
     position: absolute;
-    top: 62px;
+    top: calc(62px + env(safe-area-inset-top, 0px));
     left: 0;
     right: 0;
+    z-index: 99;
     background: #111210;
     padding: 25px;
     flex-direction: column;
@@ -2152,10 +2197,6 @@ select:focus { border-color: var(--terracotta); }
 
   .nav-toggle-input:checked ~ .main-nav {
     display: flex;
-  }
-
-  .lang-switcher-trigger {
-    padding: 6px 9px;
   }
 
   .lang-switcher-menu {
