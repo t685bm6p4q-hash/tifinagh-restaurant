@@ -67,7 +67,8 @@ export default function MenuSetupAdmin() {
       if (response.status === 401) {
         setMessage({
           type: 'error',
-          text: '❌ Session expirée : rechargez la page et reconnectez-vous avec le mot de passe admin du navigateur.',
+          text:
+            '❌ Accès refusé : rechargez la page (F5). Si le problème continue, fermez l’onglet, rouvrez /admin/menu-setup et entrez à nouveau le mot de passe admin.',
         })
         return
       }

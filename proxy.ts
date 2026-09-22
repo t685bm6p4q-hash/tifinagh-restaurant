@@ -1,6 +1,12 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { getAdminPassword, safeEqual } from '@/lib/admin-auth'
+import {
+  getAdminPassword,
+  hasValidAdminSession,
+  passwordFromRequestBasicAuth,
+  safeEqual,
+  setAdminSessionCookie,
+} from '@/lib/admin-auth'
 import { canonicalHost } from '@/lib/seo'
 
 function withPathname(response: NextResponse, pathname: string) {
@@ -66,21 +72,20 @@ export function proxy(request: NextRequest) {
       )
     }
 
-    const auth = request.headers.get('authorization')
-    if (auth?.startsWith('Basic ')) {
-      try {
-        const decoded = atob(auth.slice(6))
-        const colon = decoded.indexOf(':')
-        const password = colon >= 0 ? decoded.slice(colon + 1) : ''
-        if (safeEqual(password, expected)) {
-          const response = NextResponse.next()
-          response.headers.set('X-Robots-Tag', 'noindex, nofollow')
-          response.headers.set('Cache-Control', 'no-store')
-          return withPathname(response, pathname)
-        }
-      } catch {
-        // Identifiants invalides → challenge ci-dessous.
-      }
+    if (hasValidAdminSession(request, expected)) {
+      const response = NextResponse.next()
+      response.headers.set('X-Robots-Tag', 'noindex, nofollow')
+      response.headers.set('Cache-Control', 'no-store')
+      return withPathname(response, pathname)
+    }
+
+    const password = passwordFromRequestBasicAuth(request)
+    if (password && safeEqual(password, expected)) {
+      const response = NextResponse.next()
+      response.headers.set('X-Robots-Tag', 'noindex, nofollow')
+      response.headers.set('Cache-Control', 'no-store')
+      setAdminSessionCookie(response, expected)
+      return withPathname(response, pathname)
     }
 
     return new NextResponse('Authentification requise', {
