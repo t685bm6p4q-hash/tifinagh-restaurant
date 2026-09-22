@@ -11,6 +11,7 @@ import {
   MessageCircleIcon,
   WineIcon,
 } from '@/components/icons'
+import { googleMapsUrl } from '@/lib/restaurant-data'
 import { getI18n, localizeMenu, localizeTestimonials } from '@/lib/i18n'
 
 export async function HomeTemplate() {
@@ -171,15 +172,19 @@ export async function HomeTemplate() {
 
         {/* ── Plan ──────────────────────────────────────── */}
         <section className="map-section section">
-          <div>
+          <div className="map-section-copy">
             <p className="eyebrow">{dictionary.home.mapEyebrow}</p>
             <h2>{dictionary.home.mapTitle}</h2>
-            <p>
-              {dictionary.home.mapText}
+            <p className="map-section-lead">{dictionary.home.mapText}</p>
+            <p className="map-section-address">
+              <span className="map-section-address-label">{dictionary.contact.address}</span>
+              17 Av. Rachel
+              <br />
+              75018 Paris
             </p>
             <a
-              className="text-link"
-              href="https://maps.google.com/?q=17+Av.+Rachel+75018+Paris"
+              className="map-section-cta text-link"
+              href={googleMapsUrl}
               target="_blank"
               rel="noreferrer"
             >
@@ -188,7 +193,7 @@ export async function HomeTemplate() {
           </div>
           <a
             className="map-frame map-frame-link"
-            href="https://maps.google.com/?q=17+Av.+Rachel+75018+Paris"
+            href={googleMapsUrl}
             target="_blank"
             rel="noreferrer"
             aria-label={dictionary.home.mapAria}

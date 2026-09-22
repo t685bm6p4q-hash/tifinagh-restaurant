@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Clock, MapPin, Phone } from 'lucide-react'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
+import { googleMapsUrl } from '@/lib/restaurant-data'
 import { getI18n, localizeMetro, localizeSeoLinks } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
@@ -31,7 +32,7 @@ export default async function Contact() {
             <p>17 Av. Rachel<br />75018 Paris</p>
             <Link
               className="text-link"
-              href="https://maps.google.com/?q=17+Av.+Rachel+75018+Paris"
+              href={googleMapsUrl}
               target="_blank"
               rel="noreferrer"
             >
@@ -86,10 +87,24 @@ export default async function Contact() {
         </section>
 
         <section className="map-section section">
-          <div>
+          <div className="map-section-copy">
             <p className="eyebrow">{dictionary.contact.mapEyebrow}</p>
             <h2>{dictionary.contact.mapTitle}</h2>
-            <p>{dictionary.contact.mapText}</p>
+            <p className="map-section-lead">{dictionary.contact.mapText}</p>
+            <p className="map-section-address">
+              <span className="map-section-address-label">{dictionary.contact.address}</span>
+              17 Av. Rachel
+              <br />
+              75018 Paris
+            </p>
+            <a
+              className="map-section-cta text-link"
+              href={googleMapsUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {dictionary.common.directions} <ArrowRight size={14} aria-hidden="true" />
+            </a>
           </div>
           <iframe
             className="map-frame"
