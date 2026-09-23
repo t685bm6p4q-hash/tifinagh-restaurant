@@ -7,23 +7,30 @@ import { seoRu } from './seo/ru'
 import { seoSv } from './seo/sv'
 import { seoZgh } from './seo/zgh'
 
-function withSharedHomeMeta(seo: Dictionary['seo']): Dictionary['seo'] {
+function withSharedHomeMeta(seo: Dictionary['seo'], useFrenchHomeDescription = false): Dictionary['seo'] {
   const homeTitle = seo.pages.home.title
+  const homeDescription = useFrenchHomeDescription
+    ? HOME_SEO_DESCRIPTION
+    : seo.pages.home.description
   return {
     ...seo,
     site: {
       ...seo.site,
       defaultTitle: homeTitle,
       twitterTitle: homeTitle,
-      description: HOME_SEO_DESCRIPTION,
-      ogDescription: HOME_SEO_DESCRIPTION,
-      twitterDescription: HOME_SEO_DESCRIPTION,
+      ...(useFrenchHomeDescription
+        ? {
+            description: HOME_SEO_DESCRIPTION,
+            ogDescription: HOME_SEO_DESCRIPTION,
+            twitterDescription: HOME_SEO_DESCRIPTION,
+          }
+        : {}),
     },
     pages: {
       ...seo.pages,
       home: {
         ...seo.pages.home,
-        description: HOME_SEO_DESCRIPTION,
+        description: homeDescription,
       },
     },
   }
@@ -106,7 +113,7 @@ const seoFr: Dictionary['seo'] = {
     restaurantMontmartre: {
       title: 'Restaurant Montmartre — Tifinagh, bistrot français',
       description:
-        'Restaurant Tifinagh à Montmartre (Paris 18) : cimetière de Montmartre, Sacré-Cœur, carte détaillée en ligne, cuisine 100 % maison — 17 avenue Rachel.',
+        'Au pied de la butte : Le Tifinagh, bistrot parisien au calme de l’avenue Rachel — cuisine maison, terrasse et cartes en ligne, entre cimetière de Montmartre et Sacré-Cœur.',
       keywords: [
         'restaurant Montmartre',
         'Tifinagh Paris',
@@ -120,7 +127,7 @@ const seoFr: Dictionary['seo'] = {
     restaurantPigalle: {
       title: 'Restaurant près du Moulin Rouge — Tifinagh Pigalle',
       description:
-        'Restaurant Tifinagh à pied de Pigalle et du Moulin Rouge : bistrot français maison, carte et boissons en ligne, terrasse avenue Rachel — idéal avant ou après spectacle.',
+        'Après Pigalle ou le Moulin Rouge, retrouvez Le Tifinagh : assiettes françaises généreuses, vins vivants, terrasse discrète — cartes plats & boissons en ligne, à quelques minutes à pied.',
       keywords: [
         'restaurant Pigalle',
         'restaurant Moulin Rouge',
@@ -133,7 +140,7 @@ const seoFr: Dictionary['seo'] = {
     restaurantPlaceDeClichy: {
       title: 'Restaurant Place de Clichy — Tifinagh, bistrot français',
       description:
-        'Restaurant Tifinagh près de la Place de Clichy (Paris 17/18) : cuisine française maison, carte détaillée en ligne, métro lignes 2 et 13, 17 avenue Rachel — calme et à deux pas de Montmartre.',
+        'Sortie métro Place de Clichy : Le Tifinagh vous accueille dans une impasse paisible — bistrot français fait maison, terrasse, cartes détaillées en ligne, entre le 17e et Montmartre.',
       keywords: [
         'restaurant Place de Clichy',
         'resto Place de Clichy',
@@ -174,9 +181,9 @@ const seoEn: Dictionary['seo'] = {
   },
   pages: {
     home: {
-      title: 'Tifinagh Paris | French Restaurant & Bistro near Montmartre',
+      title: 'Tifinagh Paris | French bistro, terrace & homemade cooking · Montmartre',
       description:
-        'Tifinagh restaurant in Paris 18 (Montmartre): 100% homemade French bistro at 17 avenue Rachel. Full food & drinks menus online, daily set menu, terrace. Book via Google, phone or WhatsApp.',
+        'Steps from Montmartre: a warm Parisian bistro with generous homemade plates, natural wines and a shaded terrace on avenue Rachel. Food & drinks menus online — book your table in a click.',
     },
     carte: {
       title: 'French Classics — homemade French dishes in Montmartre',
@@ -601,7 +608,7 @@ const seoZh: Dictionary['seo'] = {
 }
 
 export const seoByLocale: Record<Locale, Dictionary['seo']> = {
-  fr: withSharedHomeMeta(seoFr),
+  fr: withSharedHomeMeta(seoFr, true),
   en: withSharedHomeMeta(seoEn),
   es: withSharedHomeMeta(seoEs),
   it: withSharedHomeMeta(seoIt),

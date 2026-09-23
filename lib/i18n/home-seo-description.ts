@@ -1,7 +1,7 @@
 /** Titre accueil FR (titres des autres langues restent traduits dans seo-copy). */
 export const HOME_SEO_TITLE_FR =
-  'Tifinagh Paris — Restaurant & bistrot français | Montmartre 18e'
+  'Le Tifinagh · Bistrot français & terrasse | Montmartre Paris 18'
 
-/** Meta description accueil — identique pour toutes les langues (SEO local Montmartre). */
+/** Meta description accueil FR (autres langues : texte propre dans seo-copy). */
 export const HOME_SEO_DESCRIPTION =
-  'Restaurant Tifinagh à Paris 18 (Montmartre) : bistrot français 100 % maison, 17 avenue Rachel. Carte des plats et boissons détaillée en ligne, menu du jour, terrasse. Réservez par Google, téléphone ou WhatsApp.'
+  'Entre Montmartre et Pigalle, Le Tifinagh vous reçoit dans un bistrot chaleureux : assiettes généreuses 100 % maison, vins vivants, terrasse ombragée avenue Rachel. Cartes plats & boissons en ligne — réservez en un clic.'
