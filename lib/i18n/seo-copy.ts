@@ -1,22 +1,42 @@
 import type { Locale } from './config'
 import type { Dictionary } from './types'
+import { HOME_SEO_DESCRIPTION, HOME_SEO_TITLE_FR } from './home-seo-description'
 import { seoDe } from './seo/de'
 import { seoPt } from './seo/pt'
 import { seoRu } from './seo/ru'
 import { seoSv } from './seo/sv'
 import { seoZgh } from './seo/zgh'
 
+function withSharedHomeMeta(seo: Dictionary['seo']): Dictionary['seo'] {
+  const homeTitle = seo.pages.home.title
+  return {
+    ...seo,
+    site: {
+      ...seo.site,
+      defaultTitle: homeTitle,
+      twitterTitle: homeTitle,
+      description: HOME_SEO_DESCRIPTION,
+      ogDescription: HOME_SEO_DESCRIPTION,
+      twitterDescription: HOME_SEO_DESCRIPTION,
+    },
+    pages: {
+      ...seo.pages,
+      home: {
+        ...seo.pages.home,
+        description: HOME_SEO_DESCRIPTION,
+      },
+    },
+  }
+}
+
 const seoFr: Dictionary['seo'] = {
   site: {
-    defaultTitle: 'Tifinagh | Restaurant & Bistrot Traditionnel Français à Montmartre',
+    defaultTitle: HOME_SEO_TITLE_FR,
     titleTemplate: '%s | Tifinagh',
-    description:
-      'Découvrez le restaurant Tifinagh à Montmartre : cuisine traditionnelle française, plats faits maison, produits frais et ambiance bistrot authentique.',
-    ogDescription:
-      'Cuisine traditionnelle française, plats faits maison et ambiance bistrot au pied de Montmartre.',
-    twitterTitle: 'Tifinagh | Restaurant & Bistrot Traditionnel Français',
-    twitterDescription:
-      'Cuisine traditionnelle française, plats faits maison et ambiance bistrot au pied de Montmartre.',
+    description: HOME_SEO_DESCRIPTION,
+    ogDescription: HOME_SEO_DESCRIPTION,
+    twitterTitle: HOME_SEO_TITLE_FR,
+    twitterDescription: HOME_SEO_DESCRIPTION,
     ogImageAlt: 'Salle du restaurant Tifinagh',
     keywords: [
       'restaurant traditionnel',
@@ -33,9 +53,8 @@ const seoFr: Dictionary['seo'] = {
   },
   pages: {
     home: {
-      title: 'Tifinagh | Restaurant & Bistrot Traditionnel Français à Montmartre',
-      description:
-        'Découvrez le restaurant Tifinagh à Montmartre : cuisine traditionnelle française, plats faits maison, produits frais et ambiance bistrot authentique.',
+      title: HOME_SEO_TITLE_FR,
+      description: HOME_SEO_DESCRIPTION,
     },
     carte: {
       title: 'Carte permanente — plats français maison à Montmartre',
@@ -548,14 +567,14 @@ const seoZh: Dictionary['seo'] = {
 }
 
 export const seoByLocale: Record<Locale, Dictionary['seo']> = {
-  fr: seoFr,
-  en: seoEn,
-  es: seoEs,
-  it: seoIt,
-  zh: seoZh,
-  de: seoDe,
-  pt: seoPt,
-  ru: seoRu,
-  sv: seoSv,
-  zgh: seoZgh,
+  fr: withSharedHomeMeta(seoFr),
+  en: withSharedHomeMeta(seoEn),
+  es: withSharedHomeMeta(seoEs),
+  it: withSharedHomeMeta(seoIt),
+  zh: withSharedHomeMeta(seoZh),
+  de: withSharedHomeMeta(seoDe),
+  pt: withSharedHomeMeta(seoPt),
+  ru: withSharedHomeMeta(seoRu),
+  sv: withSharedHomeMeta(seoSv),
+  zgh: withSharedHomeMeta(seoZgh),
 }
