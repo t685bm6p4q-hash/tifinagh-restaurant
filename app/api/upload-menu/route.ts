@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
       try {
         buffer = Buffer.from(await compressMenuImageToWebp(buffer))
         contentType = 'image/webp'
-      } catch (error) {
+      } catch (error: unknown) {
         if (error instanceof Error && error.message === 'IMAGE_TOO_HEAVY') {
           return NextResponse.json(
             { error: 'Impossible de compresser cette image sous 1 Mo' },
@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
         : 'Menu compressé en WebP (1 Mo max) et mis à jour localement',
       url: `/${MENU_PDF_PATHNAME}`,
     })
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Erreur lors de l'upload :", error)
     return NextResponse.json({ error: 'Erreur lors du traitement du fichier' }, { status: 500 })
   }

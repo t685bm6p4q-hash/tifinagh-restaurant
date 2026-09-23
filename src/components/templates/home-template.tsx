@@ -11,6 +11,7 @@ import {
   MessageCircleIcon,
   WineIcon,
 } from '@/components/icons'
+import { MapEmbedLazy } from '@/components/map-embed-lazy'
 import { googleMapsEmbedUrl, googleMapsUrl } from '@/lib/restaurant-data'
 import { getI18n, getUxExtra, localizeMenu, localizeTestimonials } from '@/lib/i18n'
 
@@ -28,15 +29,17 @@ export async function HomeTemplate() {
         {/* ── Hero (LCP) — avant le bandeau info pour decouverte HTML prioritaire ── */}
         <section className="hero">
           <picture>
-            <source media="(min-width: 769px)" srcSet="/images/hero-salle.webp" type="image/webp" />
+            <source media="(min-width: 769px)" srcSet="/images/hero-salle-640.avif" type="image/avif" />
+            <source media="(min-width: 769px)" srcSet="/images/hero-salle-640.webp" type="image/webp" />
             <source media="(max-width: 768px)" srcSet="/images/hero-salle-480.avif" type="image/avif" />
             <source media="(max-width: 768px)" srcSet="/images/hero-salle-480.webp" type="image/webp" />
             <img
               className="hero-image"
               src="/images/hero-salle-480.webp"
               alt={dictionary.home.heroImageAlt}
-              width={480}
-              height={320}
+              width={640}
+              height={427}
+              sizes="100vw"
               fetchPriority="high"
               decoding="sync"
             />
@@ -198,12 +201,11 @@ export async function HomeTemplate() {
             </a>
           </div>
           <div className="map-section-map map-frame">
-            <iframe
-              className="map-section-iframe"
-              title={dictionary.home.mapAria}
-              src={googleMapsEmbedUrl}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
+            <MapEmbedLazy
+              embedUrl={googleMapsEmbedUrl}
+              iframeTitle={dictionary.home.mapAria}
+              loadLabel={ux.mapLoadInteractive}
+              previewAlt={ux.mapPreviewAlt}
             />
           </div>
         </section>

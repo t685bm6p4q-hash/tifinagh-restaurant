@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { AlertCircle, CheckCircle } from 'lucide-react'
 import { MainContent } from '@/components/main-content'
 import { compressMenuImageInBrowser } from '@/lib/compress-menu-browser'
+import { parseMenuUploadResponse } from '@/lib/menu-upload-api'
 import { MAX_MENU_PDF_BYTES, MAX_MENU_UPLOAD_BYTES, PDF_TOO_HEAVY_MESSAGE } from '@/lib/menu-pdf'
 
 export default function MenuSetupAdmin() {
@@ -63,7 +64,7 @@ export default function MenuSetupAdmin() {
         credentials: 'same-origin',
       })
 
-      const payload: { message?: string; error?: string } = await response.json().catch(() => ({}))
+      const parsed = await parseMenuUploadResponse(response)
 
       if (response.status === 401) {
         setMessage({
@@ -74,16 +75,22 @@ export default function MenuSetupAdmin() {
         return
       }
 
-      if (response.ok) {
+      if (parsed.kind === 'success') {
         setMessage({
           type: 'success',
           text: `✅ Menu à jour! ${chef ? `(${chef})` : ''}`,
         })
-      } else {
-        setMessage({ type: 'error', text: `❌ ${payload.error ?? 'Erreur'}` })
+        return
       }
-    } catch (error) {
-      const reason = error instanceof Error ? error.message : String(error)
+
+      if (parsed.kind === 'error') {
+        setMessage({ type: 'error', text: `❌ ${parsed.body.error}` })
+        return
+      }
+
+      setMessage({ type: 'error', text: '❌ Réponse serveur invalide' })
+    } catch (error: unknown) {
+      const reason = error instanceof Error ? error.message : 'Erreur inconnue'
       if (reason === 'IMAGE_TOO_HEAVY') {
         setMessage({ type: 'error', text: '❌ Impossible de compresser cette image sous 1 Mo' })
       } else {

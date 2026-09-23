@@ -7,11 +7,14 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "check:any": "node -e \"const {execSync}=require('child_process'); try { const o=execSync(\\\"grep -RInE '\\\\bas any\\\\b|: any\\\\b|<any>|Record<string,\\\\s*any>' --include='*.ts' --include='*.tsx' --exclude-dir=node_modules --exclude-dir=.next .\\\",{encoding:'utf8'}); if(o.trim()){console.error(o); process.exit(1)} } catch(e){ if(e.status===1){console.log('OK: zero any'); process.exit(0)} throw e }\"",
+    "check:any": "node -e \"const {execSync}=require('child_process'); try { const o=execSync(\\\"grep -RInE '\\\\bas any\\\\b|: any\\\\b|<any>|Array<any>|Promise<any>|Record<string,\\\\s*any>' --include='*.ts' --include='*.tsx' --exclude-dir=node_modules --exclude-dir=.next .\\\",{encoding:'utf8'}); if(o.trim()){console.error(o); process.exit(1)} } catch(e){ if(e.status===1){console.log('OK: zero any'); process.exit(0)} throw e }\"",
+    "precommit": "npm run check:any && npm run typecheck",
     "menu:generate": "node scripts/generate-menu-pdf.js",
     "images:optimize": "node scripts/optimize-images.mjs",
+    "images:map-preview": "node scripts/generate-map-preview.mjs",
     "images:fix-logos": "node scripts/fix-logo-transparency.mjs",
-    "icons:generate": "node scripts/generate-favicons.mjs"
+    "icons:generate": "node scripts/generate-favicons.mjs",
+    "prepare": "husky"
   },
   "dependencies": {
     "@vercel/blob": "^2.8.0",
@@ -19,13 +22,15 @@
     "next": "16.3.0",
     "react": "^19",
     "react-dom": "^19",
-    "sharp": "^0.35.3"
+    "sharp": "^0.35.3",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
-    "pdfkit": "^0.20.1",
     "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "husky": "^9.1.7",
+    "pdfkit": "^0.20.1",
     "typescript": "5.7.3"
   },
   "browserslist": [

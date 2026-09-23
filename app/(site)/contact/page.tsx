@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { ArrowRightIcon, ClockIcon, MapPinIcon, PhoneIcon } from '@/components/icons'
 import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
+import { MapEmbedLazy } from '@/components/map-embed-lazy'
 import { googleMapsEmbedUrl, googleMapsUrl } from '@/lib/restaurant-data'
 import { getI18n, getUxExtra, localizeMetro, localizeSeoLinks } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
@@ -125,12 +126,11 @@ export default async function Contact() {
             </a>
           </div>
           <div className="map-section-map map-frame">
-            <iframe
-              className="map-section-iframe"
-              title={dictionary.contact.mapIframeTitle}
-              src={googleMapsEmbedUrl}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
+            <MapEmbedLazy
+              embedUrl={googleMapsEmbedUrl}
+              iframeTitle={dictionary.contact.mapIframeTitle}
+              loadLabel={ux.mapLoadInteractive}
+              previewAlt={ux.mapPreviewAlt}
             />
           </div>
         </section>

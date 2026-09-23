@@ -5,6 +5,7 @@
     "target": "ES2022",
     "skipLibCheck": true,
     "strict": true,
+    "useUnknownInCatchVariables": true,
     "noImplicitAny": true,
     "noUncheckedIndexedAccess": true,
     "noEmit": true,

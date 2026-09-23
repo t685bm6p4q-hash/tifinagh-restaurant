@@ -3,6 +3,8 @@ import type { Locale } from './config'
 export type UxExtraCopy = {
   bookingGuide: string
   homeDiscoverDrinks: string
+  mapLoadInteractive: string
+  mapPreviewAlt: string
   footerExploreTitle: string
   practical: {
     title: string
@@ -14,6 +16,8 @@ const fr: UxExtraCopy = {
   bookingGuide:
     'Google : confirmation en ligne · WhatsApp : question ou demande précise · Téléphone : idéal pour le jour même.',
   homeDiscoverDrinks: 'Carte des boissons',
+  mapLoadInteractive: 'Afficher la carte interactive Google Maps',
+  mapPreviewAlt: 'Plan du quartier Montmartre autour du restaurant Tifinagh',
   footerExploreTitle: 'Découvrir',
   practical: {
     title: 'Bon à savoir avant votre venue',
@@ -31,6 +35,8 @@ const en: UxExtraCopy = {
   bookingGuide:
     'Google: instant online booking · WhatsApp: quick message or special request · Phone: best for same-day tables.',
   homeDiscoverDrinks: 'Drinks menu',
+  mapLoadInteractive: 'Show interactive Google Map',
+  mapPreviewAlt: 'Map of Montmartre around Tifinagh restaurant',
   footerExploreTitle: 'Explore',
   practical: {
     title: 'Good to know before you visit',
@@ -48,6 +54,8 @@ const es: UxExtraCopy = {
   bookingGuide:
     'Google: reserva en línea · WhatsApp: mensaje o petición · Teléfono: ideal para el mismo día.',
   homeDiscoverDrinks: 'Carta de bebidas',
+  mapLoadInteractive: 'Mostrar el mapa interactivo de Google Maps',
+  mapPreviewAlt: 'Mapa del barrio de Montmartre alrededor del restaurante Tifinagh',
   footerExploreTitle: 'Descubrir',
   practical: {
     title: 'Antes de venir',
@@ -65,6 +73,8 @@ const it: UxExtraCopy = {
   bookingGuide:
     'Google: prenotazione online · WhatsApp: messaggio o richiesta · Telefono: ideale per oggi.',
   homeDiscoverDrinks: 'Carta delle bevande',
+  mapLoadInteractive: 'Mostra la mappa interattiva Google Maps',
+  mapPreviewAlt: 'Mappa del quartiere Montmartre intorno al ristorante Tifinagh',
   footerExploreTitle: 'Scopri',
   practical: {
     title: 'Prima della visita',
@@ -81,6 +91,8 @@ const it: UxExtraCopy = {
 const zh: UxExtraCopy = {
   bookingGuide: 'Google：在线预订 · WhatsApp：留言或特殊需求 · 电话：适合当天订位。',
   homeDiscoverDrinks: '饮品单',
+  mapLoadInteractive: '显示 Google 交互式地图',
+  mapPreviewAlt: 'Tifinagh 餐厅周边蒙马特街区地图',
   footerExploreTitle: '浏览',
   practical: {
     title: '到访前须知',
@@ -98,6 +110,8 @@ const de: UxExtraCopy = {
   bookingGuide:
     'Google: Online-Reservierung · WhatsApp: Nachricht · Telefon: ideal für heute.',
   homeDiscoverDrinks: 'Getränkekarte',
+  mapLoadInteractive: 'Interaktive Google Maps-Karte anzeigen',
+  mapPreviewAlt: 'Karte der Montmartre-Umgebung um Restaurant Tifinagh',
   footerExploreTitle: 'Entdecken',
   practical: {
     title: 'Vor Ihrem Besuch',
@@ -115,6 +129,8 @@ const pt: UxExtraCopy = {
   bookingGuide:
     'Google: reserva online · WhatsApp: mensagem · Telefone: ideal para hoje.',
   homeDiscoverDrinks: 'Carta de bebidas',
+  mapLoadInteractive: 'Mostrar o mapa interativo Google Maps',
+  mapPreviewAlt: 'Mapa do bairro de Montmartre em torno do restaurante Tifinagh',
   footerExploreTitle: 'Explorar',
   practical: {
     title: 'Antes da visita',
@@ -132,6 +148,8 @@ const ru: UxExtraCopy = {
   bookingGuide:
     'Google: онлайн-бронь · WhatsApp: сообщение · Телефон: для брони в тот же день.',
   homeDiscoverDrinks: 'Карта напитков',
+  mapLoadInteractive: 'Показать интерактивную карту Google Maps',
+  mapPreviewAlt: 'Карта квартала Монмартр вокруг ресторана Tifinagh',
   footerExploreTitle: 'Разделы',
   practical: {
     title: 'Полезно знать',
@@ -149,6 +167,8 @@ const sv: UxExtraCopy = {
   bookingGuide:
     'Google: boka online · WhatsApp: meddelande · Telefon: bäst samma dag.',
   homeDiscoverDrinks: 'Dryckesmeny',
+  mapLoadInteractive: 'Visa interaktiv Google Maps-karta',
+  mapPreviewAlt: 'Karta över Montmartre runt restaurangen Tifinagh',
   footerExploreTitle: 'Utforska',
   practical: {
     title: 'Innan besöket',
@@ -166,6 +186,8 @@ const zgh: UxExtraCopy = {
   bookingGuide:
     'Google · WhatsApp · ⵜⵉⵍⵉⴼⵓⵏ — ⴰⵙⵙⵓⵎⵔ ⴳ Google, ⵉⵣⵏ ⴳ WhatsApp.',
   homeDiscoverDrinks: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵉⵙⵙⵓⵏ',
+  mapLoadInteractive: 'Afficher la carte interactive Google Maps',
+  mapPreviewAlt: 'Plan du quartier Montmartre autour du restaurant Tifinagh',
   footerExploreTitle: 'ⵙⴽⵏ',
   practical: {
     title: 'ⵙ ⵓⵙ ⴷ ⵜⴷⵓⴷⴷⵎ',
