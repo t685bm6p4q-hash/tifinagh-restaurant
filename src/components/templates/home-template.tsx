@@ -80,14 +80,28 @@ export async function HomeTemplate() {
         {/* ── L'esprit Tifinagh ─────────────────────────── */}
         <section className="story section">
           <div className="story-image">
-            <img
-              src="/images/tifinagh-dish.webp"
-              alt={dictionary.home.dishAlt}
-              width={800}
-              height={560}
-              loading="lazy"
-              decoding="async"
-            />
+            <picture>
+              <source
+                media="(max-width: 900px)"
+                srcSet="/images/tifinagh-dish-400.avif"
+                type="image/avif"
+              />
+              <source
+                media="(max-width: 900px)"
+                srcSet="/images/tifinagh-dish-400.webp"
+                type="image/webp"
+              />
+              <source media="(min-width: 901px)" srcSet="/images/tifinagh-dish.webp" type="image/webp" />
+              <img
+                src="/images/tifinagh-dish-400.webp"
+                alt={dictionary.home.dishAlt}
+                width={400}
+                height={400}
+                sizes="(max-width: 900px) 100vw, 50vw"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
           </div>
           <div className="story-copy">
             <p className="eyebrow">{dictionary.home.storyEyebrow}</p>
