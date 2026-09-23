@@ -6,11 +6,12 @@ import { seoByLocale } from './seo-copy'
 export const fr: Dictionary = {
   nav: {
     home: 'Accueil',
-    carte: 'La carte',
+    carte: 'Carte',
+    drinks: 'Boissons',
     dailyMenu: 'Menu du jour',
     gallery: 'Galerie',
-    privatisation: 'Privatisation',
-    around: 'Autour de nous',
+    privatisation: 'Privatiser',
+    around: 'Autour',
     reservation: 'Réservation',
     contact: 'Contact',
     book: 'Réserver',

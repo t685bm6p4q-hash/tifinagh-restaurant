@@ -13,4 +13,6 @@ export {
 } from './localize'
 export { buildPageMetadata, buildSiteMetadata, formatDocumentTitle, resolvePageSeo, seoPagePaths } from './page-metadata'
 export type { SeoPageId } from './page-metadata'
+export { getUxExtra, uxExtraByLocale } from './ux-extra-copy'
+export type { UxExtraCopy } from './ux-extra-copy'
 export { fr } from './fr'

@@ -7,6 +7,7 @@ export const zgh: Dictionary = {
   nav: {
     home: 'ⴰⵙⵙⴰⵖ',
     carte: 'ⵜⴰⵎⵓⵔⵜ',
+    drinks: 'ⵉⵙⵙⵓⵏ',
     dailyMenu: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⴰⵙⵙ',
     gallery: 'ⵜⴰⵙⵏⴰⵡⵜ',
     privatisation: 'ⴰⵙⵙⵓⵎⵔ',

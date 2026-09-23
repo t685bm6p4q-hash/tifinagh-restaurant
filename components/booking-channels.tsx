@@ -7,7 +7,7 @@ import {
   whatsappLink,
 } from '@/lib/restaurant-data'
 import { PagesJaunesIcon } from '@/components/pagesjaunes-logo'
-import { getI18n } from '@/lib/i18n'
+import { getI18n, getUxExtra } from '@/lib/i18n'
 
 const CHIP_ICON_SIZE = 20
 
@@ -53,12 +53,14 @@ export async function BookingChannels({
   title,
   className = '',
 }: BookingChannelsProps) {
-  const { dictionary } = await getI18n()
+  const { dictionary, locale } = await getI18n()
+  const ux = getUxExtra(locale)
   const heading = title ?? dictionary.booking.title
 
   return (
     <div className={`booking-channels ${className}`.trim()}>
       {heading ? <p className="booking-channels-title">{heading}</p> : null}
+      <p className="booking-channels-guide">{ux.bookingGuide}</p>
       <div className="booking-channels-row">
         <a className="booking-chip booking-chip-phone" href={phoneTel}>
           <span className="booking-chip-icon" aria-hidden="true">

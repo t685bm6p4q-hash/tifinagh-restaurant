@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { ArrowRight, Clock, MapPin, Phone } from 'lucide-react'
 import { Header, Footer, PageIntro } from '@/components/site-shell'
 import { googleMapsEmbedUrl, googleMapsUrl } from '@/lib/restaurant-data'
-import { getI18n, localizeMetro, localizeSeoLinks } from '@/lib/i18n'
+import { getI18n, getUxExtra, localizeMetro, localizeSeoLinks } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -11,7 +11,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Contact() {
-  const { dictionary } = await getI18n()
+  const { dictionary, locale } = await getI18n()
+  const ux = getUxExtra(locale)
   const metroStations = localizeMetro(dictionary)
   const seoLinks = localizeSeoLinks(dictionary)
 
@@ -83,6 +84,17 @@ export default async function Contact() {
                 </span>
               ))}
             </p>
+          </div>
+        </section>
+
+        <section className="section contact-practical" aria-labelledby="contact-practical-title">
+          <div className="contact-practical-inner">
+            <h2 id="contact-practical-title">{ux.practical.title}</h2>
+            <ul className="contact-practical-list">
+              {ux.practical.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
           </div>
         </section>
 

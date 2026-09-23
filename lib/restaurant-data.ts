@@ -124,6 +124,7 @@ export const localSeoLinks = [
 export type NavKey =
   | 'home'
   | 'carte'
+  | 'drinks'
   | 'dailyMenu'
   | 'gallery'
   | 'privatisation'
@@ -134,6 +135,7 @@ export type NavKey =
 export const navItems: { href: string; key: NavKey; label: string }[] = [
   { href: '/', key: 'home', label: 'Accueil' },
   { href: '/carte', key: 'carte', label: 'La carte' },
+  { href: '/carte/boissons', key: 'drinks', label: 'Boissons' },
   { href: '/menu-du-jour', key: 'dailyMenu', label: 'Menu du jour' },
   { href: '/galerie', key: 'gallery', label: 'Galerie' },
   { href: '/privatisation', key: 'privatisation', label: 'Privatisation' },

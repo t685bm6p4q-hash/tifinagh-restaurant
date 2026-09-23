@@ -7,6 +7,7 @@ export const it: Dictionary = {
   nav: {
     home: 'Home',
     carte: 'Il menu',
+    drinks: 'Bevande',
     dailyMenu: 'Menu del giorno',
     gallery: 'Galleria',
     privatisation: 'Eventi privati',

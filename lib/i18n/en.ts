@@ -7,10 +7,11 @@ export const en: Dictionary = {
   nav: {
     home: 'Home',
     carte: 'Menu',
+    drinks: 'Drinks',
     dailyMenu: "Today's menu",
     gallery: 'Gallery',
-    privatisation: 'Private events',
-    around: 'Around us',
+    privatisation: 'Private hire',
+    around: 'Area',
     reservation: 'Reservation',
     contact: 'Contact',
     book: 'Book',

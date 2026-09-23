@@ -61,6 +61,10 @@ export function HeaderNav({
       {navItems.map((item) => {
         const active = isNavActive(pathname, item.href)
         const className = [
+          item.key === 'home' ? 'nav-home' : null,
+          item.key === 'reservation' ? 'nav-reservation' : null,
+          item.key === 'drinks' ? 'nav-drinks' : null,
+          item.key === 'carte' ? 'nav-carte' : null,
           item.href === '/menu-du-jour' ? 'nav-menu-jour' : null,
           active ? 'nav-active' : null,
         ]

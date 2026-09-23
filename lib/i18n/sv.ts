@@ -7,6 +7,7 @@ export const sv: Dictionary = {
   nav: {
     home: 'Hem',
     carte: 'Meny',
+    drinks: 'Dryck',
     dailyMenu: 'Dagens meny',
     gallery: 'Galleri',
     privatisation: 'Privata evenemang',

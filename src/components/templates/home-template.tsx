@@ -12,10 +12,11 @@ import {
   WineIcon,
 } from '@/components/icons'
 import { googleMapsEmbedUrl, googleMapsUrl } from '@/lib/restaurant-data'
-import { getI18n, localizeMenu, localizeTestimonials } from '@/lib/i18n'
+import { getI18n, getUxExtra, localizeMenu, localizeTestimonials } from '@/lib/i18n'
 
 export async function HomeTemplate() {
-  const { dictionary } = await getI18n()
+  const { dictionary, locale } = await getI18n()
+  const ux = getUxExtra(locale)
   const menu = localizeMenu(dictionary)
   const reviews = localizeTestimonials(dictionary)
 
@@ -55,9 +56,15 @@ export async function HomeTemplate() {
                 <MessageCircleIcon size={16} />
                 {dictionary.home.bookTable}
               </Link>
-              <Link className="text-link" href="/carte" prefetch={false}>
-                {dictionary.home.discoverMenu}
-              </Link>
+              <div className="hero-menu-links">
+                <Link className="text-link" href="/carte" prefetch={false}>
+                  {dictionary.home.discoverMenu}
+                </Link>
+                <span className="hero-menu-links-sep" aria-hidden="true">·</span>
+                <Link className="text-link" href="/carte/boissons" prefetch={false}>
+                  {ux.homeDiscoverDrinks}
+                </Link>
+              </div>
             </div>
           </div>
           <div className="hero-note">

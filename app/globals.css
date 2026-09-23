@@ -99,11 +99,32 @@ button, input, textarea, select { font: inherit; }
 .main-nav {
   display: flex;
   align-items: center;
-  gap: 20px;
+  flex: 1;
+  min-width: 0;
+  justify-content: center;
+  gap: clamp(8px, 1vw, 18px);
+  margin: 0 clamp(8px, 1.2vw, 20px);
   text-transform: uppercase;
-  font-size: 10px;
-  letter-spacing: 0.14em;
+  font-size: clamp(8px, 0.62vw, 10px);
+  letter-spacing: 0.1em;
   font-family: system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+}
+
+/* Carte + boissons : paire visuelle, moins d’espace entre les deux */
+.main-nav a.nav-carte {
+  margin-right: -4px;
+}
+
+.main-nav a.nav-drinks {
+  letter-spacing: 0.08em;
+}
+
+/* Barre horizontale : logo = accueil, bouton vert = réserver */
+@media (min-width: 1381px) {
+  .main-nav a.nav-home,
+  .main-nav a.nav-reservation {
+    display: none;
+  }
 }
 
 .main-nav a:not(.nav-menu-jour) {
@@ -130,12 +151,23 @@ button, input, textarea, select { font: inherit; }
   background-color: #ffeb01 !important;
   color: #1c171d !important;
   border: 2px solid #1c171d;
-  padding: 7px 14px;
+  padding: 6px 10px;
   border-radius: 5px;
-  letter-spacing: 0.06em;
-  font-size: 10px;
+  letter-spacing: 0.05em;
+  font-size: clamp(8px, 0.62vw, 10px);
   font-weight: 700;
+  white-space: nowrap;
   transition: background-color 0.2s, border-color 0.2s;
+}
+
+@media (min-width: 1381px) and (max-width: 1540px) {
+  .main-nav a.nav-menu-jour {
+    padding: 5px 8px;
+  }
+
+  .main-nav a:not(.nav-menu-jour) {
+    white-space: nowrap;
+  }
 }
 
 .main-nav a.nav-menu-jour:hover {
@@ -446,7 +478,18 @@ a.nav-cta.nav-active {
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+.booking-channels-guide {
   margin: 0 0 14px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
 }
 
 .booking-channels-row {
@@ -1512,8 +1555,57 @@ a.nav-cta.nav-active {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.1fr 1.4fr 1fr;
-  gap: 40px;
+  grid-template-columns: 1.1fr 0.85fr 1.25fr 1fr;
+  gap: 32px;
+}
+
+.footer-explore h2 {
+  margin-bottom: 12px;
+}
+
+.footer-explore-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.contact-practical-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 28px 32px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.contact-practical-inner h2 {
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 400;
+  margin: 0 0 16px;
+}
+
+.contact-practical-list {
+  margin: 0;
+  padding-left: 1.15em;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+  display: grid;
+  gap: 10px;
+}
+
+.hero-menu-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+}
+
+.hero-menu-links-sep {
+  color: var(--muted);
+  opacity: 0.7;
 }
 
 .footer-hours {
@@ -2287,7 +2379,7 @@ select:focus { border-color: var(--terracotta); }
 }
 
 /* ── Nav compacte : burger + langue ; Réservation dans le menu déroulant. */
-@media (max-width: 1320px) {
+@media (max-width: 1380px) {
   .menu-toggle {
     display: inline-flex;
   }

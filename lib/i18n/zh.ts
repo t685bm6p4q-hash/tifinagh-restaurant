@@ -7,6 +7,7 @@ export const zh: Dictionary = {
   nav: {
     home: '首页',
     carte: '菜单',
+    drinks: '饮品',
     dailyMenu: '今日菜单',
     gallery: '相册',
     privatisation: '包场活动',

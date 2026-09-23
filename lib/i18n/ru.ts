@@ -7,10 +7,11 @@ export const ru: Dictionary = {
   nav: {
     home: 'Главная',
     carte: 'Меню',
+    drinks: 'Напитки',
     dailyMenu: 'Меню дня',
     gallery: 'Галерея',
     privatisation: 'Частные мероприятия',
-    around: 'Рядом с нами',
+    around: 'Район',
     reservation: 'Бронирование',
     contact: 'Контакты',
     book: 'Забронировать',

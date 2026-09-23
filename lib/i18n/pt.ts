@@ -7,10 +7,11 @@ export const pt: Dictionary = {
   nav: {
     home: 'Início',
     carte: 'O menu',
+    drinks: 'Bebidas',
     dailyMenu: 'Menu do dia',
     gallery: 'Galeria',
-    privatisation: 'Privatização',
-    around: 'À nossa volta',
+    privatisation: 'Privado',
+    around: 'Zona',
     reservation: 'Reserva',
     contact: 'Contacto',
     book: 'Reservar',

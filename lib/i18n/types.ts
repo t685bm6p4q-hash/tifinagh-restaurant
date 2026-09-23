@@ -131,6 +131,7 @@ export type Dictionary = {
   nav: {
     home: string
     carte: string
+    drinks: string
     dailyMenu: string
     gallery: string
     privatisation: string
