@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Header, Footer, PageIntro } from '@/components/site-shell'
+import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { MenuCrossLink } from '@/components/menu-cross-link'
 import { MenuPdfViewer } from '@/components/menu-pdf-viewer'
 import { getI18n } from '@/lib/i18n'
@@ -18,7 +18,7 @@ export default async function MenuDuJour() {
   return (
     <>
       <Header />
-      <main>
+      <MainContent>
         <PageIntro eyebrow={d.introEyebrow} title={d.introTitle} text={d.introText} />
 
         <MenuCrossLink
@@ -68,7 +68,7 @@ export default async function MenuDuJour() {
           cta={dictionary.dailyMenuPage.carteInviteCta}
           variant="to-carte"
         />
-      </main>
+      </MainContent>
       <Footer />
     </>
   )

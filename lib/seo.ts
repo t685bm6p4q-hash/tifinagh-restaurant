@@ -62,16 +62,3 @@ export const restaurant = {
     'https://www.google.com/maps/search/?api=1&query=Tifinagh+17+Avenue+Rachel+75018+Paris',
   ],
 } as const
-
-export const defaultKeywords = [
-  'restaurant traditionnel',
-  'cuisine française',
-  'bistrot',
-  'bistrot Montmartre',
-  'fait maison',
-  'restaurant Montmartre',
-  'restaurant Paris 18',
-  'restaurant Pigalle',
-  'restaurant Place de Clichy',
-  'Tifinagh',
-]

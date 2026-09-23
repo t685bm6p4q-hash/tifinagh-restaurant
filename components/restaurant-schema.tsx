@@ -5,8 +5,7 @@ import { restaurant, siteUrl } from '@/lib/seo'
  * restaurant de cuisine traditionnelle francaise, avec adresse et horaires.
  */
 export function RestaurantSchema() {
-  const schema = {
-    '@context': 'https://schema.org',
+  const restaurantSchema = {
     '@type': 'Restaurant',
     '@id': `${siteUrl}/#restaurant`,
     name: restaurant.name,
@@ -74,6 +73,20 @@ export function RestaurantSchema() {
       },
     ],
     sameAs: restaurant.social,
+  }
+
+  const websiteSchema = {
+    '@type': 'WebSite',
+    '@id': `${siteUrl}/#website`,
+    url: siteUrl,
+    name: restaurant.name,
+    publisher: { '@id': `${siteUrl}/#restaurant` },
+    inLanguage: ['fr', 'en', 'es', 'it', 'zh', 'de', 'pt', 'ru', 'sv'],
+  }
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@graph': [restaurantSchema, websiteSchema],
   }
 
   return (

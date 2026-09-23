@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { localeMeta, type Locale } from './config'
+import { localeMeta, locales, type Locale } from './config'
 import { getDictionary, getLocale } from './get-locale'
 import type { Dictionary, SeoPageCopy } from './types'
 import { restaurant, siteUrl } from '@/lib/seo'
@@ -20,6 +20,16 @@ export const seoPagePaths: Record<SeoPageId, string> = {
   restaurantMontmartre: '/restaurant-montmartre',
   restaurantPigalle: '/restaurant-pigalle',
   restaurantPlaceDeClichy: '/restaurant-place-de-clichy',
+}
+
+/** Même URL pour toutes les langues (i18n par cookie) — signale les équivalents à Google. */
+function buildLanguageAlternates(canonicalHref: string): Record<string, string> {
+  const languages: Record<string, string> = {}
+  for (const loc of locales) {
+    languages[localeMeta[loc].htmlLang] = canonicalHref
+  }
+  languages['x-default'] = canonicalHref
+  return languages
 }
 
 const openGraphLocale: Record<Locale, string> = {
@@ -152,7 +162,10 @@ export async function buildSiteMetadata(): Promise<Metadata> {
     },
     description: site.description,
     keywords: site.keywords,
-    alternates: { canonical: siteUrl },
+    alternates: {
+      canonical: siteUrl,
+      languages: buildLanguageAlternates(siteUrl),
+    },
     openGraph: {
       type: 'website',
       locale: openGraphLocale[locale],
@@ -193,7 +206,10 @@ export async function buildPageMetadata(
 
   const metadata: Metadata = {
     description: page.description,
-    alternates: { canonical },
+    alternates: {
+      canonical,
+      languages: buildLanguageAlternates(canonical),
+    },
     ...(fallbackSeo.keywords ? { keywords: fallbackSeo.keywords } : {}),
     ...buildSocialMetadata(locale, page, canonical, documentTitle),
     ...extra,

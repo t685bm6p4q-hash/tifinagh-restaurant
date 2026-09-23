@@ -1,4 +1,4 @@
-import { Header, Footer, PageIntro } from '@/components/site-shell'
+import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
 import { ReservationWhatsAppForm } from '@/components/reservation-whatsapp-form'
 import { getI18n } from '@/lib/i18n'
@@ -10,7 +10,7 @@ export default async function Reservation() {
   return (
     <>
       <Header />
-      <main>
+      <MainContent>
         <PageIntro eyebrow={p.introEyebrow} title={p.introTitle} text={p.introText} />
         <section className="form-wrap section">
           <BookingChannels title={p.channelsTitle} />
@@ -19,7 +19,7 @@ export default async function Reservation() {
           </p>
           <ReservationWhatsAppForm copy={p} locale={locale} />
         </section>
-      </main>
+      </MainContent>
       <Footer />
     </>
   )

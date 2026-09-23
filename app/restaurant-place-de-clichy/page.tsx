@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Header, Footer, PageIntro } from '@/components/site-shell'
+import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
 import { getI18n } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
@@ -16,7 +16,7 @@ export default async function RestaurantPlaceDeClichy() {
   return (
     <>
       <Header />
-      <main>
+      <MainContent>
         <PageIntro eyebrow={p.introEyebrow} title={p.introTitle} text={p.introText} />
 
         <section className="local-page section">
@@ -60,7 +60,7 @@ export default async function RestaurantPlaceDeClichy() {
             <BookingChannels title={p.bookingTitle} />
           </article>
         </section>
-      </main>
+      </MainContent>
       <Footer />
     </>
   )

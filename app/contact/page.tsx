@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Clock, MapPin, Phone } from 'lucide-react'
-import { Header, Footer, PageIntro } from '@/components/site-shell'
+import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { googleMapsEmbedUrl, googleMapsUrl } from '@/lib/restaurant-data'
 import { getI18n, getUxExtra, localizeMetro, localizeSeoLinks } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
@@ -19,7 +19,7 @@ export default async function Contact() {
   return (
     <>
       <Header />
-      <main>
+      <MainContent>
         <PageIntro
           eyebrow={dictionary.contact.eyebrow}
           title={dictionary.contact.title}
@@ -128,7 +128,7 @@ export default async function Contact() {
             />
           </div>
         </section>
-      </main>
+      </MainContent>
       <Footer />
     </>
   )

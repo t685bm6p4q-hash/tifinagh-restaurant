@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Header, Footer, PageIntro } from '@/components/site-shell'
+import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
 import { phoneDisplay, phoneTel, whatsappLink } from '@/lib/restaurant-data'
 import { cloudinaryImage } from '@/lib/cloudinary'
@@ -29,7 +29,7 @@ export default async function Privatisation() {
   return (
     <>
       <Header />
-      <main>
+      <MainContent>
         <PageIntro eyebrow={p.introEyebrow} title={p.introTitle} text={p.introText} />
 
         <section className="page-banner" aria-label={p.bannerAria}>
@@ -126,7 +126,7 @@ export default async function Privatisation() {
             <BookingChannels title={p.bookingTitle} />
           </div>
         </section>
-      </main>
+      </MainContent>
       <Footer />
     </>
   )

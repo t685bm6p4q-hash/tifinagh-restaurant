@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Header, Footer } from '@/components/site-shell'
+import { Header, Footer, MainContent } from '@/components/site-shell'
 import { TonightStrip } from '@/components/tonight-strip'
 import { BookingChannels } from '@/components/booking-channels'
 import { SectionHeading } from '@/src/components/molecules/section-heading'
@@ -23,7 +23,7 @@ export async function HomeTemplate() {
   return (
     <>
       <Header />
-      <main>
+      <MainContent>
 
         {/* ── Hero (LCP) — avant le bandeau info pour decouverte HTML prioritaire ── */}
         <section className="hero">
@@ -208,7 +208,7 @@ export async function HomeTemplate() {
           </div>
         </section>
 
-      </main>
+      </MainContent>
       <Footer />
     </>
   )

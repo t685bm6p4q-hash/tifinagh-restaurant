@@ -89,17 +89,6 @@ export const metroAccessStations: MetroStation[] = [
 
 export type LocalVenue = { name: string; note: string }
 
-export const quartierLandmarks = [
-  {
-    title: 'Cimetière de Montmartre',
-    text: "Niché juste sur l'avenue Rachel, au niveau de l'accès au cimetière : la halte idéale pour une pause calme et gourmande.",
-  },
-  {
-    title: 'Montmartre & Sacré-Cœur',
-    text: 'Au pied de la butte Montmartre, préservé du tumulte touristique direct.',
-  },
-] as const
-
 export const nearbyTheatres: LocalVenue[] = [
   { name: 'Théâtre des Deux Ânes', note: 'à 3 min à pied sur le boulevard de Clichy' },
   { name: "Théâtre de l'Européen", note: 'à 5 min à pied, rue Biot / Place de Clichy' },

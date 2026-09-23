@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { AlertCircle, CheckCircle } from 'lucide-react'
+import { MainContent } from '@/components/main-content'
 import { compressMenuImageInBrowser } from '@/lib/compress-menu-browser'
 import { MAX_MENU_PDF_BYTES, MAX_MENU_UPLOAD_BYTES, PDF_TOO_HEAVY_MESSAGE } from '@/lib/menu-pdf'
 
@@ -95,7 +96,7 @@ export default function MenuSetupAdmin() {
   }
 
   return (
-    <main style={{ background: 'var(--background)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <MainContent style={{ background: 'var(--background)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div style={{ maxWidth: '500px', width: '100%', margin: '0 auto', padding: '40px 20px' }}>
 
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
@@ -212,6 +213,6 @@ export default function MenuSetupAdmin() {
           </a>
         </div>
       </div>
-    </main>
+    </MainContent>
   )
 }

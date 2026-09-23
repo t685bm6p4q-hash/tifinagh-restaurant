@@ -54,11 +54,6 @@ export function CalendarDaysIcon({ size = 24 }: IconProps) {
   )
 }
 
-/**
- * @deprecated Import depuis `@/components/pagesjaunes-logo` — re-export conservé.
- */
-export { PagesJaunesIcon } from '@/components/pagesjaunes-logo'
-
 /** Logo Instagram en degradé officiel — SVG inline, zero asset externe. */
 export function InstagramIcon({ size = 20 }: IconProps) {
   return (

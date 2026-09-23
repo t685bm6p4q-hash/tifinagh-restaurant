@@ -5,9 +5,6 @@ export const MENU_PDF_PATHNAME = 'menu-du-jour.pdf'
 /** URL unique du menu du jour (inline, iframe, lien direct). */
 export const MENU_PDF_URL = '/api/menu-pdf'
 
-/** Repli servi tant qu'aucun fichier n'a ete televerse. */
-export const MENU_PDF_STATIC_FALLBACK = '/menu-du-jour.pdf'
-
 export const MAX_MENU_PDF_BYTES = Math.floor(4.5 * 1024 * 1024)
 export const PDF_TOO_HEAVY_MESSAGE = 'Le PDF est trop lourd, veuillez le compresser.'
 export const MAX_MENU_UPLOAD_BYTES = 10 * 1024 * 1024
@@ -101,11 +98,6 @@ export function menuInlineResponseHeaders(contentType: string): HeadersInit {
     /** Autorise l'iframe same-origin sur /menu-du-jour (sinon frame-ancestors 'none' bloque). */
     'Content-Security-Policy': "frame-ancestors 'self'",
   }
-}
-
-/** @deprecated Utiliser menuInlineResponseHeaders */
-export function pdfInlineResponseHeaders(): HeadersInit {
-  return menuInlineResponseHeaders(PDF)
 }
 
 export function isBlobConfigured(): boolean {

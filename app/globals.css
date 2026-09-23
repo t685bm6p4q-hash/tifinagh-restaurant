@@ -48,6 +48,39 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  z-index: 10000;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  background: var(--gold);
+  color: #111210;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  left: 16px;
+  top: 16px;
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 h1, h2, h3, h4, .brand, .footer-brand {
   font-family: Georgia, 'Times New Roman', serif;
   letter-spacing: -0.02em;
@@ -1852,6 +1885,52 @@ button.footer-link {
 .pagesjaunes-logo {
   display: block;
   flex-shrink: 0;
+}
+
+/* ── Fil d'Ariane ───────────────────────────────────── */
+.page-breadcrumb-wrap {
+  background: var(--surface);
+  padding: 108px 8vw 0;
+  text-align: center;
+}
+
+.page-breadcrumb-wrap + .page-intro {
+  padding-top: 22px;
+}
+
+.breadcrumb-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.breadcrumb-item a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.breadcrumb-item a:hover {
+  color: var(--gold);
+}
+
+.breadcrumb-item [aria-current='page'] {
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+.breadcrumb-sep {
+  margin: 0 0.45em;
+  opacity: 0.45;
+  user-select: none;
 }
 
 /* ── Page intro ─────────────────────────────────────── */

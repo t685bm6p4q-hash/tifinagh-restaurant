@@ -1,7 +1,11 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import './drinks.css'
-import { Header, Footer, PageIntro } from '@/components/site-shell'
+import { BreadcrumbJsonLd } from '@/components/breadcrumb-json-ld'
+import { BreadcrumbNav } from '@/components/breadcrumb-nav'
+import { getA11yCopy } from '@/lib/i18n/a11y-copy'
+import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
+import { siteUrl } from '@/lib/seo'
 import { MenuCrossLink } from '@/components/menu-cross-link'
 import { DrinksMenuGrid } from '@/src/components/organisms/drinks-menu-grid'
 import { cloudinaryImage } from '@/lib/cloudinary'
@@ -14,14 +18,24 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function CarteBoissonsPage() {
-  const { dictionary } = await getI18n()
+  const { dictionary, locale } = await getI18n()
   const drinks = localizeDrinks(dictionary)
   const d = dictionary.drinks.page
+  const breadcrumbItems = [
+    { name: dictionary.nav.home, path: '/' },
+    { name: dictionary.nav.carte, path: '/carte' },
+    { name: d.title, path: '/carte/boissons' },
+  ]
+  const a11y = getA11yCopy(locale)
 
   return (
     <>
+      <BreadcrumbJsonLd siteUrl={siteUrl} items={breadcrumbItems} />
       <Header />
-      <main>
+      <MainContent>
+        <div className="page-breadcrumb-wrap">
+          <BreadcrumbNav items={breadcrumbItems} ariaLabel={a11y.breadcrumbNav} />
+        </div>
         <PageIntro eyebrow={d.eyebrow} title={d.title} text={d.text} />
 
         <section className="drinks-banner" aria-label={d.bannerAlt}>
@@ -54,7 +68,7 @@ export default async function CarteBoissonsPage() {
           cta={d.backCta}
           variant="to-carte"
         />
-      </main>
+      </MainContent>
       <Footer />
     </>
   )

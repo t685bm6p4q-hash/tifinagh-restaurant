@@ -37,9 +37,9 @@ export const seoPt: Dictionary['seo'] = {
         'Carta del bistrô Tifinagh: foie gras, confit de pato, caracoles de Borgoña y postres caseros, 17 avenue Rachel, Paris 18.',
     },
     carteBoissons: {
-      title: 'Carte des boissons — bières, cocktails & apéritifs | Tifinagh Montmartre',
+      title: 'Carta de bebidas — cervejas, cocktails e aperitivos | Tifinagh Montmartre',
       description:
-        'Bières pression et bouteille, softs, apéritifs, cocktails, digestifs et boissons chaudes au bistrot Tifinagh, 17 avenue Rachel, Paris 18.',
+        'Cervejas de pressão e garrafa, refrigerantes, aperitivos, cocktails, digestivos e bebidas quentes no bistrô Tifinagh, 17 avenue Rachel, Paris 18.',
     },
     menuDuJour: {
       title: 'Menu do dia PDF — menus frescos en Montmartre',

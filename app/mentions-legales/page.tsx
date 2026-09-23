@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Footer, Header, PageIntro } from '@/components/site-shell'
+import { Footer, Header, PageIntro, MainContent } from '@/components/site-shell'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -10,7 +10,7 @@ export default function MentionsLegales() {
   return (
     <>
       <Header />
-      <main>
+      <MainContent>
         <PageIntro
           eyebrow="Informations"
           title="Mentions légales"
@@ -95,7 +95,7 @@ export default function MentionsLegales() {
             </p>
           </article>
         </section>
-      </main>
+      </MainContent>
       <Footer />
     </>
   )

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { Header, Footer, PageIntro } from '@/components/site-shell'
+import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { cloudinaryImage } from '@/lib/cloudinary'
 import { getI18n } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
@@ -44,7 +44,7 @@ export default async function Galerie() {
   return (
     <>
       <Header />
-      <main>
+      <MainContent>
         <PageIntro eyebrow={g.introEyebrow} title={g.introTitle} text={g.introText} />
         <section className="gallery section">
           {photoPaths.map((path, index) => {
@@ -63,7 +63,7 @@ export default async function Galerie() {
             )
           })}
         </section>
-      </main>
+      </MainContent>
       <Footer />
     </>
   )

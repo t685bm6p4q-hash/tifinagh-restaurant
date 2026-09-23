@@ -9,6 +9,9 @@ __v0_jsx-dev-runtime.ts
 # Environment variables
 .env*.local
 
+# Profils Chrome temporaires (tests E2E locaux)
+.verify-chrome-profile-cookies/
+
 # Common ignores
 node_modules
 .next/

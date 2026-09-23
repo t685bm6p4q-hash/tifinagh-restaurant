@@ -1,34 +1,39 @@
 import Link from 'next/link'
-import { Header, Footer } from '@/components/site-shell'
+import { Header, Footer, MainContent } from '@/components/site-shell'
+import { getI18n } from '@/lib/i18n'
+import { getNotFoundCopy } from '@/lib/i18n/not-found-copy'
 
-export default function NotFound() {
+export default async function NotFound() {
+  const { locale } = await getI18n()
+  const copy = getNotFoundCopy(locale)
+
   return (
     <>
       <Header />
-      <main>
+      <MainContent>
         <section className="page-intro not-found-page">
-          <p className="eyebrow">Erreur 404</p>
-          <h1>Page introuvable</h1>
-          <p>
-            Cette adresse n&apos;existe pas ou a été déplacée. Retournez à l&apos;accueil ou
-            consultez notre carte et nos horaires.
-          </p>
+          <p className="eyebrow">{copy.eyebrow}</p>
+          <h1>{copy.title}</h1>
+          <p>{copy.text}</p>
           <div className="local-actions not-found-actions">
             <Link className="button button-primary" href="/">
-              Retour à l&apos;accueil
+              {copy.home}
             </Link>
             <Link className="text-link" href="/carte">
-              Voir la carte
+              {copy.carte}
+            </Link>
+            <Link className="text-link" href="/carte/boissons">
+              {copy.drinks}
             </Link>
             <Link className="text-link" href="/reservation">
-              Réserver
+              {copy.reserve}
             </Link>
             <Link className="text-link" href="/contact">
-              Contact
+              {copy.contact}
             </Link>
           </div>
         </section>
-      </main>
+      </MainContent>
       <Footer />
     </>
   )

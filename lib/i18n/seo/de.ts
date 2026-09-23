@@ -37,9 +37,9 @@ export const seoDe: Dictionary['seo'] = {
         'French Classics du bistrot Tifinagh : foie gras, confit de canard, escargots de Bourgogne et desserts maison, au 17 avenue Rachel, Paris 18.',
     },
     carteBoissons: {
-      title: 'Carte des boissons — bières, cocktails & apéritifs | Tifinagh Montmartre',
+      title: 'Getränkekarte — Biere, Cocktails & Aperitifs | Tifinagh Montmartre',
       description:
-        'Bières pression et bouteille, softs, apéritifs, cocktails, digestifs et boissons chaudes au bistrot Tifinagh, 17 avenue Rachel, Paris 18.',
+        'Fass- und Flaschenbiere, Softdrinks, Aperitifs, Cocktails, Digestifs und Heißgetränke im Bistrot Tifinagh, 17 avenue Rachel, Paris 18.',
     },
     menuDuJour: {
       title: 'Tagesmenü PDF — formules fraîches à Montmartre',
