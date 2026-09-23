@@ -1,5 +1,5 @@
 import type { Dictionary } from './types'
-import { drinksCopy } from './drinks-copy'
+import { drinksByLocale } from './drinks-copy'
 import { pagesByLocale } from './pages-copy'
 import { seoByLocale } from './seo-copy'
 
@@ -182,7 +182,7 @@ export const es: Dictionary = {
     whatsappGuests: 'Comensales',
     whatsappMessage: 'Mensaje',
   },
-  drinks: drinksCopy,
+  drinks: drinksByLocale.es,
   menu: {
     starters: {
       title: 'Entrantes',

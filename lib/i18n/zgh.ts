@@ -1,5 +1,5 @@
 import type { Dictionary } from './types'
-import { drinksCopy } from './drinks-copy'
+import { drinksByLocale } from './drinks-copy'
 import { pagesZgh } from './pages/zgh'
 import { seoZgh } from './seo/zgh'
 
@@ -178,7 +178,7 @@ export const zgh: Dictionary = {
     whatsappGuests: 'ⵉⵎⵙⵙⵏⵉ',
     whatsappMessage: 'ⵉⵣⵏ',
   },
-  drinks: drinksCopy,
+  drinks: drinksByLocale.zgh,
   menu: {
     starters: {
       title: 'ⵉⵣⵡⴰⵔⵏ',

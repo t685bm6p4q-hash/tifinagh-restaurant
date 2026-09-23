@@ -1,5 +1,5 @@
 import type { Dictionary } from './types'
-import { drinksCopy } from './drinks-copy'
+import { drinksByLocale } from './drinks-copy'
 import { pagesSv } from './pages/sv'
 import { seoSv } from './seo/sv'
 
@@ -180,7 +180,7 @@ export const sv: Dictionary = {
     whatsappGuests: 'Gäster',
     whatsappMessage: 'Meddelande',
   },
-  drinks: drinksCopy,
+  drinks: drinksByLocale.sv,
   menu: {
     starters: {
       title: 'Förrätter',

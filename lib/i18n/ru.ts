@@ -1,5 +1,5 @@
 import type { Dictionary } from './types'
-import { drinksCopy } from './drinks-copy'
+import { drinksByLocale } from './drinks-copy'
 import { pagesRu } from './pages/ru'
 import { seoRu } from './seo/ru'
 
@@ -127,11 +127,11 @@ export const ru: Dictionary = {
     bannerTitle: 'Вкусы аутентичности',
     bannerText: 'Подборка щедрых блюд, готовится каждый день из лучших продуктов.',
     terraceAlt: 'Терраса Tifinagh Montmartre с гостями под красным зонтом',
-    drinksInviteEyebrow: 'Carte des boissons',
-    drinksInviteTitle: 'Bières, cocktails & softs',
+    drinksInviteEyebrow: 'Карта напитков',
+    drinksInviteTitle: 'Пиво, коктейли и безалкогольные',
     drinksInviteText:
-      'Notre carte des boissons détaillée : pression, bouteilles, apéritifs, digestifs et boissons chaudes.',
-    drinksInviteCta: 'Voir la carte des boissons',
+      'Полная карта: разливное и бутылочное пиво, аперитивы, дижестивы и горячие напитки.',
+    drinksInviteCta: 'К карте напитков',
     dailyInviteEyebrow: 'Выбор дня',
     dailyInviteTitle: 'Хотите чего-то свежего?',
     dailyInviteText: 'Откройте меню дня, готовится каждое утро из сезонных продуктов.',
@@ -180,7 +180,7 @@ export const ru: Dictionary = {
     whatsappGuests: 'Гости',
     whatsappMessage: 'Сообщение',
   },
-  drinks: drinksCopy,
+  drinks: drinksByLocale.ru,
   menu: {
     starters: {
       title: 'Закуски',
