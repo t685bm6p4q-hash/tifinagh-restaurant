@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { HeaderScrollShell } from '@/components/header-scroll-shell'
 import { navItems } from '@/lib/restaurant-data'
 import { isNavActive } from '@/lib/nav-active'
 import { LanguageSwitcher } from '@/components/language-switcher'
@@ -97,7 +98,7 @@ export function HeaderShell({
   dictionary?: Dictionary
 }) {
   return (
-    <header className="site-header">
+    <HeaderScrollShell>
       <input type="checkbox" id="nav-toggle" className="nav-toggle-input" aria-hidden="true" tabIndex={-1} />
       <Link href="/" className="brand" prefetch={false}>
         <img
@@ -126,6 +127,6 @@ export function HeaderShell({
         <LanguageSwitcher locale={locale} dictionary={dictionary} pathname={pathname} />
         <ReservationCta pathname={pathname} dictionary={dictionary} />
       </div>
-    </header>
+    </HeaderScrollShell>
   )
 }
