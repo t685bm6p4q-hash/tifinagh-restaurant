@@ -1,11 +1,8 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import './drinks.css'
-import { BreadcrumbJsonLd } from '@/components/breadcrumb-json-ld'
-import { BreadcrumbNav } from '@/components/breadcrumb-nav'
-import { getA11yCopy } from '@/lib/i18n/a11y-copy'
+import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
-import { siteUrl } from '@/lib/seo'
 import { MenuCrossLink } from '@/components/menu-cross-link'
 import { DrinksMenuGrid } from '@/src/components/organisms/drinks-menu-grid'
 import { cloudinaryImage } from '@/lib/cloudinary'
@@ -26,16 +23,11 @@ export default async function CarteBoissonsPage() {
     { name: dictionary.nav.carte, path: '/carte' },
     { name: d.title, path: '/carte/boissons' },
   ]
-  const a11y = getA11yCopy(locale)
-
   return (
     <>
-      <BreadcrumbJsonLd siteUrl={siteUrl} items={breadcrumbItems} />
       <Header />
       <MainContent>
-        <div className="page-breadcrumb-wrap">
-          <BreadcrumbNav items={breadcrumbItems} ariaLabel={a11y.breadcrumbNav} />
-        </div>
+        <PageBreadcrumbs locale={locale} items={breadcrumbItems} />
         <PageIntro eyebrow={d.eyebrow} title={d.title} text={d.text} />
 
         <section className="drinks-banner" aria-label={d.bannerAlt}>

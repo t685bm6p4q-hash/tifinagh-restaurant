@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Clock, MapPin, Phone } from 'lucide-react'
+import { ArrowRightIcon, ClockIcon, MapPinIcon, PhoneIcon } from '@/components/icons'
+import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { googleMapsEmbedUrl, googleMapsUrl } from '@/lib/restaurant-data'
 import { getI18n, getUxExtra, localizeMetro, localizeSeoLinks } from '@/lib/i18n'
@@ -15,11 +16,16 @@ export default async function Contact() {
   const ux = getUxExtra(locale)
   const metroStations = localizeMetro(dictionary)
   const seoLinks = localizeSeoLinks(dictionary)
+  const breadcrumbItems = [
+    { name: dictionary.nav.home, path: '/' },
+    { name: dictionary.contact.title, path: '/contact' },
+  ]
 
   return (
     <>
       <Header />
       <MainContent>
+        <PageBreadcrumbs locale={locale} items={breadcrumbItems} />
         <PageIntro
           eyebrow={dictionary.contact.eyebrow}
           title={dictionary.contact.title}
@@ -28,7 +34,7 @@ export default async function Contact() {
 
         <section className="contact-grid section">
           <div className="contact-card">
-            <MapPin size={22} />
+            <MapPinIcon size={22} />
             <h2>{dictionary.contact.address}</h2>
             <p>17 Av. Rachel<br />75018 Paris</p>
             <Link
@@ -37,19 +43,19 @@ export default async function Contact() {
               target="_blank"
               rel="noreferrer"
             >
-              {dictionary.common.directions} <ArrowRight size={12} />
+              {dictionary.common.directions} <ArrowRightIcon size={12} />
             </Link>
           </div>
 
           <div className="contact-card">
-            <Phone size={22} />
+            <PhoneIcon size={22} />
             <h2>{dictionary.contact.phone}</h2>
             <p>01 42 94 22 40</p>
             <p>{dictionary.contact.phoneNote}</p>
           </div>
 
           <div className="contact-card">
-            <Clock size={22} />
+            <ClockIcon size={22} />
             <h2>{dictionary.contact.hours}</h2>
             <p>
               {dictionary.contact.hoursDays}<br />
@@ -58,7 +64,7 @@ export default async function Contact() {
           </div>
 
           <div className="contact-card contact-transit">
-            <MapPin size={22} />
+            <MapPinIcon size={22} />
             <h2>{dictionary.contact.nearbyMetro}</h2>
             <ul className="contact-metro-list">
               {metroStations.map((station) => (
@@ -115,7 +121,7 @@ export default async function Contact() {
               target="_blank"
               rel="noreferrer"
             >
-              {dictionary.common.directions} <ArrowRight size={14} aria-hidden="true" />
+              {dictionary.common.directions} <ArrowRightIcon size={14} />
             </a>
           </div>
           <div className="map-section-map map-frame">

@@ -1,10 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { BreadcrumbJsonLd } from '@/components/breadcrumb-json-ld'
-import { BreadcrumbNav } from '@/components/breadcrumb-nav'
-import { getA11yCopy } from '@/lib/i18n/a11y-copy'
+import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
-import { siteUrl } from '@/lib/seo'
 import { MenuCrossLink } from '@/components/menu-cross-link'
 import { MenuSection } from '@/src/components/organisms/menu-section'
 import { cloudinaryImage } from '@/lib/cloudinary'
@@ -22,16 +19,11 @@ export default async function Carte() {
     { name: dictionary.nav.home, path: '/' },
     { name: dictionary.carte.title, path: '/carte' },
   ]
-  const a11y = getA11yCopy(locale)
-
   return (
     <>
-      <BreadcrumbJsonLd siteUrl={siteUrl} items={breadcrumbItems} />
       <Header />
       <MainContent>
-        <div className="page-breadcrumb-wrap">
-          <BreadcrumbNav items={breadcrumbItems} ariaLabel={a11y.breadcrumbNav} />
-        </div>
+        <PageBreadcrumbs locale={locale} items={breadcrumbItems} />
         <PageIntro
           eyebrow={dictionary.carte.eyebrow}
           title={dictionary.carte.title}

@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import { Header, Footer, MainContent } from '@/components/site-shell'
+import { SiteConsentLazy } from '@/components/site-consent-lazy'
+import { StickyCallBar } from '@/components/sticky-call-bar'
 import { getI18n } from '@/lib/i18n'
 import { getNotFoundCopy } from '@/lib/i18n/not-found-copy'
 
@@ -35,6 +37,8 @@ export default async function NotFound() {
         </section>
       </MainContent>
       <Footer />
+      <StickyCallBar />
+      <SiteConsentLazy />
     </>
   )
 }

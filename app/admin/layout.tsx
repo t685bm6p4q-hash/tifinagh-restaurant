@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/admin/menu-setup' },
 }
 
+/** Hors groupe `(site)` : pas de bandeau cookies ni analytics (layout racine minimal). */
 export default function AdminLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {

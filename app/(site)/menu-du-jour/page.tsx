@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
+import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { MenuCrossLink } from '@/components/menu-cross-link'
 import { MenuPdfViewer } from '@/components/menu-pdf-viewer'
 import { getI18n } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
+/** Menu servi depuis Blob — pas de cache HTML statique. */
 export const dynamic = 'force-dynamic'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -12,13 +14,18 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function MenuDuJour() {
-  const { dictionary } = await getI18n()
+  const { dictionary, locale } = await getI18n()
   const d = dictionary.dailyMenuPage
+  const breadcrumbItems = [
+    { name: dictionary.nav.home, path: '/' },
+    { name: d.introTitle, path: '/menu-du-jour' },
+  ]
 
   return (
     <>
       <Header />
       <MainContent>
+        <PageBreadcrumbs locale={locale} items={breadcrumbItems} />
         <PageIntro eyebrow={d.introEyebrow} title={d.introTitle} text={d.introText} />
 
         <MenuCrossLink

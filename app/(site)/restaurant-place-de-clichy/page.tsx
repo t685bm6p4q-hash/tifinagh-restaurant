@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
 import { getI18n } from '@/lib/i18n'
@@ -10,13 +11,18 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function RestaurantPlaceDeClichy() {
-  const { dictionary } = await getI18n()
+  const { dictionary, locale } = await getI18n()
   const p = dictionary.pages.clichy
+  const breadcrumbItems = [
+    { name: dictionary.nav.home, path: '/' },
+    { name: p.introTitle, path: '/restaurant-place-de-clichy' },
+  ]
 
   return (
     <>
       <Header />
       <MainContent>
+        <PageBreadcrumbs locale={locale} items={breadcrumbItems} />
         <PageIntro eyebrow={p.introEyebrow} title={p.introTitle} text={p.introText} />
 
         <section className="local-page section">
