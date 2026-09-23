@@ -10,6 +10,7 @@ export function RestaurantSchema() {
     '@type': 'Restaurant',
     '@id': `${siteUrl}/#restaurant`,
     name: restaurant.name,
+    alternateName: ['Tifinagh', 'Le Tifinagh', 'Tifinagh Paris', 'Restaurant Tifinagh'],
     description: restaurant.description,
     url: siteUrl,
     telephone: restaurant.telephone,
@@ -55,7 +56,23 @@ export function RestaurantSchema() {
         closes: restaurant.openingHours.closes,
       },
     ],
-    hasMenu: `${siteUrl}/carte`,
+    hasMenu: [
+      {
+        '@type': 'Menu',
+        name: 'Carte des plats',
+        url: `${siteUrl}/carte`,
+      },
+      {
+        '@type': 'Menu',
+        name: 'Carte des boissons',
+        url: `${siteUrl}/carte/boissons`,
+      },
+      {
+        '@type': 'Menu',
+        name: 'Menu du jour',
+        url: `${siteUrl}/menu-du-jour`,
+      },
+    ],
     sameAs: restaurant.social,
   }
 

@@ -48,6 +48,8 @@ const seoFr: Dictionary['seo'] = {
       'restaurant Paris 18',
       'restaurant Pigalle',
       'restaurant Place de Clichy',
+      'Tifinagh Paris',
+      'restaurant Tifinagh',
       'Tifinagh',
     ],
   },
@@ -102,11 +104,12 @@ const seoFr: Dictionary['seo'] = {
         'Réservez chez Tifinagh Montmartre en quelques secondes : téléphone, Google Reserve ou WhatsApp. 17 avenue Rachel, Paris 18.',
     },
     restaurantMontmartre: {
-      title: 'Restaurant Montmartre — bistrot français au pied de la butte',
+      title: 'Restaurant Montmartre — Tifinagh, bistrot français',
       description:
-        'Restaurant Tifinagh à Montmartre : près du cimetière de Montmartre et du Sacré-Cœur, idéal avant ou après spectacle. Cuisine maison, avenue Rachel.',
+        'Restaurant Tifinagh à Montmartre (Paris 18) : cimetière de Montmartre, Sacré-Cœur, carte détaillée en ligne, cuisine 100 % maison — 17 avenue Rachel.',
       keywords: [
         'restaurant Montmartre',
+        'Tifinagh Paris',
         'restaurant cimetière Montmartre',
         'restaurant avant spectacle Paris',
         'bistrot Montmartre',
@@ -115,27 +118,30 @@ const seoFr: Dictionary['seo'] = {
       ],
     },
     restaurantPigalle: {
-      title: 'Restaurant à Pigalle — bistrot français près du Moulin Rouge',
+      title: 'Restaurant près du Moulin Rouge — Tifinagh Pigalle',
       description:
-        'Restaurant Tifinagh à deux pas de Pigalle : cuisine française maison, terrasse calme avenue Rachel, idéal avant un spectacle au Moulin Rouge ou dans les théâtres du quartier.',
+        'Restaurant Tifinagh à pied de Pigalle et du Moulin Rouge : bistrot français maison, carte et boissons en ligne, terrasse avenue Rachel — idéal avant ou après spectacle.',
       keywords: [
         'restaurant Pigalle',
         'restaurant Moulin Rouge',
+        'restaurant près du Moulin Rouge',
         'bistrot Pigalle',
         'restaurant théâtre Paris',
         'Tifinagh',
       ],
     },
     restaurantPlaceDeClichy: {
-      title: 'Restaurant Place de Clichy — bistrot français Paris 17/18',
+      title: 'Restaurant Place de Clichy — Tifinagh, bistrot français',
       description:
-        'Restaurant Tifinagh près de la Place de Clichy : bistrot français traditionnel, plats faits maison, accès métro lignes 2 et 13, au calme de l’avenue Rachel.',
+        'Restaurant Tifinagh près de la Place de Clichy (Paris 17/18) : cuisine française maison, carte détaillée en ligne, métro lignes 2 et 13, 17 avenue Rachel — calme et à deux pas de Montmartre.',
       keywords: [
         'restaurant Place de Clichy',
+        'resto Place de Clichy',
         'restaurant Paris 17',
         'restaurant Paris 18',
         'bistrot Clichy',
         'Tifinagh',
+        'Tifinagh Paris',
       ],
     },
   },
@@ -168,9 +174,9 @@ const seoEn: Dictionary['seo'] = {
   },
   pages: {
     home: {
-      title: 'Tifinagh | Traditional French Restaurant & Bistro in Montmartre',
+      title: 'Tifinagh Paris | French Restaurant & Bistro near Montmartre',
       description:
-        'Discover Tifinagh in Montmartre: traditional French cuisine, homemade dishes, fresh seasonal produce and an authentic neighborhood bistro atmosphere.',
+        'Tifinagh restaurant in Paris 18 (Montmartre): 100% homemade French bistro at 17 avenue Rachel. Full food & drinks menus online, daily set menu, terrace. Book via Google, phone or WhatsApp.',
     },
     carte: {
       title: 'French Classics — homemade French dishes in Montmartre',
@@ -231,26 +237,29 @@ const seoEn: Dictionary['seo'] = {
       ],
     },
     restaurantPigalle: {
-      title: 'Pigalle restaurant — French bistro near the Moulin Rouge',
+      title: 'Restaurant near Moulin Rouge — Tifinagh Pigalle',
       description:
-        'Tifinagh steps from Pigalle: homemade French cuisine, quiet terrace on avenue Rachel, ideal before a show at the Moulin Rouge or local theatres.',
+        'Tifinagh bistro walking distance from Pigalle & Moulin Rouge: homemade French food, menus online, terrace on avenue Rachel — ideal before or after a show.',
       keywords: [
         'Pigalle restaurant',
         'Moulin Rouge restaurant',
+        'restaurant near Moulin Rouge',
         'Pigalle bistro',
         'theatre district restaurant Paris',
         'Tifinagh',
       ],
     },
     restaurantPlaceDeClichy: {
-      title: 'Place de Clichy restaurant — French bistro Paris 17/18',
+      title: 'Place de Clichy restaurant — Tifinagh French bistro',
       description:
-        'Tifinagh near Place de Clichy: traditional French bistro, homemade dishes, metro lines 2 and 13, on quiet avenue Rachel.',
+        'Tifinagh near Place de Clichy (Paris 17/18): homemade French bistro, full menus online, metro lines 2 & 13, 17 avenue Rachel — quiet street near Montmartre.',
       keywords: [
         'Place de Clichy restaurant',
+        'restaurant near Place de Clichy',
         'Paris 17 restaurant',
         'Paris 18 restaurant',
         'Clichy bistro',
+        'Tifinagh Paris',
         'Tifinagh',
       ],
     },

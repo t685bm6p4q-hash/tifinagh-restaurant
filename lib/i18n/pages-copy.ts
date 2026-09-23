@@ -93,9 +93,9 @@ const pagesFr: PagesCopy = {
   },
   montmartre: {
     introEyebrow: 'Paris 18 · Montmartre',
-    introTitle: 'Restaurant à Montmartre',
+    introTitle: 'Tifinagh — restaurant à Montmartre',
     introText:
-      'Un vrai bistrot de quartier, au calme de l’avenue Rachel — loin du tumulte des artères touristiques.',
+      'Bistrot français au 17 avenue Rachel : carte des plats et boissons détaillée en ligne, cuisine 100 % maison, au calme entre Montmartre et Pigalle.',
     distinguishTitle: 'Ce qui nous distingue',
     distinguishItems: [
       'Plats 100 % maison, préparés chaque matin avec des produits frais',
@@ -114,9 +114,9 @@ const pagesFr: PagesCopy = {
   },
   pigalle: {
     introEyebrow: 'Paris 18 · Pigalle',
-    introTitle: 'Restaurant à Pigalle',
+    introTitle: 'Restaurant près de Pigalle et du Moulin Rouge',
     introText:
-      'Un bistrot français calme, à quelques minutes à pied de Pigalle et du Moulin Rouge.',
+      'Le Tifinagh, bistrot français à quelques minutes à pied de Pigalle et du Moulin Rouge — carte complète en ligne, terrasse avenue Rachel.',
     whyTitle: 'Pourquoi dîner près de Pigalle chez Tifinagh',
     whyP1Before:
       'Pigalle attire chaque soir des visiteurs pour ses spectacles, ses théâtres et son énergie. Beaucoup cherchent ensuite une table ',
@@ -145,9 +145,9 @@ const pagesFr: PagesCopy = {
   },
   clichy: {
     introEyebrow: 'Paris 17 / 18 · Place de Clichy',
-    introTitle: 'Restaurant Place de Clichy',
+    introTitle: 'Restaurant Place de Clichy — Tifinagh',
     introText:
-      'Un bistrot de quartier authentique, à quelques minutes à pied de la Place de Clichy.',
+      'Bistrot français à pied de la Place de Clichy (métro 2 et 13) : plats maison, menus détaillés sur le site, 17 avenue Rachel.',
     metroTitle: 'Accès simple depuis Clichy',
     metroP1Before: 'Métro ',
     metroStrong1: 'Place de Clichy (lignes 2 et 13)',

@@ -102,9 +102,9 @@ export const seoDe: Dictionary['seo'] = {
       ],
     },
     restaurantPlaceDeClichy: {
-      title: 'Restaurant Place de Clichy — bistrot français Paris 17/18',
+      title: 'Restaurant Place de Clichy — Tifinagh, bistrot français',
       description:
-        'Restaurant Tifinagh près de la Place de Clichy : bistrot français traditionnel, plats faits maison, accès métro Linien 2 et 13, au calme de l’avenue Rachel.',
+        'Restaurant Tifinagh près de la Place de Clichy (Paris 17/18) : cuisine française maison, carte détaillée en ligne, métro lignes 2 et 13, 17 avenue Rachel.',
       keywords: [
         'restaurant Place de Clichy',
         'restaurant Paris 17',

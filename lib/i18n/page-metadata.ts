@@ -66,20 +66,11 @@ export function resolvePageSeo(
         description: dictionary.dailyMenuPage.introText,
       }
     case 'restaurantMontmartre':
-      return {
-        title: dictionary.pages.montmartre.introTitle,
-        description: dictionary.pages.montmartre.introText,
-      }
+      return dictionary.seo.pages.restaurantMontmartre
     case 'restaurantPigalle':
-      return {
-        title: dictionary.pages.pigalle.introTitle,
-        description: dictionary.pages.pigalle.introText,
-      }
+      return dictionary.seo.pages.restaurantPigalle
     case 'restaurantPlaceDeClichy':
-      return {
-        title: dictionary.pages.clichy.introTitle,
-        description: dictionary.pages.clichy.introText,
-      }
+      return dictionary.seo.pages.restaurantPlaceDeClichy
     case 'home':
       return {
         title: dictionary.seo.pages.home.title,
