@@ -2533,11 +2533,64 @@ select:focus { border-color: var(--terracotta); }
     left: 0;
     right: 0;
     z-index: 99;
-    background: #111210;
-    padding: 25px;
+    background: rgba(17, 18, 16, 0.96);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    padding: 10px max(24px, 6vw) 28px;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
+    align-items: stretch;
+    gap: 0;
+    max-height: min(85dvh, calc(100dvh - 80px));
+    overflow-y: auto;
+    border-bottom: 1px solid var(--line);
+    text-transform: none;
+  }
+
+  .main-nav a.nav-carte {
+    margin-right: 0;
+  }
+
+  .main-nav a {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 6px;
+    font-size: clamp(18px, 3.8vw, 22px);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    line-height: 1.2;
+    text-transform: none;
+  }
+
+  .main-nav a:not(.nav-menu-jour) {
+    color: rgba(244, 241, 234, 0.9);
+    border-bottom: 1px solid rgba(52, 53, 47, 0.55);
+  }
+
+  .main-nav a:not(.nav-menu-jour):last-of-type {
+    border-bottom: none;
+  }
+
+  .main-nav a.nav-active:not(.nav-menu-jour) {
+    color: var(--foreground);
+  }
+
+  .main-nav a.nav-active:not(.nav-menu-jour)::after {
+    margin-top: 8px;
+    width: 44px;
+    height: 2px;
+  }
+
+  .main-nav a.nav-menu-jour {
+    align-self: stretch;
+    margin-top: 14px;
+    padding: 14px 18px;
+    text-align: center;
+    font-size: clamp(17px, 3.6vw, 20px) !important;
+    letter-spacing: 0.04em;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 600;
+    border-bottom: none;
   }
 
   .nav-toggle-input:checked ~ .main-nav {
@@ -2610,21 +2663,32 @@ select:focus { border-color: var(--terracotta); }
   }
 
   .main-nav {
-    display: none;
-    position: absolute;
     top: calc(62px + env(safe-area-inset-top, 0px));
-    left: 0;
-    right: 0;
-    z-index: 99;
-    background: #111210;
-    padding: 25px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
+    padding: 14px 5vw 36px;
+    max-height: min(78dvh, calc(100dvh - 62px - env(safe-area-inset-top, 0px)));
   }
 
-  .nav-toggle-input:checked ~ .main-nav {
-    display: flex;
+  .main-nav a:not(.nav-menu-jour) {
+    font-size: clamp(21px, 5.4vw, 26px);
+    padding: 14px 4px;
+    letter-spacing: 0.028em;
+  }
+
+  .main-nav a.nav-active:not(.nav-menu-jour)::after {
+    width: 48px;
+    height: 2px;
+    margin-top: 8px;
+  }
+
+  .main-nav a.nav-menu-jour {
+    font-size: clamp(19px, 5vw, 23px) !important;
+    padding: 15px 20px;
+    margin-top: 16px;
+  }
+
+  .menu-toggle-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
   }
 
   .lang-switcher-menu {
