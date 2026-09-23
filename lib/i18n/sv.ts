@@ -1,4 +1,5 @@
 import type { Dictionary } from './types'
+import { drinksCopy } from './drinks-copy'
 import { pagesSv } from './pages/sv'
 import { seoSv } from './seo/sv'
 
@@ -126,6 +127,11 @@ export const sv: Dictionary = {
     bannerTitle: 'Smaker av autenticitet',
     bannerText: 'Ett urval av generösa rätter, tillagade varje dag med de bästa råvarorna.',
     terraceAlt: 'Tifinaghs terrass i Montmartre med glada gäster under rött parasoll',
+    drinksInviteEyebrow: 'Dryckesmeny',
+    drinksInviteTitle: 'Öl, cocktails och läsk',
+    drinksInviteText:
+      'Vår fullständiga dryckeslista: fat- och flasköl, aperitifer, digestifer och varma drycker.',
+    drinksInviteCta: 'Se dryckesmenyn',
     dailyInviteEyebrow: 'Dagens urval',
     dailyInviteTitle: 'Suget på något fräscht?',
     dailyInviteText: 'Upptäck dagens meny, tillagad varje morgon med säsongsråvaror.',
@@ -174,6 +180,7 @@ export const sv: Dictionary = {
     whatsappGuests: 'Gäster',
     whatsappMessage: 'Meddelande',
   },
+  drinks: drinksCopy,
   menu: {
     starters: {
       title: 'Förrätter',

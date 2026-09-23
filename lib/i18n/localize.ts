@@ -1,4 +1,5 @@
 import type { Dictionary } from './types'
+import { drinkSections } from '@/lib/drinks-data'
 import {
   localSeoLinks,
   menuSections,
@@ -8,6 +9,36 @@ import {
 } from '@/lib/restaurant-data'
 
 type MenuCopy = { name: string; description: string }
+
+export function localizeDrinks(dictionary: Dictionary) {
+  const titles = dictionary.drinks.sections
+  return drinkSections.map((section) => {
+    const title = titles[section.id]
+    if (section.kind === 'draft') {
+      return {
+        id: section.id,
+        kind: 'draft' as const,
+        title,
+        items: section.items.map((item) => ({
+          name: item.name,
+          subtitle: item.subtitle,
+          demi: item.demi,
+          pinte: item.pinte,
+        })),
+      }
+    }
+    return {
+      id: section.id,
+      kind: 'simple' as const,
+      title,
+      items: section.items.map((item) => ({
+        name: item.name,
+        subtitle: item.subtitle,
+        price: item.price,
+      })),
+    }
+  })
+}
 
 export function localizeMenu(dictionary: Dictionary) {
   return menuSections.map((section) => {

@@ -1,4 +1,5 @@
 import type { Dictionary } from './types'
+import { drinksCopy } from './drinks-copy'
 import { pagesZgh } from './pages/zgh'
 import { seoZgh } from './seo/zgh'
 
@@ -125,6 +126,11 @@ export const zgh: Dictionary = {
     bannerTitle: 'ⵉⵎⵙⵙⵉⵏ ⵏ ⴰⵎⵥⵍⴰⵏ',
     bannerText: 'ⵜⴰⵙⵜⴰⵢⵜ ⵏ ⵉⵛⵛⴰⵏ ⵉⵎⵙⵙⴰⵏ, ⵉⵙⵙⵓⵎⵔⵏ ⴽⵓⵍ ⵉⵙ ⵙ ⵉⵓⵅⴰⵏⵏ ⵉⵎⵙⵙⴰⵏ.',
     terraceAlt: 'ⵜⴰⵔⴰⵙ Tifinagh Montmartre ⵙ ⵉⵎⵙⵙⵏⵉ',
+    drinksInviteEyebrow: 'Carte des boissons',
+    drinksInviteTitle: 'Bières, cocktails & softs',
+    drinksInviteText:
+      'Notre carte des boissons détaillée : pression, bouteilles, apéritifs, digestifs et boissons chaudes.',
+    drinksInviteCta: 'Voir la carte des boissons',
     dailyInviteEyebrow: 'ⵜⴰⵙⵜⴰⵢⵜ ⵏ ⵓⵙⵙⴰⵙ',
     dailyInviteTitle: 'ⵜⵙⵙⵓⴷ ⵓⵛⵛⵉ ⴰⵎⴰⵢⵏⵓ?',
     dailyInviteText: 'ⵙⴽⵏ ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ, ⵜⵙⵙⵓⵎⵔ ⴽⵓⵍ ⵜⵉⴼⴰⵡⵉⵏ.',
@@ -172,6 +178,7 @@ export const zgh: Dictionary = {
     whatsappGuests: 'ⵉⵎⵙⵙⵏⵉ',
     whatsappMessage: 'ⵉⵣⵏ',
   },
+  drinks: drinksCopy,
   menu: {
     starters: {
       title: 'ⵉⵣⵡⴰⵔⵏ',

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRightIcon, ChefHatIcon } from '@/components/icons'
+import { ArrowRightIcon, ChefHatIcon, WineIcon } from '@/components/icons'
 
 type MenuCrossLinkProps = {
   eyebrow: string
@@ -7,7 +7,7 @@ type MenuCrossLinkProps = {
   text: string
   href: string
   cta: string
-  variant: 'to-daily' | 'to-carte'
+  variant: 'to-daily' | 'to-carte' | 'to-drinks'
 }
 
 export function MenuCrossLink({
@@ -22,7 +22,7 @@ export function MenuCrossLink({
     <aside className={`menu-cross-link menu-cross-link--${variant}`} aria-label={title}>
       <div className="menu-cross-link-inner">
         <div className="menu-cross-link-icon" aria-hidden="true">
-          <ChefHatIcon size={22} />
+          {variant === 'to-drinks' ? <WineIcon size={22} /> : <ChefHatIcon size={22} />}
         </div>
         <div className="menu-cross-link-copy">
           <p className="eyebrow">{eyebrow}</p>

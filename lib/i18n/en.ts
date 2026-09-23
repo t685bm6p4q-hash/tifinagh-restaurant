@@ -1,4 +1,5 @@
 import type { Dictionary } from './types'
+import { drinksCopy } from './drinks-copy'
 import { pagesByLocale } from './pages-copy'
 import { seoByLocale } from './seo-copy'
 
@@ -125,6 +126,11 @@ export const en: Dictionary = {
     bannerTitle: 'Flavours of authenticity',
     bannerText: 'A selection of generous dishes, prepared every day with the finest produce.',
     terraceAlt: 'Tifinagh Montmartre terrace with happy guests under a red parasol',
+    drinksInviteEyebrow: 'Drinks menu',
+    drinksInviteTitle: 'Beers, cocktails & soft drinks',
+    drinksInviteText:
+      'Our full drinks list: draft and bottled beers, apéritifs, spirits, cocktails and hot drinks.',
+    drinksInviteCta: 'View drinks menu',
     dailyInviteEyebrow: "Today's selection",
     dailyInviteTitle: 'Craving something fresh?',
     dailyInviteText: 'Discover today’s menu, prepared each morning with seasonal produce.',
@@ -173,6 +179,7 @@ export const en: Dictionary = {
     whatsappGuests: 'Party size',
     whatsappMessage: 'Message',
   },
+  drinks: drinksCopy,
   menu: {
     starters: {
       title: 'Starters',

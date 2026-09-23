@@ -1,4 +1,5 @@
 import type { Dictionary } from './types'
+import { drinksCopy } from './drinks-copy'
 import { pagesByLocale } from './pages-copy'
 import { seoByLocale } from './seo-copy'
 
@@ -121,6 +122,10 @@ export const zh: Dictionary = {
     bannerTitle: '地道风味',
     bannerText: '精选丰盛菜肴，每天选用上好食材烹制。',
     terraceAlt: '蒙马特 Tifinagh 露台，宾客在红阳伞下用餐',
+    drinksInviteEyebrow: '饮品单',
+    drinksInviteTitle: '啤酒、鸡尾酒与软饮',
+    drinksInviteText: '完整饮品单：生啤与瓶装啤酒、开胃酒、烈酒、鸡尾酒与热饮。',
+    drinksInviteCta: '查看饮品单',
     dailyInviteEyebrow: '今日精选',
     dailyInviteTitle: '想尝尝新鲜推荐？',
     dailyInviteText: '查看我们的今日菜单，每天清晨以当季食材烹制。',
@@ -168,6 +173,7 @@ export const zh: Dictionary = {
     whatsappGuests: '人数',
     whatsappMessage: '留言',
   },
+  drinks: drinksCopy,
   menu: {
     starters: {
       title: '前菜',

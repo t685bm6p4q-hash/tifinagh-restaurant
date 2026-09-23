@@ -5,6 +5,7 @@ import { siteUrl } from '@/lib/seo'
 const routes = [
   { path: '/', priority: 1 },
   { path: '/carte', priority: 0.9 },
+  { path: '/carte/boissons', priority: 0.85 },
   { path: '/menu-du-jour', priority: 0.8 },
   { path: '/galerie', priority: 0.7 },
   { path: '/privatisation', priority: 0.7 },

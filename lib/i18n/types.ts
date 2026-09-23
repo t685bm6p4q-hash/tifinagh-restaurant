@@ -243,10 +243,39 @@ export type Dictionary = {
     bannerTitle: string
     bannerText: string
     terraceAlt: string
+    drinksInviteEyebrow: string
+    drinksInviteTitle: string
+    drinksInviteText: string
+    drinksInviteCta: string
     dailyInviteEyebrow: string
     dailyInviteTitle: string
     dailyInviteText: string
     dailyInviteCta: string
+  }
+  drinks: {
+    page: {
+      eyebrow: string
+      title: string
+      text: string
+      backEyebrow: string
+      backTitle: string
+      backText: string
+      backCta: string
+    }
+    columns: {
+      demi: string
+      pinte: string
+    }
+    sections: {
+      draftBeer: string
+      bottledBeer: string
+      softs: string
+      aperitifs: string
+      spirits: string
+      cocktails: string
+      hot: string
+      waters: string
+    }
   }
   dailyMenuPage: {
     introEyebrow: string
@@ -349,6 +378,7 @@ export type Dictionary = {
     pages: {
       home: SeoPageCopy
       carte: SeoPageCopy
+      carteBoissons: SeoPageCopy
       menuDuJour: SeoPageCopy
       contact: SeoPageCopy
       mentionsLegales: SeoPageCopy

@@ -1,4 +1,5 @@
 import type { Dictionary } from './types'
+import { drinksCopy } from './drinks-copy'
 import { pagesByLocale } from './pages-copy'
 import { seoByLocale } from './seo-copy'
 
@@ -125,6 +126,11 @@ export const it: Dictionary = {
     bannerTitle: 'Sapori di autenticità',
     bannerText: 'Una selezione di piatti generosi, preparati ogni giorno con i migliori prodotti.',
     terraceAlt: 'Terrazza Tifinagh Montmartre con ospiti felici sotto un ombrellone rosso',
+    drinksInviteEyebrow: 'Carta delle bevande',
+    drinksInviteTitle: 'Birre, cocktail e soft drink',
+    drinksInviteText:
+      'La nostra carta completa: alla spina e in bottiglia, aperitivi, digestivi e bevande calde.',
+    drinksInviteCta: 'Vedi la carta delle bevande',
     dailyInviteEyebrow: 'Selezione del giorno',
     dailyInviteTitle: 'Voglia di proposte fresche?',
     dailyInviteText: 'Scopri il menu del giorno, preparato ogni mattina con prodotti di stagione.',
@@ -175,6 +181,7 @@ export const it: Dictionary = {
     whatsappGuests: 'Persone',
     whatsappMessage: 'Messaggio',
   },
+  drinks: drinksCopy,
   menu: {
     starters: {
       title: 'Antipasti',

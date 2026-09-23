@@ -80,6 +80,15 @@ export default async function Carte() {
         </section>
 
         <MenuCrossLink
+          eyebrow={dictionary.carte.drinksInviteEyebrow}
+          title={dictionary.carte.drinksInviteTitle}
+          text={dictionary.carte.drinksInviteText}
+          href="/carte/boissons"
+          cta={dictionary.carte.drinksInviteCta}
+          variant="to-drinks"
+        />
+
+        <MenuCrossLink
           eyebrow={dictionary.carte.dailyInviteEyebrow}
           title={dictionary.carte.dailyInviteTitle}
           text={dictionary.carte.dailyInviteText}

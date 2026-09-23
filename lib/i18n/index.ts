@@ -4,7 +4,13 @@ export type { Dictionary } from './types'
 export { dictionaries } from './dictionaries'
 export { getDictionary, getI18n, getLocale } from './get-locale'
 export { setLocaleAction } from './actions'
-export { localizeMenu, localizeMetro, localizeSeoLinks, localizeTestimonials } from './localize'
+export {
+  localizeDrinks,
+  localizeMenu,
+  localizeMetro,
+  localizeSeoLinks,
+  localizeTestimonials,
+} from './localize'
 export { buildPageMetadata, buildSiteMetadata, formatDocumentTitle, resolvePageSeo, seoPagePaths } from './page-metadata'
 export type { SeoPageId } from './page-metadata'
 export { fr } from './fr'

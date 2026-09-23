@@ -9,6 +9,7 @@ export type SeoPageId = keyof Dictionary['seo']['pages']
 export const seoPagePaths: Record<SeoPageId, string> = {
   home: '/',
   carte: '/carte',
+  carteBoissons: '/carte/boissons',
   menuDuJour: '/menu-du-jour',
   contact: '/contact',
   mentionsLegales: '/mentions-legales',
@@ -83,6 +84,11 @@ export function resolvePageSeo(
       return {
         title: dictionary.seo.pages.home.title,
         description: dictionary.seo.pages.home.description,
+      }
+    case 'carteBoissons':
+      return {
+        title: dictionary.drinks.page.title,
+        description: dictionary.drinks.page.text,
       }
     case 'reservation':
       return {

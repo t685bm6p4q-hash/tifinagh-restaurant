@@ -36,6 +36,11 @@ export const seoRu: Dictionary['seo'] = {
       description:
         'French Classics в бистро Tifinagh: фуа-гра, утиное конфи, бургундские улитки и домашние десерты, 17 avenue Rachel, Париж 18.',
     },
+    carteBoissons: {
+      title: 'Carte des boissons — bières, cocktails & apéritifs | Tifinagh Montmartre',
+      description:
+        'Bières pression et bouteille, softs, apéritifs, cocktails, digestifs et boissons chaudes au bistrot Tifinagh, 17 avenue Rachel, Paris 18.',
+    },
     menuDuJour: {
       title: 'Меню дня PDF — свежие сеты в Монмартре',
       description:

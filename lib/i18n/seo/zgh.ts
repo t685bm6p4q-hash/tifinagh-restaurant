@@ -36,6 +36,11 @@ export const seoZgh: Dictionary['seo'] = {
       description:
         'French Classics ⴳ Tifinagh: foie gras, confit, escargots ⴷ ⵉⵖⵓⵎⵎⴰⵏ ⴷ ⴰⴷⴳ, 17 avenue Rachel, ⴱⴰⵔⵉⵙ 18.',
     },
+    carteBoissons: {
+      title: 'Carte des boissons — bières, cocktails & apéritifs | Tifinagh Montmartre',
+      description:
+        'Bières pression et bouteille, softs, apéritifs, cocktails, digestifs et boissons chaudes au bistrot Tifinagh, 17 avenue Rachel, Paris 18.',
+    },
     menuDuJour: {
       title: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ PDF — ⵉⵎⵙⵙⵉⵏ ⵉⵎⵙⵙⴰⵏ ⴳ Montmartre',
       description:

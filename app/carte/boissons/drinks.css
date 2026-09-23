@@ -1,0 +1,93 @@
+/* Styles chargés uniquement sur /carte/boissons (pas dans globals.css). */
+.drinks-page.section {
+  padding-top: 0;
+}
+
+.drinks-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+  .drinks-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 32px;
+  }
+}
+
+.drinks-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 22px 24px 18px;
+}
+
+.drinks-card-title {
+  margin: 0 0 14px;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--terracotta);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 10px;
+}
+
+.drinks-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.drinks-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px 16px;
+  align-items: start;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.drinks-row:last-child {
+  border-bottom: none;
+}
+
+.drinks-table--draft .drinks-row {
+  grid-template-columns: 1fr 3.5rem 3.5rem;
+}
+
+.drinks-row--head {
+  padding-top: 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.drinks-row--head .drinks-cell--price {
+  text-align: right;
+}
+
+.drinks-cell--name strong {
+  display: block;
+  font-weight: 500;
+}
+
+.drinks-subtitle {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+.drinks-cell--price {
+  color: var(--gold);
+  font-weight: 400;
+  white-space: nowrap;
+  text-align: right;
+  align-self: center;
+}
