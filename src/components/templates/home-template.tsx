@@ -139,15 +139,14 @@ export async function HomeTemplate() {
             ))}
           </div>
           <div className="menu-preview-actions">
-            <a
-              href="/api/menu-pdf"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/menu-du-jour"
+              prefetch={false}
               className="menu-pdf-link menu-pdf-link-secondary"
               aria-label={dictionary.home.dailyMenuAria}
             >
               📋 {dictionary.home.dailyMenuLink}
-            </a>
+            </Link>
             <Link className="text-link" href="/carte" prefetch={false}>
               {dictionary.home.fullMenuLink} <ArrowRightIcon size={14} />
             </Link>

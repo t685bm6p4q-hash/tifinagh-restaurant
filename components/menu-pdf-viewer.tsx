@@ -1,40 +1,22 @@
-import { MENU_PDF_URL, menuDuJourAlt } from '@/lib/menu-pdf'
+import { MenuPdfViewerClient } from '@/components/menu-pdf-viewer-client'
+import { getI18n } from '@/lib/i18n'
 import { getPublicMenuKind } from '@/lib/menu-kind'
+import { MENU_PDF_URL, menuDuJourAlt } from '@/lib/menu-pdf'
 
 /** Menu du jour — iframe pour un PDF, image pour un JPEG/PNG. */
 export async function MenuPdfViewer() {
   const kind = await getPublicMenuKind()
   const label = menuDuJourAlt()
-
-  if (kind === 'image') {
-    return (
-      <div className="menu-pdf-viewer-wrap">
-        <img
-          className="menu-pdf-viewer menu-pdf-viewer--image"
-          src={MENU_PDF_URL}
-          alt={label}
-        />
-        <p className="menu-pdf-viewer-fallback">
-          <a href={MENU_PDF_URL} target="_blank" rel="noopener noreferrer">
-            Ouvrir le menu en plein écran
-          </a>
-        </p>
-      </div>
-    )
-  }
+  const { dictionary } = await getI18n()
+  const d = dictionary.dailyMenuPage
 
   return (
-    <div className="menu-pdf-viewer-wrap">
-      <iframe
-        className="menu-pdf-viewer"
-        src={MENU_PDF_URL}
-        title={label}
-      />
-      <p className="menu-pdf-viewer-fallback">
-        <a href={MENU_PDF_URL} target="_blank" rel="noopener noreferrer">
-          Ouvrir le menu en plein écran
-        </a>
-      </p>
-    </div>
+    <MenuPdfViewerClient
+      kind={kind}
+      url={MENU_PDF_URL}
+      label={label}
+      fullscreenOpenLabel={d.fullscreenOpen}
+      fullscreenCloseLabel={d.fullscreenClose}
+    />
   )
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { FileText, Eye } from 'lucide-react'
 
 interface MenuPdfButtonProps {
@@ -66,35 +67,39 @@ export function MenuPdfButton({
     }
   }
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleDownload = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
-    if (viewOnly) {
-      // Afficher le PDF dans le navigateur (sans télécharger)
-      window.open(pdfUrl, '_blank')
-    } else {
-      // Télécharger le fichier
-      const link = document.createElement('a')
-      link.href = pdfUrl
-      link.download = 'menu-du-jour.pdf'
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
-    }
+    const link = document.createElement('a')
+    link.href = pdfUrl
+    link.download = 'menu-du-jour.pdf'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
+  if (viewOnly) {
+    return (
+      <Link
+        href="/menu-du-jour"
+        style={getStyle()}
+        className={className}
+        aria-label="Consulter le menu du jour"
+      >
+        <Eye size={size === 'small' ? 14 : size === 'large' ? 20 : 16} aria-hidden="true" />
+        {label}
+      </Link>
+    )
   }
 
   return (
     <a
       href={pdfUrl}
-      onClick={handleClick}
+      onClick={handleDownload}
       style={getStyle()}
       className={className}
-      aria-label={viewOnly ? 'Consulter le menu du jour' : 'Télécharger le menu du jour'}
+      aria-label="Télécharger le menu du jour"
     >
-      {viewOnly ? (
-        <Eye size={size === 'small' ? 14 : size === 'large' ? 20 : 16} aria-hidden="true" />
-      ) : (
-        <FileText size={size === 'small' ? 14 : size === 'large' ? 20 : 16} aria-hidden="true" />
-      )}
+      <FileText size={size === 'small' ? 14 : size === 'large' ? 20 : 16} aria-hidden="true" />
       {label}
     </a>
   )

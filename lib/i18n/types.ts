@@ -262,6 +262,8 @@ export type Dictionary = {
     carteInviteTitle: string
     carteInviteText: string
     carteInviteCta: string
+    fullscreenOpen: string
+    fullscreenClose: string
   }
   reservationPage: {
     introEyebrow: string

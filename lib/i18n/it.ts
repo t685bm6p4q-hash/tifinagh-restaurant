@@ -147,6 +147,8 @@ export const it: Dictionary = {
     carteInviteText:
       'Ritrova i nostri antipasti, piatti e dessert di stagione, da gustare tutto l’anno.',
     carteInviteCta: 'Consulta il menu alla carta',
+    fullscreenOpen: 'Apri il menu a schermo intero',
+    fullscreenClose: 'Chiudi',
   },
   reservationPage: {
     introEyebrow: 'Il vostro tavolo',

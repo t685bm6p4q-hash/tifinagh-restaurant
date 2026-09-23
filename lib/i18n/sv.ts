@@ -146,6 +146,8 @@ export const sv: Dictionary = {
     carteInviteText:
       'Förrätter, huvudrätter och desserter från vår traditionella à la carte — tillgängliga året runt, inte bara dagens specialiteter.',
     carteInviteCta: 'Hela menyn',
+    fullscreenOpen: 'Öppna menyn i helskärm',
+    fullscreenClose: 'Stäng',
   },
   reservationPage: {
     introEyebrow: 'Ditt bord',

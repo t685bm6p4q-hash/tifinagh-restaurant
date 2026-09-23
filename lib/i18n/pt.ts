@@ -148,6 +148,8 @@ export const pt: Dictionary = {
     carteInviteText:
       'Descubre nuestros entrantes, platos y postres de temporada, para disfrutar todo el año.',
     carteInviteCta: 'Consultar la carta general',
+    fullscreenOpen: 'Abrir o menu em tela cheia',
+    fullscreenClose: 'Fechar',
   },
   reservationPage: {
     introEyebrow: 'Su mesa',

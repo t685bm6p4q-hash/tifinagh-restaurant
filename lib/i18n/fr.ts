@@ -148,6 +148,8 @@ export const fr: Dictionary = {
     carteInviteText:
       'Retrouvez nos entrées, plats et desserts de saison, à savourer tout au long de l’année.',
     carteInviteCta: 'Consulter la carte générale',
+    fullscreenOpen: 'Ouvrir le menu en plein écran',
+    fullscreenClose: 'Fermer',
   },
   reservationPage: {
     introEyebrow: 'Votre table',

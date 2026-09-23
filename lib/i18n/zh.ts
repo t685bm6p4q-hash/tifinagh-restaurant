@@ -140,6 +140,8 @@ export const zh: Dictionary = {
     carteInviteTitle: '想浏览完整菜单？',
     carteInviteText: '查看我们的当季前菜、主菜与甜点，全年供应。',
     carteInviteCta: '查看完整菜单',
+    fullscreenOpen: '全屏查看菜单',
+    fullscreenClose: '关闭',
   },
   reservationPage: {
     introEyebrow: '您的餐桌',

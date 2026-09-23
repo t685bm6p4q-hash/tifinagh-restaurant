@@ -26,7 +26,7 @@ html {
   font-style: normal;
   font-weight: 400;
   font-display: optional;
-  src: url('https://fonts.gstatic.com/s/notosanstifinagh/v16/0n1cY9yM-JkXMe1hb6Pf1r_OA.woff2') format('woff2');
+  src: url('/fonts/noto-sans-tifinagh.woff2') format('woff2');
   unicode-range: U+2D30-2D7F;
 }
 
@@ -518,18 +518,19 @@ a.nav-cta.nav-active {
 
 .booking-chip-whatsapp {
   background: #25d366;
-  color: #fff;
+  color: #071b10;
   border-color: #25d366;
 }
 
-.booking-chip-whatsapp .booking-chip-icon {
-  color: #fff;
+.booking-chip-whatsapp .booking-chip-icon,
+.booking-chip-whatsapp .booking-chip-label {
+  color: #071b10;
 }
 
 .booking-chip-whatsapp:hover {
   background: #20bd5b;
   border-color: #20bd5b;
-  color: #fff;
+  color: #071b10;
 }
 
 /* ── Badge avis Google ──────────────────────────────── */
@@ -1290,7 +1291,7 @@ a.nav-cta.nav-active {
   .map-frame,
   .map-frame-link,
   .map-section-map {
-    height: min(52vw, 280px);
+    height: clamp(280px, 56vw, 360px);
     border-radius: var(--radius);
   }
 }
@@ -1311,8 +1312,15 @@ a.nav-cta.nav-active {
   .map-section-map {
     order: 2;
     width: 100%;
-    max-width: 360px;
-    margin: 4px auto 0;
+    max-width: none;
+    height: clamp(260px, 78vw, 340px);
+    margin: 14px auto 0;
+    border-radius: var(--radius);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+  }
+
+  .map-section-cta {
+    margin-bottom: 0;
   }
 
   .map-section .eyebrow {
@@ -2186,8 +2194,75 @@ select:focus { border-color: var(--terracotta); }
   font-size: 13px;
 }
 
-.menu-pdf-viewer-fallback a {
+.menu-pdf-viewer-fallback a,
+.menu-pdf-fullscreen-trigger {
   color: var(--gold);
+}
+
+.menu-pdf-fullscreen-trigger {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.menu-pdf-fullscreen-trigger:hover {
+  color: var(--terracotta);
+}
+
+.menu-pdf-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: #111210;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-pdf-fullscreen-close {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 18px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(17, 18, 16, 0.92);
+  color: var(--gold);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+
+.menu-pdf-fullscreen-close:hover {
+  border-color: var(--gold);
+  color: #fff;
+}
+
+.menu-pdf-fullscreen-body {
+  flex: 1;
+  min-height: 0;
+  padding: 64px 12px 12px;
+}
+
+.menu-pdf-fullscreen-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #fff;
+  object-fit: contain;
+}
+
+.menu-pdf-fullscreen-body iframe.menu-pdf-fullscreen-media {
+  min-height: calc(100vh - 76px);
 }
 
 .footer-quartier {

@@ -145,6 +145,8 @@ export const en: Dictionary = {
     carteInviteText:
       'Starters, mains and desserts from our traditional à la carte — available throughout the year, not just today’s specials.',
     carteInviteCta: 'See the full menu',
+    fullscreenOpen: 'Open menu in full screen',
+    fullscreenClose: 'Close',
   },
   reservationPage: {
     introEyebrow: 'Your table',

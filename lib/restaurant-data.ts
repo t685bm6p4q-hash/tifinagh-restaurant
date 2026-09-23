@@ -1,3 +1,5 @@
+import { restaurant } from '@/lib/seo'
+
 export const whatsappNumber = '33679045460'
 
 /** Lien Google Reserve (Réservation via Google Maps). */
@@ -8,9 +10,12 @@ export const googleReserveUrl =
 export const googleMapsUrl =
   'https://www.google.com/maps/search/?api=1&query=Tifinagh+17+Avenue+Rachel+75018+Paris'
 
-/** Carte intégrée (accueil, contact). */
-export const googleMapsEmbedUrl =
-  'https://www.google.com/maps?q=17+Av.+Rachel,+75018+Paris&output=embed'
+/** Carte intégrée — zoom quartier (Montmartre, Pigalle, Abbesses). */
+export const googleMapsEmbedUrl = (() => {
+  const { latitude, longitude, name, streetAddress, postalCode, city } = restaurant
+  const q = encodeURIComponent(`${name}, ${streetAddress}, ${postalCode} ${city}`)
+  return `https://www.google.com/maps?hl=fr&z=15&ll=${latitude},${longitude}&q=${q}&output=embed`
+})()
 
 /** Presence Google (recherche locale). */
 export const googleSearchUrl = 'https://www.google.com/search?q=tifinagh+restaurant'

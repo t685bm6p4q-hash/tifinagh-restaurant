@@ -146,6 +146,8 @@ export const ru: Dictionary = {
     carteInviteText:
       'Закуски, основные блюда и десерты нашей традиционной карты — доступны круглый год, не только сегодняшние спецпредложения.',
     carteInviteCta: 'Полное меню',
+    fullscreenOpen: 'Открыть меню на весь экран',
+    fullscreenClose: 'Закрыть',
   },
   reservationPage: {
     introEyebrow: 'Ваш стол',

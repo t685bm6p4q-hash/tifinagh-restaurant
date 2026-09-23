@@ -144,6 +144,8 @@ export const zgh: Dictionary = {
     carteInviteTitle: 'ⵙⴽⵏ ⵜⴰⵎⵓⵔⵜ ⵜⴰⵎⴰⵜⴰⵢⵜ',
     carteInviteText: 'ⵉⵣⵡⴰⵔⵏ, ⵉⵛⵛⴰⵏ ⴷ ⵉⵖⵓⵎⵎⴰⵏ — ⴽⵓⵍ ⵓⵙⵙⴰⵙ.',
     carteInviteCta: 'ⵜⴰⵎⵓⵔⵜ ⵜⴰⵎⴰⵜⴰⵢⵜ',
+    fullscreenOpen: 'Ouvrir le menu en plein écran',
+    fullscreenClose: 'Fermer',
   },
   reservationPage: {
     introEyebrow: 'ⵜⴰⵎⴰⴹⵓⵏⵜ ⵏⵏⵖ',
