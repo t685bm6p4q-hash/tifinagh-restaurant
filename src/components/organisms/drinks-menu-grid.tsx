@@ -31,7 +31,7 @@ export function DrinksMenuGrid({ sections, columns }: DrinksMenuGridProps) {
       {sections.map((section) => (
         <article
           key={section.id}
-          className="drinks-card"
+          className={`drinks-card drinks-card--${section.id}`}
           aria-labelledby={`drinks-${section.id}`}
         >
           <h2 id={`drinks-${section.id}`} className="drinks-card-title">

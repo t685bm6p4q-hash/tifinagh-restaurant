@@ -3,10 +3,14 @@ import type { Dictionary } from './types'
 
 const drinksFr: Dictionary['drinks'] = {
   page: {
-    eyebrow: 'À boire',
-    title: 'Carte des boissons',
+    eyebrow: 'Bar & bistrot',
+    title: 'À boire chez Tifinagh',
     text:
-      'Bières pression et bouteille, softs, apéritifs, cocktails et boissons chaudes — servis au bistrot comme sur notre carte en salle, au cœur de Montmartre.',
+      'Pressions, vins vivants, apéritifs et cocktails — le complément idéal de nos assiettes, en salle ou sur la terrasse ombragée.',
+    bannerTitle: 'Le verre qui prolonge le repas',
+    bannerText: 'Bières artisanales, spiritueux, softs et boissons chaudes — servis avec le même soin que nos plats.',
+    bannerAlt: 'Ambiance conviviale au bar du bistrot Tifinagh, Montmartre',
+    gridLead: 'Prix de la carte en salle — choisissez votre verre en toute transparence.',
     backEyebrow: 'La carte',
     backTitle: 'Plats & desserts',
     backText: 'Retrouvez nos entrées, plats et desserts de la carte permanente.',
@@ -27,10 +31,14 @@ const drinksFr: Dictionary['drinks'] = {
 
 const drinksEn: Dictionary['drinks'] = {
   page: {
-    eyebrow: 'To drink',
-    title: 'Drinks menu',
+    eyebrow: 'Bar & bistro',
+    title: 'Drinks at Tifinagh',
     text:
-      'Draft and bottled beers, soft drinks, apéritifs, cocktails and hot drinks — served at our Montmartre bistro, just like on the menu in the dining room.',
+      'Draft beer, natural wines, apéritifs and cocktails — the perfect match for our plates, inside or on the shaded terrace.',
+    bannerTitle: 'The glass that extends the meal',
+    bannerText: 'Craft beers, spirits, soft drinks and hot drinks — served with the same care as our kitchen.',
+    bannerAlt: 'Warm bistro bar atmosphere at Tifinagh, Montmartre',
+    gridLead: 'In-house menu prices — choose your drink with full transparency.',
     backEyebrow: 'Food menu',
     backTitle: 'Dishes & desserts',
     backText: 'See our starters, mains and desserts from the permanent à la carte.',
@@ -51,10 +59,14 @@ const drinksEn: Dictionary['drinks'] = {
 
 const drinksEs: Dictionary['drinks'] = {
   page: {
-    eyebrow: 'Para beber',
-    title: 'Carta de bebidas',
+    eyebrow: 'Bar y bistró',
+    title: 'Para beber en Tifinagh',
     text:
-      'Cervezas de barril y botella, refrescos, aperitivos, cócteles y bebidas calientes — como en nuestra carta de sala, en Montmartre.',
+      'Cervezas, vinos, aperitivos y cócteles — el maridaje perfecto con nuestros platos, en sala o en la terraza.',
+    bannerTitle: 'La copa que prolonga la velada',
+    bannerText: 'Cervezas artesanas, destilados y refrescos — servidos con el mismo cariño que la cocina.',
+    bannerAlt: 'Ambiente de bar en el bistró Tifinagh, Montmartre',
+    gridLead: 'Precios de carta en sala — elige con total claridad.',
     backEyebrow: 'La carta',
     backTitle: 'Platos y postres',
     backText: 'Entrantes, platos principales y postres de la carta permanente.',
@@ -75,10 +87,14 @@ const drinksEs: Dictionary['drinks'] = {
 
 const drinksIt: Dictionary['drinks'] = {
   page: {
-    eyebrow: 'Da bere',
-    title: 'Carta delle bevande',
+    eyebrow: 'Bar & bistrot',
+    title: 'Da bere da Tifinagh',
     text:
-      'Birre alla spina e in bottiglia, soft drink, aperitivi, cocktail e bevande calde — come in sala, al nostro bistrot a Montmartre.',
+      'Birre, vini, aperitivi e cocktail — l’abbinamento ideale ai nostri piatti, in sala o in terrazza.',
+    bannerTitle: 'Il calice che prolunga la serata',
+    bannerText: 'Birre artigianali, distillati e soft drink — serviti con la stessa cura della cucina.',
+    bannerAlt: 'Atmosfera calda al bar del bistrot Tifinagh, Montmartre',
+    gridLead: 'Prezzi di sala — scegliete il vostro drink in tutta trasparenza.',
     backEyebrow: 'La carta',
     backTitle: 'Piatti e dessert',
     backText: 'Antipasti, piatti e dessert della carta permanente.',
@@ -99,10 +115,14 @@ const drinksIt: Dictionary['drinks'] = {
 
 const drinksZh: Dictionary['drinks'] = {
   page: {
-    eyebrow: '饮品',
-    title: '饮品单',
+    eyebrow: '吧台与小馆',
+    title: 'Tifinagh 饮品',
     text:
-      '生啤与瓶装啤酒、软饮、开胃酒、鸡尾酒与热饮 — 蒙马特小酒馆堂食同款。',
+      '生啤、葡萄酒、开胃酒与鸡尾酒 — 搭配主菜的完美一杯，堂食或露台皆宜。',
+    bannerTitle: '让晚餐延伸的那一杯',
+    bannerText: '精酿啤酒、烈酒与热饮 — 与厨房同样用心呈现。',
+    bannerAlt: '蒙马特 Tifinagh 小酒馆吧台氛围',
+    gridLead: '堂食菜单价格 — 透明选择您的饮品。',
     backEyebrow: '菜品',
     backTitle: '主菜与甜点',
     backText: '查看固定菜单上的前菜、主菜与甜点。',
@@ -123,10 +143,14 @@ const drinksZh: Dictionary['drinks'] = {
 
 const drinksDe: Dictionary['drinks'] = {
   page: {
-    eyebrow: 'Getränke',
-    title: 'Getränkekarte',
+    eyebrow: 'Bar & Bistrot',
+    title: 'Getränke bei Tifinagh',
     text:
-      'Biere vom Fass und aus der Flasche, Softdrinks, Aperitifs, Cocktails und Heißgetränke — wie in unserem Bistrot in Montmartre.',
+      'Fassbier, Weine, Aperitifs und Cocktails — die ideale Begleitung zu unseren Tellern, drinnen oder auf der Terrasse.',
+    bannerTitle: 'Das Glas, das den Abend verlängert',
+    bannerText: 'Craft-Bier, Spirituosen und Heißgetränke — mit derselben Sorgfalt wie unsere Küche.',
+    bannerAlt: 'Stimmung an der Bar im Bistrot Tifinagh, Montmartre',
+    gridLead: 'Preise wie in der Saisonkarte — transparent wählen.',
     backEyebrow: 'Speisekarte',
     backTitle: 'Gerichte & Desserts',
     backText: 'Vorspeisen, Hauptgerichte und Desserts von der Dauerkarte.',
@@ -147,10 +171,14 @@ const drinksDe: Dictionary['drinks'] = {
 
 const drinksPt: Dictionary['drinks'] = {
   page: {
-    eyebrow: 'Para beber',
-    title: 'Carta de bebidas',
+    eyebrow: 'Bar & bistrô',
+    title: 'Bebidas no Tifinagh',
     text:
-      'Cervejas de pressão e garrafa, refrigerantes, aperitivos, cocktails e bebidas quentes — como na sala, no nosso bistrô em Montmartre.',
+      'Cervejas, vinhos, aperitivos e cocktails — o par perfeito para os nossos pratos, na sala ou no terraço.',
+    bannerTitle: 'O copo que prolonga a noite',
+    bannerText: 'Cervejas artesanais, destilados e refrescos — servidos com o mesmo carinho da cozinha.',
+    bannerAlt: 'Ambiente acolhedor no bar do bistrô Tifinagh, Montmartre',
+    gridLead: 'Preços da carta em sala — escolha com total transparência.',
     backEyebrow: 'A carta',
     backTitle: 'Pratos e sobremesas',
     backText: 'Entradas, pratos e sobremesas da carta permanente.',
@@ -171,10 +199,14 @@ const drinksPt: Dictionary['drinks'] = {
 
 const drinksRu: Dictionary['drinks'] = {
   page: {
-    eyebrow: 'Напитки',
-    title: 'Карта напитков',
+    eyebrow: 'Бар и бистро',
+    title: 'Напитки в Tifinagh',
     text:
-      'Разливное и бутылочное пиво, безалкогольные напитки, аперитивы, коктейли и горячие напитки — как в зале нашего бистро в Монмартре.',
+      'Пиво, вина, аперитивы и коктейли — идеальное дополнение к нашим блюдам, в зале или на террасе.',
+    bannerTitle: 'Бокал, который продлевает вечер',
+    bannerText: 'Крафтовое пиво, крепкие напитки и горячие напитки — с той же заботой, что и кухня.',
+    bannerAlt: 'Уютная атмосфера бара бистро Tifinagh, Монмартр',
+    gridLead: 'Цены как в зале — выбирайте напиток открыто.',
     backEyebrow: 'Меню',
     backTitle: 'Блюда и десерты',
     backText: 'Закуски, основные блюда и десерты из постоянной карты.',
@@ -195,10 +227,14 @@ const drinksRu: Dictionary['drinks'] = {
 
 const drinksSv: Dictionary['drinks'] = {
   page: {
-    eyebrow: 'Dryck',
-    title: 'Dryckesmeny',
+    eyebrow: 'Bar & bistro',
+    title: 'Dryck på Tifinagh',
     text:
-      'Fat- och flasköl, läsk, aperitifer, cocktails och varma drycker — som på menyn i vårt Montmartre-bistro.',
+      'Fatöl, viner, aperitifer och cocktails — perfekt till våra rätter, inne eller på terrassen.',
+    bannerTitle: 'Glaset som förlänger kvällen',
+    bannerText: 'Hantverksöl, sprit och varma drycker — serverade med samma omsorg som köket.',
+    bannerAlt: 'Varm barstämning på Tifinagh-bistrot, Montmartre',
+    gridLead: 'Priser som i matsalen — välj dryck med full transparens.',
     backEyebrow: 'Matmeny',
     backTitle: 'Rätter & desserter',
     backText: 'Förrätter, huvudrätter och desserter från den fasta menyn.',
@@ -224,6 +260,10 @@ const drinksZgh: Dictionary['drinks'] = {
     title: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵉⵙⵙⵓⵏ',
     text:
       'ⵉⵙⵙⵓⵏ ⵏ ⵓⵙⵙⵓ — ⴱⵉⵢⵔⴰ, ⵙⵓⴼⵜ, ⴰⵡⵔⵉⵜⵉⴼ, ⴽⵓⴽⵜⵉⵍ ⴷ ⵉⵙⵙⵓⵏ ⵉⵎⵙⵙⴰⵏ ⴳ Tifinagh Montmartre.',
+    bannerTitle: 'Le verre qui prolonge le repas',
+    bannerText: 'Bières, apéritifs, cocktails — servis au bistrot Tifinagh.',
+    bannerAlt: 'Ambiance bar Tifinagh Montmartre',
+    gridLead: 'Prix de la carte en salle.',
     backEyebrow: 'ⵜⴰⵎⵓⵔⵜ',
     backTitle: 'ⵉⵛⵛⴰⵏ ⴷ ⵉⵖⵓⵎⵎⴰⵏ',
     backText: 'ⵙⴽⵏ ⵉⵣⵡⴰⵔⵏ, ⵉⵛⵛⴰⵏ ⴷ ⵉⵖⵓⵎⵎⴰⵏ ⵏ ⵜⴰⵎⵓⵔⵜ ⵜⴰⵎⴰⵜⴰⵢⵜ.',

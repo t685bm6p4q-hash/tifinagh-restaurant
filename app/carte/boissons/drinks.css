@@ -1,6 +1,74 @@
 /* Styles chargés uniquement sur /carte/boissons (pas dans globals.css). */
+
+.drinks-banner {
+  position: relative;
+  min-height: 280px;
+  max-height: 42vh;
+  width: 100%;
+  overflow: hidden;
+  background: #121310;
+}
+
+@media (min-width: 768px) {
+  .drinks-banner {
+    min-height: 320px;
+  }
+}
+
+.drinks-banner-image {
+  object-fit: cover;
+  object-position: center 55%;
+}
+
+.drinks-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    rgba(17, 18, 16, 0.88) 0%,
+    rgba(17, 18, 16, 0.45) 55%,
+    rgba(17, 18, 16, 0.25) 100%
+  );
+}
+
+.drinks-banner-content {
+  position: relative;
+  z-index: 1;
+  max-width: 520px;
+  padding: 48px max(28px, 8vw);
+  color: #f4f1ea;
+}
+
+.drinks-banner-title {
+  margin: 0 0 12px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(28px, 4.5vw, 42px);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.drinks-banner-text {
+  margin: 0;
+  font-size: clamp(15px, 2vw, 17px);
+  line-height: 1.55;
+  color: rgba(244, 241, 234, 0.88);
+  max-width: 440px;
+}
+
 .drinks-page.section {
-  padding-top: 0;
+  padding-top: 40px;
+  background: linear-gradient(180deg, var(--surface-2) 0%, var(--background) 120px);
+}
+
+.drinks-grid-lead {
+  text-align: center;
+  max-width: 520px;
+  margin: 0 auto 32px;
+  color: var(--muted);
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
 }
 
 .drinks-grid {
@@ -19,14 +87,42 @@
 }
 
 .drinks-card {
+  position: relative;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
   padding: 22px 24px 18px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.drinks-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 14px;
+  bottom: 14px;
+  width: 3px;
+  border-radius: 0 2px 2px 0;
+  background: var(--gold);
+  opacity: 0.35;
+}
+
+.drinks-card:hover {
+  border-color: rgba(214, 173, 69, 0.35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+  transform: translateY(-2px);
+}
+
+.drinks-card--cocktails::before,
+.drinks-card--aperitifs::before {
+  opacity: 1;
+  background: linear-gradient(180deg, var(--gold), var(--terracotta));
 }
 
 .drinks-card-title {
   margin: 0 0 14px;
+  padding-left: 8px;
   font-size: 20px;
   font-weight: 400;
   color: var(--terracotta);
@@ -90,4 +186,5 @@
   white-space: nowrap;
   text-align: right;
   align-self: center;
+  font-variant-numeric: tabular-nums;
 }

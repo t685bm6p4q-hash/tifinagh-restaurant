@@ -258,6 +258,10 @@ export type Dictionary = {
       eyebrow: string
       title: string
       text: string
+      bannerTitle: string
+      bannerText: string
+      bannerAlt: string
+      gridLead: string
       backEyebrow: string
       backTitle: string
       backText: string
