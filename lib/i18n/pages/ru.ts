@@ -1,3 +1,4 @@
+import { galleryAltsEn } from '@/lib/gallery-data'
 import type { PagesCopy } from '../types'
 
 export const pagesRu: PagesCopy = {
@@ -37,19 +38,7 @@ export const pagesRu: PagesCopy = {
     introEyebrow: 'Атмосфера',
     introTitle: 'Галерея',
     introText: 'Мгновения жизни в Tifinagh — щедрые блюда и мягкий свет.',
-    photoAlts: [
-      'Терраса Tifinagh в Монмартре с красными зонтами ночью',
-      'Фасад ресторана Tifinagh в Монмартре с зонтами и тёплым светом',
-      'Зал ресторана Tifinagh в Монмартре с красным декором и деревом',
-      'Приватный зал Tifinagh — элегантный красный интерьер',
-      'Зал для мероприятий Tifinagh с клетчатыми скатертями бистро',
-      'Уютный вечер на террасе Tifinagh в Монмартре',
-      'Фирменное блюдо Tifinagh: свёкла, груша и свежий сыр',
-      'Терраса Tifinagh с гостями под красным зонтом в Монмартре',
-      'Гурме-блюдо Tifinagh с шафрановым соусом и красным перцем',
-      'Зал частных мероприятий Tifinagh — приватный ужин в Монмартре',
-      'Рыбное блюдо со спаржей — изящная подача в Tifinagh',
-    ],
+    photoAlts: [...galleryAltsEn],
   },
   privatisation: {
     introEyebrow: 'Частные мероприятия',

@@ -1,3 +1,4 @@
+import { galleryAltsEn } from '@/lib/gallery-data'
 import type { PagesCopy } from '../types'
 
 export const pagesSv: PagesCopy = {
@@ -37,19 +38,7 @@ export const pagesSv: PagesCopy = {
     introEyebrow: 'Atmosfären',
     introTitle: 'Galleri',
     introText: 'Ögonblick från livet på Tifinagh — generösa tallrikar och mjukt ljus.',
-    photoAlts: [
-      'Tifinaghs terrass i Montmartre med röda parasoller på natten',
-      'Tifinaghs restaurangfasad i Montmartre med parasoller och varmt ljus',
-      'Tifinaghs matsal i Montmartre med röd inredning och trä',
-      'Tifinaghs privata matsal — elegant röd interiör',
-      'Tifinaghs privatiseringsrum med bistro-rutiga dukar',
-      'Gemytlig kvällsstämning på Tifinaghs terrass i Montmartre',
-      'Tifinaghs signaturrätt: rödbeta, päron och färskost',
-      'Tifinaghs terrass med gäster under rött parasoll i Montmartre',
-      'Gourmeträtt på Tifinagh med saffranssås och röd chili',
-      'Privat evenemangssal på Tifinagh — privat middag i Montmartre',
-      'Fiskrätt med sparris — fin presentation på Tifinagh',
-    ],
+    photoAlts: [...galleryAltsEn],
   },
   privatisation: {
     introEyebrow: 'Privata evenemang',

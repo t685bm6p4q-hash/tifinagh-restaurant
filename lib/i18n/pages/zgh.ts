@@ -1,3 +1,4 @@
+import { galleryAltsEn } from '@/lib/gallery-data'
 import type { PagesCopy } from '../types'
 
 export const pagesZgh: PagesCopy = {
@@ -37,19 +38,7 @@ export const pagesZgh: PagesCopy = {
     introEyebrow: 'ⴰⵙⴰⵎⵎⴰⵙ',
     introTitle: 'ⵜⴰⵙⵏⴰⵡⵜ',
     introText: 'ⵜⵉⵎⵙⵙⵉⵏ ⵏ ⵜⵎⴷⴷⵓⴽⵔⴰ ⴳ Tifinagh — ⵉⵛⵛⴰⵏ ⵉⵎⵙⵙⴰⵏ ⴷ ⴰⵙⴰⵡⵍ ⴰⵎⵍⵍⴰⵍ.',
-    photoAlts: [
-      'ⵜⴰⵔⴰⵙ Tifinagh ⴳ Montmartre ⵙ ⵉⵣⵔⵉⴽⵏ ⵉⵣⴳⵔⴰⵏ ⴷ ⵜⵉⴹ',
-      'ⴰⵏⴰⵎⵎⴰⵙ ⵏ Tifinagh ⴳ Montmartre ⵙ ⵉⵣⵔⵉⴽⵏ ⴷ ⵜⴰⵡⵍⴰ ⵜⴰⵎⵎⴰⵡⵜ',
-      'ⵜⴰⵙⴰⵍⵍⴰ Tifinagh ⴳ Montmartre ⵙ ⵓⵙⴽⵔ ⴰⵣⴳⴳⵯⴰⵔ ⴷ ⴰⵙⵙ',
-      'ⵜⴰⵙⴰⵍⵍⴰ ⵜⴰⵎⴰⵣⵉⵔⵜ Tifinagh — ⴰⵙⴽⵔ ⴰⵎⵍⵍⴰⵍ',
-      'ⵜⴰⵙⴰⵍⵍⴰ ⵏ ⵓⵙⵙⵓⵎⵔ Tifinagh ⵙ ⵜⵉⵎⵙⵙⵉⵏⵉⵏ ⵏ ⴱⵉⵙⵜⵔⵓ',
-      'ⴰⵙⴰⵎⵎⴰⵙ ⴰⵎⵙⵙⴰⵀⵔⵉ ⴳ ⵜⴰⵔⴰⵙ Tifinagh ⴳ Montmartre ⴷ ⵜⵉⴹ',
-      'ⵓⵛⵛⵉ ⴰⵎⵣⵡⴰⵔ Tifinagh: ⵉⵣⵔⵉⴽ, ⵜⴰⵔⴳⴰⵡⵜ ⴷ ⴰⵊⵊⵉ ⴰⵎⴰⵢⵏⵓ',
-      'ⵜⴰⵔⴰⵙ Tifinagh ⵙ ⵉⵎⵙⵙⵏⵉ ⵙⴳ ⵉⵣⵔⵉⴽ ⴰⵣⴳⴳⵯⴰⵔ ⴳ Montmartre',
-      'ⵓⵛⵛⵉ gourmet Tifinagh ⵙ ⵜⴰⵙⵙⵓⵜ zafran ⴷ ⵉⵣⵔⵉⴽ ⴰⵣⴳⴳⵯⴰⵔ',
-      'ⵜⴰⵙⴰⵍⵍⴰ ⵏ ⵓⵙⵙⵓⵎⵔ Tifinagh — ⵓⵛⵛⵉ ⴰⵎⴰⵣⵉⵖ ⴳ Montmartre',
-      'ⵓⵛⵛⵉ ⵏ ⵉⵙⵙⵏ ⵙ asparagus — ⴰⵙⴽⵔ ⴰⵎⵍⵍⴰⵍ ⴳ Tifinagh',
-    ],
+    photoAlts: [...galleryAltsEn],
   },
   privatisation: {
     introEyebrow: 'ⵉⵎⵙⵙⵏⵉ ⵉⵎⴰⵣⵉⵖⵏ',

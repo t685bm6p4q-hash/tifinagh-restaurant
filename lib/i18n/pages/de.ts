@@ -1,3 +1,4 @@
+import { galleryAltsFr } from '@/lib/gallery-data'
 import type { PagesCopy } from '../types'
 
 export const pagesDe: PagesCopy = {
@@ -38,19 +39,7 @@ export const pagesDe: PagesCopy = {
     introTitle: 'Galerie',
     introText:
       'Quelques instants de vie chez Tifinagh, entre assiettes généreuses et lumières douces.',
-    photoAlts: [
-      'Terrasse Tifinagh Montmartre avec parasols rouges la nuit',
-      'Façade restaurant Tifinagh montmartre avec parasols et lumière chaude',
-      'Salle restaurant Tifinagh Montmartre avec décoration rouge et bois',
-      'Salle restaurant privée Tifinagh rouge intérieur élégant',
-      'Salle privatisation Tifinagh avec tables nappe vichy bistro',
-      'Ambiance conviviale terrasse Tifinagh Montmartre le soir',
-      'Plat signature Tifinagh betteraves poire et fromage blanc',
-      'Terrasse Tifinagh avec clients parasol rouge Montmartre',
-      'Plat gastronomique Tifinagh avec sauce safran et piment rouge',
-      'Salle privatisation événement Tifinagh Montmartre restaurant privé',
-      'Plat poisson asperges décoration fine restaurant Tifinagh',
-    ],
+    photoAlts: [...galleryAltsFr],
   },
   privatisation: {
     introEyebrow: 'Événements privés',

@@ -1,5 +1,6 @@
 import type { Locale } from './config'
 import type { PagesCopy } from './types'
+import { galleryAltsEn, galleryAltsFr } from '@/lib/gallery-data'
 import { pagesDe } from './pages/de'
 import { pagesPt } from './pages/pt'
 import { pagesRu } from './pages/ru'
@@ -44,19 +45,7 @@ const pagesFr: PagesCopy = {
     introTitle: 'Galerie',
     introText:
       'Quelques instants de vie chez Tifinagh, entre assiettes généreuses et lumières douces.',
-    photoAlts: [
-      'Terrasse Tifinagh Montmartre avec parasols rouges la nuit',
-      'Façade restaurant Tifinagh montmartre avec parasols et lumière chaude',
-      'Salle restaurant Tifinagh Montmartre avec décoration rouge et bois',
-      'Salle restaurant privée Tifinagh rouge intérieur élégant',
-      'Salle privatisation Tifinagh avec tables nappe vichy bistro',
-      'Ambiance conviviale terrasse Tifinagh Montmartre le soir',
-      'Plat signature Tifinagh betteraves poire et fromage blanc',
-      'Terrasse Tifinagh avec clients parasol rouge Montmartre',
-      'Plat gastronomique Tifinagh avec sauce safran et piment rouge',
-      'Salle privatisation événement Tifinagh Montmartre restaurant privé',
-      'Plat poisson asperges décoration fine restaurant Tifinagh',
-    ],
+    photoAlts: [...galleryAltsFr],
   },
   privatisation: {
     introEyebrow: 'Événements privés',
@@ -237,19 +226,7 @@ const pagesEn: PagesCopy = {
     introTitle: 'Gallery',
     introText:
       'Moments of life at Tifinagh — generous plates and soft light.',
-    photoAlts: [
-      'Tifinagh terrace in Montmartre with red parasols at night',
-      'Tifinagh restaurant façade in Montmartre with parasols and warm lighting',
-      'Tifinagh dining room in Montmartre with red décor and wood',
-      'Tifinagh private dining room — elegant red interior',
-      'Tifinagh private event space with bistro check tablecloths',
-      'Convivial evening atmosphere on the Tifinagh terrace in Montmartre',
-      'Tifinagh signature dish: beetroot, pear and fresh cheese',
-      'Tifinagh terrace with guests under a red parasol in Montmartre',
-      'Tifinagh gourmet dish with saffron sauce and red chilli',
-      'Tifinagh private event room — Montmartre private dining',
-      'Fish dish with asparagus — fine plating at Tifinagh',
-    ],
+    photoAlts: [...galleryAltsEn],
   },
   privatisation: {
     introEyebrow: 'Private events',
@@ -430,19 +407,7 @@ const pagesEs: PagesCopy = {
     introTitle: 'Galería',
     introText:
       'Instantes de la vida en Tifinagh, entre platos generosos y luces suaves.',
-    photoAlts: [
-      'Terraza Tifinagh en Montmartre con parasoles rojos de noche',
-      'Fachada del restaurante Tifinagh en Montmartre con parasoles y luz cálida',
-      'Comedor Tifinagh en Montmartre con decoración roja y madera',
-      'Sala privada Tifinagh — interior rojo elegante',
-      'Sala de privatización Tifinagh con mantelería de cuadros vichy',
-      'Ambiente convivial en la terraza Tifinagh en Montmartre por la noche',
-      'Plato estrella Tifinagh: remolacha, pera y queso fresco',
-      'Terraza Tifinagh con clientes bajo parasol rojo en Montmartre',
-      'Plato gourmet Tifinagh con salsa de azafrán y pimiento rojo',
-      'Sala de eventos privados Tifinagh — restaurante privado en Montmartre',
-      'Plato de pescado con espárragos — presentación refinada en Tifinagh',
-    ],
+    photoAlts: [...galleryAltsEn],
   },
   privatisation: {
     introEyebrow: 'Eventos privados',
@@ -623,19 +588,7 @@ const pagesIt: PagesCopy = {
     introTitle: 'Galleria',
     introText:
       'Momenti di vita da Tifinagh, tra piatti generosi e luci soffuse.',
-    photoAlts: [
-      'Terrazza Tifinagh a Montmartre con ombrelloni rossi di notte',
-      'Facciata del ristorante Tifinagh a Montmartre con ombrelloni e luce calda',
-      'Sala del ristorante Tifinagh a Montmartre con arredo rosso e legno',
-      'Sala privata Tifinagh — interno rosso elegante',
-      'Sala privatizzazione Tifinagh con tovaglie a quadri vichy',
-      'Atmosfera conviviale sulla terrazza Tifinagh a Montmartre la sera',
-      'Piatto signature Tifinagh: barbabietola, pera e formaggio fresco',
-      'Terrazza Tifinagh con clienti sotto ombrellone rosso a Montmartre',
-      'Piatto gourmet Tifinagh con salsa allo zafferano e peperoncino rosso',
-      'Sala eventi privatizzata Tifinagh — ristorante privato a Montmartre',
-      'Piatto di pesce con asparagi — impiattamento raffinato da Tifinagh',
-    ],
+    photoAlts: [...galleryAltsEn],
   },
   privatisation: {
     introEyebrow: 'Eventi privati',
@@ -813,19 +766,7 @@ const pagesZh: PagesCopy = {
     introEyebrow: '氛围',
     introTitle: '相册',
     introText: 'Tifinagh 的若干瞬间——丰盛菜肴与柔和灯光。',
-    photoAlts: [
-      'Tifinagh 蒙马特露台，夜间红色遮阳伞',
-      'Tifinagh 蒙马特餐厅门面，遮阳伞与暖光',
-      'Tifinagh 蒙马特餐室，红色装饰与木质元素',
-      'Tifinagh 私人餐室——典雅红色内饰',
-      'Tifinagh 包场空间，格子桌布餐桌',
-      'Tifinagh 蒙马特露台，晚间欢聚氛围',
-      'Tifinagh 招牌菜：甜菜、梨与新鲜奶酪',
-      'Tifinagh 露台，蒙马特红色遮阳伞下的客人',
-      'Tifinagh 精致主菜，藏红花酱汁与红椒',
-      'Tifinagh 包场活动厅——蒙马特私人用餐',
-      '鱼肉配芦笋——Tifinagh 精致摆盘',
-    ],
+    photoAlts: [...galleryAltsEn],
   },
   privatisation: {
     introEyebrow: '私人活动',
