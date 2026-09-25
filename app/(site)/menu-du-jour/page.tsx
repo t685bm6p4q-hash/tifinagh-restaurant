@@ -28,15 +28,6 @@ export default async function MenuDuJour() {
         <PageBreadcrumbs locale={locale} items={breadcrumbItems} />
         <PageIntro eyebrow={d.introEyebrow} title={d.introTitle} text={d.introText} />
 
-        <MenuCrossLink
-          eyebrow={dictionary.dailyMenuPage.carteInviteEyebrow}
-          title={dictionary.dailyMenuPage.carteInviteTitle}
-          text={dictionary.dailyMenuPage.carteInviteText}
-          href="/carte"
-          cta={dictionary.dailyMenuPage.carteInviteCta}
-          variant="to-carte"
-        />
-
         <section className="section menu-pdf-section" aria-label={d.introTitle}>
           <MenuPdfViewer />
         </section>
@@ -55,6 +46,24 @@ export default async function MenuDuJour() {
           </div>
         </section>
 
+        <MenuCrossLink
+          eyebrow={d.carteInviteEyebrow}
+          title={d.carteInviteTitle}
+          text={d.carteInviteText}
+          href="/carte"
+          cta={d.carteInviteCta}
+          variant="to-carte"
+        />
+
+        <MenuCrossLink
+          eyebrow={dictionary.carte.drinksInviteEyebrow}
+          title={dictionary.carte.drinksInviteTitle}
+          text={dictionary.carte.drinksInviteText}
+          href="/carte/boissons"
+          cta={dictionary.carte.drinksInviteCta}
+          variant="to-drinks"
+        />
+
         <section className="section menu-jour-hours">
           <div className="menu-jour-hours-inner">
             <h2>{d.hoursTitle}</h2>
@@ -66,15 +75,6 @@ export default async function MenuDuJour() {
             </p>
           </div>
         </section>
-
-        <MenuCrossLink
-          eyebrow={dictionary.dailyMenuPage.carteInviteEyebrow}
-          title={dictionary.dailyMenuPage.carteInviteTitle}
-          text={dictionary.dailyMenuPage.carteInviteText}
-          href="/carte"
-          cta={dictionary.dailyMenuPage.carteInviteCta}
-          variant="to-carte"
-        />
       </MainContent>
       <Footer />
     </>

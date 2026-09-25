@@ -69,15 +69,6 @@ export default async function Carte() {
           </div>
         </section>
 
-        <MenuCrossLink
-          eyebrow={dictionary.carte.dailyInviteEyebrow}
-          title={dictionary.carte.dailyInviteTitle}
-          text={dictionary.carte.dailyInviteText}
-          href="/menu-du-jour"
-          cta={dictionary.carte.dailyInviteCta}
-          variant="to-daily"
-        />
-
         <section className="menu-page section">
           {menu.map((section) => (
             <MenuSection key={section.title} title={section.title} items={section.items} />
