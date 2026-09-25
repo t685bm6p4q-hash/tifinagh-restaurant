@@ -8,7 +8,7 @@ import {
 import { isGaConfigured } from '@/lib/analytics-config'
 import { trackOutboundConversion } from '@/lib/analytics-events'
 
-/** Enregistre les clics tel / WhatsApp / Google Reserve après consentement analytics. */
+/** Enregistre les clics tel / WhatsApp / réservation en ligne après consentement analytics. */
 export function ConversionTracking() {
   const [active, setActive] = useState(false)
 

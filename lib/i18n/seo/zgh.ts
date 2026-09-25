@@ -74,7 +74,7 @@ export const seoZgh: Dictionary['seo'] = {
     reservation: {
       title: 'ⴰⵙⴳⴳⵯⴰⵙ ⵜⴰⵎⴰⴹⵓⵏⵜ — ⵜⵉⵍⵉⴼⵓⵏ, Google ⵏⵖ WhatsApp',
       description:
-        'ⴰⵙⴳⴳⵯⴰⵙ ⴳ Tifinagh Montmartre ⴷⵉⵙ ⵜⵉⵙⵉⵏⵜ: ⵜⵉⵍⵉⴼⵓⵏ, Google Reserve ⵏⵖ WhatsApp. 17 avenue Rachel, ⴱⴰⵔⵉⵙ 18.',
+        'ⴰⵙⴳⴳⵯⴰⵙ ⴳ Tifinagh Montmartre ⴷⵉⵙ ⵜⵉⵙⵉⵏⵜ: ⵜⵉⵍⵉⴼⵓⵏ, ⴰⵙⴳⴳⵯⴰⵙ ⵙ ⵉⵏⵙⵉⵎⵎⵓⵙ ⵏⵖ WhatsApp. 17 avenue Rachel, ⴱⴰⵔⵉⵙ 18.',
     },
     restaurantMontmartre: {
       title: 'ⴰⵙⵙⵉⵏⵉ Montmartre — ⴱⵉⵙⵜⵔⵓ ⴷⴰⵔ ⵉⵎⵣⵉ',

@@ -1,10 +1,29 @@
 import { restaurant } from '@/lib/seo'
+import type { Locale } from '@/lib/i18n/config'
 
 export const whatsappNumber = '33679045460'
 
-/** Lien Google Reserve (Réservation via Google Maps). */
-export const googleReserveUrl =
-  'https://www.google.com/maps/reserve/v/dine/c/aSAIKaVSmBM'
+const URESERVE_BOOKING_BASE =
+  'https://booking.ureserve.co/shop/external-booking/tifinagh'
+
+const ureserveLangCode: Record<Locale, string> = {
+  fr: 'fr',
+  en: 'en',
+  es: 'es',
+  it: 'it',
+  zh: 'zh',
+  de: 'de',
+  pt: 'pt',
+  ru: 'ru',
+  sv: 'en',
+  zgh: 'fr',
+}
+
+/** Réservation en ligne (uReserve). */
+export function onlineBookingUrl(locale: Locale = 'fr') {
+  const lang = ureserveLangCode[locale]
+  return `${URESERVE_BOOKING_BASE}?fullpage=true&lang_code=${lang}`
+}
 
 /** Fiche Google Maps / avis. */
 export const googleMapsUrl =

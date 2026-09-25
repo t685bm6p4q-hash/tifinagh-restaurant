@@ -148,7 +148,7 @@ export const pagesSv: PagesCopy = {
     hoursTextBefore: 'Öppet ',
     hoursEveryDay: 'varje dag',
     hoursTextAfter:
-      ', 10:00 – 00:00. Boka via telefon, Google Reserve eller WhatsApp — särskilt på helger och showkvällar i området.',
+      ', 10:00 – 00:00. Boka via telefon, onlinebokning eller WhatsApp — särskilt på helger och showkvällar i området.',
     privatizeLink: 'Privatisera',
     bookingTitle: 'Boka från Place de Clichy',
   },

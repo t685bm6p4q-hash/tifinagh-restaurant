@@ -74,7 +74,7 @@ export const seoPt: Dictionary['seo'] = {
     reservation: {
       title: 'Reservar mesa — llamada, Google o WhatsApp',
       description:
-        'Reserve en Tifinagh Montmartre en segundos: teléfono, Google Reserve o WhatsApp. 17 avenue Rachel, Paris 18.',
+        'Reserve en Tifinagh Montmartre en segundos: teléfono, reserva en línea o WhatsApp. 17 avenue Rachel, Paris 18.',
     },
     restaurantMontmartre: {
       title: 'Restaurante Montmartre — bistrô francés al pie de la colina',

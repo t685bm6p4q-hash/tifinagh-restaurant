@@ -1,6 +1,8 @@
 import { isGaConfigured } from '@/lib/analytics-config'
 import { hasAnalyticsConsent } from '@/lib/cookie-consent'
-import { googleReserveUrl, phoneTel, whatsappNumber } from '@/lib/restaurant-data'
+import { phoneTel, whatsappNumber } from '@/lib/restaurant-data'
+
+const ONLINE_BOOKING_HOST = 'booking.ureserve.co'
 
 export function trackGaEvent(
   name: string,
@@ -19,7 +21,7 @@ export function trackOutboundConversion(href: string): void {
     trackGaEvent('click_whatsapp', { link_url: href, method: 'whatsapp' })
     return
   }
-  if (href.startsWith(googleReserveUrl) || href.includes('google.com/maps/reserve')) {
-    trackGaEvent('click_google_reserve', { link_url: href, method: 'google_reserve' })
+  if (href.includes(ONLINE_BOOKING_HOST)) {
+    trackGaEvent('click_online_booking', { link_url: href, method: 'ureserve' })
   }
 }

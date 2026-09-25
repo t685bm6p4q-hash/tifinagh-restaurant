@@ -34,7 +34,7 @@ export const ru: Dictionary = {
   booking: {
     title: 'Забронируйте за несколько секунд',
     call: 'Позвонить',
-    google: 'Забронировать через Google',
+    online: 'Забронировать онлайн',
     whatsapp: 'WhatsApp',
     whatsappMessage: 'Здравствуйте, хотел(а) бы забронировать стол в Tifinagh Montmartre.',
   },
@@ -47,7 +47,7 @@ export const ru: Dictionary = {
     nearbyMetro: 'Ближайшие станции метро',
     followUs: 'Мы в соцсетях',
     bookWhatsapp: 'Забронировать в WhatsApp',
-    bookGoogle: 'Забронировать через Google',
+    bookOnline: 'Забронировать онлайн',
     legal: 'Правовая информация',
     cookies: 'Файлы cookie',
     copyright: '© 2026 Tifinagh Montmartre. Шикарное бистро и аутентичная кухня.',
@@ -159,7 +159,7 @@ export const ru: Dictionary = {
   reservationPage: {
     introEyebrow: 'Ваш стол',
     introTitle: 'Забронировать стол',
-    introText: 'Выберите способ: звонок, Google Reserve или форма WhatsApp.',
+    introText: 'Выберите способ: звонок, онлайн-бронь или форма WhatsApp.',
     channelsTitle: 'Самые быстрые варианты',
     whatsappHint: 'Или укажите детали ниже (WhatsApp)',
     nameLabel: 'Имя',

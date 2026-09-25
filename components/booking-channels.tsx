@@ -1,11 +1,12 @@
 import {
   googleMapsUrl,
-  googleReserveUrl,
+  onlineBookingUrl,
   pagesJaunesUrl,
   phoneDisplay,
   phoneTel,
   whatsappLink,
 } from '@/lib/restaurant-data'
+import { CalendarDaysIcon } from '@/components/icons'
 import { PagesJaunesIcon } from '@/components/pagesjaunes-logo'
 import { getI18n, getUxExtra } from '@/lib/i18n'
 
@@ -71,15 +72,15 @@ export async function BookingChannels({
           </span>
         </a>
         <a
-          className="booking-chip booking-chip-google"
-          href={googleReserveUrl}
+          className="booking-chip booking-chip-online"
+          href={onlineBookingUrl(locale)}
           target="_blank"
           rel="noopener noreferrer"
         >
           <span className="booking-chip-icon" aria-hidden="true">
-            <GoogleGIcon />
+            <CalendarDaysIcon size={CHIP_ICON_SIZE} />
           </span>
-          <span className="booking-chip-label">{dictionary.booking.google}</span>
+          <span className="booking-chip-label">{dictionary.booking.online}</span>
         </a>
         <a
           className="booking-chip booking-chip-whatsapp"

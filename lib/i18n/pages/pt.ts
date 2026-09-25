@@ -150,7 +150,7 @@ export const pagesPt: PagesCopy = {
     hoursTextBefore: 'Abierto ',
     hoursEveryDay: 'todos os dias',
     hoursTextAfter:
-      ', 10:00 – 00:00. Reserve por teléfono, Google Reserve o WhatsApp — sobre todo el fin de semana y las noches de espetáculo en el barrio.',
+      ', 10:00 – 00:00. Reserve por teléfono, reserva en línea o WhatsApp — sobre todo el fin de semana y las noches de espetáculo en el barrio.',
     privatizeLink: 'Privatizar',
     bookingTitle: 'Reservar desde Place de Clichy',
   },

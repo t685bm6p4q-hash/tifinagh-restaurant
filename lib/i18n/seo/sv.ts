@@ -74,7 +74,7 @@ export const seoSv: Dictionary['seo'] = {
     reservation: {
       title: 'Boka bord — samtal, Google eller WhatsApp',
       description:
-        'Boka på Tifinagh Montmartre på några sekunder: telefon, Google Reserve eller WhatsApp. 17 avenue Rachel, Paris 18.',
+        'Boka på Tifinagh Montmartre på några sekunder: telefon, onlinebokning eller WhatsApp. 17 avenue Rachel, Paris 18.',
     },
     restaurantMontmartre: {
       title: 'Montmartre-restaurang — franskt bistro vid kullen',

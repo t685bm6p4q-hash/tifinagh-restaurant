@@ -72,9 +72,9 @@ export const seoDe: Dictionary['seo'] = {
         'Tifinagh au 17 avenue Rachel : près du cimetière de Montmartre, théâtres, cinémas Pathé Wepler, métros Clichy, Blanche et Pigalle. Pause gourmande au calme.',
     },
     reservation: {
-      title: 'Reservieren une table — appel, Google ou WhatsApp',
+      title: 'Reservieren une table — en ligne, appel ou WhatsApp',
       description:
-        'Réservez chez Tifinagh Montmartre en quelques secondes : téléphone, Google Reserve ou WhatsApp. 17 avenue Rachel, Paris 18.',
+        'Réservez chez Tifinagh Montmartre en quelques secondes : téléphone, réservation en ligne ou WhatsApp. 17 avenue Rachel, Paris 18.',
     },
     restaurantMontmartre: {
       title: 'Restaurant Montmartre — bistrot français au pied de la butte',

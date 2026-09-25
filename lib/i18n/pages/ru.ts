@@ -146,7 +146,7 @@ export const pagesRu: PagesCopy = {
     hoursTextBefore: 'Открыто ',
     hoursEveryDay: 'каждый день',
     hoursTextAfter:
-      ', 10:00 – 00:00. Бронируйте по телефону, Google Reserve или WhatsApp — особенно в выходные и в вечера спектаклей в районе.',
+      ', 10:00 – 00:00. Бронируйте по телефону, онлайн-бронь или WhatsApp — особенно в выходные и в вечера спектаклей в районе.',
     privatizeLink: 'Аренда зала',
     bookingTitle: 'Забронировать с Place de Clichy',
   },

@@ -34,7 +34,7 @@ export const sv: Dictionary = {
   booking: {
     title: 'Boka på några sekunder',
     call: 'Ring',
-    google: 'Boka med Google',
+    online: 'Boka online',
     whatsapp: 'WhatsApp',
     whatsappMessage: 'Hej, jag skulle vilja boka ett bord på Tifinagh Montmartre.',
   },
@@ -47,7 +47,7 @@ export const sv: Dictionary = {
     nearbyMetro: 'Närliggande tunnelbanestationer',
     followUs: 'Följ oss',
     bookWhatsapp: 'Boka via WhatsApp',
-    bookGoogle: 'Boka med Google',
+    bookOnline: 'Boka online',
     legal: 'Juridisk information',
     cookies: 'Cookies',
     copyright: '© 2026 Tifinagh Montmartre. Chic bistro och autentisk mat.',
@@ -159,7 +159,7 @@ export const sv: Dictionary = {
   reservationPage: {
     introEyebrow: 'Ditt bord',
     introTitle: 'Boka bord',
-    introText: 'Välj kanal: samtal, Google Reserve eller WhatsApp-formuläret.',
+    introText: 'Välj kanal: samtal, onlinebokning eller WhatsApp-formuläret.',
     channelsTitle: 'Snabbaste alternativen',
     whatsappHint: 'Eller ange detaljer nedan (WhatsApp)',
     nameLabel: 'Namn',

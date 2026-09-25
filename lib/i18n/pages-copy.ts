@@ -156,7 +156,7 @@ const pagesFr: PagesCopy = {
     hoursTextBefore: 'Ouvert ',
     hoursEveryDay: 'tous les jours',
     hoursTextAfter:
-      ', 10h – 00h. Réservez par téléphone, Google Reserve ou WhatsApp — surtout le week-end et les soirs de spectacle dans le quartier.',
+      ', 10h – 00h. Réservez par téléphone, réservation en ligne ou WhatsApp — surtout le week-end et les soirs de spectacle dans le quartier.',
     privatizeLink: 'Privatiser',
     bookingTitle: 'Réserver depuis Place de Clichy',
   },
@@ -337,7 +337,7 @@ const pagesEn: PagesCopy = {
     hoursTextBefore: 'Open ',
     hoursEveryDay: 'every day',
     hoursTextAfter:
-      ', 10am – 12am. Book by phone, Google Reserve or WhatsApp — especially at weekends and on show nights in the area.',
+      ', 10am – 12am. Book by phone, online booking or WhatsApp — especially at weekends and on show nights in the area.',
     privatizeLink: 'Private hire',
     bookingTitle: 'Book from Place de Clichy',
   },
@@ -518,7 +518,7 @@ const pagesEs: PagesCopy = {
     hoursTextBefore: 'Abierto ',
     hoursEveryDay: 'todos los días',
     hoursTextAfter:
-      ', 10:00 – 00:00. Reserve por teléfono, Google Reserve o WhatsApp — sobre todo el fin de semana y las noches de espectáculo en el barrio.',
+      ', 10:00 – 00:00. Reserve por teléfono, reserva en línea o WhatsApp — sobre todo el fin de semana y las noches de espectáculo en el barrio.',
     privatizeLink: 'Privatizar',
     bookingTitle: 'Reservar desde Place de Clichy',
   },
@@ -699,7 +699,7 @@ const pagesIt: PagesCopy = {
     hoursTextBefore: 'Aperto ',
     hoursEveryDay: 'tutti i giorni',
     hoursTextAfter:
-      ', 10:00 – 00:00. Prenotate per telefono, Google Reserve o WhatsApp — soprattutto nel weekend e nelle serate di spettacolo nel quartiere.',
+      ', 10:00 – 00:00. Prenotate per telefono, prenotazione online o WhatsApp — soprattutto nel weekend e nelle serate di spettacolo nel quartiere.',
     privatizeLink: 'Privatizzare',
     bookingTitle: 'Prenotare da Place de Clichy',
   },
@@ -872,7 +872,7 @@ const pagesZh: PagesCopy = {
     hoursTextBefore: '营业 ',
     hoursEveryDay: '每日',
     hoursTextAfter:
-      '，10:00 – 00:00。请电话、Google Reserve 或 WhatsApp 预订——周末及街区演出夜尤其建议提前订位。',
+      '，10:00 – 00:00。请电话、在线预订或 WhatsApp 预订——周末及街区演出夜尤其建议提前订位。',
     privatizeLink: '包场',
     bookingTitle: '从克利希广场预订',
   },

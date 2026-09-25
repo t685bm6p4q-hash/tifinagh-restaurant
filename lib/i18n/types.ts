@@ -158,7 +158,7 @@ export type Dictionary = {
   booking: {
     title: string
     call: string
-    google: string
+    online: string
     whatsapp: string
     whatsappMessage: string
   }
@@ -171,7 +171,7 @@ export type Dictionary = {
     nearbyMetro: string
     followUs: string
     bookWhatsapp: string
-    bookGoogle: string
+    bookOnline: string
     legal: string
     cookies: string
     copyright: string

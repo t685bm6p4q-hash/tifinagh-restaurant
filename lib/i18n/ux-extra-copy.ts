@@ -14,7 +14,7 @@ export type UxExtraCopy = {
 
 const fr: UxExtraCopy = {
   bookingGuide:
-    'Google : confirmation en ligne · WhatsApp : question ou demande précise · Téléphone : idéal pour le jour même.',
+    'En ligne : confirmation immédiate · WhatsApp : question ou demande précise · Téléphone : idéal pour le jour même.',
   homeDiscoverDrinks: 'Carte des boissons',
   mapLoadInteractive: 'Afficher la carte interactive Google Maps',
   mapPreviewAlt: 'Plan du quartier Montmartre autour du restaurant Tifinagh',
@@ -33,7 +33,7 @@ const fr: UxExtraCopy = {
 
 const en: UxExtraCopy = {
   bookingGuide:
-    'Google: instant online booking · WhatsApp: quick message or special request · Phone: best for same-day tables.',
+    'Online: instant booking · WhatsApp: quick message or special request · Phone: best for same-day tables.',
   homeDiscoverDrinks: 'Drinks menu',
   mapLoadInteractive: 'Show interactive Google Map',
   mapPreviewAlt: 'Map of Montmartre around Tifinagh restaurant',
@@ -52,7 +52,7 @@ const en: UxExtraCopy = {
 
 const es: UxExtraCopy = {
   bookingGuide:
-    'Google: reserva en línea · WhatsApp: mensaje o petición · Teléfono: ideal para el mismo día.',
+    'En línea: reserva confirmada · WhatsApp: mensaje o petición · Teléfono: ideal para el mismo día.',
   homeDiscoverDrinks: 'Carta de bebidas',
   mapLoadInteractive: 'Mostrar el mapa interactivo de Google Maps',
   mapPreviewAlt: 'Mapa del barrio de Montmartre alrededor del restaurante Tifinagh',
@@ -71,7 +71,7 @@ const es: UxExtraCopy = {
 
 const it: UxExtraCopy = {
   bookingGuide:
-    'Google: prenotazione online · WhatsApp: messaggio o richiesta · Telefono: ideale per oggi.',
+    'Online: prenotazione confermata · WhatsApp: messaggio o richiesta · Telefono: ideale per oggi.',
   homeDiscoverDrinks: 'Carta delle bevande',
   mapLoadInteractive: 'Mostra la mappa interattiva Google Maps',
   mapPreviewAlt: 'Mappa del quartiere Montmartre intorno al ristorante Tifinagh',
@@ -89,7 +89,7 @@ const it: UxExtraCopy = {
 }
 
 const zh: UxExtraCopy = {
-  bookingGuide: 'Google：在线预订 · WhatsApp：留言或特殊需求 · 电话：适合当天订位。',
+  bookingGuide: '在线：即时预订 · WhatsApp：留言或特殊需求 · 电话：适合当天订位。',
   homeDiscoverDrinks: '饮品单',
   mapLoadInteractive: '显示 Google 交互式地图',
   mapPreviewAlt: 'Tifinagh 餐厅周边蒙马特街区地图',
@@ -108,7 +108,7 @@ const zh: UxExtraCopy = {
 
 const de: UxExtraCopy = {
   bookingGuide:
-    'Google: Online-Reservierung · WhatsApp: Nachricht · Telefon: ideal für heute.',
+    'Online: Reservierung bestätigt · WhatsApp: Nachricht · Telefon: ideal für heute.',
   homeDiscoverDrinks: 'Getränkekarte',
   mapLoadInteractive: 'Interaktive Google Maps-Karte anzeigen',
   mapPreviewAlt: 'Karte der Montmartre-Umgebung um Restaurant Tifinagh',
@@ -127,7 +127,7 @@ const de: UxExtraCopy = {
 
 const pt: UxExtraCopy = {
   bookingGuide:
-    'Google: reserva online · WhatsApp: mensagem · Telefone: ideal para hoje.',
+    'Online: reserva confirmada · WhatsApp: mensagem · Telefone: ideal para hoje.',
   homeDiscoverDrinks: 'Carta de bebidas',
   mapLoadInteractive: 'Mostrar o mapa interativo Google Maps',
   mapPreviewAlt: 'Mapa do bairro de Montmartre em torno do restaurante Tifinagh',
@@ -146,7 +146,7 @@ const pt: UxExtraCopy = {
 
 const ru: UxExtraCopy = {
   bookingGuide:
-    'Google: онлайн-бронь · WhatsApp: сообщение · Телефон: для брони в тот же день.',
+    'Онлайн: подтверждённая бронь · WhatsApp: сообщение · Телефон: для брони в тот же день.',
   homeDiscoverDrinks: 'Карта напитков',
   mapLoadInteractive: 'Показать интерактивную карту Google Maps',
   mapPreviewAlt: 'Карта квартала Монмартр вокруг ресторана Tifinagh',
@@ -165,7 +165,7 @@ const ru: UxExtraCopy = {
 
 const sv: UxExtraCopy = {
   bookingGuide:
-    'Google: boka online · WhatsApp: meddelande · Telefon: bäst samma dag.',
+    'Online: bekräftad bokning · WhatsApp: meddelande · Telefon: bäst samma dag.',
   homeDiscoverDrinks: 'Dryckesmeny',
   mapLoadInteractive: 'Visa interaktiv Google Maps-karta',
   mapPreviewAlt: 'Karta över Montmartre runt restaurangen Tifinagh',
@@ -184,7 +184,7 @@ const sv: UxExtraCopy = {
 
 const zgh: UxExtraCopy = {
   bookingGuide:
-    'Google · WhatsApp · ⵜⵉⵍⵉⴼⵓⵏ — ⴰⵙⵙⵓⵎⵔ ⴳ Google, ⵉⵣⵏ ⴳ WhatsApp.',
+    'ⵉⵏⵙⵉⵎⵎⵓⵙ · WhatsApp · ⵜⵉⵍⵉⴼⵓⵏ — ⴰⵙⵙⵓⵎⵔ ⵙ ⵉⵏⵙⵉⵎⵎⵓⵙ, ⵉⵣⵏ ⴳ WhatsApp.',
   homeDiscoverDrinks: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵉⵙⵙⵓⵏ',
   mapLoadInteractive: 'Afficher la carte interactive Google Maps',
   mapPreviewAlt: 'Plan du quartier Montmartre autour du restaurant Tifinagh',

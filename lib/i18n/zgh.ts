@@ -34,7 +34,7 @@ export const zgh: Dictionary = {
   booking: {
     title: 'ⴰⵙⴳⴳⵯⴰⵙ ⴷⵉⵙ ⵜⵉⵙⵉⵏⵜ',
     call: 'ⵙⵙⵉⵡⵍ',
-    google: 'ⴰⵙⴳⴳⵯⴰⵙ ⵙ Google',
+    online: 'ⴰⵙⴳⴳⵯⴰⵙ ⵙ ⵉⵏⵙⵉⵎⵎⵓⵙ',
     whatsapp: 'WhatsApp',
     whatsappMessage: 'ⴰⵣⵓⵍ, ⵔⵉⵖ ⴰⴷ ⵙⵙⵖⵔⵉⵖ ⵜⴰⵎⴰⴹⵓⵏⵜ ⴳ Tifinagh Montmartre.',
   },
@@ -47,7 +47,7 @@ export const zgh: Dictionary = {
     nearbyMetro: 'ⵉⵎⵙⵙⵉⵏⵏ ⵏ ⵜⵔⴰⵎⵡⴰⵢⵜ ⵉⵎⵣⵡⴰⵔⵏ',
     followUs: 'ⴰⵔⴰ ⴰⵎⴰⵖ',
     bookWhatsapp: 'ⴰⵙⴳⴳⵯⴰⵙ ⵙ WhatsApp',
-    bookGoogle: 'ⴰⵙⴳⴳⵯⴰⵙ ⵙ Google',
+    bookOnline: 'ⴰⵙⴳⴳⵯⴰⵙ ⵙ ⵉⵏⵙⵉⵎⵎⵓⵙ',
     legal: 'ⵜⵓⵙⵙⵏⴰ ⵜⴰⵎⴰⵣⵉⵔⵜ',
     cookies: 'Cookies',
     copyright: '© 2026 Tifinagh Montmartre. ⴱⵉⵙⵜⵔⵓ ⴰⵎⵥⵍⴰⵏ ⴷ ⵓⵛⵛⵉ ⴰⵎⵥⵍⴰⵏ.',
@@ -157,7 +157,7 @@ export const zgh: Dictionary = {
   reservationPage: {
     introEyebrow: 'ⵜⴰⵎⴰⴹⵓⵏⵜ ⵏⵏⵖ',
     introTitle: 'ⴰⵙⴳⴳⵯⴰⵙ ⵜⴰⵎⴰⴹⵓⵏⵜ',
-    introText: 'ⴼⵔⵏ ⴰⵙⵉⵏⴰⵖ: ⵜⵉⵍⵉⴼⵓⵏ, Google Reserve ⵏⵖ WhatsApp.',
+    introText: 'ⴼⵔⵏ ⴰⵙⵉⵏⴰⵖ: ⵜⵉⵍⵉⴼⵓⵏ, ⴰⵙⴳⴳⵯⴰⵙ ⵙ ⵉⵏⵙⵉⵎⵎⵓⵙ ⵏⵖ WhatsApp.',
     channelsTitle: 'ⵉⵎⵙⵙⵉⵏ ⵉⵎⵙⵙⵉⵏ',
     whatsappHint: 'ⵏⵖ ⵙⵙⵏⵜ ⵉⵙⵏⵏⵉⵏ ⵉⴷⴷⴰ (WhatsApp)',
     nameLabel: 'ⵉⵙⵎ',

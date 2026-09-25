@@ -34,7 +34,7 @@ export const en: Dictionary = {
   booking: {
     title: 'Book in a few seconds',
     call: 'Call',
-    google: 'Book with Google',
+    online: 'Book online',
     whatsapp: 'WhatsApp',
     whatsappMessage: 'Hello, I would like to book a table at Tifinagh Montmartre.',
   },
@@ -47,7 +47,7 @@ export const en: Dictionary = {
     nearbyMetro: 'Nearby metro stations',
     followUs: 'Follow us',
     bookWhatsapp: 'Book on WhatsApp',
-    bookGoogle: 'Book with Google',
+    bookOnline: 'Book online',
     legal: 'Legal notice',
     cookies: 'Cookies',
     copyright: '© 2026 Tifinagh Montmartre. Chic bistro & authentic cooking.',
@@ -158,7 +158,7 @@ export const en: Dictionary = {
   reservationPage: {
     introEyebrow: 'Your table',
     introTitle: 'Book a table',
-    introText: 'Pick your channel: call, Google Reserve, or the WhatsApp form.',
+    introText: 'Pick your channel: call, online booking, or the WhatsApp form.',
     channelsTitle: 'Fastest options',
     whatsappHint: 'Or add details below (WhatsApp)',
     nameLabel: 'Name',

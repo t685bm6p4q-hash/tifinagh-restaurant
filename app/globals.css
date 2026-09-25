@@ -610,13 +610,13 @@ a.nav-cta.nav-active {
   color: var(--gold);
 }
 
-.booking-chip-google {
+.booking-chip-online {
   background: #fff;
   color: #1f1f1f;
   border-color: #dadce0;
 }
 
-.booking-chip-google:hover {
+.booking-chip-online:hover {
   background: #f8f9fa;
 }
 

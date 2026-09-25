@@ -106,9 +106,9 @@ const seoFr: Dictionary['seo'] = {
         'Tifinagh au 17 avenue Rachel : près du cimetière de Montmartre, théâtres, cinémas Pathé Wepler, métros Clichy, Blanche et Pigalle. Pause gourmande au calme.',
     },
     reservation: {
-      title: 'Réserver une table — appel, Google ou WhatsApp',
+      title: 'Réserver une table — en ligne, appel ou WhatsApp',
       description:
-        'Réservez chez Tifinagh Montmartre en quelques secondes : téléphone, Google Reserve ou WhatsApp. 17 avenue Rachel, Paris 18.',
+        'Réservez chez Tifinagh Montmartre en quelques secondes : téléphone, réservation en ligne ou WhatsApp. 17 avenue Rachel, Paris 18.',
     },
     restaurantMontmartre: {
       title: 'Restaurant Montmartre — Tifinagh, bistrot français',
@@ -226,9 +226,9 @@ const seoEn: Dictionary['seo'] = {
         'Tifinagh at 17 avenue Rachel: near Montmartre Cemetery, theatres, Pathé Wepler cinema, Clichy, Blanche and Pigalle metro. A quiet gourmet break.',
     },
     reservation: {
-      title: 'Book a table — call, Google or WhatsApp',
+      title: 'Book a table — online, call or WhatsApp',
       description:
-        'Book at Tifinagh Montmartre in seconds: phone, Google Reserve or WhatsApp. 17 avenue Rachel, Paris 18.',
+        'Book at Tifinagh Montmartre in seconds: phone, online booking or WhatsApp. 17 avenue Rachel, Paris 18.',
     },
     restaurantMontmartre: {
       title: 'Montmartre restaurant — French bistro at the foot of the hill',
@@ -345,9 +345,9 @@ const seoEs: Dictionary['seo'] = {
         'Tifinagh en 17 avenue Rachel: cerca del cementerio de Montmartre, teatros, cine Pathé Wepler, metro Clichy, Blanche y Pigalle. Pausa gastronómica tranquila.',
     },
     reservation: {
-      title: 'Reservar mesa — llamada, Google o WhatsApp',
+      title: 'Reservar mesa — en línea, llamada o WhatsApp',
       description:
-        'Reserve en Tifinagh Montmartre en segundos: teléfono, Google Reserve o WhatsApp. 17 avenue Rachel, París 18.',
+        'Reserve en Tifinagh Montmartre en segundos: teléfono, reserva en línea o WhatsApp. 17 avenue Rachel, París 18.',
     },
     restaurantMontmartre: {
       title: 'Restaurante Montmartre — bistró francés al pie de la colina',
@@ -461,9 +461,9 @@ const seoIt: Dictionary['seo'] = {
         'Tifinagh in 17 avenue Rachel: vicino al cimitero di Montmartre, teatri, cinema Pathé Wepler, metro Clichy, Blanche e Pigalle. Pausa gourmet tranquilla.',
     },
     reservation: {
-      title: 'Prenotare un tavolo — telefono, Google o WhatsApp',
+      title: 'Prenotare un tavolo — online, telefono o WhatsApp',
       description:
-        'Prenotate da Tifinagh Montmartre in pochi secondi: telefono, Google Reserve o WhatsApp. 17 avenue Rachel, Parigi 18.',
+        'Prenotate da Tifinagh Montmartre in pochi secondi: telefono, prenotazione online o WhatsApp. 17 avenue Rachel, Parigi 18.',
     },
     restaurantMontmartre: {
       title: 'Ristorante Montmartre — bistrot francese ai piedi della collina',
@@ -575,9 +575,9 @@ const seoZh: Dictionary['seo'] = {
         'Rachel 大道17号 Tifinagh：近蒙马特公墓、剧院、Pathé Wepler 影院，Clichy、Blanche、Pigalle 地铁。安静的美食小憩。',
     },
     reservation: {
-      title: '订位 — 电话、Google 或 WhatsApp',
+      title: '订位 — 在线、电话或 WhatsApp',
       description:
-        '数秒预订 Tifinagh Montmartre：电话、Google Reserve 或 WhatsApp。巴黎18区 Rachel 大道17号。',
+        '数秒预订 Tifinagh Montmartre：电话、在线预订或 WhatsApp。巴黎18区 Rachel 大道17号。',
     },
     restaurantMontmartre: {
       title: '蒙马特餐厅 — 山脚下的法式小酒馆',

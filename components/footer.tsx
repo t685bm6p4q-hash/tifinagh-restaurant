@@ -1,10 +1,11 @@
 import Link from 'next/link'
 import {
-  googleReserveUrl,
   googleSearchUrl,
+  onlineBookingUrl,
   pagesJaunesUrl,
   whatsappLink,
 } from '@/lib/restaurant-data'
+import { CalendarDaysIcon } from '@/components/icons'
 import { PagesJaunesIcon } from '@/components/pagesjaunes-logo'
 import { InstagramIcon, FacebookIcon } from '@/components/icons'
 import { CookieSettingsButton } from '@/components/cookie-settings-button'
@@ -171,13 +172,13 @@ export async function Footer() {
             {dictionary.footer.bookWhatsapp}
           </Link>
           <a
-            href={googleReserveUrl}
+            href={onlineBookingUrl(locale)}
             className="footer-link footer-link-inline"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <GoogleGIcon size={14} />
-            {dictionary.footer.bookGoogle}
+            <CalendarDaysIcon size={14} />
+            {dictionary.footer.bookOnline}
           </a>
           <Link href="/mentions-legales" prefetch={false} className="footer-link">
             {dictionary.footer.legal}

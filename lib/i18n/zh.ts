@@ -34,7 +34,7 @@ export const zh: Dictionary = {
   booking: {
     title: '几秒钟即可预订',
     call: '致电',
-    google: '通过 Google 预订',
+    online: '在线预订',
     whatsapp: 'WhatsApp',
     whatsappMessage: '您好，我想在 Tifinagh Montmartre 预订一张桌子。',
   },
@@ -47,7 +47,7 @@ export const zh: Dictionary = {
     nearbyMetro: '附近地铁站',
     followUs: '关注我们',
     bookWhatsapp: '通过 WhatsApp 预订',
-    bookGoogle: '通过 Google 预订',
+    bookOnline: '在线预订',
     legal: '法律声明',
     cookies: 'Cookie',
     copyright: '© 2026 Tifinagh Montmartre. 精致小酒馆与地道法餐。',
@@ -152,7 +152,7 @@ export const zh: Dictionary = {
   reservationPage: {
     introEyebrow: '您的餐桌',
     introTitle: '预订',
-    introText: '选择方式：电话、Google Reserve 或 WhatsApp 表单。',
+    introText: '选择方式：电话、在线预订或 WhatsApp 表单。',
     channelsTitle: '最快方式',
     whatsappHint: '或在下方填写详情（WhatsApp）',
     nameLabel: '姓名',

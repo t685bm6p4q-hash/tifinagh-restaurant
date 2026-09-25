@@ -150,7 +150,7 @@ export const pagesDe: PagesCopy = {
     hoursTextBefore: 'Ouvert ',
     hoursEveryDay: 'tous les jours',
     hoursTextAfter:
-      ', 10h – 00h. Réservez par téléphone, Google Reserve ou WhatsApp — surtout le week-end et les soirs de spectacle dans le quartier.',
+      ', 10h – 00h. Réservez par téléphone, réservation en ligne ou WhatsApp — surtout le week-end et les soirs de spectacle dans le quartier.',
     privatizeLink: 'Privatiser',
     bookingTitle: 'Reservieren depuis Place de Clichy',
   },

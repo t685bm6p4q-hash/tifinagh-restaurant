@@ -145,7 +145,7 @@ export const pagesZgh: PagesCopy = {
     hoursTextBefore: 'ⵢⵍⵍⵉ ',
     hoursEveryDay: 'ⴽⵓⵍ ⵉⵙ',
     hoursTextAfter:
-      ', 10:00 – 00:00. ⴰⵙⴳⴳⵯⴰⵙ ⵙ ⵜⵉⵍⵉⴼⵓⵏ, Google Reserve ⵏⵖ WhatsApp — ⵙⵙⵔⴰⵀ ⴷ ⵜⵉⵎⵣⵡⴰⵔⵉⵏ ⴷ ⵉⵎⵙⵙⵏⵉ.',
+      ', 10:00 – 00:00. ⴰⵙⴳⴳⵯⴰⵙ ⵙ ⵜⵉⵍⵉⴼⵓⵏ, ⴰⵙⴳⴳⵯⴰⵙ ⵙ ⵉⵏⵙⵉⵎⵎⵓⵙ ⵏⵖ WhatsApp — ⵙⵙⵔⴰⵀ ⴷ ⵜⵉⵎⵣⵡⴰⵔⵉⵏ ⴷ ⵉⵎⵙⵙⵏⵉ.',
     privatizeLink: 'ⴰⵙⵙⵓⵎⵔ',
     bookingTitle: 'ⴰⵙⴳⴳⵯⴰⵙ ⵙ Place de Clichy',
   },
