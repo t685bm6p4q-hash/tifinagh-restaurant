@@ -1,13 +1,13 @@
 import { isAdminAuthorized } from '@/lib/admin-auth'
 import type { Locale } from '@/lib/i18n/config'
 
-export const MENU_PDF_PATHNAME = 'menu-du-jour.pdf'
-export const MENU_PDF_PATHNAME_EN = 'menu-du-jour-en.pdf'
+const MENU_PDF_PATHNAME = 'menu-du-jour.pdf'
+const MENU_PDF_PATHNAME_EN = 'menu-du-jour-en.pdf'
 
 export type MenuDayVariant = 'fr' | 'en'
 
 /** URL du menu du jour (inline, iframe) — ajouter `?variant=en` pour l’anglais. */
-export const MENU_PDF_URL = '/api/menu-pdf'
+const MENU_PDF_URL = '/api/menu-pdf'
 
 export function menuBlobPathname(variant: MenuDayVariant): string {
   return variant === 'en' ? MENU_PDF_PATHNAME_EN : MENU_PDF_PATHNAME

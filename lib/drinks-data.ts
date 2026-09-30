@@ -8,14 +8,14 @@ export type DrinkSectionId =
   | 'hot'
   | 'waters'
 
-export type DrinkItemSimple = {
+type DrinkItemSimple = {
   id: string
   name: string
   price: string
   subtitle?: string
 }
 
-export type DrinkItemDraft = {
+type DrinkItemDraft = {
   id: string
   name: string
   subtitle?: string
@@ -23,13 +23,13 @@ export type DrinkItemDraft = {
   pinte?: string
 }
 
-export type DrinkSectionDraft = {
+type DrinkSectionDraft = {
   id: DrinkSectionId
   kind: 'draft'
   items: DrinkItemDraft[]
 }
 
-export type DrinkSectionSimple = {
+type DrinkSectionSimple = {
   id: DrinkSectionId
   kind: 'simple'
   items: DrinkItemSimple[]

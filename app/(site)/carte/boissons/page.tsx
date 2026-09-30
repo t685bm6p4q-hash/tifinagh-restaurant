@@ -60,6 +60,15 @@ export default async function CarteBoissonsPage() {
           cta={d.backCta}
           variant="to-carte"
         />
+
+        <MenuCrossLink
+          eyebrow={dictionary.carte.dailyInviteEyebrow}
+          title={dictionary.carte.dailyInviteTitle}
+          text={dictionary.carte.dailyInviteText}
+          href="/menu-du-jour"
+          cta={dictionary.carte.dailyInviteCta}
+          variant="to-daily"
+        />
       </MainContent>
       <Footer />
     </>

@@ -285,6 +285,3 @@ export const drinksByLocale: Record<Locale, Dictionary['drinks']> = {
   sv: drinksSv,
   zgh: drinksZgh,
 }
-
-/** @deprecated Préférer `drinksByLocale[locale]` */
-export const drinksCopy = drinksFr

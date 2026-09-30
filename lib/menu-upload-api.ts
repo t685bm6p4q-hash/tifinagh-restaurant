@@ -1,17 +1,17 @@
 import { z } from 'zod'
 
-export const menuUploadErrorBodySchema = z.object({
+const menuUploadErrorBodySchema = z.object({
   error: z.string(),
 })
 
-export const menuUploadSuccessBodySchema = z.object({
+const menuUploadSuccessBodySchema = z.object({
   success: z.literal(true),
   message: z.string(),
   url: z.string(),
 })
 
-export type MenuUploadErrorBody = z.infer<typeof menuUploadErrorBodySchema>
-export type MenuUploadSuccessBody = z.infer<typeof menuUploadSuccessBodySchema>
+type MenuUploadErrorBody = z.infer<typeof menuUploadErrorBodySchema>
+type MenuUploadSuccessBody = z.infer<typeof menuUploadSuccessBodySchema>
 
 export type MenuUploadParsedResponse =
   | { kind: 'success'; body: MenuUploadSuccessBody }

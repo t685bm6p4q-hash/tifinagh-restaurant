@@ -50,7 +50,7 @@ function ReservationCta({
   )
 }
 
-export function HeaderNav({
+function HeaderNav({
   pathname,
   dictionary,
 }: {

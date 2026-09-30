@@ -9,10 +9,10 @@
 import { createHmac } from 'node:crypto'
 import type { NextResponse } from 'next/server'
 
-export const ADMIN_SESSION_COOKIE = 'tifinagh_admin_session'
+const ADMIN_SESSION_COOKIE = 'tifinagh_admin_session'
 const SESSION_MARKER = 'tifinagh-admin-v1'
 /** 8 h — suffisant pour une mise à jour du menu, sans session permanente. */
-export const ADMIN_SESSION_MAX_AGE_SEC = 8 * 60 * 60
+const ADMIN_SESSION_MAX_AGE_SEC = 8 * 60 * 60
 
 export function getAdminPassword(): string | null {
   const value = process.env.MENU_ADMIN_PASSWORD?.trim()
@@ -31,7 +31,7 @@ export function safeEqual(a: string, b: string): boolean {
   return mismatch === 0
 }
 
-export function adminSessionToken(expectedPassword: string): string {
+function adminSessionToken(expectedPassword: string): string {
   return createHmac('sha256', expectedPassword).update(SESSION_MARKER).digest('base64url')
 }
 

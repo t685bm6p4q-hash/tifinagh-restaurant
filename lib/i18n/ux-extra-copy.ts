@@ -201,7 +201,7 @@ const zgh: UxExtraCopy = {
   },
 }
 
-export const uxExtraByLocale: Record<Locale, UxExtraCopy> = {
+const uxExtraByLocale: Record<Locale, UxExtraCopy> = {
   fr,
   en,
   es,

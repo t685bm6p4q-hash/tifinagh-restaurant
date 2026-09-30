@@ -1,9 +1,8 @@
-export { defaultLocale, isLocale, localeMeta, locales, localeCookieName } from './config'
+export { defaultLocale, localeMeta } from './config'
+export { fr } from './fr'
 export type { Locale } from './config'
 export type { Dictionary } from './types'
-export { dictionaries } from './dictionaries'
-export { getDictionary, getI18n, getLocale } from './get-locale'
-export { setLocaleAction } from './actions'
+export { getI18n } from './get-locale'
 export {
   localizeDrinks,
   localizeMenu,
@@ -11,8 +10,5 @@ export {
   localizeSeoLinks,
   localizeTestimonials,
 } from './localize'
-export { buildPageMetadata, buildSiteMetadata, formatDocumentTitle, resolvePageSeo, seoPagePaths } from './page-metadata'
-export type { SeoPageId } from './page-metadata'
-export { getUxExtra, uxExtraByLocale } from './ux-extra-copy'
-export type { UxExtraCopy } from './ux-extra-copy'
-export { fr } from './fr'
+export { buildPageMetadata, buildSiteMetadata } from './page-metadata'
+export { getUxExtra } from './ux-extra-copy'

@@ -1,7 +1,7 @@
 import type { Locale } from '@/lib/i18n/config'
 
-export const RESERVATION_GUEST_MIN = 1
-export const RESERVATION_GUEST_MAX = 16
+const RESERVATION_GUEST_MIN = 1
+const RESERVATION_GUEST_MAX = 16
 
 export function reservationGuestCounts(): number[] {
   return Array.from(

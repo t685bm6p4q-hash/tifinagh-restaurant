@@ -4,7 +4,7 @@
  * (sinon Googlebot tourne en boucle : www → canonique apex → 308 www).
  */
 export const canonicalHost = 'www.tifinagh.fr'
-export const canonicalOrigin = `https://${canonicalHost}`
+const canonicalOrigin = `https://${canonicalHost}`
 
 function resolveSiteUrl(): string {
   const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim()

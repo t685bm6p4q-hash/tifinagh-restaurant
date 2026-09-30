@@ -1,7 +1,7 @@
 import type { DrinkSectionId } from '@/lib/drinks-data'
 import type { Dictionary } from '@/lib/i18n/types'
 
-export type LocalizedDrinkSection =
+type LocalizedDrinkSection =
   | {
       id: DrinkSectionId
       kind: 'draft'

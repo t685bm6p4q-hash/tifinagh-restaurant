@@ -1,6 +1,6 @@
 import sharp from 'sharp'
 
-export const MAX_MENU_WEBP_BYTES = 1024 * 1024
+const MAX_MENU_WEBP_BYTES = 1024 * 1024
 
 async function encodeWebp(input: Buffer, width: number, quality: number): Promise<Buffer> {
   const encoded = await sharp(input)

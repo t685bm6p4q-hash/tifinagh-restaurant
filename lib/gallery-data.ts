@@ -1,7 +1,7 @@
 import { cloudinaryGalleryImage } from '@/lib/cloudinary'
 
-export const GALLERY_STANDARD = { width: 615, height: 420 } as const
-export const GALLERY_FEATURED = { width: 615, height: 852 } as const
+const GALLERY_STANDARD = { width: 615, height: 420 } as const
+const GALLERY_FEATURED = { width: 615, height: 852 } as const
 
 /** Ordre harmonisé : salle / plats / ambiance / boissons (25 visuels). */
 export const galleryPhotoPaths: readonly string[] = [
