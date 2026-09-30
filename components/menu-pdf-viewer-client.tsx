@@ -1,5 +1,6 @@
 'use client'
 
+import { ArrowLeft, Maximize2 } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { menuPdfApiUrl, type MenuDayVariant, type MenuMediaKind } from '@/lib/menu-pdf'
 
@@ -15,7 +16,7 @@ type MenuPdfViewerClientProps = {
   langToggleEn: string
   enFallbackNote: string
   fullscreenOpenLabel: string
-  fullscreenCloseLabel: string
+  fullscreenBackLabel: string
 }
 
 export function MenuPdfViewerClient({
@@ -27,7 +28,7 @@ export function MenuPdfViewerClient({
   langToggleEn,
   enFallbackNote,
   fullscreenOpenLabel,
-  fullscreenCloseLabel,
+  fullscreenBackLabel,
 }: MenuPdfViewerClientProps) {
   const [variant, setVariant] = useState<MenuDayVariant>(defaultVariant)
   const [fullscreen, setFullscreen] = useState(false)
@@ -98,15 +99,16 @@ export function MenuPdfViewerClient({
 
       <div className="menu-pdf-viewer-wrap">
         {media}
-        <p className="menu-pdf-viewer-fallback">
+        <div className="menu-pdf-viewer-actions">
           <button
             type="button"
-            className="menu-pdf-fullscreen-trigger"
+            className="button menu-pdf-fullscreen-open"
             onClick={() => setFullscreen(true)}
           >
+            <Maximize2 size={18} strokeWidth={2.25} aria-hidden="true" />
             {fullscreenOpenLabel}
           </button>
-        </p>
+        </div>
       </div>
 
       {fullscreen ? (
@@ -116,8 +118,9 @@ export function MenuPdfViewerClient({
           aria-modal="true"
           aria-label={label}
         >
-          <button type="button" className="menu-pdf-fullscreen-close" onClick={close}>
-            ← {fullscreenCloseLabel}
+          <button type="button" className="button menu-pdf-fullscreen-back" onClick={close}>
+            <ArrowLeft size={18} strokeWidth={2.25} aria-hidden="true" />
+            {fullscreenBackLabel}
           </button>
           <div className="menu-pdf-fullscreen-body">
             {kind === 'image' ? (

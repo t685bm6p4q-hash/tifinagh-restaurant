@@ -154,7 +154,7 @@ export const sv: Dictionary = {
       'Förrätter, huvudrätter och desserter från vår traditionella à la carte — tillgängliga året runt, inte bara dagens specialiteter.',
     carteInviteCta: 'Hela menyn',
     fullscreenOpen: 'Öppna menyn i helskärm',
-    fullscreenClose: 'Stäng',
+    fullscreenBack: 'Tillbaka',
     langToggleFr: 'Français',
     langToggleEn: 'English',
     enFallbackNote: 'Engelsk meny är inte uppladdad än — franska versionen visas.',

@@ -155,7 +155,7 @@ export const it: Dictionary = {
       'Ritrova i nostri antipasti, piatti e dessert di stagione, da gustare tutto l’anno.',
     carteInviteCta: 'Consulta il menu alla carta',
     fullscreenOpen: 'Apri il menu a schermo intero',
-    fullscreenClose: 'Chiudi',
+    fullscreenBack: 'Indietro',
     langToggleFr: 'Français',
     langToggleEn: 'English',
     enFallbackNote: 'Il menu in inglese non è ancora online — viene mostrata la versione francese.',

@@ -156,7 +156,7 @@ export const pt: Dictionary = {
       'Descubre nuestros entrantes, platos y postres de temporada, para disfrutar todo el año.',
     carteInviteCta: 'Consultar la carta general',
     fullscreenOpen: 'Abrir o menu em tela cheia',
-    fullscreenClose: 'Fechar',
+    fullscreenBack: 'Voltar',
     langToggleFr: 'Français',
     langToggleEn: 'English',
     enFallbackNote: 'Menu em inglês ainda não disponível — a versão francesa é exibida.',

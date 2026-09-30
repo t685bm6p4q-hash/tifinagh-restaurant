@@ -156,7 +156,7 @@ export const de: Dictionary = {
       'Vorspeisen, Hauptgerichte und Desserts der Saison — das ganze Jahr über genießbar.',
     carteInviteCta: 'Zur Speisekarte',
     fullscreenOpen: 'Menü im Vollbild öffnen',
-    fullscreenClose: 'Schließen',
+    fullscreenBack: 'Zurück',
     langToggleFr: 'Français',
     langToggleEn: 'English',
     enFallbackNote: 'Englische Speisekarte noch nicht online — französische Version wird angezeigt.',

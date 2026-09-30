@@ -153,7 +153,7 @@ export const en: Dictionary = {
       'Starters, mains and desserts from our traditional à la carte — available throughout the year, not just today’s specials.',
     carteInviteCta: 'See the full menu',
     fullscreenOpen: 'Open menu in full screen',
-    fullscreenClose: 'Close',
+    fullscreenBack: 'Back',
     langToggleFr: 'Français',
     langToggleEn: 'English',
     enFallbackNote: 'English menu not uploaded yet — showing the French version.',

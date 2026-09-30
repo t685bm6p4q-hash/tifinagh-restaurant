@@ -152,7 +152,7 @@ export const zgh: Dictionary = {
     carteInviteText: 'ⵉⵣⵡⴰⵔⵏ, ⵉⵛⵛⴰⵏ ⴷ ⵉⵖⵓⵎⵎⴰⵏ — ⴽⵓⵍ ⵓⵙⵙⴰⵙ.',
     carteInviteCta: 'ⵜⴰⵎⵓⵔⵜ ⵜⴰⵎⴰⵜⴰⵢⵜ',
     fullscreenOpen: 'Ouvrir le menu en plein écran',
-    fullscreenClose: 'Fermer',
+    fullscreenBack: 'Retour',
     langToggleFr: 'Français',
     langToggleEn: 'English',
     enFallbackNote:

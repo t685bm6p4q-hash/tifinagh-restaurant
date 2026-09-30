@@ -297,7 +297,7 @@ export type Dictionary = {
     carteInviteText: string
     carteInviteCta: string
     fullscreenOpen: string
-    fullscreenClose: string
+    fullscreenBack: string
     langToggleFr: string
     langToggleEn: string
     enFallbackNote: string
