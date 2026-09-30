@@ -72,6 +72,10 @@ export function MenuPdfViewerClient({
     openFullscreen()
   }, [openFullscreen])
 
+  const toggleMenuLang = useCallback(() => {
+    setVariant((v) => (v === 'fr' ? 'en' : 'fr'))
+  }, [])
+
   const onPreviewTouchEnd = useCallback(() => {
     const now = Date.now()
     if (now - lastTapAtRef.current <= DOUBLE_TAP_MS) {
@@ -114,22 +118,32 @@ export function MenuPdfViewerClient({
 
   return (
     <>
-      <div className="menu-lang-toggle" role="group" aria-label={langToggleFr}>
+      <div className="menu-lang-toggle">
         <button
           type="button"
-          className={`menu-lang-toggle__btn${variant === 'fr' ? ' menu-lang-toggle__btn--active' : ''}`}
-          aria-pressed={variant === 'fr'}
-          onClick={() => setVariant('fr')}
+          className="menu-lang-switch"
+          role="switch"
+          aria-checked={variant === 'en'}
+          aria-label={
+            variant === 'fr'
+              ? `${langToggleFr} — activer ${langToggleEn}`
+              : `${langToggleEn} — activer ${langToggleFr}`
+          }
+          onClick={toggleMenuLang}
         >
-          {langToggleFr}
-        </button>
-        <button
-          type="button"
-          className={`menu-lang-toggle__btn${variant === 'en' ? ' menu-lang-toggle__btn--active' : ''}`}
-          aria-pressed={variant === 'en'}
-          onClick={() => setVariant('en')}
-        >
-          {langToggleEn}
+          <span className="menu-lang-switch__panel" data-variant={variant}>
+            <span className="menu-lang-switch__thumb" aria-hidden="true" />
+            <span
+              className={`menu-lang-switch__label${variant === 'fr' ? ' menu-lang-switch__label--on' : ''}`}
+            >
+              {langToggleFr}
+            </span>
+            <span
+              className={`menu-lang-switch__label${variant === 'en' ? ' menu-lang-switch__label--on' : ''}`}
+            >
+              {langToggleEn}
+            </span>
+          </span>
         </button>
       </div>
 

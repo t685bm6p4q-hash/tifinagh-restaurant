@@ -2227,29 +2227,84 @@ button.footer-link {
 }
 
 .menu-lang-toggle {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
   max-width: 880px;
   margin: 0 auto 12px;
+  padding: 0 4px;
+  box-sizing: border-box;
 }
 
-.menu-lang-toggle__btn {
-  font: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 8px 16px;
+/* Un seul bouton pleine largeur : pastille sur Français ou English au tap. */
+.menu-lang-switch {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 2px solid var(--gold);
   border-radius: 999px;
-  border: 1px solid var(--line);
   background: var(--surface);
-  color: var(--muted);
+  color: inherit;
+  font: inherit;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.menu-lang-toggle__btn--active {
-  border-color: var(--gold);
-  background: rgba(214, 173, 69, 0.18);
-  color: var(--gold);
+.menu-lang-switch:hover,
+.menu-lang-switch:active {
+  box-shadow: 0 0 0 1px rgba(214, 173, 69, 0.25);
+}
+
+.menu-lang-switch:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.menu-lang-switch__panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  min-height: 52px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.menu-lang-switch__thumb {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  width: calc(50% - 7.5px);
+  border-radius: 999px;
+  border: 1px solid var(--gold);
+  background: rgba(214, 173, 69, 0.28);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  transition: left 0.22s ease;
+}
+
+.menu-lang-switch__panel[data-variant='en'] .menu-lang-switch__thumb {
+  left: calc(50% + 2.5px);
+}
+
+.menu-lang-switch__label {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 10px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  transition: color 0.2s ease, font-weight 0.2s ease;
+  user-select: none;
+  text-align: center;
+}
+
+.menu-lang-switch__label--on {
+  color: #fff;
+  font-weight: 700;
 }
 
 .menu-lang-fallback {
@@ -3061,9 +3116,25 @@ select:focus { border-color: var(--terracotta); }
     padding-top: 0;
   }
 
-  .menu-lang-toggle__btn {
-    padding: 10px 18px;
-    font-size: 14px;
+  .menu-lang-switch__panel {
+    min-height: 56px;
+    padding: 6px;
+  }
+
+  .menu-lang-switch__thumb {
+    top: 6px;
+    bottom: 6px;
+    left: 6px;
+    width: calc(50% - 9px);
+  }
+
+  .menu-lang-switch__panel[data-variant='en'] .menu-lang-switch__thumb {
+    left: calc(50% + 3px);
+  }
+
+  .menu-lang-switch__label {
+    font-size: 17px;
+    padding: 14px 12px;
   }
 
   .reservation-page .page-intro--reservation h1 {
