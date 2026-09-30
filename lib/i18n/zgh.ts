@@ -141,7 +141,7 @@ export const zgh: Dictionary = {
     introEyebrow: 'ⵜⴰⵙⵜⴰⵢⵜ ⵏ ⵓⵙⵙⴰⵙ',
     introTitle: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ',
     introText: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ ⵜⵜⵡⴰⵙⵙⵏⵜ ⴽⵓⵍ ⵜⵉⴼⴰⵡⵉⵏ — ⵙⴽⵏ ⴷⴰⵢⵏ ⵉⵍⵍⴰ.',
-    limitedNote: 'ⵓⵟⵟⵓⵏ ⵉⵎⵙⵙⴰⵏ — ⵙⵙⵖⵔ ⴰⵙⴳⴳⵯⴰⵙ.',
+    limitedNote: 'ⵉⵎⴷⴷⴰⵏ ⵉⵎⵙⵙⴰⵏ — ⵙⵙⵖⵔ ⴰⵙⴳⴳⵯⴰⵙ.',
     bookNow: 'ⴰⵙⴳⴳⵯⴰⵙ ⴷⵖⵉ',
     hoursTitle: 'ⵉⵙⵔⴰⴳⵏ ⵏ ⵓⵙⵙⵓⵎⵔ',
     hoursLine: 'ⴽⵓⵍ ⵉⵙ: 10:00 – 00:00',

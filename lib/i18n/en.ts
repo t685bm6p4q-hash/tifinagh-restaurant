@@ -141,7 +141,7 @@ export const en: Dictionary = {
     introEyebrow: "Today's selection",
     introTitle: "Today's menu",
     introText: 'Daily set menus updated each morning — read the menu directly below.',
-    limitedNote: 'Quantities are limited — we recommend booking to secure your table.',
+    limitedNote: 'Seating is limited — we recommend booking to secure your table.',
     bookNow: 'Book now',
     hoursTitle: 'Opening hours',
     hoursLine: 'Every day: 10am – 12am',

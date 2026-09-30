@@ -142,7 +142,7 @@ export const sv: Dictionary = {
     introEyebrow: 'Dagens urval',
     introTitle: 'Dagens meny',
     introText: 'Dagens menyer uppdateras varje morgon — läs menyn direkt nedan.',
-    limitedNote: 'Begränsade mängder — vi rekommenderar bokning för att säkra ditt bord.',
+    limitedNote: 'Antal platser är begränsat — vi rekommenderar bokning för att säkra ditt bord.',
     bookNow: 'Boka nu',
     hoursTitle: 'Öppettider',
     hoursLine: 'Varje dag: 10:00 – 00:00',
