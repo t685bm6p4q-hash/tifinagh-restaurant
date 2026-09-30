@@ -198,13 +198,16 @@ export function PageIntro({
   eyebrow,
   title,
   text,
+  className,
 }: {
   eyebrow: string
   title: string
   text: string
+  className?: string
 }) {
+  const introClass = className ? `page-intro ${className}` : 'page-intro'
   return (
-    <section className="page-intro">
+    <section className={introClass}>
       <p className="eyebrow">{eyebrow}</p>
       <h1>{title}</h1>
       <p>{text}</p>

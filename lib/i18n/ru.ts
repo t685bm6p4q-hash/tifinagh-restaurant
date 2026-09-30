@@ -155,6 +155,9 @@ export const ru: Dictionary = {
     carteInviteCta: 'Полное меню',
     fullscreenOpen: 'Открыть меню на весь экран',
     fullscreenClose: 'Закрыть',
+    langToggleFr: 'Français',
+    langToggleEn: 'English',
+    enFallbackNote: 'Английское меню ещё не загружено — показана французская версия.',
   },
   reservationPage: {
     introEyebrow: 'Ваш стол',
@@ -220,6 +223,27 @@ export const ru: Dictionary = {
         tarteTatin: { name: 'Тарт татен', description: '' },
         brownie: { name: 'Брауни с грецкими орехами и ванильным мороженым', description: '' },
         cafeGourmand: { name: 'Кафе гурман', description: '' },
+      },
+    },
+    surLePouce: {
+      title: 'Лёгкие закуски',
+      items: {
+        plancheCharcuterie: {
+          name: 'Доски с мясными деликатесами',
+          description: 'Lonzo, ломо, коппа, домашний паштет, сельский окорок',
+        },
+        plancheFromages: {
+          name: 'Сырные доски',
+          description: 'Saint-Nectaire fermier, Comté 18 мес., Camembert au lait cru, Saint-Marcellin',
+        },
+        plancheMixte: { name: 'Смешанная доска', description: 'Мясные деликатесы и сыры' },
+        tapenade: { name: 'Тапенад', description: '' },
+        caviarAubergine: { name: 'Икорный паштет из баклажанов', description: '' },
+        saucissonsSecs: {
+          name: 'Сухие колбасы',
+          description: 'Порция (150 г) — с перцем, из кабана или с орехами',
+        },
+        frites: { name: 'Порция картофеля фри', description: '' },
       },
     },
   },

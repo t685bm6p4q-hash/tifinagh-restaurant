@@ -38,7 +38,7 @@ export default async function CarteBoissonsPage() {
             fill
             sizes="(max-width: 768px) 100vw, 1200px"
             quality={60}
-            loading="lazy"
+            priority
           />
           <div className="drinks-banner-overlay" />
           <div className="drinks-banner-content">

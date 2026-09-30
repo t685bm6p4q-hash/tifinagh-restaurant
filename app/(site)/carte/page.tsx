@@ -45,7 +45,7 @@ export default async function Carte() {
             style={{ objectFit: 'cover' }}
             sizes="(max-width: 768px) 100vw, 800px"
             quality={60}
-            loading="lazy"
+            priority
           />
           <div
             style={{

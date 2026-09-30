@@ -45,7 +45,7 @@ export const pagesJaunesUrl = 'https://www.pagesjaunes.fr/pros/08679356'
 export const phoneTel = 'tel:+33142942240'
 export const phoneDisplay = '01 42 94 22 40'
 
-export type MenuSectionId = 'starters' | 'mains' | 'desserts'
+export type MenuSectionId = 'starters' | 'mains' | 'desserts' | 'surLePouce'
 
 export const menuSections = [
   { id: 'starters' as const, title: 'Entrées', items: [
@@ -65,6 +65,15 @@ export const menuSections = [
     { id: 'tarteTatin', name: 'Tarte Tatin', description: '', price: '9,50 €' },
     { id: 'brownie', name: 'Brownie aux noix et boule vanille', description: '', price: '10 €' },
     { id: 'cafeGourmand', name: 'Café gourmand', description: '', price: '10 €' },
+  ]},
+  { id: 'surLePouce' as const, title: 'Sur le pouce', items: [
+    { id: 'plancheCharcuterie', name: 'Nos planches charcuterie', description: 'Lonzo, lomo, coppa, terrine maison, jambon de pays', price: '17 €' },
+    { id: 'plancheFromages', name: 'Nos planches fromages', description: 'Saint-Nectaire fermier, Comté 18 mois affiné, Camembert au lait cru, Saint-Marcellin', price: '17 €' },
+    { id: 'plancheMixte', name: 'Planche mixte', description: 'Charcuteries & fromages', price: '17 €' },
+    { id: 'tapenade', name: 'Tapenade', description: '', price: '5 €' },
+    { id: 'caviarAubergine', name: "Caviar d'aubergine", description: '', price: '6 €' },
+    { id: 'saucissonsSecs', name: 'Nos saucissons secs', description: "À l'unité (150 g) — au poivre, au sanglier ou aux noix", price: '8,50 €' },
+    { id: 'frites', name: 'Assiette de frites', description: '', price: '6 €' },
   ]},
 ]
 

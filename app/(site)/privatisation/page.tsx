@@ -4,13 +4,14 @@ import Image from 'next/image'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
 import { phoneDisplay, phoneTel, whatsappLink } from '@/lib/restaurant-data'
+import { PageBannerImage } from '@/components/page-banner-image'
 import { cloudinaryImage } from '@/lib/cloudinary'
 import { getI18n } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
 const PRIVATISATION_BANNER_PATH = 'v1787946632/489A2436_gqgbkp.jpg'
 
-const PRIVATISATION_BANNER_SRC = cloudinaryImage(PRIVATISATION_BANNER_PATH, 640)
+const PRIVATISATION_BANNER_SRC = cloudinaryImage(PRIVATISATION_BANNER_PATH, 960)
 const PRIVATISATION_BANNER_SRCSET = [
   `${cloudinaryImage(PRIVATISATION_BANNER_PATH, 640)} 640w`,
   `${cloudinaryImage(PRIVATISATION_BANNER_PATH, 960)} 960w`,
@@ -33,16 +34,10 @@ export default async function Privatisation() {
         <PageIntro eyebrow={p.introEyebrow} title={p.introTitle} text={p.introText} />
 
         <section className="page-banner" aria-label={p.bannerAria}>
-          <img
-            className="page-banner__image"
+          <PageBannerImage
             src={PRIVATISATION_BANNER_SRC}
             srcSet={PRIVATISATION_BANNER_SRCSET}
-            sizes="100vw"
             alt={p.bannerAlt}
-            width={1600}
-            height={420}
-            loading="lazy"
-            decoding="async"
           />
         </section>
 

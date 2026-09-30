@@ -15,15 +15,19 @@ export default async function Reservation() {
   return (
     <>
       <Header />
-      <MainContent>
+      <MainContent className="reservation-page">
         <PageBreadcrumbs locale={locale} items={breadcrumbItems} />
-        <PageIntro eyebrow={p.introEyebrow} title={p.introTitle} text={p.introText} />
-        <section className="form-wrap section">
-          <BookingChannels title={p.channelsTitle} />
-          <p className="optional" style={{ margin: '28px 0 12px', display: 'block', textAlign: 'center' }}>
-            {p.whatsappHint}
-          </p>
+        <PageIntro
+          className="page-intro--reservation"
+          eyebrow={p.introEyebrow}
+          title={p.introTitle}
+          text={p.introText}
+        />
+        <section className="form-wrap section reservation-form-section">
           <ReservationWhatsAppForm copy={p} locale={locale} />
+          <div className="reservation-alt-channels">
+            <BookingChannels title={p.channelsTitle} />
+          </div>
         </section>
       </MainContent>
       <Footer />

@@ -122,6 +122,32 @@ export const drinkSections: DrinkSection[] = [
       { id: 'caipirinha', name: 'Caipirinha', price: '7,5 €' },
       { id: 'ginTonic', name: 'Gin Tonic', price: '8 €' },
       { id: 'pina', name: 'Piña Colada', price: '8 €' },
+      { id: 'negroni', name: 'Negroni', price: '8,50 €', subtitle: 'Gin · Campari · Vermouth rouge' },
+      { id: 'espressoMartini', name: 'Espresso Martini', price: '9,00 €', subtitle: 'Vodka · Café espresso · Liqueur de café' },
+      {
+        id: 'sartiMargaritaSpritz',
+        name: 'Sarti Margarita Spritz',
+        price: '9,50 €',
+        subtitle: 'Sarti · Tequila · Citron vert · Prosecco · Eau pétillante',
+      },
+      {
+        id: 'apricotHoneyWhiskySmash',
+        name: 'Apricot Honey Whisky Smash',
+        price: '9,50 €',
+        subtitle: 'Whisky · Abricot · Miel · Citron · Romarin',
+      },
+      {
+        id: 'mangoMaiTai',
+        name: 'Mango Mai Tai',
+        price: '9,50 €',
+        subtitle: 'Rhum · Mangue · Citron vert · Orange · Sirop d’orgeat',
+      },
+      {
+        id: 'aperolCoconutMargarita',
+        name: 'Aperol Coconut Margarita',
+        price: '9,50 €',
+        subtitle: 'Aperol · Tequila · Coco · Citron vert',
+      },
     ],
   },
   {

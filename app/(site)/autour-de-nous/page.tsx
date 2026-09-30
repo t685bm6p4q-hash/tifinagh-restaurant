@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
 import { LocalQuartierDetails } from '@/components/local-quartier-details'
+import { PageBannerImage } from '@/components/page-banner-image'
 import { cloudinaryImage } from '@/lib/cloudinary'
 import { getI18n } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
@@ -10,7 +11,7 @@ import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 const AROUND_BANNER_PATH =
   'v1788266025/bandeau-image-autour-de-nous-pigalle-montmartre-tifinagh_rqhety.png'
 
-const AROUND_BANNER_SRC = cloudinaryImage(AROUND_BANNER_PATH, 640)
+const AROUND_BANNER_SRC = cloudinaryImage(AROUND_BANNER_PATH, 960)
 const AROUND_BANNER_SRCSET = [
   `${cloudinaryImage(AROUND_BANNER_PATH, 640)} 640w`,
   `${cloudinaryImage(AROUND_BANNER_PATH, 960)} 960w`,
@@ -39,16 +40,10 @@ export default async function AutourDeNous() {
         <PageIntro eyebrow={p.introEyebrow} title={p.introTitle} text={p.introText} />
 
         <section className="page-banner" aria-label={p.bannerAria}>
-          <img
-            className="page-banner__image"
+          <PageBannerImage
             src={AROUND_BANNER_SRC}
             srcSet={AROUND_BANNER_SRCSET}
-            sizes="100vw"
             alt={p.bannerAlt}
-            width={1600}
-            height={420}
-            loading="lazy"
-            decoding="async"
           />
         </section>
 

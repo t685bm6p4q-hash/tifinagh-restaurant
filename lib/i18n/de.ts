@@ -157,6 +157,9 @@ export const de: Dictionary = {
     carteInviteCta: 'Zur Speisekarte',
     fullscreenOpen: 'Menü im Vollbild öffnen',
     fullscreenClose: 'Schließen',
+    langToggleFr: 'Français',
+    langToggleEn: 'English',
+    enFallbackNote: 'Englische Speisekarte noch nicht online — französische Version wird angezeigt.',
   },
   reservationPage: {
     introEyebrow: 'Ihr Tisch',
@@ -222,6 +225,27 @@ export const de: Dictionary = {
         tarteTatin: { name: 'Tarte Tatin', description: '' },
         brownie: { name: 'Brownie aux noix et boule vanille', description: '' },
         cafeGourmand: { name: 'Café gourmand', description: '' },
+      },
+    },
+    surLePouce: {
+      title: 'Kleine Gerichte',
+      items: {
+        plancheCharcuterie: {
+          name: 'Wurstplatten',
+          description: 'Lonzo, Lomo, Coppa, Haus-Terrine, Landschinken',
+        },
+        plancheFromages: {
+          name: 'Käseplatten',
+          description: 'Saint-Nectaire fermier, Comté 18 Monate, Rohmilch-Camembert, Saint-Marcellin',
+        },
+        plancheMixte: { name: 'Gemischte Platte', description: 'Wurst & Käse' },
+        tapenade: { name: 'Tapenade', description: '' },
+        caviarAubergine: { name: 'Auberginen-Caviar', description: '' },
+        saucissonsSecs: {
+          name: 'Trockenwürste',
+          description: 'Pro Stück (150 g) — Pfeffer, Wildschwein oder Walnuss',
+        },
+        frites: { name: 'Portion Pommes frites', description: '' },
       },
     },
   },

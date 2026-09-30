@@ -298,6 +298,9 @@ export type Dictionary = {
     carteInviteCta: string
     fullscreenOpen: string
     fullscreenClose: string
+    langToggleFr: string
+    langToggleEn: string
+    enFallbackNote: string
   }
   reservationPage: {
     introEyebrow: string
@@ -350,6 +353,18 @@ export type Dictionary = {
         tarteTatin: MenuItemCopy
         brownie: MenuItemCopy
         cafeGourmand: MenuItemCopy
+      }
+    }
+    surLePouce: {
+      title: string
+      items: {
+        plancheCharcuterie: MenuItemCopy
+        plancheFromages: MenuItemCopy
+        plancheMixte: MenuItemCopy
+        tapenade: MenuItemCopy
+        caviarAubergine: MenuItemCopy
+        saucissonsSecs: MenuItemCopy
+        frites: MenuItemCopy
       }
     }
   }

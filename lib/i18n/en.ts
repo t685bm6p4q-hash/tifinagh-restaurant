@@ -154,6 +154,9 @@ export const en: Dictionary = {
     carteInviteCta: 'See the full menu',
     fullscreenOpen: 'Open menu in full screen',
     fullscreenClose: 'Close',
+    langToggleFr: 'Français',
+    langToggleEn: 'English',
+    enFallbackNote: 'English menu not uploaded yet — showing the French version.',
   },
   reservationPage: {
     introEyebrow: 'Your table',
@@ -219,6 +222,30 @@ export const en: Dictionary = {
         tarteTatin: { name: 'Tarte Tatin', description: '' },
         brownie: { name: 'Walnut brownie with vanilla ice cream', description: '' },
         cafeGourmand: { name: 'Café gourmand', description: '' },
+      },
+    },
+    surLePouce: {
+      title: 'Light bites',
+      items: {
+        plancheCharcuterie: {
+          name: 'Charcuterie boards',
+          description: 'Lonzo, lomo, coppa, house terrine, cured ham',
+        },
+        plancheFromages: {
+          name: 'Cheese boards',
+          description: 'Farm Saint-Nectaire, 18-month Comté, raw-milk Camembert, Saint-Marcellin',
+        },
+        plancheMixte: {
+          name: 'Mixed board',
+          description: 'Charcuterie & cheese',
+        },
+        tapenade: { name: 'Tapenade', description: '' },
+        caviarAubergine: { name: 'Eggplant caviar', description: '' },
+        saucissonsSecs: {
+          name: 'Dry cured sausages',
+          description: 'Per piece (150 g) — pepper, wild boar or walnut',
+        },
+        frites: { name: 'Plate of fries', description: '' },
       },
     },
   },

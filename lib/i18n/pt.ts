@@ -157,6 +157,9 @@ export const pt: Dictionary = {
     carteInviteCta: 'Consultar la carta general',
     fullscreenOpen: 'Abrir o menu em tela cheia',
     fullscreenClose: 'Fechar',
+    langToggleFr: 'Français',
+    langToggleEn: 'English',
+    enFallbackNote: 'Menu em inglês ainda não disponível — a versão francesa é exibida.',
   },
   reservationPage: {
     introEyebrow: 'Su mesa',
@@ -222,6 +225,27 @@ export const pt: Dictionary = {
         tarteTatin: { name: 'Tarte Tatin', description: '' },
         brownie: { name: 'Brownie de nueces con bola de vainilla', description: '' },
         cafeGourmand: { name: 'Café gourmand', description: '' },
+      },
+    },
+    surLePouce: {
+      title: 'Para beliscar',
+      items: {
+        plancheCharcuterie: {
+          name: 'Tábuas de charcutaria',
+          description: 'Lonzo, lomo, coppa, terrina da casa, presunto de país',
+        },
+        plancheFromages: {
+          name: 'Tábuas de queijos',
+          description: 'Saint-Nectaire fermier, Comté 18 meses, Camembert au lait cru, Saint-Marcellin',
+        },
+        plancheMixte: { name: 'Tábua mista', description: 'Charcutaria e queijos' },
+        tapenade: { name: 'Tapenade', description: '' },
+        caviarAubergine: { name: 'Caviar de beringela', description: '' },
+        saucissonsSecs: {
+          name: 'Salsichões secos',
+          description: 'Por unidade (150 g) — pimenta, javali ou nozes',
+        },
+        frites: { name: 'Prato de batatas fritas', description: '' },
       },
     },
   },

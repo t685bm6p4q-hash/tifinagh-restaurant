@@ -24,9 +24,14 @@ export default async function MenuDuJour() {
   return (
     <>
       <Header />
-      <MainContent>
+      <MainContent className="menu-jour-page">
         <PageBreadcrumbs locale={locale} items={breadcrumbItems} />
-        <PageIntro eyebrow={d.introEyebrow} title={d.introTitle} text={d.introText} />
+        <PageIntro
+          className="page-intro--menu-jour"
+          eyebrow={d.introEyebrow}
+          title={d.introTitle}
+          text={d.introText}
+        />
 
         <section className="section menu-pdf-section" aria-label={d.introTitle}>
           <MenuPdfViewer />

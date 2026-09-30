@@ -5,14 +5,19 @@ import { AlertCircle, CheckCircle } from 'lucide-react'
 import { MainContent } from '@/components/main-content'
 import { compressMenuImageInBrowser } from '@/lib/compress-menu-browser'
 import { parseMenuUploadResponse } from '@/lib/menu-upload-api'
-import { MAX_MENU_PDF_BYTES, MAX_MENU_UPLOAD_BYTES, PDF_TOO_HEAVY_MESSAGE } from '@/lib/menu-pdf'
+import {
+  MAX_MENU_PDF_BYTES,
+  MAX_MENU_UPLOAD_BYTES,
+  PDF_TOO_HEAVY_MESSAGE,
+  type MenuDayVariant,
+} from '@/lib/menu-pdf'
 
 export default function MenuSetupAdmin() {
   const [message, setMessage] = useState<{ type: 'success' | 'error' | 'info'; text: string } | null>(null)
   const [isUploading, setIsUploading] = useState<boolean>(false)
   const [chef, setChef] = useState<string>('')
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (variant: MenuDayVariant, e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target
     const file = input.files?.[0]
     if (!file) return
@@ -57,6 +62,7 @@ export default function MenuSetupAdmin() {
       const uploadFile = isPdf ? file : await compressMenuImageInBrowser(file)
       const formData = new FormData()
       formData.append('file', uploadFile)
+      formData.append('variant', variant)
 
       const response = await fetch('/api/upload-menu', {
         method: 'POST',
@@ -76,9 +82,10 @@ export default function MenuSetupAdmin() {
       }
 
       if (parsed.kind === 'success') {
+        const label = variant === 'en' ? 'Menu anglais' : 'Menu français'
         setMessage({
           type: 'success',
-          text: `✅ Menu à jour! ${chef ? `(${chef})` : ''}`,
+          text: `✅ ${label} à jour ! ${chef ? `(${chef})` : ''}`,
         })
         return
       }
@@ -102,21 +109,53 @@ export default function MenuSetupAdmin() {
     }
   }
 
+  const uploadButton = (variant: MenuDayVariant, label: string, hint: string) => (
+    <div style={{ marginBottom: '20px' }}>
+      <p style={{ color: 'var(--foreground)', fontSize: '14px', fontWeight: '600', margin: '0 0 8px' }}>
+        {label}
+      </p>
+      <p style={{ color: 'var(--muted)', fontSize: '12px', margin: '0 0 10px' }}>{hint}</p>
+      <label style={{ cursor: isUploading ? 'wait' : 'pointer', display: 'block' }}>
+        <input
+          type="file"
+          accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
+          onChange={(e) => handleFileUpload(variant, e)}
+          disabled={isUploading}
+          style={{ display: 'none' }}
+        />
+        <div
+          style={{
+            background: isUploading ? 'var(--line)' : '#25d366',
+            color: '#000',
+            padding: '14px 20px',
+            borderRadius: '8px',
+            fontWeight: '600',
+            cursor: isUploading ? 'wait' : 'pointer',
+            textAlign: 'center',
+            fontSize: '15px',
+          }}
+        >
+          {isUploading ? '⏳ Envoi…' : '📁 Choisir un fichier'}
+        </div>
+      </label>
+    </div>
+  )
+
   return (
     <MainContent style={{ background: 'var(--background)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div style={{ maxWidth: '500px', width: '100%', margin: '0 auto', padding: '40px 20px' }}>
 
-        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <h1 style={{ color: 'var(--foreground)', marginBottom: '8px', fontSize: '36px', margin: 0 }}>
             📋 Menu du Jour
           </h1>
           <p style={{ color: 'var(--muted)', fontSize: '14px', margin: 0 }}>
-            Mise à jour rapide — authentification via le navigateur
+            Français + anglais — authentification via le navigateur
           </p>
         </div>
 
-        <div style={{ marginBottom: '28px' }}>
-          <label style={{ display: 'block', marginBottom: '12px' }}>
+        <div style={{ marginBottom: '24px' }}>
+          <label style={{ display: 'block' }}>
             <span style={{ color: 'var(--foreground)', fontSize: '14px', fontWeight: '600' }}>Votre nom (optionnel)</span>
             <input
               type="text"
@@ -139,33 +178,19 @@ export default function MenuSetupAdmin() {
           </label>
         </div>
 
-        <label style={{ cursor: isUploading ? 'wait' : 'pointer', display: 'block' }}>
-          <input
-            type="file"
-            accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
-            onChange={handleFileUpload}
-            disabled={isUploading}
-            style={{ display: 'none' }}
-          />
-          <div
-            style={{
-              background: isUploading ? 'var(--line)' : '#25d366',
-              color: '#000',
-              padding: '16px 24px',
-              borderRadius: '8px',
-              fontWeight: '600',
-              display: 'block',
-              cursor: isUploading ? 'wait' : 'pointer',
-              textAlign: 'center',
-              fontSize: '16px',
-              transition: 'all 0.2s',
-            }}
-          >
-            {isUploading ? '⏳ Envoi et compression…' : '📁 Sélectionner PDF, JPEG, PNG ou WebP'}
-          </div>
-        </label>
-        <p style={{ color: 'var(--muted)', fontSize: '12px', textAlign: 'center', marginTop: '10px' }}>
-          Les photos (PNG, JPEG…) jusqu’à 10 Mo sont compressées puis mises en ligne automatiquement.
+        {uploadButton(
+          'fr',
+          'Menu du jour (français)',
+          'Fichier servi sur le site en français — menu-du-jour.pdf (ou WebP).',
+        )}
+        {uploadButton(
+          'en',
+          'Daily menu (English)',
+          'Fichier pour les visiteurs en anglais — menu-du-jour-en.pdf (ou WebP).',
+        )}
+
+        <p style={{ color: 'var(--muted)', fontSize: '12px', textAlign: 'center', marginTop: '4px' }}>
+          Les photos jusqu’à 10 Mo sont compressées automatiquement.
         </p>
 
         {message && (
@@ -200,23 +225,36 @@ export default function MenuSetupAdmin() {
           </div>
         )}
 
-        <div style={{ marginTop: '32px', textAlign: 'center' }}>
+        <div style={{ marginTop: '28px', display: 'flex', flexWrap: 'wrap', gap: '10px', justifyContent: 'center' }}>
           <a
             href="/api/menu-pdf"
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              display: 'inline-block',
               color: '#25d366',
               textDecoration: 'none',
               fontSize: '13px',
-              padding: '8px 16px',
+              padding: '8px 14px',
               borderRadius: '4px',
               background: 'rgba(37, 211, 102, 0.1)',
-              transition: 'all 0.2s',
             }}
           >
-            👀 Voir le menu en ligne
+            👀 Menu FR
+          </a>
+          <a
+            href="/api/menu-pdf?variant=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: '#25d366',
+              textDecoration: 'none',
+              fontSize: '13px',
+              padding: '8px 14px',
+              borderRadius: '4px',
+              background: 'rgba(37, 211, 102, 0.1)',
+            }}
+          >
+            👀 Menu EN
           </a>
         </div>
       </div>

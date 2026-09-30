@@ -1,17 +1,41 @@
 import { isAdminAuthorized } from '@/lib/admin-auth'
+import type { Locale } from '@/lib/i18n/config'
 
 export const MENU_PDF_PATHNAME = 'menu-du-jour.pdf'
+export const MENU_PDF_PATHNAME_EN = 'menu-du-jour-en.pdf'
 
-/** URL unique du menu du jour (inline, iframe, lien direct). */
+export type MenuDayVariant = 'fr' | 'en'
+
+/** URL du menu du jour (inline, iframe) — ajouter `?variant=en` pour l’anglais. */
 export const MENU_PDF_URL = '/api/menu-pdf'
+
+export function menuBlobPathname(variant: MenuDayVariant): string {
+  return variant === 'en' ? MENU_PDF_PATHNAME_EN : MENU_PDF_PATHNAME
+}
+
+/** FR pour fr/zgh ; EN pour toutes les autres locales du site. */
+export function menuDayVariantForLocale(locale: Locale): MenuDayVariant {
+  return locale === 'fr' || locale === 'zgh' ? 'fr' : 'en'
+}
+
+export function menuPdfApiUrl(variant: MenuDayVariant): string {
+  return variant === 'fr' ? MENU_PDF_URL : `${MENU_PDF_URL}?variant=en`
+}
+
+export function parseMenuDayVariant(value: string | null | undefined): MenuDayVariant {
+  return value === 'en' ? 'en' : 'fr'
+}
 
 export const MAX_MENU_PDF_BYTES = Math.floor(4.5 * 1024 * 1024)
 export const PDF_TOO_HEAVY_MESSAGE = 'Le PDF est trop lourd, veuillez le compresser.'
 export const MAX_MENU_UPLOAD_BYTES = 10 * 1024 * 1024
 
 /** Alt / title du menu, avec la date du jour à Paris. */
-export function menuDuJourAlt(): string {
+export function menuDuJourAlt(variant: MenuDayVariant = 'fr'): string {
   const today = new Date().toLocaleDateString('fr-FR', { timeZone: 'Europe/Paris' })
+  if (variant === 'en') {
+    return `Today's menu Le Tifinagh Paris 18 - ${today}`
+  }
   return `Menu du jour Le Tifinagh Paris 18 - ${today}`
 }
 
@@ -81,14 +105,18 @@ export function menuKindFromContentType(contentType: string): MenuMediaKind {
   return contentType.startsWith('image/') ? 'image' : 'pdf'
 }
 
-export function menuInlineResponseHeaders(contentType: string): HeadersInit {
+export function menuInlineResponseHeaders(
+  contentType: string,
+  variant: MenuDayVariant = 'fr',
+): HeadersInit {
+  const base = variant === 'en' ? 'menu-du-jour-en' : 'menu-du-jour'
   const filename = contentType.includes('png')
-    ? 'menu-du-jour.png'
+    ? `${base}.png`
     : contentType.includes('webp')
-      ? 'menu-du-jour.webp'
+      ? `${base}.webp`
       : contentType.startsWith('image/')
-        ? 'menu-du-jour.jpg'
-        : 'menu-du-jour.pdf'
+        ? `${base}.jpg`
+        : `${base}.pdf`
 
   return {
     'Content-Type': contentType,

@@ -1,45 +1,121 @@
 import { head } from '@vercel/blob'
-import { readFile } from 'node:fs/promises'
+import { access, open, readFile } from 'node:fs/promises'
 import path from 'node:path'
 import {
-  MENU_PDF_PATHNAME,
+  menuBlobPathname,
   isBlobConfigured,
   menuKindFromContentType,
   sniffMenuContentType,
+  type MenuDayVariant,
   type MenuMediaKind,
 } from '@/lib/menu-pdf'
 
-async function readStaticMenuBytes(): Promise<Uint8Array> {
-  const filePath = path.join(process.cwd(), 'public', MENU_PDF_PATHNAME)
+async function readStaticMenuBytes(pathname: string): Promise<Uint8Array> {
+  const filePath = path.join(process.cwd(), 'public', pathname)
   const file = await readFile(filePath)
   return new Uint8Array(file)
 }
 
-export async function loadPublicMenu(): Promise<{ bytes: Uint8Array; contentType: string }> {
+async function staticMenuExists(pathname: string): Promise<boolean> {
+  try {
+    await access(path.join(process.cwd(), 'public', pathname))
+    return true
+  } catch {
+    return false
+  }
+}
+
+export async function isPublicMenuAvailable(variant: MenuDayVariant): Promise<boolean> {
+  const pathname = menuBlobPathname(variant)
   if (isBlobConfigured()) {
     try {
-      const meta = await head(MENU_PDF_PATHNAME)
-      const upstream = await fetch(meta.url)
-      if (!upstream.ok) throw new Error('Blob fetch failed')
-      const bytes = new Uint8Array(await upstream.arrayBuffer())
-      const sniffed = sniffMenuContentType(bytes)
-      const contentType = sniffed ?? meta.contentType ?? 'application/pdf'
-      return { bytes, contentType }
+      await head(pathname)
+      return true
     } catch {
-      // Repli sur le fichier statique livre avec le site.
+      return false
     }
   }
+  return staticMenuExists(pathname)
+}
 
-  const bytes = await readStaticMenuBytes()
+export type LoadedPublicMenu = {
+  bytes: Uint8Array
+  contentType: string
+  variant: MenuDayVariant
+  fellBackFromEn: boolean
+}
+
+async function loadMenuFromStorage(pathname: string): Promise<{ bytes: Uint8Array; contentType: string }> {
+  if (isBlobConfigured()) {
+    const meta = await head(pathname)
+    const upstream = await fetch(meta.url)
+    if (!upstream.ok) throw new Error('Blob fetch failed')
+    const bytes = new Uint8Array(await upstream.arrayBuffer())
+    const sniffed = sniffMenuContentType(bytes)
+    const contentType = sniffed ?? meta.contentType ?? 'application/pdf'
+    return { bytes, contentType }
+  }
+
+  const bytes = await readStaticMenuBytes(pathname)
   const contentType = sniffMenuContentType(bytes) ?? 'application/pdf'
   return { bytes, contentType }
 }
 
-export async function getPublicMenuKind(): Promise<MenuMediaKind> {
+/** Charge le menu pour une variante ; repli EN → FR si demandé. */
+export async function loadPublicMenu(variant: MenuDayVariant = 'fr'): Promise<LoadedPublicMenu> {
+  const pathname = menuBlobPathname(variant)
+
   try {
-    const menu = await loadPublicMenu()
-    return menuKindFromContentType(menu.contentType)
+    const menu = await loadMenuFromStorage(pathname)
+    return { ...menu, variant, fellBackFromEn: false }
   } catch {
-    return 'pdf'
+    if (variant === 'en') {
+      const fr = await loadPublicMenu('fr')
+      return { ...fr, variant: 'fr', fellBackFromEn: true }
+    }
+    if (isBlobConfigured()) {
+      try {
+        const menu = await loadMenuFromStorage(menuBlobPathname('fr'))
+        return { ...menu, variant: 'fr', fellBackFromEn: false }
+      } catch {
+        // Repli fichier statique FR livré avec le site.
+      }
+    }
+    const bytes = await readStaticMenuBytes(menuBlobPathname('fr'))
+    const contentType = sniffMenuContentType(bytes) ?? 'application/pdf'
+    return { bytes, contentType, variant: 'fr', fellBackFromEn: false }
   }
+}
+
+async function sniffStaticMenuKind(pathname: string): Promise<MenuMediaKind | null> {
+  const filePath = path.join(process.cwd(), 'public', pathname)
+  try {
+    const handle = await open(filePath, 'r')
+    const buf = Buffer.alloc(16)
+    const { bytesRead } = await handle.read(buf, 0, 16, 0)
+    await handle.close()
+    const sniffed = sniffMenuContentType(new Uint8Array(buf.subarray(0, bytesRead)))
+    if (!sniffed) return null
+    return menuKindFromContentType(sniffed)
+  } catch {
+    return null
+  }
+}
+
+/** Détecte PDF vs image sans télécharger tout le fichier (SSR / PageSpeed). */
+export async function getPublicMenuKind(variant: MenuDayVariant = 'fr'): Promise<MenuMediaKind> {
+  const pathname = menuBlobPathname(variant)
+  if (isBlobConfigured()) {
+    try {
+      const meta = await head(pathname)
+      return menuKindFromContentType(meta.contentType ?? 'application/pdf')
+    } catch {
+      if (variant === 'en') return getPublicMenuKind('fr')
+      return 'pdf'
+    }
+  }
+  const kind = await sniffStaticMenuKind(pathname)
+  if (kind) return kind
+  if (variant === 'en') return getPublicMenuKind('fr')
+  return 'pdf'
 }

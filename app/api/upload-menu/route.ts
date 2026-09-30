@@ -6,10 +6,11 @@ import { compressMenuImageToWebp } from '@/lib/compress-menu-image'
 import {
   MAX_MENU_PDF_BYTES,
   MAX_MENU_UPLOAD_BYTES,
-  MENU_PDF_PATHNAME,
   PDF_TOO_HEAVY_MESSAGE,
   isBlobConfigured,
   isUploadAuthorized,
+  menuBlobPathname,
+  parseMenuDayVariant,
   resolveMenuUpload,
   sniffMenuContentType,
 } from '@/lib/menu-pdf'
@@ -27,6 +28,9 @@ export async function POST(request: NextRequest) {
 
   try {
     const formData = await request.formData()
+    const variant = parseMenuDayVariant(
+      typeof formData.get('variant') === 'string' ? String(formData.get('variant')) : null,
+    )
     const file = formData.get('file')
 
     if (!(file instanceof File)) {
@@ -75,8 +79,10 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    const pathname = menuBlobPathname(variant)
+
     if (isBlobConfigured()) {
-      const blob = await put(MENU_PDF_PATHNAME, buffer, {
+      const blob = await put(pathname, buffer, {
         access: 'public',
         contentType,
         addRandomSuffix: false,
@@ -87,20 +93,26 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         success: true,
         message: isPdf
-          ? 'Menu du jour mis à jour avec succès'
+          ? variant === 'en'
+            ? 'Menu anglais mis à jour avec succès'
+            : 'Menu du jour mis à jour avec succès'
           : 'Menu compressé en WebP (1 Mo max) et mis à jour',
         url: blob.url,
+        variant,
       })
     }
 
-    await writeFile(join(process.cwd(), 'public', MENU_PDF_PATHNAME), buffer)
+    await writeFile(join(process.cwd(), 'public', pathname), buffer)
 
     return NextResponse.json({
       success: true,
       message: isPdf
-        ? 'Menu du jour mis à jour localement'
+        ? variant === 'en'
+          ? 'Menu anglais mis à jour localement'
+          : 'Menu du jour mis à jour localement'
         : 'Menu compressé en WebP (1 Mo max) et mis à jour localement',
-      url: `/${MENU_PDF_PATHNAME}`,
+      url: `/${pathname}`,
+      variant,
     })
   } catch (error: unknown) {
     console.error("Erreur lors de l'upload :", error)

@@ -155,6 +155,9 @@ export const sv: Dictionary = {
     carteInviteCta: 'Hela menyn',
     fullscreenOpen: 'Öppna menyn i helskärm',
     fullscreenClose: 'Stäng',
+    langToggleFr: 'Français',
+    langToggleEn: 'English',
+    enFallbackNote: 'Engelsk meny är inte uppladdad än — franska versionen visas.',
   },
   reservationPage: {
     introEyebrow: 'Ditt bord',
@@ -220,6 +223,27 @@ export const sv: Dictionary = {
         tarteTatin: { name: 'Tarte Tatin', description: '' },
         brownie: { name: 'Valnötsbrownie med vaniljglass', description: '' },
         cafeGourmand: { name: 'Café gourmand', description: '' },
+      },
+    },
+    surLePouce: {
+      title: 'Smått och gott',
+      items: {
+        plancheCharcuterie: {
+          name: 'Charkbrickor',
+          description: 'Lonzo, lomo, coppa, husets terrine, landskinka',
+        },
+        plancheFromages: {
+          name: 'Ostbrickor',
+          description: 'Saint-Nectaire fermier, Comté 18 månader, råmjölk Camembert, Saint-Marcellin',
+        },
+        plancheMixte: { name: 'Mixad bricka', description: 'Chark och ost' },
+        tapenade: { name: 'Tapenade', description: '' },
+        caviarAubergine: { name: 'Aubergineröra', description: '' },
+        saucissonsSecs: {
+          name: 'Torkade korvar',
+          description: 'Per styck (150 g) — peppar, vildsvin eller valnöt',
+        },
+        frites: { name: 'Portion pommes frites', description: '' },
       },
     },
   },

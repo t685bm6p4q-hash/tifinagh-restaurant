@@ -106,8 +106,9 @@ export const fr: Dictionary = {
     reserveText:
       "Pour un dîner à deux, une grande tablée, un événement privé ou un repas d'entreprise, notre équipe vous accueille avec plaisir.",
     mapEyebrow: 'Le quartier',
-    mapTitle: 'Le Tifinagh au cœur de Paris 18',
-    mapText: 'Retrouvez-nous au 17 avenue Rachel, entre Pigalle, la Place de Clichy et le Cimetière de Montmartre.',
+    mapTitle: 'Bistrot parisien fait maison au cœur du 18e',
+    mapText:
+      'Cuisine 100 % faite maison et ambiance authentique — 17 avenue Rachel, entre Pigalle, la Place de Clichy et le Cimetière de Montmartre.',
     mapAria: 'Ouvrir Tifinagh sur Google Maps',
     facadeAlt: 'Façade du restaurant Tifinagh, 17 avenue Rachel à Montmartre',
     tonightMenu: 'Menu du jour à jour',
@@ -141,8 +142,7 @@ export const fr: Dictionary = {
   dailyMenuPage: {
     introEyebrow: 'Sélection du jour',
     introTitle: 'Menu du jour',
-    introText:
-      'Formules du jour mises à jour chaque matin — lisez le menu directement ci-dessous.',
+    introText: 'Mis à jour chaque matin — affiché ci-dessous.',
     limitedNote:
       'Les quantités sont limitées — nous vous conseillons de réserver pour garantir votre place.',
     bookNow: 'Réserver maintenant',
@@ -157,11 +157,15 @@ export const fr: Dictionary = {
     carteInviteCta: 'Consulter la carte générale',
     fullscreenOpen: 'Ouvrir le menu en plein écran',
     fullscreenClose: 'Fermer',
+    langToggleFr: 'Français',
+    langToggleEn: 'English',
+    enFallbackNote:
+      'La version anglaise n’est pas encore en ligne — affichage du menu français.',
   },
   reservationPage: {
     introEyebrow: 'Votre table',
     introTitle: 'Réserver',
-    introText: 'Choisissez votre canal : appel, réservation en ligne, ou formulaire WhatsApp.',
+    introText: 'Remplissez le formulaire pour envoyer votre demande sur WhatsApp. Téléphone et réservation en ligne juste en dessous.',
     channelsTitle: 'Les plus rapides',
     whatsappHint: 'Ou précisez votre demande ci-dessous (WhatsApp)',
     nameLabel: 'Nom',
@@ -222,6 +226,31 @@ export const fr: Dictionary = {
         tarteTatin: { name: 'Tarte Tatin', description: '' },
         brownie: { name: 'Brownie aux noix et boule vanille', description: '' },
         cafeGourmand: { name: 'Café gourmand', description: '' },
+      },
+    },
+    surLePouce: {
+      title: 'Sur le pouce',
+      items: {
+        plancheCharcuterie: {
+          name: 'Nos planches charcuterie',
+          description: 'Lonzo, lomo, coppa, terrine maison, jambon de pays',
+        },
+        plancheFromages: {
+          name: 'Nos planches fromages',
+          description:
+            'Saint-Nectaire fermier, Comté 18 mois affiné, Camembert au lait cru, Saint-Marcellin',
+        },
+        plancheMixte: {
+          name: 'Planche mixte',
+          description: 'Charcuteries & fromages',
+        },
+        tapenade: { name: 'Tapenade', description: '' },
+        caviarAubergine: { name: "Caviar d'aubergine", description: '' },
+        saucissonsSecs: {
+          name: 'Nos saucissons secs',
+          description: "À l'unité (150 g) — au poivre, au sanglier ou aux noix",
+        },
+        frites: { name: 'Assiette de frites', description: '' },
       },
     },
   },

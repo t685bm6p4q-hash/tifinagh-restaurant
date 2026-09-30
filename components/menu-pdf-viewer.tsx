@@ -1,20 +1,26 @@
 import { MenuPdfViewerClient } from '@/components/menu-pdf-viewer-client'
 import { getI18n } from '@/lib/i18n'
-import { getPublicMenuKind } from '@/lib/menu-kind'
-import { MENU_PDF_URL, menuDuJourAlt } from '@/lib/menu-pdf'
+import { getPublicMenuKind, isPublicMenuAvailable } from '@/lib/menu-kind'
+import { menuDayVariantForLocale, menuDuJourAlt } from '@/lib/menu-pdf'
 
-/** Menu du jour — iframe pour un PDF, image pour un JPEG/PNG. */
+/** Menu du jour — iframe PDF ou image, avec bascule FR / EN. */
 export async function MenuPdfViewer() {
-  const kind = await getPublicMenuKind()
-  const label = menuDuJourAlt()
-  const { dictionary } = await getI18n()
+  const { dictionary, locale } = await getI18n()
   const d = dictionary.dailyMenuPage
+  const defaultVariant = menuDayVariantForLocale(locale)
+  const hasEnglish = await isPublicMenuAvailable('en')
+  const kindFr = await getPublicMenuKind('fr')
+  const kindEn = hasEnglish ? await getPublicMenuKind('en') : kindFr
 
   return (
     <MenuPdfViewerClient
-      kind={kind}
-      url={MENU_PDF_URL}
-      label={label}
+      defaultVariant={defaultVariant}
+      hasEnglish={hasEnglish}
+      kindByVariant={{ fr: kindFr, en: kindEn }}
+      labels={{ fr: menuDuJourAlt('fr'), en: menuDuJourAlt('en') }}
+      langToggleFr={d.langToggleFr}
+      langToggleEn={d.langToggleEn}
+      enFallbackNote={d.enFallbackNote}
       fullscreenOpenLabel={d.fullscreenOpen}
       fullscreenCloseLabel={d.fullscreenClose}
     />

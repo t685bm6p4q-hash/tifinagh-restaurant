@@ -153,6 +153,10 @@ export const zgh: Dictionary = {
     carteInviteCta: 'ⵜⴰⵎⵓⵔⵜ ⵜⴰⵎⴰⵜⴰⵢⵜ',
     fullscreenOpen: 'Ouvrir le menu en plein écran',
     fullscreenClose: 'Fermer',
+    langToggleFr: 'Français',
+    langToggleEn: 'English',
+    enFallbackNote:
+      'La version anglaise n’est pas encore en ligne — affichage du menu français.',
   },
   reservationPage: {
     introEyebrow: 'ⵜⴰⵎⴰⴹⵓⵏⵜ ⵏⵏⵖ',
@@ -218,6 +222,28 @@ export const zgh: Dictionary = {
         tarteTatin: { name: 'Tarte Tatin', description: '' },
         brownie: { name: 'Brownie ⵙ ice cream vanilla', description: '' },
         cafeGourmand: { name: 'Café gourmand', description: '' },
+      },
+    },
+    surLePouce: {
+      title: 'Sur le pouce',
+      items: {
+        plancheCharcuterie: {
+          name: 'Nos planches charcuterie',
+          description: 'Lonzo, lomo, coppa, terrine maison, jambon de pays',
+        },
+        plancheFromages: {
+          name: 'Nos planches fromages',
+          description:
+            'Saint-Nectaire fermier, Comté 18 mois affiné, Camembert au lait cru, Saint-Marcellin',
+        },
+        plancheMixte: { name: 'Planche mixte', description: 'Charcuteries & fromages' },
+        tapenade: { name: 'Tapenade', description: '' },
+        caviarAubergine: { name: "Caviar d'aubergine", description: '' },
+        saucissonsSecs: {
+          name: 'Nos saucissons secs',
+          description: "À l'unité (150 g) — au poivre, au sanglier ou aux noix",
+        },
+        frites: { name: 'Assiette de frites', description: '' },
       },
     },
   },

@@ -148,6 +148,9 @@ export const zh: Dictionary = {
     carteInviteCta: '查看完整菜单',
     fullscreenOpen: '全屏查看菜单',
     fullscreenClose: '关闭',
+    langToggleFr: 'Français',
+    langToggleEn: 'English',
+    enFallbackNote: '英文菜单尚未上传 — 现显示法语版本。',
   },
   reservationPage: {
     introEyebrow: '您的餐桌',
@@ -213,6 +216,27 @@ export const zh: Dictionary = {
         tarteTatin: { name: '塔坦苹果挞', description: '' },
         brownie: { name: '核桃布朗尼配香草冰淇淋', description: '' },
         cafeGourmand: { name: '咖啡甜点拼盘', description: '' },
+      },
+    },
+    surLePouce: {
+      title: '轻食小食',
+      items: {
+        plancheCharcuterie: {
+          name: '熟食拼盘',
+          description: 'Lonzo、lomo、coppa、自制肉酱、乡村火腿',
+        },
+        plancheFromages: {
+          name: '奶酪拼盘',
+          description: '农场圣内克泰尔、18个月孔泰、生乳卡芒贝尔、圣马塞兰',
+        },
+        plancheMixte: { name: '混合拼盘', description: '熟食与奶酪' },
+        tapenade: { name: '橄榄酱', description: '' },
+        caviarAubergine: { name: '茄子酱', description: '' },
+        saucissonsSecs: {
+          name: '风干香肠',
+          description: '单份（150克）— 胡椒、野猪肉或核桃味',
+        },
+        frites: { name: '薯条', description: '' },
       },
     },
   },

@@ -4,4 +4,4 @@ export const HOME_SEO_TITLE_FR =
 
 /** Meta description accueil FR (autres langues : texte propre dans seo-copy). */
 export const HOME_SEO_DESCRIPTION =
-  'Entre Montmartre et Pigalle, Le Tifinagh vous reçoit dans un bistrot chaleureux : assiettes généreuses 100 % maison, vins vivants, terrasse ombragée avenue Rachel. Cartes plats & boissons en ligne — réservez en un clic.'
+  'Découvrez le vrai goût du bistrot parisien au Tifinagh, Paris 18 ! Cuisine 100 % faite maison, plats réconfortants et ambiance authentique près de Montmartre. Réservez votre table pour un repas généreux à prix doux.'
