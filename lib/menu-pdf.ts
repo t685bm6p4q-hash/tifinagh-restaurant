@@ -1,4 +1,3 @@
-import { isAdminAuthorized } from '@/lib/admin-auth'
 import type { Locale } from '@/lib/i18n/config'
 
 const MENU_PDF_PATHNAME = 'menu-du-jour.pdf'
@@ -138,9 +137,4 @@ export function menuInlineResponseHeaders(
 
 export function isBlobConfigured(): boolean {
   return Boolean(process.env.BLOB_READ_WRITE_TOKEN)
-}
-
-/** Fail-closed : refuse si le mot de passe env est absent ou incorrect. */
-export function isUploadAuthorized(request: Request): boolean {
-  return isAdminAuthorized(request)
 }

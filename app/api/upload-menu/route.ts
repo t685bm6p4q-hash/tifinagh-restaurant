@@ -2,13 +2,13 @@ import { writeFile } from 'fs/promises'
 import { join } from 'path'
 import { put } from '@vercel/blob'
 import { NextRequest, NextResponse } from 'next/server'
+import { isAdminAuthorized } from '@/lib/admin-auth'
 import { compressMenuImageToWebp } from '@/lib/compress-menu-image'
 import {
   MAX_MENU_PDF_BYTES,
   MAX_MENU_UPLOAD_BYTES,
   PDF_TOO_HEAVY_MESSAGE,
   isBlobConfigured,
-  isUploadAuthorized,
   menuBlobPathname,
   parseMenuDayVariant,
   resolveMenuUpload,
@@ -16,7 +16,7 @@ import {
 } from '@/lib/menu-pdf'
 
 export async function POST(request: NextRequest) {
-  if (!isUploadAuthorized(request)) {
+  if (!isAdminAuthorized(request)) {
     return NextResponse.json(
       {
         error:
