@@ -1,10 +1,18 @@
 'use client'
 
-import { FormEvent, useMemo } from 'react'
+import { FormEvent } from 'react'
 import type { Locale } from '@/lib/i18n/config'
 import { whatsappLink } from '@/lib/restaurant-data'
 import { trackGaEvent } from '@/lib/analytics-events'
-import { reservationDateChoices, reservationTimeChoices } from '@/lib/reservation-form-options'
+import {
+  formatReservationDateLabel,
+  formatReservationTimeLabel,
+  maxReservationDateParis,
+  minReservationDateParis,
+  reservationTimeMax,
+  reservationTimeMin,
+  reservationTimeStepSeconds,
+} from '@/lib/reservation-date'
 import { formatReservationGuests, reservationGuestCounts } from '@/lib/reservation-guests'
 import type { Dictionary } from '@/lib/i18n/types'
 
@@ -24,18 +32,18 @@ export function ReservationWhatsAppForm({
   locale: Locale
 }) {
   const guestCounts = reservationGuestCounts()
-  const dateOptions = useMemo(() => reservationDateChoices(locale), [locale])
-  const timeOptions = useMemo(() => reservationTimeChoices(locale), [locale])
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
     const nom = data.get('nom')
     const telephone = data.get('telephone')
-    const date = data.get('date')
-    const heure = data.get('heure')
+    const dateIso = String(data.get('date') ?? '')
+    const heureIso = String(data.get('heure') ?? '')
     const personnes = data.get('personnes')
     const message = data.get('message')
+    const date = formatReservationDateLabel(dateIso, locale)
+    const heure = formatReservationTimeLabel(heureIso, locale)
     const text =
       `${copy.whatsappIntro}` +
       `${copy.whatsappName} : ${nom}\n${copy.whatsappPhone} : ${telephone}\n${copy.whatsappDate} : ${date}\n${copy.whatsappTime} : ${heure}` +
@@ -58,29 +66,24 @@ export function ReservationWhatsAppForm({
       <div className="form-row">
         <label>
           {copy.dateLabel}
-          <select name="date" required defaultValue="">
-            <option value="" disabled>
-              {copy.datePlaceholder}
-            </option>
-            {dateOptions.map((option) => (
-              <option key={option.value} value={option.label}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+          <input
+            name="date"
+            required
+            type="date"
+            min={minReservationDateParis()}
+            max={maxReservationDateParis()}
+          />
         </label>
         <label>
           {copy.timeLabel}
-          <select name="heure" required defaultValue="">
-            <option value="" disabled>
-              {copy.timePlaceholder}
-            </option>
-            {timeOptions.map((option) => (
-              <option key={option.value} value={option.label}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+          <input
+            name="heure"
+            required
+            type="time"
+            min={reservationTimeMin}
+            max={reservationTimeMax}
+            step={reservationTimeStepSeconds}
+          />
         </label>
       </div>
       <label>
