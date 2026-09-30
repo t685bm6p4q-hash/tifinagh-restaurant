@@ -2290,11 +2290,10 @@ button.footer-link {
   min-width: 0;
 }
 
-.reservation-whatsapp-form .form-row input {
+.reservation-whatsapp-form .form-row input,
+.reservation-whatsapp-form .form-row select {
   width: 100%;
   min-width: 0;
-  padding-left: 12px;
-  padding-right: 12px;
 }
 
 .reservation-alt-channels .booking-channels {
