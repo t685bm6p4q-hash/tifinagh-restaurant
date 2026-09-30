@@ -1705,6 +1705,31 @@ a.nav-cta.nav-active {
   margin: 0;
 }
 
+.contact-phone-link {
+  color: var(--gold);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+
+.contact-phone-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.contact-address-link {
+  color: var(--gold);
+  font-weight: 600;
+  text-decoration: none;
+  line-height: 1.65;
+}
+
+.contact-address-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* ── Footer ─────────────────────────────────────────── */
 .footer {
   padding: 55px 8vw 20px;

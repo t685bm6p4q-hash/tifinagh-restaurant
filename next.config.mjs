@@ -22,7 +22,7 @@ const securityHeaders = [
       "base-uri 'self'",
       "frame-ancestors 'none'",
       "object-src 'none'",
-      "form-action 'self' https://wa.me https://api.whatsapp.com",
+      "form-action 'self' https://wa.me https://api.whatsapp.com https://booking.ureserve.co",
       "frame-src 'self' https://www.google.com https://maps.google.com",
       "img-src 'self' data: blob: https://res.cloudinary.com https://*.googleapis.com https://*.gstatic.com https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com https://connect.facebook.net",
       "font-src 'self' data:",
@@ -44,9 +44,17 @@ const nextConfig = {
   },
   async headers() {
     return [
+      /* Pas de CSP globale sur /api/* : évite deux en-têtes CSP (Chrome Issues) et autorise frame-ancestors sur le menu. */
       {
-        source: '/:path*',
+        source: '/((?!api/).*)',
         headers: securityHeaders,
+      },
+      {
+        source: '/api/:path*',
+        headers: [
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+        ],
       },
       {
         source: '/admin/:path*',
@@ -73,12 +81,15 @@ const nextConfig = {
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],
       },
-      /* PDF menu : autoriser l'iframe (frame-ancestors 'self') — doit être après /:path* */
+      /* Menu PDF/image : une seule CSP, iframe same-origin uniquement. */
       {
         source: '/api/menu-pdf',
         headers: [
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
-          { key: 'Content-Security-Policy', value: "frame-ancestors 'self'" },
+          {
+            key: 'Content-Security-Policy',
+            value: "default-src 'none'; frame-ancestors 'self'",
+          },
         ],
       },
       {

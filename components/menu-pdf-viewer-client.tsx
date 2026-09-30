@@ -2,7 +2,13 @@
 
 import { ArrowLeft, Maximize2 } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { menuPdfApiUrl, type MenuDayVariant, type MenuMediaKind } from '@/lib/menu-pdf'
+import {
+  MENU_IMAGE_LAYOUT_HEIGHT,
+  MENU_IMAGE_LAYOUT_WIDTH,
+  MENU_IMAGE_LCP_WIDTH,
+  MENU_IMAGE_PREVIEW_WIDTHS,
+} from '@/lib/resize-menu-image-display'
+import { menuPdfApiUrl, menuPdfPreviewSrcSet, type MenuDayVariant, type MenuMediaKind } from '@/lib/menu-pdf'
 
 const DOUBLE_TAP_MS = 320
 
@@ -49,6 +55,14 @@ export function MenuPdfViewerClient({
   const showEnFallback = variant === 'en' && !hasEnglish
   const servedVariant: MenuDayVariant = showEnFallback ? 'fr' : variant
   const url = useMemo(() => menuPdfApiUrl(servedVariant), [servedVariant])
+  const previewImageUrl = useMemo(
+    () => menuPdfApiUrl(servedVariant, { maxWidth: MENU_IMAGE_LCP_WIDTH }),
+    [servedVariant],
+  )
+  const previewSrcSet = useMemo(
+    () => menuPdfPreviewSrcSet(servedVariant, MENU_IMAGE_PREVIEW_WIDTHS),
+    [servedVariant],
+  )
   const serverKind = kindByVariant[servedVariant]
   const [displayKind, setDisplayKind] = useState<MenuMediaKind>(serverKind)
   const label = labels[servedVariant]
@@ -111,8 +125,12 @@ export function MenuPdfViewerClient({
     displayKind === 'image' ? (
       <img
         className="menu-pdf-viewer menu-pdf-viewer--image"
-        src={url}
+        src={previewImageUrl}
+        srcSet={previewSrcSet}
         alt={label}
+        width={MENU_IMAGE_LAYOUT_WIDTH}
+        height={MENU_IMAGE_LAYOUT_HEIGHT}
+        sizes="(min-width: 881px) 880px, 92vw"
         decoding="async"
         fetchPriority="high"
         onDoubleClick={onPreviewActivate}

@@ -4,7 +4,7 @@ import { ArrowRightIcon, ClockIcon, MapPinIcon, PhoneIcon } from '@/components/i
 import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { MapEmbedLazy } from '@/components/map-embed-lazy'
-import { googleMapsEmbedUrl, googleMapsUrl } from '@/lib/restaurant-data'
+import { googleMapsEmbedUrl, googleMapsUrl, phoneDisplay, phoneTel } from '@/lib/restaurant-data'
 import { getI18n, getUxExtra, localizeMetro, localizeSeoLinks } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
@@ -37,7 +37,18 @@ export default async function Contact() {
           <div className="contact-card">
             <MapPinIcon size={22} />
             <h2>{dictionary.contact.address}</h2>
-            <p>17 Av. Rachel<br />75018 Paris</p>
+            <p>
+              <a
+                className="contact-address-link"
+                href={googleMapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                17 Av. Rachel
+                <br />
+                75018 Paris
+              </a>
+            </p>
             <Link
               className="text-link"
               href={googleMapsUrl}
@@ -51,7 +62,11 @@ export default async function Contact() {
           <div className="contact-card">
             <PhoneIcon size={22} />
             <h2>{dictionary.contact.phone}</h2>
-            <p>01 42 94 22 40</p>
+            <p>
+              <a className="contact-phone-link" href={phoneTel}>
+                {phoneDisplay}
+              </a>
+            </p>
             <p>{dictionary.contact.phoneNote}</p>
           </div>
 

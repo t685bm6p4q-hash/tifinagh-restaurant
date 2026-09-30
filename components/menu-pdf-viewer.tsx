@@ -1,7 +1,8 @@
 import { MenuPdfViewerClient } from '@/components/menu-pdf-viewer-client'
 import { getI18n } from '@/lib/i18n'
 import { getPublicMenuKind, isPublicMenuAvailable } from '@/lib/menu-kind'
-import { menuDayVariantForLocale, menuDuJourAlt } from '@/lib/menu-pdf'
+import { menuDayVariantForLocale, menuDuJourAlt, menuPdfApiUrl } from '@/lib/menu-pdf'
+import { MENU_IMAGE_LCP_WIDTH } from '@/lib/resize-menu-image-display'
 
 /** Menu du jour — iframe PDF ou image, avec bascule FR / EN. */
 export async function MenuPdfViewer() {
@@ -12,8 +13,22 @@ export async function MenuPdfViewer() {
   const kindFr = await getPublicMenuKind('fr')
   const kindEn = hasEnglish ? await getPublicMenuKind('en') : kindFr
 
+  const lcpVariant = defaultVariant
+  const preloadMenuImage =
+    kindFr === 'image' ? menuPdfApiUrl(lcpVariant, { maxWidth: MENU_IMAGE_LCP_WIDTH }) : null
+
   return (
-    <MenuPdfViewerClient
+    <>
+      {preloadMenuImage ? (
+        <link
+          rel="preload"
+          as="image"
+          href={preloadMenuImage}
+          type="image/webp"
+          fetchPriority="high"
+        />
+      ) : null}
+      <MenuPdfViewerClient
       defaultVariant={defaultVariant}
       hasEnglish={hasEnglish}
       kindByVariant={{ fr: kindFr, en: kindEn }}
@@ -24,5 +39,6 @@ export async function MenuPdfViewer() {
       fullscreenOpenLabel={d.fullscreenOpen}
       fullscreenBackLabel={d.fullscreenBack}
     />
+    </>
   )
 }

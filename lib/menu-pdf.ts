@@ -18,8 +18,19 @@ export function menuDayVariantForLocale(locale: Locale): MenuDayVariant {
   return locale === 'fr' || locale === 'zgh' ? 'fr' : 'en'
 }
 
-export function menuPdfApiUrl(variant: MenuDayVariant): string {
-  return variant === 'fr' ? MENU_PDF_URL : `${MENU_PDF_URL}?variant=en`
+export function menuPdfApiUrl(
+  variant: MenuDayVariant,
+  options?: { maxWidth?: number },
+): string {
+  const params = new URLSearchParams()
+  if (variant === 'en') params.set('variant', 'en')
+  if (options?.maxWidth) params.set('w', String(options.maxWidth))
+  const query = params.toString()
+  return query ? `${MENU_PDF_URL}?${query}` : MENU_PDF_URL
+}
+
+export function menuPdfPreviewSrcSet(variant: MenuDayVariant, widths: readonly number[]): string {
+  return widths.map((w) => `${menuPdfApiUrl(variant, { maxWidth: w })} ${w}w`).join(', ')
 }
 
 export function parseMenuDayVariant(value: string | null | undefined): MenuDayVariant {
@@ -122,9 +133,6 @@ export function menuInlineResponseHeaders(
     'Content-Type': contentType,
     'Content-Disposition': `inline; filename="${filename}"`,
     'Cache-Control': 'no-store',
-    'X-Frame-Options': 'SAMEORIGIN',
-    /** Autorise l'iframe same-origin sur /menu-du-jour (sinon frame-ancestors 'none' bloque). */
-    'Content-Security-Policy': "frame-ancestors 'self'",
   }
 }
 

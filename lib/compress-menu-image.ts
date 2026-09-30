@@ -18,7 +18,7 @@ async function encodeWebp(input: Buffer, width: number, quality: number): Promis
 
 /** Convertit une photo de menu en WebP d'au plus 1 Mo. */
 export async function compressMenuImageToWebp(input: Buffer): Promise<Buffer> {
-  let width = 1600
+  let width = 1200
   let quality = 80
   let output = await encodeWebp(input, width, quality)
 
