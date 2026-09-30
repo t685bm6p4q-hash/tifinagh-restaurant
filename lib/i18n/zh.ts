@@ -155,7 +155,7 @@ export const zh: Dictionary = {
   reservationPage: {
     introEyebrow: '您的餐桌',
     introTitle: '预订',
-    introText: '选择方式：电话、在线预订或 WhatsApp 表单。',
+    introText: '选择预订方式：在线、电话或 WhatsApp。',
     channelsTitle: '最快方式',
     whatsappHint: '或在下方填写详情（WhatsApp）',
     nameLabel: '姓名',

@@ -162,7 +162,7 @@ export const sv: Dictionary = {
   reservationPage: {
     introEyebrow: 'Ditt bord',
     introTitle: 'Boka bord',
-    introText: 'Välj kanal: samtal, onlinebokning eller WhatsApp-formuläret.',
+    introText: 'Välj: onlinebokning, telefon eller WhatsApp.',
     channelsTitle: 'Snabbaste alternativen',
     whatsappHint: 'Eller ange detaljer nedan (WhatsApp)',
     nameLabel: 'Namn',

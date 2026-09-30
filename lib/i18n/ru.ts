@@ -162,7 +162,7 @@ export const ru: Dictionary = {
   reservationPage: {
     introEyebrow: 'Ваш стол',
     introTitle: 'Забронировать стол',
-    introText: 'Выберите способ: звонок, онлайн-бронь или форма WhatsApp.',
+    introText: 'Выберите способ: онлайн, телефон или WhatsApp.',
     channelsTitle: 'Самые быстрые варианты',
     whatsappHint: 'Или укажите детали ниже (WhatsApp)',
     nameLabel: 'Имя',

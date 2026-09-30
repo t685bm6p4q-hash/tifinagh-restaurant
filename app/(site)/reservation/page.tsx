@@ -1,7 +1,6 @@
 import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
-import { ReservationWhatsAppForm } from '@/components/reservation-whatsapp-form'
 import { getI18n } from '@/lib/i18n'
 
 export default async function Reservation() {
@@ -24,10 +23,7 @@ export default async function Reservation() {
           text={p.introText}
         />
         <section className="form-wrap section reservation-form-section">
-          <ReservationWhatsAppForm copy={p} locale={locale} />
-          <div className="reservation-alt-channels">
-            <BookingChannels title={p.channelsTitle} />
-          </div>
+          <BookingChannels title={p.channelsTitle} />
         </section>
       </MainContent>
       <Footer />

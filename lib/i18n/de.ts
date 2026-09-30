@@ -164,7 +164,7 @@ export const de: Dictionary = {
   reservationPage: {
     introEyebrow: 'Ihr Tisch',
     introTitle: 'Reservieren',
-    introText: 'Choisissez votre canal : appel, réservation en ligne, ou formulaire WhatsApp.',
+    introText: 'Wählen Sie: Online-Buchung, Telefon oder WhatsApp.',
     channelsTitle: 'Schnellste Optionen',
     whatsappHint: 'Ou précisez votre demande ci-dessous (WhatsApp)',
     nameLabel: 'Nom',

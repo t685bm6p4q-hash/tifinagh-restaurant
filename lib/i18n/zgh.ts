@@ -161,7 +161,7 @@ export const zgh: Dictionary = {
   reservationPage: {
     introEyebrow: 'ⵜⴰⵎⴰⴹⵓⵏⵜ ⵏⵏⵖ',
     introTitle: 'ⴰⵙⴳⴳⵯⴰⵙ ⵜⴰⵎⴰⴹⵓⵏⵜ',
-    introText: 'ⴼⵔⵏ ⴰⵙⵉⵏⴰⵖ: ⵜⵉⵍⵉⴼⵓⵏ, ⴰⵙⴳⴳⵯⴰⵙ ⵙ ⵉⵏⵙⵉⵎⵎⵓⵙ ⵏⵖ WhatsApp.',
+    introText: 'ⴼⵔⵏ: ⴰⵙⴳⴳⵯⴰⵙ ⵙ ⵉⵏⵙⵉⵎⵎⵓⵙ, ⵜⵉⵍⵉⴼⵓⵏ ⵏⵖ WhatsApp.',
     channelsTitle: 'ⵉⵎⵙⵙⵉⵏ ⵉⵎⵙⵙⵉⵏ',
     whatsappHint: 'ⵏⵖ ⵙⵙⵏⵜ ⵉⵙⵏⵏⵉⵏ ⵉⴷⴷⴰ (WhatsApp)',
     nameLabel: 'ⵉⵙⵎ',
