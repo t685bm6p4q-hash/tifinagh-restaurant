@@ -1,8 +1,10 @@
 'use client'
 
 import { ArrowLeft, Maximize2 } from 'lucide-react'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { menuPdfApiUrl, type MenuDayVariant, type MenuMediaKind } from '@/lib/menu-pdf'
+
+const DOUBLE_TAP_MS = 320
 
 type MenuPdfViewerClientProps = {
   defaultVariant: MenuDayVariant
@@ -32,6 +34,7 @@ export function MenuPdfViewerClient({
 }: MenuPdfViewerClientProps) {
   const [variant, setVariant] = useState<MenuDayVariant>(defaultVariant)
   const [fullscreen, setFullscreen] = useState(false)
+  const lastTapAtRef = useRef(0)
 
   useEffect(() => {
     setVariant(defaultVariant)
@@ -40,10 +43,44 @@ export function MenuPdfViewerClient({
   const showEnFallback = variant === 'en' && !hasEnglish
   const servedVariant: MenuDayVariant = showEnFallback ? 'fr' : variant
   const url = useMemo(() => menuPdfApiUrl(servedVariant), [servedVariant])
-  const kind = kindByVariant[servedVariant]
+  const serverKind = kindByVariant[servedVariant]
+  const [displayKind, setDisplayKind] = useState<MenuMediaKind>(serverKind)
   const label = labels[servedVariant]
 
+  useEffect(() => {
+    setDisplayKind(serverKind)
+  }, [serverKind])
+
+  useEffect(() => {
+    let cancelled = false
+    fetch(url, { method: 'HEAD', cache: 'no-store' })
+      .then((response) => {
+        if (cancelled || !response.ok) return
+        const contentType = response.headers.get('content-type') ?? ''
+        setDisplayKind(contentType.startsWith('image/') ? 'image' : 'pdf')
+      })
+      .catch(() => {})
+    return () => {
+      cancelled = true
+    }
+  }, [url])
+
+  const openFullscreen = useCallback(() => setFullscreen(true), [])
   const close = useCallback(() => setFullscreen(false), [])
+
+  const onPreviewActivate = useCallback(() => {
+    openFullscreen()
+  }, [openFullscreen])
+
+  const onPreviewTouchEnd = useCallback(() => {
+    const now = Date.now()
+    if (now - lastTapAtRef.current <= DOUBLE_TAP_MS) {
+      lastTapAtRef.current = 0
+      openFullscreen()
+      return
+    }
+    lastTapAtRef.current = now
+  }, [openFullscreen])
 
   useEffect(() => {
     if (!fullscreen) return
@@ -60,13 +97,16 @@ export function MenuPdfViewerClient({
   }, [fullscreen, close])
 
   const media =
-    kind === 'image' ? (
+    displayKind === 'image' ? (
       <img
         className="menu-pdf-viewer menu-pdf-viewer--image"
         src={url}
         alt={label}
         decoding="async"
         fetchPriority="high"
+        onDoubleClick={onPreviewActivate}
+        onTouchEnd={onPreviewTouchEnd}
+        onError={() => setDisplayKind('pdf')}
       />
     ) : (
       <iframe className="menu-pdf-viewer" src={url} title={label} />
@@ -97,14 +137,15 @@ export function MenuPdfViewerClient({
         <p className="menu-lang-fallback" role="status">{enFallbackNote}</p>
       ) : null}
 
-      <div className="menu-pdf-viewer-wrap">
+      <div
+        className="menu-pdf-viewer-wrap"
+        onDoubleClick={displayKind === 'pdf' ? onPreviewActivate : undefined}
+        onTouchEnd={displayKind === 'pdf' ? onPreviewTouchEnd : undefined}
+        title={fullscreenOpenLabel}
+      >
         {media}
         <div className="menu-pdf-viewer-actions">
-          <button
-            type="button"
-            className="button menu-pdf-fullscreen-open"
-            onClick={() => setFullscreen(true)}
-          >
+          <button type="button" className="button menu-pdf-fullscreen-open" onClick={openFullscreen}>
             <Maximize2 size={18} strokeWidth={2.25} aria-hidden="true" />
             {fullscreenOpenLabel}
           </button>
@@ -123,7 +164,7 @@ export function MenuPdfViewerClient({
             {fullscreenBackLabel}
           </button>
           <div className="menu-pdf-fullscreen-body">
-            {kind === 'image' ? (
+            {displayKind === 'image' ? (
               <img className="menu-pdf-fullscreen-media" src={url} alt={label} decoding="async" />
             ) : (
               <iframe className="menu-pdf-fullscreen-media" src={url} title={label} />

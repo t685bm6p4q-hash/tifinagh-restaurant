@@ -1537,27 +1537,45 @@ a.nav-cta.nav-active {
 
 .menu-preview-actions {
   display: flex;
-  gap: 20px;
+  gap: 16px;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   margin-top: 40px;
   flex-wrap: wrap;
+}
+
+.menu-preview-cta {
+  min-width: min(100%, 300px);
+  justify-content: center;
+  text-align: center;
+  font-size: 13px !important;
+  letter-spacing: 0.05em;
+  text-transform: none;
+  padding: 15px 26px !important;
+  line-height: 1.35;
+}
+
+.menu-preview-actions .button-carte-link.menu-preview-cta {
+  border-width: 2px !important;
+  font-weight: 700;
+}
+
+.menu-preview-actions .menu-pdf-link-secondary.menu-preview-cta {
+  font-size: 13px;
+  padding: 15px 26px;
 }
 
 @media (max-width: 700px) {
   .menu-preview-actions {
     flex-direction: column;
     width: 100%;
-    max-width: 320px;
+    max-width: 360px;
     margin-left: auto;
     margin-right: auto;
   }
 
-  .menu-preview-actions .menu-pdf-link,
-  .menu-preview-actions .text-link {
+  .menu-preview-actions .menu-preview-cta {
     width: 100%;
-    justify-content: center;
-    text-align: center;
   }
 }
 
@@ -2529,10 +2547,14 @@ select:focus { border-color: var(--terracotta); }
 }
 
 .menu-pdf-viewer--image {
+  width: 100%;
   height: auto;
-  min-height: 0;
+  min-height: 280px;
   max-height: none;
   object-fit: contain;
+  cursor: zoom-in;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .menu-pdf-viewer-actions {

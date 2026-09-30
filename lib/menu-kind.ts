@@ -102,13 +102,27 @@ async function sniffStaticMenuKind(pathname: string): Promise<MenuMediaKind | nu
   }
 }
 
+async function sniffBlobMenuKind(pathname: string): Promise<MenuMediaKind | null> {
+  const meta = await head(pathname)
+  const declared = meta.contentType ?? ''
+  if (declared.startsWith('image/')) return 'image'
+  if (declared.includes('pdf')) return 'pdf'
+
+  const res = await fetch(meta.url, { headers: { Range: 'bytes=0-31' } })
+  if (!res.ok) return null
+  const bytes = new Uint8Array(await res.arrayBuffer())
+  const sniffed = sniffMenuContentType(bytes)
+  return sniffed ? menuKindFromContentType(sniffed) : null
+}
+
 /** Détecte PDF vs image sans télécharger tout le fichier (SSR / PageSpeed). */
 export async function getPublicMenuKind(variant: MenuDayVariant = 'fr'): Promise<MenuMediaKind> {
   const pathname = menuBlobPathname(variant)
   if (isBlobConfigured()) {
     try {
-      const meta = await head(pathname)
-      return menuKindFromContentType(meta.contentType ?? 'application/pdf')
+      const kind = await sniffBlobMenuKind(pathname)
+      if (kind) return kind
+      return 'pdf'
     } catch {
       if (variant === 'en') return getPublicMenuKind('fr')
       return 'pdf'
