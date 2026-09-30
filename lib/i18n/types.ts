@@ -313,7 +313,9 @@ export type Dictionary = {
     phoneLabel: string
     phonePlaceholder: string
     dateLabel: string
+    datePlaceholder: string
     timeLabel: string
+    timePlaceholder: string
     guestsLabel: string
     messageLabel: string
     messageOptional: string

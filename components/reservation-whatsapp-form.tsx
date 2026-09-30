@@ -1,11 +1,11 @@
 'use client'
 
-import { FormEvent } from 'react'
+import { FormEvent, useMemo } from 'react'
 import type { Locale } from '@/lib/i18n/config'
 import { whatsappLink } from '@/lib/restaurant-data'
 import { trackGaEvent } from '@/lib/analytics-events'
+import { reservationDateChoices, reservationTimeChoices } from '@/lib/reservation-form-options'
 import { formatReservationGuests, reservationGuestCounts } from '@/lib/reservation-guests'
-import { minReservationDateParis } from '@/lib/reservation-date'
 import type { Dictionary } from '@/lib/i18n/types'
 
 function MessageCircleIcon() {
@@ -24,6 +24,9 @@ export function ReservationWhatsAppForm({
   locale: Locale
 }) {
   const guestCounts = reservationGuestCounts()
+  const dateOptions = useMemo(() => reservationDateChoices(locale), [locale])
+  const timeOptions = useMemo(() => reservationTimeChoices(locale), [locale])
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
@@ -55,11 +58,29 @@ export function ReservationWhatsAppForm({
       <div className="form-row">
         <label>
           {copy.dateLabel}
-          <input name="date" required type="date" min={minReservationDateParis()} />
+          <select name="date" required defaultValue="">
+            <option value="" disabled>
+              {copy.datePlaceholder}
+            </option>
+            {dateOptions.map((option) => (
+              <option key={option.value} value={option.label}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </label>
         <label>
           {copy.timeLabel}
-          <input name="heure" required type="time" />
+          <select name="heure" required defaultValue="">
+            <option value="" disabled>
+              {copy.timePlaceholder}
+            </option>
+            {timeOptions.map((option) => (
+              <option key={option.value} value={option.label}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </label>
       </div>
       <label>
