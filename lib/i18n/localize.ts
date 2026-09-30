@@ -10,6 +10,11 @@ import {
 
 type MenuCopy = { name: string; description: string }
 
+/** Carte : 8,50 € → 8,5 € (pas de zéro inutile après la virgule). */
+function formatCartePrice(price: string): string {
+  return price.replace(/,(\d)0(?=\s*€)/, ',$1')
+}
+
 export function localizeDrinks(dictionary: Dictionary) {
   const titles = dictionary.drinks.sections
   return drinkSections.map((section) => {
@@ -51,7 +56,7 @@ export function localizeMenu(dictionary: Dictionary) {
         return {
           name: copy?.name ?? item.name,
           description: copy?.description ?? item.description,
-          price: item.price,
+          price: formatCartePrice(item.price),
         }
       }),
     }

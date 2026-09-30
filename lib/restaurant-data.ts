@@ -72,7 +72,7 @@ export const menuSections = [
     { id: 'plancheMixte', name: 'Planche mixte', description: 'Charcuteries & fromages', price: '17 €' },
     { id: 'tapenade', name: 'Tapenade', description: '', price: '5 €' },
     { id: 'caviarAubergine', name: "Caviar d'aubergine", description: '', price: '6 €' },
-    { id: 'saucissonsSecs', name: 'Nos saucissons secs', description: "À l'unité (150 g) — au poivre, au sanglier ou aux noix", price: '8,50 €' },
+    { id: 'saucissonsSecs', name: 'Nos saucissons secs', description: "À l'unité (150 g) — au poivre, au sanglier ou aux noix", price: '8,5 €' },
     { id: 'frites', name: 'Assiette de frites', description: '', price: '6 €' },
   ]},
 ]

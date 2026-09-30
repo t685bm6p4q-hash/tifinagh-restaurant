@@ -6,6 +6,12 @@ import { menuPdfApiUrl, type MenuDayVariant, type MenuMediaKind } from '@/lib/me
 
 const DOUBLE_TAP_MS = 320
 
+function pulseMenuLangHaptic() {
+  if (typeof window === 'undefined') return
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  navigator.vibrate?.(14)
+}
+
 type MenuPdfViewerClientProps = {
   defaultVariant: MenuDayVariant
   hasEnglish: boolean
@@ -73,6 +79,7 @@ export function MenuPdfViewerClient({
   }, [openFullscreen])
 
   const toggleMenuLang = useCallback(() => {
+    pulseMenuLangHaptic()
     setVariant((v) => (v === 'fr' ? 'en' : 'fr'))
   }, [])
 

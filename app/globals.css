@@ -2224,6 +2224,7 @@ button.footer-link {
 
 .menu-jour-page .menu-pdf-section {
   padding-top: 8px;
+  padding-bottom: 20px;
 }
 
 .menu-lang-toggle {
@@ -2579,7 +2580,8 @@ select:focus { border-color: var(--terracotta); }
 
 .menu-jour-info-note {
   color: var(--muted);
-  margin: 0 0 20px;
+  margin: 0 0 14px;
+  line-height: 1.45;
 }
 
 .menu-jour-hours {
@@ -2588,14 +2590,14 @@ select:focus { border-color: var(--terracotta); }
 
 .menu-jour-hours h2 {
   color: var(--foreground);
-  margin: 0 0 16px;
+  margin: 0 0 12px;
   font-size: 22px;
 }
 
 .menu-jour-hours p {
   color: var(--muted);
-  line-height: 1.8;
-  margin: 0 0 8px;
+  line-height: 1.45;
+  margin: 0 0 6px;
 }
 
 .menu-jour-phone a {
@@ -2607,8 +2609,18 @@ select:focus { border-color: var(--terracotta); }
 }
 
 .menu-jour-page .menu-jour-info {
-  padding-top: 24px;
+  padding-top: 8px;
+  padding-bottom: 28px;
+}
+
+.menu-jour-page .menu-jour-hours {
+  padding-top: 12px;
   padding-bottom: 32px;
+}
+
+.menu-jour-page .menu-cross-link {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .menu-pdf-viewer-wrap {
@@ -3114,6 +3126,31 @@ select:focus { border-color: var(--terracotta); }
 
   .menu-jour-page .menu-pdf-section {
     padding-top: 0;
+    padding-bottom: 12px;
+  }
+
+  .menu-jour-page .menu-jour-info {
+    padding-top: 4px;
+    padding-bottom: 20px;
+  }
+
+  .menu-jour-info-note {
+    margin-bottom: 12px;
+  }
+
+  .menu-jour-page .menu-jour-hours {
+    padding-top: 8px;
+    padding-bottom: 24px;
+  }
+
+  .menu-jour-page .menu-cross-link {
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .menu-jour-hours h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
   }
 
   .menu-lang-switch__panel {
