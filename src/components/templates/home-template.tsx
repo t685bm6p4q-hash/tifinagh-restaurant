@@ -163,6 +163,9 @@ export async function HomeTemplate() {
             ))}
           </div>
           <div className="menu-preview-actions">
+            <Link className="text-link" href="/carte" prefetch={false}>
+              {dictionary.home.fullMenuLink} <ArrowRightIcon size={14} />
+            </Link>
             <Link
               href="/menu-du-jour"
               prefetch={false}
@@ -170,9 +173,6 @@ export async function HomeTemplate() {
               aria-label={dictionary.home.dailyMenuAria}
             >
               📋 {dictionary.home.dailyMenuLink}
-            </Link>
-            <Link className="text-link" href="/carte" prefetch={false}>
-              {dictionary.home.fullMenuLink} <ArrowRightIcon size={14} />
             </Link>
           </div>
         </section>

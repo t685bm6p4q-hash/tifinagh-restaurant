@@ -6,10 +6,14 @@ export const isGaConfigured =
   GA_MEASUREMENT_ID !== 'G-XXXXXXXXXX' &&
   /^G-[A-Z0-9]+$/i.test(GA_MEASUREMENT_ID)
 
+/** Meta Pixel — chiffres uniquement (tolère « ID » ou retours ligne dans la variable Vercel). */
+function normalizeMetaPixelId(raw: string): string {
+  const digits = raw.replace(/\D/g, '')
+  return digits.length >= 10 && digits.length <= 20 ? digits : ''
+}
+
 /** Meta Pixel — `NEXT_PUBLIC_META_PIXEL_ID` sur Vercel / `.env.local` */
-export const META_PIXEL_ID = (process.env.NEXT_PUBLIC_META_PIXEL_ID ?? '').trim()
+export const META_PIXEL_ID = normalizeMetaPixelId(process.env.NEXT_PUBLIC_META_PIXEL_ID ?? '')
 
 export const isMetaPixelConfigured =
-  META_PIXEL_ID.length > 0 &&
-  META_PIXEL_ID !== '000000000000000' &&
-  /^\d{10,20}$/.test(META_PIXEL_ID)
+  META_PIXEL_ID.length > 0 && META_PIXEL_ID !== '000000000000000'
