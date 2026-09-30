@@ -127,9 +127,22 @@ export default async function Contact() {
             <p className="map-section-lead">{dictionary.contact.mapText}</p>
             <p className="map-section-address">
               <span className="map-section-address-label">{dictionary.contact.address}</span>
-              17 Av. Rachel
-              <br />
-              75018 Paris
+              <a
+                className="contact-address-link"
+                href={googleMapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                17 Av. Rachel
+                <br />
+                75018 Paris
+              </a>
+            </p>
+            <p className="map-section-phone">
+              <span className="map-section-address-label">{dictionary.contact.phone}</span>
+              <a className="contact-phone-link" href={phoneTel}>
+                {phoneDisplay}
+              </a>
             </p>
             <a
               className="map-section-cta text-link"

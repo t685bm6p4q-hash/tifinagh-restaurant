@@ -2,6 +2,7 @@
 
 import { FormEvent, useMemo } from 'react'
 import type { Locale } from '@/lib/i18n/config'
+import { buildWhatsAppReservationMessage } from '@/lib/reservation-whatsapp-message'
 import { whatsappLink } from '@/lib/restaurant-data'
 import { trackGaEvent } from '@/lib/analytics-events'
 import { reservationDateChoices, reservationTimeChoices } from '@/lib/reservation-form-options'
@@ -30,17 +31,14 @@ export function ReservationWhatsAppForm({
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    const nom = data.get('nom')
-    const telephone = data.get('telephone')
-    const date = data.get('date')
-    const heure = data.get('heure')
-    const personnes = data.get('personnes')
-    const message = data.get('message')
-    const text =
-      `${copy.whatsappIntro}` +
-      `${copy.whatsappName} : ${nom}\n${copy.whatsappPhone} : ${telephone}\n${copy.whatsappDate} : ${date}\n${copy.whatsappTime} : ${heure}` +
-      `\n${copy.whatsappGuests} : ${personnes}` +
-      (message ? `\n${copy.whatsappMessage} : ${message}` : '')
+    const text = buildWhatsAppReservationMessage(copy, {
+      nom: String(data.get('nom') ?? ''),
+      telephone: String(data.get('telephone') ?? ''),
+      date: String(data.get('date') ?? ''),
+      heure: String(data.get('heure') ?? ''),
+      personnes: String(data.get('personnes') ?? ''),
+      message: data.get('message') ? String(data.get('message')) : undefined,
+    })
     trackGaEvent('generate_lead', { method: 'whatsapp_form' })
     window.open(whatsappLink(text), '_blank', 'noopener,noreferrer')
   }

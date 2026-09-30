@@ -1401,6 +1401,13 @@ a.nav-cta.nav-active {
   font-family: Georgia, 'Times New Roman', serif;
 }
 
+.map-section-phone {
+  margin: 16px 0 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
 .map-section-address-label {
   display: block;
   margin-bottom: 6px;
