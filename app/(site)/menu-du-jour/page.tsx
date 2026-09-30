@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { MenuCrossLink } from '@/components/menu-cross-link'
@@ -40,14 +41,9 @@ export default async function MenuDuJour() {
         <section className="section menu-jour-info">
           <div className="menu-jour-info-inner">
             <p className="menu-jour-info-note">{d.limitedNote}</p>
-            <a
-              href={`https://wa.me/33679045460?text=${encodeURIComponent(d.whatsappReserveMessage)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="button button-whatsapp"
-            >
+            <Link className="button button-primary" href="/reservation" prefetch={false}>
               {d.bookNow}
-            </a>
+            </Link>
           </div>
         </section>
 
