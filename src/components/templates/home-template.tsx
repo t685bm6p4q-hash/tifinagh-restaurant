@@ -37,11 +37,12 @@ export async function HomeTemplate() {
               className="hero-image"
               src="/images/hero-salle-480.webp"
               alt={dictionary.home.heroImageAlt}
-              width={640}
-              height={427}
+              width={480}
+              height={320}
               sizes="100vw"
               fetchPriority="high"
-              decoding="sync"
+              loading="eager"
+              decoding="async"
             />
           </picture>
           <div className="hero-overlay" />
@@ -69,9 +70,6 @@ export async function HomeTemplate() {
                 </Link>
               </div>
             </div>
-          </div>
-          <div className="hero-note">
-            {dictionary.hours.full}
           </div>
         </section>
 

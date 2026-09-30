@@ -1,52 +1,38 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useState } from 'react'
 
 type Review = {
   quote: string
   author: string
 }
 
+const MOBILE_REVIEWS_MQ = '(max-width: 700px)'
+
 export function ReviewsList({ reviews }: { reviews: Review[] }) {
-  const gridRef = useRef<HTMLDivElement>(null)
+  const [openIndex, setOpenIndex] = useState(-1)
 
   useEffect(() => {
-    const mq = window.matchMedia('(max-width: 700px)')
-    const syncOpenState = () => {
-      const cards = gridRef.current?.querySelectorAll<HTMLDetailsElement>('.review-card')
-      if (!cards) return
-      if (mq.matches) {
-        cards.forEach((card, index) => {
-          card.open = index === 0
-        })
-      } else {
-        cards.forEach((card) => {
-          card.open = true
-        })
-      }
+    const mq = window.matchMedia(MOBILE_REVIEWS_MQ)
+    const onChange = () => {
+      if (mq.matches) setOpenIndex(-1)
     }
-
-    syncOpenState()
-    mq.addEventListener('change', syncOpenState)
-    return () => mq.removeEventListener('change', syncOpenState)
-  }, [reviews])
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
 
   const handleToggle = (index: number, target: HTMLDetailsElement) => {
-    if (!window.matchMedia('(max-width: 700px)').matches) return
-    if (!target.open) return
-    const cards = gridRef.current?.querySelectorAll<HTMLDetailsElement>('.review-card')
-    cards?.forEach((card, i) => {
-      if (i !== index) card.open = false
-    })
+    if (!window.matchMedia(MOBILE_REVIEWS_MQ).matches) return
+    setOpenIndex(target.open ? index : -1)
   }
 
   return (
-    <div className="review-grid" ref={gridRef}>
+    <div className="review-grid">
       {reviews.map((review, index) => (
         <details
           key={review.author}
           className="review-card"
-          open={index === 0}
+          open={openIndex === index}
           onToggle={(e) => handleToggle(index, e.currentTarget)}
         >
           <summary className="review-card-summary">

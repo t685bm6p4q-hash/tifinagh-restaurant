@@ -508,8 +508,16 @@ a.nav-cta.nav-active {
 }
 
 .tonight-strip p {
-  margin: 0;
+  margin: 0 auto;
+  max-width: 52rem;
   line-height: 1.5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: 0.45em;
+  row-gap: 0.35em;
+  text-align: center;
 }
 
 .tonight-strip-strong {
@@ -521,7 +529,8 @@ a.nav-cta.nav-active {
 
 .tonight-strip-sep {
   color: var(--line);
-  margin: 0 0.55em;
+  margin: 0;
+  user-select: none;
 }
 
 .tonight-strip a {
@@ -843,19 +852,6 @@ a.nav-cta.nav-active {
 
 .hero .text-link {
   color: #ffffff;
-}
-
-.hero-note {
-  position: absolute;
-  bottom: 28px;
-  left: 8vw;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.hero-note span {
-  color: var(--gold);
-  padding: 0 8px;
 }
 
 /* ── Buttons & actions ──────────────────────────────── */
@@ -1223,6 +1219,20 @@ a.nav-cta.nav-active {
   text-align: center;
 }
 
+.reservation-banner.section {
+  padding-top: 40px;
+  padding-bottom: 64px;
+}
+
+.reservation-banner .eyebrow {
+  margin-bottom: 8px;
+}
+
+.reservation-banner h2 {
+  margin-bottom: 14px;
+  font-size: clamp(28px, 5.5vw, 46px);
+}
+
 .reservation-banner > div {
   max-width: 650px;
   margin: auto;
@@ -1230,7 +1240,7 @@ a.nav-cta.nav-active {
 
 .reservation-banner > div > svg:first-of-type {
   color: var(--gold);
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .reservation-banner .booking-chip svg {
@@ -1240,7 +1250,13 @@ a.nav-cta.nav-active {
 .reservation-banner p:not(.eyebrow) {
   color: var(--muted);
   max-width: 480px;
-  margin: 0 auto 25px;
+  margin: 0 auto 16px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.reservation-banner .booking-channels {
+  margin-top: 18px;
 }
 
 .reservation-banner .button-primary {
@@ -1710,7 +1726,11 @@ a.nav-cta.nav-active {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 8px;
+  gap: 4px;
+}
+
+.footer-explore-list .footer-link {
+  margin-top: 0;
 }
 
 .contact-practical-inner {
@@ -1752,6 +1772,9 @@ a.nav-cta.nav-active {
 
 .footer-hours {
   margin-top: 20px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--muted);
 }
 
 .footer-hours h2 {
@@ -1779,7 +1802,7 @@ a.nav-cta.nav-active {
 }
 
 .footer-metro-list li {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
   line-height: 1.55;
   display: flex;
@@ -1840,16 +1863,18 @@ a.nav-cta.nav-active {
 .footer h2 {
   color: var(--gold);
   text-transform: uppercase;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.14em;
   margin: 0 0 12px;
 }
 
 .footer p {
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 1.55;
   color: var(--muted);
   display: flex;
-  gap: 7px;
+  gap: 8px;
+  align-items: flex-start;
 }
 
 .footer p span { margin-left: auto; }
@@ -1860,10 +1885,12 @@ a.nav-cta.nav-active {
 }
 
 .footer-link {
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 1.5;
   color: var(--gold);
   display: block;
   margin-top: 10px;
+  padding: 4px 0;
 }
 
 /* Sans reset, le <button> garde le fond gris UA : or sur gris ~1.8:1, Lighthouse échoue.
@@ -1874,10 +1901,11 @@ button.footer-link {
   background: transparent !important;
   background-color: transparent !important;
   border: 0;
-  padding: 0;
+  padding: 4px 0;
   cursor: pointer;
   text-align: left;
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 1.5;
   color: #d6ad45 !important;
 }
 
@@ -1888,7 +1916,8 @@ button.footer-link {
   text-align: center;
   /* #77756e ne donnait que 3.94:1 sur ce fond, sous le seuil WCAG AA. */
   color: #8a887f;
-  font-size: 10px;
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 /* ── Social ─────────────────────────────────────────── */
@@ -1904,8 +1933,8 @@ button.footer-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border: 1px solid var(--line);
   border-radius: 50%;
   color: var(--gold);
@@ -1930,6 +1959,7 @@ button.footer-link {
 .social-links a.social-link-google {
   background: #fff;
   border: 1px solid #dadce0;
+  box-sizing: border-box;
 }
 
 .social-links a.social-link-instagram:hover,
@@ -1949,10 +1979,12 @@ button.footer-link {
 
 .social-links a .instagram-logo,
 .social-links a .facebook-logo,
-.social-links a .google-g-mark {
+.social-links a .google-g-mark,
+.social-links a .pagesjaunes-logo {
   display: block;
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
 }
 
 .social-links a:hover .google-g-mark path {
@@ -1960,11 +1992,6 @@ button.footer-link {
 }
 
 .social-links a.social-link-pagesjaunes {
-  width: auto;
-  height: 44px;
-  min-width: 44px;
-  padding: 0 12px;
-  border-radius: 22px;
   border: 1px solid var(--line);
   background: transparent;
 }
@@ -1974,11 +2001,6 @@ button.footer-link {
   background: transparent;
   opacity: 1;
   transform: scale(1.04);
-}
-
-.social-links a.social-link-pagesjaunes .pagesjaunes-logo {
-  height: 24px;
-  width: auto;
 }
 
 .pagesjaunes-reviews-badge {
@@ -2944,11 +2966,6 @@ select:focus { border-color: var(--terracotta); }
     font-size: 45px;
   }
 
-  .hero-note {
-    left: 7vw;
-    font-size: 10px;
-  }
-
   .section {
     padding: 70px 7vw;
   }
@@ -2963,7 +2980,25 @@ select:focus { border-color: var(--terracotta); }
 
   .reviews.section {
     padding-top: 56px;
-    padding-bottom: 56px;
+    padding-bottom: 28px;
+  }
+
+  .reservation-banner.section {
+    padding-top: 24px;
+    padding-bottom: 48px;
+  }
+
+  .reservation-banner h2 {
+    margin-bottom: 10px;
+    font-size: clamp(26px, 7vw, 34px);
+  }
+
+  .reservation-banner > div > svg:first-of-type {
+    margin-bottom: 8px;
+  }
+
+  .reservation-banner .booking-channels {
+    margin-top: 14px;
   }
 
   .reviews .section-heading {
@@ -3203,6 +3238,27 @@ select:focus { border-color: var(--terracotta); }
 
   .footer-grid {
     gap: 25px;
+  }
+
+  .footer p,
+  .footer-hours,
+  .footer-link,
+  button.footer-link,
+  .footer-metro-list li {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .footer h2 {
+    font-size: 13px;
+  }
+
+  .copyright {
+    font-size: 13px;
+  }
+
+  .footer-brand {
+    font-size: 17px;
   }
 
   .contact-grid {
