@@ -209,16 +209,18 @@ button, input, textarea, select { font: inherit; }
 }
 
 .main-nav a.nav-menu-jour {
-  background-color: #ffeb01 !important;
-  color: #1c171d !important;
-  border: 2px solid #1c171d;
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--surface) !important;
+  color: var(--gold) !important;
+  border: 2px solid var(--gold);
   padding: 6px 10px;
   border-radius: 5px;
   letter-spacing: 0.05em;
   font-size: clamp(8px, 0.62vw, 10px);
   font-weight: 700;
   white-space: nowrap;
-  transition: background-color 0.2s, border-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 }
 
 @media (min-width: 1381px) and (max-width: 1540px) {
@@ -232,14 +234,14 @@ button, input, textarea, select { font: inherit; }
 }
 
 .main-nav a.nav-menu-jour:hover {
-  background-color: #fff066 !important;
-  color: #1c171d !important;
-  border-color: #1c171d;
+  background-color: rgba(214, 173, 69, 0.14) !important;
+  color: var(--gold) !important;
+  border-color: var(--gold);
 }
 
 .main-nav a.nav-menu-jour.nav-active {
-  border-color: var(--terracotta);
-  box-shadow: 0 2px 0 var(--terracotta);
+  border-color: var(--gold);
+  background-color: rgba(214, 173, 69, 0.14) !important;
 }
 
 /* Meme contraste que .button-primary : !important + background-color explicite. */
@@ -420,10 +422,12 @@ a.nav-cta.nav-active {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
 }
 
-.menu-toggle:hover {
-  background: #ffeb01;
-  border-color: #1c171d;
-  color: #1c171d;
+.menu-toggle:hover,
+.menu-toggle:active,
+.nav-toggle-input:checked ~ .header-tools .menu-toggle {
+  background: rgba(214, 173, 69, 0.14);
+  border-color: var(--gold);
+  color: var(--gold);
 }
 
 .menu-toggle:has(:focus-visible) {
@@ -1966,7 +1970,7 @@ button.footer-link {
 }
 
 .social-links a.social-link-pagesjaunes:hover {
-  border-color: #ffeb01;
+  border-color: var(--gold);
   background: transparent;
   opacity: 1;
   transform: scale(1.04);
@@ -1984,7 +1988,7 @@ button.footer-link {
 }
 
 .pagesjaunes-reviews-badge:hover {
-  border-color: #ffeb01;
+  border-color: var(--gold);
 }
 
 .pagesjaunes-logo {
@@ -2149,16 +2153,16 @@ button.footer-link {
 }
 
 .button-menu-jour {
-  background: #ffeb01 !important;
-  color: #1c171d !important;
-  border: 2px solid #1c171d !important;
+  background: var(--surface) !important;
+  color: var(--gold) !important;
+  border: 2px solid var(--gold) !important;
   font-weight: 700;
   white-space: nowrap;
   flex-shrink: 0;
 }
 
 .button-menu-jour:hover {
-  background: #fff066 !important;
+  background: rgba(214, 173, 69, 0.14) !important;
   transform: translateY(-1px);
 }
 
@@ -2243,9 +2247,9 @@ button.footer-link {
 }
 
 .menu-lang-toggle__btn--active {
-  border-color: #1c171d;
-  background: #ffeb01;
-  color: #1c171d;
+  border-color: var(--gold);
+  background: rgba(214, 173, 69, 0.18);
+  color: var(--gold);
 }
 
 .menu-lang-fallback {
@@ -2682,6 +2686,12 @@ select:focus { border-color: var(--terracotta); }
 
 /* ── Nav compacte : burger + langue ; Réservation dans le menu déroulant. */
 @media (max-width: 1380px) {
+  .site-header {
+    height: auto;
+    min-height: 80px;
+    padding-bottom: 10px;
+  }
+
   .menu-toggle {
     display: inline-flex;
   }
@@ -2689,7 +2699,7 @@ select:focus { border-color: var(--terracotta); }
   .main-nav {
     display: none;
     position: absolute;
-    top: 80px;
+    top: 100%;
     left: 0;
     right: 0;
     z-index: 99;
@@ -2744,13 +2754,14 @@ select:focus { border-color: var(--terracotta); }
   .main-nav a.nav-menu-jour {
     align-self: stretch;
     margin-top: 14px;
+    margin-bottom: 4px;
     padding: 14px 18px;
-    text-align: center;
     font-size: clamp(17px, 3.6vw, 20px) !important;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.02em;
     font-family: Georgia, 'Times New Roman', serif;
     font-weight: 600;
-    border-bottom: none;
+    border: 2px solid var(--gold);
+    border-radius: 5px;
   }
 
   .nav-toggle-input:checked ~ .main-nav {
@@ -2775,7 +2786,7 @@ select:focus { border-color: var(--terracotta); }
     right: 0;
     bottom: 0;
     z-index: 60;
-    padding: 10px 14px calc(10px + env(safe-area-inset-bottom, 0px));
+    padding: 10px 14px calc(12px + env(safe-area-inset-bottom, 0px));
     background: linear-gradient(180deg, transparent, rgba(17, 18, 16, 0.92) 28%, var(--background) 100%);
     pointer-events: none;
   }
@@ -2802,16 +2813,16 @@ select:focus { border-color: var(--terracotta); }
 
   .sticky-call-bar-link:hover,
   .sticky-call-bar-link:active {
-    background: #ffeb01;
-    color: #1c171d;
-    border-color: #1c171d;
+    background: rgba(214, 173, 69, 0.14);
+    color: var(--gold);
+    border-color: var(--gold);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
   }
 
   .site-header {
     height: auto;
     min-height: calc(62px + env(safe-area-inset-top, 0px));
-    padding: env(safe-area-inset-top, 0px) 5vw 0;
+    padding: env(safe-area-inset-top, 0px) 5vw 10px;
   }
 
   .site-header .lang-switcher-trigger {
@@ -2823,9 +2834,9 @@ select:focus { border-color: var(--terracotta); }
   }
 
   .main-nav {
-    top: calc(62px + env(safe-area-inset-top, 0px));
+    top: 100%;
     padding: 14px 5vw 36px;
-    max-height: min(78dvh, calc(100dvh - 62px - env(safe-area-inset-top, 0px)));
+    max-height: min(78dvh, calc(100dvh - 72px - env(safe-area-inset-top, 0px)));
   }
 
   .main-nav a:not(.nav-menu-jour) {
@@ -2844,6 +2855,8 @@ select:focus { border-color: var(--terracotta); }
     font-size: clamp(19px, 5vw, 23px) !important;
     padding: 15px 20px;
     margin-top: 16px;
+    margin-bottom: 6px;
+    border: 2px solid var(--gold);
   }
 
   .menu-toggle-label {
