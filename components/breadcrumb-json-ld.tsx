@@ -1,3 +1,5 @@
+import { headers } from 'next/headers'
+
 export type BreadcrumbItem = {
   name: string
   path: string
@@ -8,7 +10,8 @@ type BreadcrumbJsonLdProps = {
   items: BreadcrumbItem[]
 }
 
-export function BreadcrumbJsonLd({ siteUrl, items }: BreadcrumbJsonLdProps) {
+export async function BreadcrumbJsonLd({ siteUrl, items }: BreadcrumbJsonLdProps) {
+  const nonce = (await headers()).get('x-nonce') ?? undefined
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -23,6 +26,7 @@ export function BreadcrumbJsonLd({ siteUrl, items }: BreadcrumbJsonLdProps) {
   return (
     <script
       type="application/ld+json"
+      nonce={nonce}
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   )

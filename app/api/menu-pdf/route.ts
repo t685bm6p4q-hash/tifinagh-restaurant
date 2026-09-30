@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { menuInlineResponseHeaders, parseMenuDayVariant, sniffMenuContentType } from '@/lib/menu-pdf'
 import { loadPublicMenu } from '@/lib/menu-kind'
-import { parseMenuDisplayWidth, resizeMenuImageForDisplay } from '@/lib/resize-menu-image-display'
+import { parseMenuDisplayWidth } from '@/lib/menu-image-display'
+import { applyMenuEmbedHeaders } from '@/lib/menu-subresource-headers'
+import { resizeMenuImageForDisplay } from '@/lib/resize-menu-image-display'
 
 export const dynamic = 'force-dynamic'
 
@@ -23,6 +25,7 @@ async function serveMenu(request: NextRequest, body: boolean) {
     }
 
     const headers = new Headers(menuInlineResponseHeaders(servedType, menu.variant))
+    applyMenuEmbedHeaders(headers, servedType)
     if (displayWidth && contentType.startsWith('image/')) {
       headers.set('Cache-Control', 'public, max-age=300, stale-while-revalidate=600')
     }

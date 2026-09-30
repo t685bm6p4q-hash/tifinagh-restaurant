@@ -1,5 +1,6 @@
 'use client'
 
+import type { ReactNode } from 'react'
 import { ArrowLeft, Maximize2 } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
@@ -7,7 +8,7 @@ import {
   MENU_IMAGE_LAYOUT_WIDTH,
   MENU_IMAGE_LCP_WIDTH,
   MENU_IMAGE_PREVIEW_WIDTHS,
-} from '@/lib/resize-menu-image-display'
+} from '@/lib/menu-image-display'
 import { menuPdfApiUrl, menuPdfPreviewSrcSet, type MenuDayVariant, type MenuMediaKind } from '@/lib/menu-pdf'
 
 const DOUBLE_TAP_MS = 320
@@ -20,6 +21,7 @@ function pulseMenuLangHaptic() {
 
 type MenuPdfViewerClientProps = {
   defaultVariant: MenuDayVariant
+  lcpPreview: ReactNode
   hasEnglish: boolean
   kindByVariant: { fr: MenuMediaKind; en: MenuMediaKind }
   labels: {
@@ -35,6 +37,7 @@ type MenuPdfViewerClientProps = {
 
 export function MenuPdfViewerClient({
   defaultVariant,
+  lcpPreview,
   hasEnglish,
   kindByVariant,
   labels,
@@ -70,20 +73,6 @@ export function MenuPdfViewerClient({
   useEffect(() => {
     setDisplayKind(serverKind)
   }, [serverKind])
-
-  useEffect(() => {
-    let cancelled = false
-    fetch(url, { method: 'HEAD', cache: 'no-store' })
-      .then((response) => {
-        if (cancelled || !response.ok) return
-        const contentType = response.headers.get('content-type') ?? ''
-        setDisplayKind(contentType.startsWith('image/') ? 'image' : 'pdf')
-      })
-      .catch(() => {})
-    return () => {
-      cancelled = true
-    }
-  }, [url])
 
   const openFullscreen = useCallback(() => setFullscreen(true), [])
   const close = useCallback(() => setFullscreen(false), [])
@@ -121,22 +110,29 @@ export function MenuPdfViewerClient({
     }
   }, [fullscreen, close])
 
+  const useServerLcpImage =
+    displayKind === 'image' && servedVariant === defaultVariant && !showEnFallback
+
   const media =
     displayKind === 'image' ? (
-      <img
-        className="menu-pdf-viewer menu-pdf-viewer--image"
-        src={previewImageUrl}
-        srcSet={previewSrcSet}
-        alt={label}
-        width={MENU_IMAGE_LAYOUT_WIDTH}
-        height={MENU_IMAGE_LAYOUT_HEIGHT}
-        sizes="(min-width: 881px) 880px, 92vw"
-        decoding="async"
-        fetchPriority="high"
-        onDoubleClick={onPreviewActivate}
-        onTouchEnd={onPreviewTouchEnd}
-        onError={() => setDisplayKind('pdf')}
-      />
+      useServerLcpImage ? (
+        lcpPreview
+      ) : (
+        <img
+          className="menu-pdf-viewer menu-pdf-viewer--image"
+          src={previewImageUrl}
+          srcSet={previewSrcSet}
+          alt={label}
+          width={MENU_IMAGE_LAYOUT_WIDTH}
+          height={MENU_IMAGE_LAYOUT_HEIGHT}
+          sizes="(min-width: 881px) 880px, 92vw"
+          decoding="async"
+          fetchPriority="high"
+          onDoubleClick={onPreviewActivate}
+          onTouchEnd={onPreviewTouchEnd}
+          onError={() => setDisplayKind('pdf')}
+        />
+      )
     ) : (
       <iframe className="menu-pdf-viewer" src={url} title={label} />
     )
@@ -178,8 +174,8 @@ export function MenuPdfViewerClient({
 
       <div
         className="menu-pdf-viewer-wrap"
-        onDoubleClick={displayKind === 'pdf' ? onPreviewActivate : undefined}
-        onTouchEnd={displayKind === 'pdf' ? onPreviewTouchEnd : undefined}
+        onDoubleClick={displayKind !== 'pdf' && !useServerLcpImage ? undefined : onPreviewActivate}
+        onTouchEnd={displayKind !== 'pdf' && !useServerLcpImage ? undefined : onPreviewTouchEnd}
         title={fullscreenOpenLabel}
       >
         {media}

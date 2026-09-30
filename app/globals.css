@@ -1705,29 +1705,27 @@ a.nav-cta.nav-active {
   margin: 0;
 }
 
-.contact-phone-link {
-  color: var(--gold);
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  text-decoration: none;
-}
-
-.contact-phone-link:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
+.contact-phone-link,
 .contact-address-link {
   color: var(--gold);
   font-weight: 600;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.contact-phone-link {
+  font-size: 16px;
+  letter-spacing: 0.02em;
+}
+
+.contact-address-link {
   line-height: 1.65;
 }
 
+.contact-phone-link:hover,
 .contact-address-link:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  color: #e8c56a;
 }
 
 /* ── Footer ─────────────────────────────────────────── */
@@ -2690,12 +2688,19 @@ select:focus { border-color: var(--terracotta); }
 .menu-pdf-viewer--image {
   width: 100%;
   height: auto;
-  min-height: 280px;
+  min-height: 0;
   max-height: none;
+  aspect-ratio: 617 / 872;
   object-fit: contain;
   cursor: zoom-in;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+  vertical-align: top;
+}
+
+.menu-pdf-viewer.menu-pdf-viewer--image {
+  min-height: 0;
+  height: auto;
 }
 
 .menu-pdf-viewer-actions {

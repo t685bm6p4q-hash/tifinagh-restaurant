@@ -1,10 +1,12 @@
+import { headers } from 'next/headers'
 import { restaurant, siteUrl } from '@/lib/seo'
 
 /**
  * Donnees structurees Schema.org : indique a Google qu'il s'agit d'un
  * restaurant de cuisine traditionnelle francaise, avec adresse et horaires.
  */
-export function RestaurantSchema() {
+export async function RestaurantSchema() {
+  const nonce = (await headers()).get('x-nonce') ?? undefined
   const restaurantSchema = {
     '@type': 'Restaurant',
     '@id': `${siteUrl}/#restaurant`,
@@ -92,6 +94,7 @@ export function RestaurantSchema() {
   return (
     <script
       type="application/ld+json"
+      nonce={nonce}
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   )

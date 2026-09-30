@@ -7,7 +7,23 @@ import {
   safeEqual,
   setAdminSessionCookie,
 } from '@/lib/admin-auth'
+import { buildContentSecurityPolicy, createCspNonce } from '@/lib/csp'
 import { canonicalHost } from '@/lib/seo'
+
+function withHtmlCsp(
+  request: NextRequest,
+  applyHeaders?: (response: NextResponse) => void,
+): NextResponse {
+  const nonce = createCspNonce()
+  const requestHeaders = new Headers(request.headers)
+  requestHeaders.set('x-nonce', nonce)
+  const response = NextResponse.next({
+    request: { headers: requestHeaders },
+  })
+  response.headers.set('Content-Security-Policy', buildContentSecurityPolicy(nonce))
+  applyHeaders?.(response)
+  return response
+}
 
 function withPathname(response: NextResponse, pathname: string) {
   response.headers.set('x-pathname', pathname)
@@ -50,8 +66,9 @@ export function proxy(request: NextRequest) {
       return canonicalRedirect(request, 301)
     }
     if (host.endsWith('.vercel.app')) {
-      const response = NextResponse.next()
-      response.headers.set('X-Robots-Tag', 'noindex, nofollow')
+      const response = withHtmlCsp(request, (r) => {
+        r.headers.set('X-Robots-Tag', 'noindex, nofollow')
+      })
       return withPathname(response, pathname)
     }
   }
@@ -73,17 +90,19 @@ export function proxy(request: NextRequest) {
     }
 
     if (hasValidAdminSession(request, expected)) {
-      const response = NextResponse.next()
-      response.headers.set('X-Robots-Tag', 'noindex, nofollow')
-      response.headers.set('Cache-Control', 'no-store')
+      const response = withHtmlCsp(request, (r) => {
+        r.headers.set('X-Robots-Tag', 'noindex, nofollow')
+        r.headers.set('Cache-Control', 'no-store')
+      })
       return withPathname(response, pathname)
     }
 
     const password = passwordFromRequestBasicAuth(request)
     if (password && safeEqual(password, expected)) {
-      const response = NextResponse.next()
-      response.headers.set('X-Robots-Tag', 'noindex, nofollow')
-      response.headers.set('Cache-Control', 'no-store')
+      const response = withHtmlCsp(request, (r) => {
+        r.headers.set('X-Robots-Tag', 'noindex, nofollow')
+        r.headers.set('Cache-Control', 'no-store')
+      })
       setAdminSessionCookie(response, expected)
       return withPathname(response, pathname)
     }
@@ -98,11 +117,11 @@ export function proxy(request: NextRequest) {
     })
   }
 
-  return withPathname(NextResponse.next(), pathname)
+  return withPathname(withHtmlCsp(request), pathname)
 }
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|.*\\.(?:webp|png|jpg|jpeg|gif|svg|ico|pdf)$).*)',
+    '/((?!api|_next/static|_next/image|images|fonts|analytics|favicon.ico|icon.webp|icon.png|apple-touch-icon.png|.*\\.(?:webp|png|jpg|jpeg|gif|svg|ico|pdf|js|mjs|woff2?)$).*)',
   ],
 }

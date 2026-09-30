@@ -15,23 +15,6 @@ const securityHeaders = [
     key: 'Permissions-Policy',
     value: 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
   },
-  {
-    key: 'Content-Security-Policy',
-    value: [
-      "default-src 'self'",
-      "base-uri 'self'",
-      "frame-ancestors 'none'",
-      "object-src 'none'",
-      "form-action 'self' https://wa.me https://api.whatsapp.com https://booking.ureserve.co",
-      "frame-src 'self' https://www.google.com https://maps.google.com",
-      "img-src 'self' data: blob: https://res.cloudinary.com https://*.googleapis.com https://*.gstatic.com https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com https://connect.facebook.net",
-      "font-src 'self' data:",
-      "style-src 'self' 'unsafe-inline'",
-      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net",
-      "connect-src 'self' https://wa.me https://api.whatsapp.com https://*.public.blob.vercel-storage.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://www.facebook.com https://connect.facebook.net https://graph.facebook.com",
-      "upgrade-insecure-requests",
-    ].join('; '),
-  },
 ]
 
 const nextConfig = {
@@ -44,7 +27,7 @@ const nextConfig = {
   },
   async headers() {
     return [
-      /* Pas de CSP globale sur /api/* : évite deux en-têtes CSP (Chrome Issues) et autorise frame-ancestors sur le menu. */
+      /* CSP HTML via middleware (nonce). Pas de CSP sur /api/* sauf PDF menu (route). */
       {
         source: '/((?!api/).*)',
         headers: securityHeaders,
@@ -81,23 +64,15 @@ const nextConfig = {
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],
       },
-      /* Menu PDF/image : une seule CSP, iframe same-origin uniquement. */
-      {
-        source: '/api/menu-pdf',
-        headers: [
-          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
-          {
-            key: 'Content-Security-Policy',
-            value: "default-src 'none'; frame-ancestors 'self'",
-          },
-        ],
-      },
       {
         source: '/menu-du-jour.pdf',
         headers: [
           { key: 'Content-Disposition', value: 'inline; filename="menu-du-jour.pdf"' },
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
-          { key: 'Content-Security-Policy', value: "frame-ancestors 'self'" },
+          {
+            key: 'Content-Security-Policy',
+            value: "default-src 'none'; frame-ancestors 'self'",
+          },
         ],
       },
     ]

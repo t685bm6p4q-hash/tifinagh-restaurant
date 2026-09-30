@@ -68,18 +68,12 @@ export function GoogleAnalytics() {
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         strategy="afterInteractive"
       />
-      <Script id="tifinagh-ga4-init" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          window.gtag = gtag;
-          gtag('js', new Date());
-          gtag('config', '${GA_MEASUREMENT_ID}', {
-            send_page_view: false,
-            anonymize_ip: true
-          });
-        `}
-      </Script>
+      <Script
+        id="tifinagh-ga4-init"
+        src="/analytics/ga-init.js"
+        data-measurement-id={GA_MEASUREMENT_ID}
+        strategy="afterInteractive"
+      />
     </>
   )
 }
