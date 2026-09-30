@@ -3,6 +3,7 @@ import {
   MENU_IMAGE_LAYOUT_WIDTH,
   MENU_IMAGE_LCP_WIDTH,
   MENU_IMAGE_PREVIEW_WIDTHS,
+  MENU_IMAGE_SIZES,
 } from '@/lib/menu-image-display'
 import { menuPdfApiUrl, menuPdfPreviewSrcSet, type MenuDayVariant } from '@/lib/menu-pdf'
 
@@ -21,7 +22,7 @@ export function MenuDayPreviewImage({ variant, alt }: MenuDayPreviewImageProps) 
       alt={alt}
       width={MENU_IMAGE_LAYOUT_WIDTH}
       height={MENU_IMAGE_LAYOUT_HEIGHT}
-      sizes="(min-width: 881px) 880px, 92vw"
+      sizes={MENU_IMAGE_SIZES}
       decoding="async"
       fetchPriority="high"
     />

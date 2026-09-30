@@ -2,8 +2,17 @@ import { MenuDayPreviewImage } from '@/components/menu-day-preview-image'
 import { MenuPdfViewerClient } from '@/components/menu-pdf-viewer-client'
 import { getI18n } from '@/lib/i18n'
 import { getPublicMenuKind, isPublicMenuAvailable } from '@/lib/menu-kind'
-import { MENU_IMAGE_LCP_WIDTH } from '@/lib/menu-image-display'
-import { menuDayVariantForLocale, menuDuJourAlt, menuPdfApiUrl } from '@/lib/menu-pdf'
+import {
+  MENU_IMAGE_LCP_WIDTH,
+  MENU_IMAGE_PREVIEW_WIDTHS,
+  MENU_IMAGE_SIZES,
+} from '@/lib/menu-image-display'
+import {
+  menuDayVariantForLocale,
+  menuDuJourAlt,
+  menuPdfApiUrl,
+  menuPdfPreviewSrcSet,
+} from '@/lib/menu-pdf'
 
 /** Menu du jour — iframe PDF ou image, avec bascule FR / EN. */
 export async function MenuPdfViewer() {
@@ -25,6 +34,8 @@ export async function MenuPdfViewer() {
           rel="preload"
           as="image"
           href={preloadMenuImage}
+          imageSrcSet={menuPdfPreviewSrcSet(lcpVariant, MENU_IMAGE_PREVIEW_WIDTHS)}
+          imageSizes={MENU_IMAGE_SIZES}
           type="image/webp"
           fetchPriority="high"
         />
