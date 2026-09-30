@@ -4,7 +4,7 @@ import {
   pagesJaunesUrl,
   phoneDisplay,
   phoneTel,
-  whatsappLink,
+  reservationWhatsAppFormHref,
 } from '@/lib/restaurant-data'
 import { CalendarDaysIcon } from '@/components/icons'
 import { PagesJaunesIcon } from '@/components/pagesjaunes-logo'
@@ -82,12 +82,7 @@ export async function BookingChannels({
           </span>
           <span className="booking-chip-label">{dictionary.booking.online}</span>
         </a>
-        <a
-          className="booking-chip booking-chip-whatsapp"
-          href={whatsappLink(dictionary.booking.whatsappMessage)}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a className="booking-chip booking-chip-whatsapp" href={reservationWhatsAppFormHref}>
           <span className="booking-chip-icon" aria-hidden="true">
             <WhatsAppIcon />
           </span>

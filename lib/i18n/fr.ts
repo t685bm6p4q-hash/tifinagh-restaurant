@@ -165,9 +165,10 @@ export const fr: Dictionary = {
   reservationPage: {
     introEyebrow: 'Votre table',
     introTitle: 'Réserver',
-    introText: 'Choisissez votre moyen de réservation : en ligne, par téléphone ou WhatsApp.',
+    introText:
+      'Téléphone ou réservation en ligne en un clic. Pour WhatsApp, utilisez le bouton vert puis complétez le formulaire.',
     channelsTitle: 'Les plus rapides',
-    whatsappHint: 'Ou précisez votre demande ci-dessous (WhatsApp)',
+    whatsappHint: 'Votre demande de réservation via WhatsApp',
     nameLabel: 'Nom',
     namePlaceholder: 'Votre nom',
     phoneLabel: 'Téléphone',

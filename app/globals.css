@@ -2265,6 +2265,21 @@ button.footer-link {
   border-top: 1px solid var(--line);
 }
 
+.reservation-whatsapp-form {
+  scroll-margin-top: 108px;
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+
+.reservation-whatsapp-form-lead {
+  margin: 0 0 20px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
 .reservation-alt-channels .booking-channels {
   margin-top: 0;
 }
@@ -3037,6 +3052,12 @@ select:focus { border-color: var(--terracotta); }
   }
 
   .reservation-alt-channels {
+    margin-top: 28px;
+    padding-top: 22px;
+  }
+
+  .reservation-whatsapp-form {
+    scroll-margin-top: 80px;
     margin-top: 28px;
     padding-top: 22px;
   }

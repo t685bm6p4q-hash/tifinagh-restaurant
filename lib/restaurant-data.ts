@@ -90,6 +90,11 @@ export function whatsappLink(message = 'Bonjour, je souhaite réserver une table
   return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
 }
 
+/** Ancre du formulaire WhatsApp sur la page réservation. */
+export const RESERVATION_WHATSAPP_FORM_ID = 'reservation-whatsapp-form'
+
+export const reservationWhatsAppFormHref = `/reservation#${RESERVATION_WHATSAPP_FORM_ID}`
+
 export type MetroId = 'clichy' | 'blanche' | 'pigalle' | 'fourche' | 'abbesses'
 
 export type MetroStation = {
