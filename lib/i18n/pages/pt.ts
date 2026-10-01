@@ -168,6 +168,8 @@ export const pagesPt: PagesCopy = {
     theatresTitle: 'Teatros y salas (antes / después del espetáculo)',
     theatresIntro:
       'Ubicación ideal para una cena rápida antes del telón o una comida distendida después de la función (servicio continuo y abierto hasta medianoche):',
+    theatresReassurance:
+      '🎫 Ingresso na mão? Avise na reserva: garantimos um serviço sincronizado para chegar a tempo ao teatro, ou uma mesa tranquila até à meia-noite após o espetáculo.',
     cinemasTitle: 'Cines cercanos',
     metroTitle: 'Acceso en metro',
     metroLinesPrefix: 'líneas ',

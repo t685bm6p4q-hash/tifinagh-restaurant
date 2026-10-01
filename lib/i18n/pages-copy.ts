@@ -174,6 +174,8 @@ const pagesFr: PagesCopy = {
     theatresTitle: 'Théâtres & salles de spectacle (avant / après spectacle)',
     theatresIntro:
       'Idéalement situé pour un dîner rapide avant le rideau ou un repas convivial après la représentation (service continu & ouverture jusqu’à minuit) :',
+    theatresReassurance:
+      "🎫 Billet en poche ? Signalez-le lors de votre réservation : nous vous garantissons un service synchronisé pour être à l'heure au théâtre, ou une table au calme jusqu'à minuit pour refaire le monde après le spectacle.",
     cinemasTitle: 'Cinémas à proximité',
     metroTitle: 'Accessibilité métro',
     metroLinesPrefix: 'lignes ',
@@ -355,6 +357,8 @@ const pagesEn: PagesCopy = {
     theatresTitle: 'Theatres & venues (before / after a show)',
     theatresIntro:
       'Ideally placed for a quick dinner before curtain up or a relaxed meal after the performance (continuous service & open until midnight):',
+    theatresReassurance:
+      '🎫 Got your ticket? Mention it when you book: we’ll sync our service so you make curtain time, or reserve a quiet table until midnight to unwind after the show.',
     cinemasTitle: 'Cinemas nearby',
     metroTitle: 'Metro access',
     metroLinesPrefix: 'lines ',
@@ -536,6 +540,8 @@ const pagesEs: PagesCopy = {
     theatresTitle: 'Teatros y salas (antes / después del espectáculo)',
     theatresIntro:
       'Ubicación ideal para una cena rápida antes del telón o una comida distendida después de la función (servicio continuo y abierto hasta medianoche):',
+    theatresReassurance:
+      '🎫 ¿Entrada en mano? Díganoslo al reservar: le garantizamos un servicio sincronizado para llegar a tiempo al teatro, o una mesa tranquila hasta medianoche para charlar después del espectáculo.',
     cinemasTitle: 'Cines cercanos',
     metroTitle: 'Acceso en metro',
     metroLinesPrefix: 'líneas ',
@@ -717,6 +723,8 @@ const pagesIt: PagesCopy = {
     theatresTitle: 'Teatri e sale (prima / dopo lo spettacolo)',
     theatresIntro:
       'Posizione ideale per una cena veloce prima del sipario o un pasto conviviale dopo lo spettacolo (servizio continuo e aperto fino a mezzanotte):',
+    theatresReassurance:
+      '🎫 Biglietto in tasca? Segnalatelo alla prenotazione: vi garantiamo un servizio sincronizzato per essere in teatro in orario, o un tavolo tranquillo fino a mezzanotte dopo lo spettacolo.',
     cinemasTitle: 'Cinema nelle vicinanze',
     metroTitle: 'Accessibilità metro',
     metroLinesPrefix: 'linee ',
@@ -890,6 +898,8 @@ const pagesZh: PagesCopy = {
     theatresTitle: '剧院与演出场所（观演前 / 后）',
     theatresIntro:
       '位置理想：开演前快速晚餐，或演出后轻松聚餐（连续服务，营业至午夜）：',
+    theatresReassurance:
+      '🎫 已购票？预订时请告知：我们为您安排准时开演前的用餐，或保留安静座位直至午夜，方便演出结束后小聚。',
     cinemasTitle: '附近电影院',
     metroTitle: '地铁可达性',
     metroLinesPrefix: '号线 ',

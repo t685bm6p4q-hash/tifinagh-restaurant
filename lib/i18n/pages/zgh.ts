@@ -163,6 +163,8 @@ export const pagesZgh: PagesCopy = {
     theatresTitle: 'ⵉⵎⵙⵙⵏⵏ ⴷ ⵉⵎⵙⵙⵏⵏ (ⵙⴳ ⵏⵖ ⵏⵖ ⵉⵎⵙⵙⵏ)',
     theatresIntro:
       'ⴰⴷⵔⵉⵙ ⵉⵎⵙⵙⵉⵏ ⵉⵎⵙⵙⵉ ⵙⴳ ⵏⵖ ⵏ ⵉⵎⵙⵙⵏ ⵏⵖ ⵉⵎⵙⵙⵉ ⵙⴳ ⵏⵖ (ⴰⵙⵙⵓⵎⵔ ⵉⵎⵙⵙⵉⵏ ⴷ ⵢⵍⵍⵉ ⵉⵍⵍⴰ ⵜⵉⵎⵣⵡⴰⵔⵜ):',
+    theatresReassurance:
+      "🎫 Billet en poche ? Signalez-le lors de votre réservation : nous vous garantissons un service synchronisé pour être à l'heure au théâtre, ou une table au calme jusqu'à minuit pour refaire le monde après le spectacle.",
     cinemasTitle: 'ⵉⵏⵓⵎⴰⵏ ⵉⵎⵣⵡⴰⵔⵏ',
     metroTitle: 'ⴰⴷⵔⵉⵙ ⵏ ⵜⵔⴰⵎⵡⴰⵢⵜ',
     metroLinesPrefix: '',

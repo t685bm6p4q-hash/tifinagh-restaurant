@@ -20,6 +20,9 @@ export function LocalQuartierDetails({ dictionary }: { dictionary: Dictionary })
 
       <h2>{q.theatresTitle}</h2>
       <p>{q.theatresIntro}</p>
+      <aside className="local-theatre-reassurance">
+        <p>{q.theatresReassurance}</p>
+      </aside>
       <ul className="local-venue-list">
         {nearbyTheatres.map((venue, index) => (
           <li key={venue.name}>

@@ -114,6 +114,7 @@ export type PagesCopy = {
     landmarks: [{ title: string; text: string }, { title: string; text: string }]
     theatresTitle: string
     theatresIntro: string
+    theatresReassurance: string
     cinemasTitle: string
     metroTitle: string
     metroLinesPrefix: string

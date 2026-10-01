@@ -168,6 +168,8 @@ export const pagesDe: PagesCopy = {
     theatresTitle: 'Théâtres & salles de spectacle (avant / après spectacle)',
     theatresIntro:
       'Idéalement situé pour un dîner rapide avant le rideau ou un repas convivial après la représentation (service continu & ouverture jusqu’à minuit) :',
+    theatresReassurance:
+      '🎫 Ticket dabei? Geben Sie das bei der Reservierung an: Wir synchronisieren den Service, damit Sie pünktlich im Theater sind — oder reservieren einen ruhigen Tisch bis Mitternacht nach der Vorstellung.',
     cinemasTitle: 'Cinémas à proximité',
     metroTitle: 'Accessibilité métro',
     metroLinesPrefix: 'Linien ',

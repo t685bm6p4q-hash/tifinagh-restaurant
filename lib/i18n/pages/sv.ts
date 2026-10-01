@@ -166,6 +166,8 @@ export const pagesSv: PagesCopy = {
     theatresTitle: 'Teatrar och scener (före / efter föreställning)',
     theatresIntro:
       'Idealiskt placerad för en snabb middag före ridån eller en avslappnad måltid efter föreställningen (kontinuerlig service och öppet till midnatt):',
+    theatresReassurance:
+      '🎫 Biljett i handen? Nämn det vid bokningen: vi synkar servicen så att du hinner till föreställningen, eller reserverar ett lugnt bord till midnatt efteråt.',
     cinemasTitle: 'Biografer i närheten',
     metroTitle: 'Tunnelbanetillgänglighet',
     metroLinesPrefix: '',
