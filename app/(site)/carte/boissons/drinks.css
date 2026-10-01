@@ -117,7 +117,7 @@
 .drinks-card--cocktails::before,
 .drinks-card--aperitifs::before {
   opacity: 1;
-  background: linear-gradient(180deg, var(--gold), var(--terracotta));
+  background: linear-gradient(180deg, var(--wood-light), var(--wood-mid));
 }
 
 .drinks-card-title {
@@ -125,8 +125,8 @@
   padding-left: 8px;
   font-size: 20px;
   font-weight: 400;
-  color: var(--terracotta);
-  border-bottom: 1px solid var(--line);
+  color: var(--gold);
+  border-bottom: 1px solid rgba(214, 173, 69, 0.35);
   padding-bottom: 10px;
 }
 

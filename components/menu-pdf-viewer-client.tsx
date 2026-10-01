@@ -11,14 +11,9 @@ import {
   MENU_IMAGE_SIZES,
 } from '@/lib/menu-image-display'
 import { menuPdfApiUrl, menuPdfPreviewSrcSet, type MenuDayVariant, type MenuMediaKind } from '@/lib/menu-pdf'
+import { pulseUiHaptic } from '@/lib/ui-haptic'
 
 const DOUBLE_TAP_MS = 320
-
-function pulseMenuLangHaptic() {
-  if (typeof window === 'undefined') return
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-  navigator.vibrate?.(14)
-}
 
 type MenuPdfViewerClientProps = {
   defaultVariant: MenuDayVariant
@@ -83,7 +78,7 @@ export function MenuPdfViewerClient({
   }, [openFullscreen])
 
   const toggleMenuLang = useCallback(() => {
-    pulseMenuLangHaptic()
+    pulseUiHaptic()
     setVariant((v) => (v === 'fr' ? 'en' : 'fr'))
   }, [])
 

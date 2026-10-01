@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, type ReactNode } from 'react'
+import { pulseUiHaptic } from '@/lib/ui-haptic'
 
 const SCROLL_THRESHOLD_PX = 12
 
@@ -17,7 +18,21 @@ export function HeaderScrollShell({ children }: { children: ReactNode }) {
 
     sync()
     window.addEventListener('scroll', sync, { passive: true })
-    return () => window.removeEventListener('scroll', sync)
+
+    const onPointerUp = (event: PointerEvent) => {
+      if (event.button !== 0) return
+      const target = event.target
+      if (!(target instanceof Element)) return
+      if (!target.closest('.menu-toggle')) return
+      pulseUiHaptic()
+    }
+
+    node.addEventListener('pointerup', onPointerUp)
+
+    return () => {
+      window.removeEventListener('scroll', sync)
+      node.removeEventListener('pointerup', onPointerUp)
+    }
   }, [])
 
   return (
