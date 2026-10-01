@@ -25,6 +25,51 @@ async function staticMenuExists(pathname: string): Promise<boolean> {
   }
 }
 
+export type MenuStorageStatus = {
+  variant: MenuDayVariant
+  pathname: string
+  exists: boolean
+  revision: string | null
+  contentType: string | null
+}
+
+export async function getMenuStorageStatus(variant: MenuDayVariant): Promise<MenuStorageStatus> {
+  const pathname = menuBlobPathname(variant)
+  if (isBlobConfigured()) {
+    try {
+      const meta = await head(pathname)
+      return {
+        variant,
+        pathname,
+        exists: true,
+        revision: meta.uploadedAt.toISOString(),
+        contentType: meta.contentType ?? null,
+      }
+    } catch {
+      return { variant, pathname, exists: false, revision: null, contentType: null }
+    }
+  }
+
+  const exists = await staticMenuExists(pathname)
+  if (!exists) {
+    return { variant, pathname, exists: false, revision: null, contentType: null }
+  }
+
+  const filePath = path.join(process.cwd(), 'public', pathname)
+  const fileStat = await stat(filePath)
+  const kind = await sniffStaticMenuKind(pathname)
+  const contentType =
+    kind === 'image' ? 'image/webp' : kind === 'pdf' ? 'application/pdf' : null
+
+  return {
+    variant,
+    pathname,
+    exists: true,
+    revision: String(fileStat.mtimeMs),
+    contentType,
+  }
+}
+
 export async function isPublicMenuAvailable(variant: MenuDayVariant): Promise<boolean> {
   const pathname = menuBlobPathname(variant)
   if (isBlobConfigured()) {

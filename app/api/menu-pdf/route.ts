@@ -4,6 +4,7 @@ import {
   menuInlineResponseHeaders,
   parseMenuDayVariant,
   sniffMenuContentType,
+  type MenuDayVariant,
 } from '@/lib/menu-pdf'
 import type { LoadedPublicMenu } from '@/lib/menu-kind'
 import { loadPublicMenu } from '@/lib/menu-kind'
@@ -13,8 +14,12 @@ import { resizeMenuImageForDisplay } from '@/lib/resize-menu-image-display'
 
 export const dynamic = 'force-dynamic'
 
-function menuDisplayEtag(menu: LoadedPublicMenu, displayWidth: number): string {
-  return `W/"${menu.variant}-${displayWidth}-${menu.revision}"`
+function menuDisplayEtag(
+  menu: LoadedPublicMenu,
+  displayWidth: number,
+  requested: MenuDayVariant,
+): string {
+  return `W/"req-${requested}-srv-${menu.variant}-${displayWidth}-${menu.revision}"`
 }
 
 async function serveMenu(request: NextRequest, body: boolean) {
@@ -41,13 +46,15 @@ async function serveMenu(request: NextRequest, body: boolean) {
     applyMenuEmbedHeaders(headers, servedType)
     if (displayWidth && contentType.startsWith('image/')) {
       headers.set('Cache-Control', MENU_IMAGE_DISPLAY_CACHE_CONTROL)
-      const etag = menuDisplayEtag(menu, displayWidth)
+      const etag = menuDisplayEtag(menu, displayWidth, requested)
       headers.set('ETag', etag)
       const ifNoneMatch = request.headers.get('if-none-match')
       if (ifNoneMatch === etag) {
         return new NextResponse(null, { status: 304, headers })
       }
     }
+    headers.set('X-Menu-Requested', requested)
+    headers.set('X-Menu-Served-Variant', menu.variant)
     if (menu.fellBackFromEn && requested === 'en') {
       headers.set('X-Menu-Fallback', 'fr')
     }

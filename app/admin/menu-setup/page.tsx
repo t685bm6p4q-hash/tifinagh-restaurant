@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { AlertCircle, CheckCircle } from 'lucide-react'
 import { MainContent } from '@/components/main-content'
 import { compressMenuImageInBrowser } from '@/lib/compress-menu-browser'
@@ -12,10 +12,40 @@ import {
   type MenuDayVariant,
 } from '@/lib/menu-pdf'
 
+type MenuStorageRow = {
+  pathname: string
+  exists: boolean
+  revision: string | null
+  contentType: string | null
+}
+
+function formatMenuRevision(revision: string | null): string {
+  if (!revision) return 'aucun fichier en ligne'
+  const asDate = /^\d+$/.test(revision) ? new Date(Number(revision)) : new Date(revision)
+  if (Number.isNaN(asDate.getTime())) return revision
+  return asDate.toLocaleString('fr-FR', { timeZone: 'Europe/Paris', dateStyle: 'short', timeStyle: 'short' })
+}
+
 export default function MenuSetupAdmin() {
   const [message, setMessage] = useState<{ type: 'success' | 'error' | 'info'; text: string } | null>(null)
   const [uploadingVariant, setUploadingVariant] = useState<MenuDayVariant | null>(null)
   const [chef, setChef] = useState<string>('')
+  const [storage, setStorage] = useState<{ fr: MenuStorageRow; en: MenuStorageRow } | null>(null)
+
+  const refreshStorage = useCallback(async () => {
+    try {
+      const res = await fetch('/api/upload-menu', { credentials: 'same-origin' })
+      if (!res.ok) return
+      const data = (await res.json()) as { fr: MenuStorageRow; en: MenuStorageRow }
+      setStorage(data)
+    } catch {
+      /* ignore */
+    }
+  }, [])
+
+  useEffect(() => {
+    void refreshStorage()
+  }, [refreshStorage])
 
   const handleFileUpload = async (variant: MenuDayVariant, e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target
@@ -87,6 +117,7 @@ export default function MenuSetupAdmin() {
           type: 'success',
           text: `✅ ${label} à jour (${parsed.body.pathname ?? (variant === 'en' ? 'menu-du-jour-en.pdf' : 'menu-du-jour.pdf')})${chef ? ` — ${chef}` : ''}`,
         })
+        void refreshStorage()
         return
       }
 
@@ -118,7 +149,12 @@ export default function MenuSetupAdmin() {
         {label}
       </p>
       <p style={{ color: 'var(--muted)', fontSize: '12px', margin: '0 0 10px' }}>{hint}</p>
-      <label style={{ cursor: busy ? 'wait' : 'pointer', display: 'block' }}>
+      <label
+        style={{
+          cursor: isThis ? 'wait' : busy ? 'not-allowed' : 'pointer',
+          display: 'block',
+        }}
+      >
         <input
           type="file"
           accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
@@ -128,18 +164,18 @@ export default function MenuSetupAdmin() {
         />
         <div
           style={{
-            background: busy && !isThis ? 'var(--line)' : busy && isThis ? 'var(--line)' : '#25d366',
+            background: isThis ? 'var(--line)' : '#25d366',
             color: '#000',
             padding: '14px 20px',
             borderRadius: '8px',
             fontWeight: '600',
-            cursor: busy ? 'wait' : 'pointer',
+            cursor: isThis ? 'wait' : busy ? 'not-allowed' : 'pointer',
             textAlign: 'center',
             fontSize: '15px',
-            opacity: busy && !isThis ? 0.55 : 1,
+            opacity: busy && !isThis ? 0.5 : 1,
           }}
         >
-          {isThis ? '⏳ Envoi…' : busy ? '⏳ Autre envoi en cours…' : '📁 Choisir un fichier'}
+          {isThis ? '⏳ Envoi…' : '📁 Choisir un fichier'}
         </div>
       </label>
     </div>
@@ -182,6 +218,33 @@ export default function MenuSetupAdmin() {
             />
           </label>
         </div>
+
+        {storage ? (
+          <div
+            style={{
+              marginBottom: '20px',
+              padding: '12px 14px',
+              borderRadius: '5px',
+              border: '1px solid var(--line)',
+              background: 'var(--surface)',
+              fontSize: '12px',
+              color: 'var(--muted)',
+              lineHeight: 1.5,
+            }}
+          >
+            <p style={{ margin: '0 0 8px', color: 'var(--foreground)', fontWeight: 600, fontSize: '13px' }}>
+              Fichiers sur le serveur (indépendants)
+            </p>
+            <p style={{ margin: 0 }}>
+              <strong>FR</strong> ({storage.fr.pathname}) :{' '}
+              {storage.fr.exists ? `en ligne — ${formatMenuRevision(storage.fr.revision)}` : 'absent'}
+            </p>
+            <p style={{ margin: '6px 0 0' }}>
+              <strong>EN</strong> ({storage.en.pathname}) :{' '}
+              {storage.en.exists ? `en ligne — ${formatMenuRevision(storage.en.revision)}` : 'absent'}
+            </p>
+          </div>
+        ) : null}
 
         {uploadButton(
           'fr',

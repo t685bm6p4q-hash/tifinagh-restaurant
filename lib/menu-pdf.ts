@@ -36,6 +36,24 @@ export function parseMenuDayVariant(value: string | null | undefined): MenuDayVa
   return value === 'en' ? 'en' : 'fr'
 }
 
+/** Variante d’upload : URL + formulaire doivent concorder si les deux sont présents. */
+export function resolveMenuUploadVariant(
+  formValue: FormDataEntryValue | null,
+  queryValue: string | null,
+): { variant: MenuDayVariant } | { error: string } {
+  const hasForm = typeof formValue === 'string' && formValue.length > 0
+  const hasQuery = Boolean(queryValue && queryValue.length > 0)
+  const fromForm = hasForm ? parseMenuDayVariant(String(formValue)) : null
+  const fromQuery = hasQuery ? parseMenuDayVariant(queryValue) : null
+
+  if (fromForm && fromQuery && fromForm !== fromQuery) {
+    return { error: 'Variante incohérente : le bouton FR/EN ne correspond pas à la requête.' }
+  }
+
+  const variant = fromQuery ?? fromForm ?? 'fr'
+  return { variant }
+}
+
 export const MAX_MENU_PDF_BYTES = Math.floor(4.5 * 1024 * 1024)
 export const PDF_TOO_HEAVY_MESSAGE = 'Le PDF est trop lourd, veuillez le compresser.'
 export const MAX_MENU_UPLOAD_BYTES = 10 * 1024 * 1024

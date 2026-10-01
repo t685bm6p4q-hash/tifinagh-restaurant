@@ -4,16 +4,30 @@ import { put } from '@vercel/blob'
 import { NextRequest, NextResponse } from 'next/server'
 import { isAdminAuthorized } from '@/lib/admin-auth'
 import { compressMenuImageToWebp } from '@/lib/compress-menu-image'
+import { getMenuStorageStatus } from '@/lib/menu-kind'
 import {
   MAX_MENU_PDF_BYTES,
   MAX_MENU_UPLOAD_BYTES,
   PDF_TOO_HEAVY_MESSAGE,
   isBlobConfigured,
   menuBlobPathname,
-  parseMenuDayVariant,
   resolveMenuUpload,
+  resolveMenuUploadVariant,
   sniffMenuContentType,
 } from '@/lib/menu-pdf'
+
+export async function GET(request: NextRequest) {
+  if (!isAdminAuthorized(request)) {
+    return NextResponse.json({ error: 'Non autorisé' }, { status: 401 })
+  }
+
+  const [fr, en] = await Promise.all([
+    getMenuStorageStatus('fr'),
+    getMenuStorageStatus('en'),
+  ])
+
+  return NextResponse.json({ fr, en })
+}
 
 export async function POST(request: NextRequest) {
   if (!isAdminAuthorized(request)) {
@@ -28,11 +42,14 @@ export async function POST(request: NextRequest) {
 
   try {
     const formData = await request.formData()
-    const fromForm = formData.get('variant')
-    const fromQuery = request.nextUrl.searchParams.get('variant')
-    const variant = parseMenuDayVariant(
-      typeof fromForm === 'string' ? fromForm : fromQuery,
+    const resolvedVariant = resolveMenuUploadVariant(
+      formData.get('variant'),
+      request.nextUrl.searchParams.get('variant'),
     )
+    if ('error' in resolvedVariant) {
+      return NextResponse.json({ error: resolvedVariant.error }, { status: 400 })
+    }
+    const { variant } = resolvedVariant
     const file = formData.get('file')
 
     if (!(file instanceof File)) {
