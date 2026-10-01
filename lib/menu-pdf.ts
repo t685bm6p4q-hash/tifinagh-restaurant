@@ -115,6 +115,10 @@ export function menuKindFromContentType(contentType: string): MenuMediaKind {
   return contentType.startsWith('image/') ? 'image' : 'pdf'
 }
 
+/** Variantes redimensionnées (WebP) : menu du jour mis à jour le matin — cache + revalidation ETag. */
+export const MENU_IMAGE_DISPLAY_CACHE_CONTROL =
+  'public, max-age=86400, stale-while-revalidate=604800'
+
 export function menuInlineResponseHeaders(
   contentType: string,
   variant: MenuDayVariant = 'fr',

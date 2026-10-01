@@ -16,6 +16,6 @@ export async function resizeMenuImageForDisplay(
   return sharp(Buffer.from(input))
     .rotate()
     .resize({ width: maxWidth, fit: 'inside', withoutEnlargement: true })
-    .webp({ quality: 78, effort: 4 })
+    .webp({ quality: maxWidth <= 720 ? 72 : 78, effort: 4 })
     .toBuffer()
 }

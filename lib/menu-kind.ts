@@ -1,5 +1,5 @@
 import { head } from '@vercel/blob'
-import { access, open, readFile } from 'node:fs/promises'
+import { access, open, readFile, stat } from 'node:fs/promises'
 import path from 'node:path'
 import {
   menuBlobPathname,
@@ -43,9 +43,13 @@ export type LoadedPublicMenu = {
   contentType: string
   variant: MenuDayVariant
   fellBackFromEn: boolean
+  /** Version du fichier source (invalidation cache des variantes ?w=). */
+  revision: string
 }
 
-async function loadMenuFromStorage(pathname: string): Promise<{ bytes: Uint8Array; contentType: string }> {
+async function loadMenuFromStorage(
+  pathname: string,
+): Promise<{ bytes: Uint8Array; contentType: string; revision: string }> {
   if (isBlobConfigured()) {
     const meta = await head(pathname)
     const upstream = await fetch(meta.url)
@@ -53,12 +57,14 @@ async function loadMenuFromStorage(pathname: string): Promise<{ bytes: Uint8Arra
     const bytes = new Uint8Array(await upstream.arrayBuffer())
     const sniffed = sniffMenuContentType(bytes)
     const contentType = sniffed ?? meta.contentType ?? 'application/pdf'
-    return { bytes, contentType }
+    return { bytes, contentType, revision: meta.uploadedAt.toISOString() }
   }
 
+  const filePath = path.join(process.cwd(), 'public', pathname)
   const bytes = await readStaticMenuBytes(pathname)
   const contentType = sniffMenuContentType(bytes) ?? 'application/pdf'
-  return { bytes, contentType }
+  const fileStat = await stat(filePath)
+  return { bytes, contentType, revision: String(fileStat.mtimeMs) }
 }
 
 /** Charge le menu pour une variante ; repli EN → FR si demandé. */
@@ -81,9 +87,17 @@ export async function loadPublicMenu(variant: MenuDayVariant = 'fr'): Promise<Lo
         // Repli fichier statique FR livré avec le site.
       }
     }
-    const bytes = await readStaticMenuBytes(menuBlobPathname('fr'))
+    const frPath = menuBlobPathname('fr')
+    const bytes = await readStaticMenuBytes(frPath)
     const contentType = sniffMenuContentType(bytes) ?? 'application/pdf'
-    return { bytes, contentType, variant: 'fr', fellBackFromEn: false }
+    const fileStat = await stat(path.join(process.cwd(), 'public', frPath))
+    return {
+      bytes,
+      contentType,
+      variant: 'fr',
+      fellBackFromEn: false,
+      revision: String(fileStat.mtimeMs),
+    }
   }
 }
 
