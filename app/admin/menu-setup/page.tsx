@@ -5,6 +5,7 @@ import { AlertCircle, CheckCircle } from 'lucide-react'
 import { MainContent } from '@/components/main-content'
 import { compressMenuImageInBrowser } from '@/lib/compress-menu-browser'
 import { parseMenuUploadResponse } from '@/lib/menu-upload-api'
+import { formatMenuUploadedAt } from '@/lib/format-menu-uploaded-at'
 import {
   MAX_MENU_PDF_BYTES,
   MAX_MENU_UPLOAD_BYTES,
@@ -15,17 +16,11 @@ import {
 type MenuStorageRow = {
   pathname: string
   exists: boolean
+  /** Cache site uniquement — ne pas afficher dans l’UI (voir uploadedAt). */
   revision: string | null
   uploadedAt: string | null
   contentType: string | null
   sizeBytes: number | null
-}
-
-function formatMenuUploadedAt(uploadedAt: string | null): string {
-  if (!uploadedAt) return '—'
-  const asDate = new Date(uploadedAt)
-  if (Number.isNaN(asDate.getTime())) return '—'
-  return asDate.toLocaleString('fr-FR', { timeZone: 'Europe/Paris', dateStyle: 'short', timeStyle: 'short' })
 }
 
 export default function MenuSetupAdmin() {

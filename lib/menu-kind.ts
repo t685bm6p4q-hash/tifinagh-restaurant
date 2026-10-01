@@ -30,9 +30,12 @@ export type MenuStorageStatus = {
   variant: MenuDayVariant
   pathname: string
   exists: boolean
-  /** Etag ou horodatage — invalidation cache des URLs menu. */
+  /**
+   * Identifiant de version (souvent etag Blob) pour `?r=` et rechargement navigateur.
+   * Ne pas afficher dans l’admin — utiliser `uploadedAt`.
+   */
   revision: string | null
-  /** Date de dépôt lisible (admin). */
+  /** Horodatage ISO pour l’admin (« Mise en ligne sur le site »). */
   uploadedAt: string | null
   contentType: string | null
   sizeBytes: number | null
