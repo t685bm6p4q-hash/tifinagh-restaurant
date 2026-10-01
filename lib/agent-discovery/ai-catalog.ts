@@ -54,6 +54,7 @@ export function buildAiCatalog(): AiCatalogManifest {
           'après-spectacle',
           'calme',
           'La Cigale',
+          'Élysée Montmartre',
           'ouvert tard',
         ],
         representativeQueries: [

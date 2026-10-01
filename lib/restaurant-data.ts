@@ -126,7 +126,10 @@ export const nearbyTheatres: LocalVenue[] = [
   { name: 'Théâtre des Deux Ânes', note: 'à 3 min à pied sur le boulevard de Clichy' },
   { name: "Théâtre de l'Européen", note: 'à 5 min à pied, rue Biot / Place de Clichy' },
   { name: "Théâtre de l'Œuvre", note: 'rue de Clichy' },
-  { name: 'La Cigale & Le Trianon', note: 'boulevard de Rochechouart' },
+  {
+    name: "La Cigale, Le Trianon & L'Élysée Montmartre",
+    note: 'boulevard de Rochechouart',
+  },
   { name: "Théâtre de l'Atelier", note: 'place Charles Dullin' },
 ]
 
