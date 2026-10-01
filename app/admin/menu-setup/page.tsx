@@ -16,14 +16,15 @@ type MenuStorageRow = {
   pathname: string
   exists: boolean
   revision: string | null
+  uploadedAt: string | null
   contentType: string | null
   sizeBytes: number | null
 }
 
-function formatMenuRevision(revision: string | null): string {
-  if (!revision) return 'aucun fichier en ligne'
-  const asDate = /^\d+$/.test(revision) ? new Date(Number(revision)) : new Date(revision)
-  if (Number.isNaN(asDate.getTime())) return revision
+function formatMenuUploadedAt(uploadedAt: string | null): string {
+  if (!uploadedAt) return '—'
+  const asDate = new Date(uploadedAt)
+  if (Number.isNaN(asDate.getTime())) return '—'
   return asDate.toLocaleString('fr-FR', { timeZone: 'Europe/Paris', dateStyle: 'short', timeStyle: 'short' })
 }
 
@@ -240,12 +241,12 @@ export default function MenuSetupAdmin() {
             </p>
             {storage.fr.exists ? (
               <p style={{ margin: 0 }}>
-                <strong>Français</strong> — {formatMenuRevision(storage.fr.revision)}
+                <strong>Français</strong> — {formatMenuUploadedAt(storage.fr.uploadedAt)}
               </p>
             ) : null}
             {storage.en.exists ? (
               <p style={{ margin: storage.fr.exists ? '6px 0 0' : 0 }}>
-                <strong>English</strong> — {formatMenuRevision(storage.en.revision)}
+                <strong>English</strong> — {formatMenuUploadedAt(storage.en.uploadedAt)}
               </p>
             ) : null}
           </div>

@@ -30,7 +30,10 @@ export type MenuStorageStatus = {
   variant: MenuDayVariant
   pathname: string
   exists: boolean
+  /** Etag ou horodatage — invalidation cache des URLs menu. */
   revision: string | null
+  /** Date de dépôt lisible (admin). */
+  uploadedAt: string | null
   contentType: string | null
   sizeBytes: number | null
 }
@@ -41,6 +44,7 @@ function emptyMenuStorageStatus(variant: MenuDayVariant): MenuStorageStatus {
     pathname: menuBlobPathname(variant),
     exists: false,
     revision: null,
+    uploadedAt: null,
     contentType: null,
     sizeBytes: null,
   }
@@ -64,6 +68,7 @@ async function menuBlobStatusesFromList(): Promise<{
       pathname,
       exists: true,
       revision: blob.etag || blob.uploadedAt.toISOString(),
+      uploadedAt: blob.uploadedAt.toISOString(),
       contentType: null,
       sizeBytes: blob.size,
     }
@@ -98,6 +103,7 @@ export async function getMenuStorageStatus(variant: MenuDayVariant): Promise<Men
         pathname,
         exists: true,
         revision: meta.etag || meta.uploadedAt.toISOString(),
+        uploadedAt: meta.uploadedAt.toISOString(),
         contentType: meta.contentType ?? null,
         sizeBytes: meta.size,
       }
@@ -122,6 +128,7 @@ export async function getMenuStorageStatus(variant: MenuDayVariant): Promise<Men
     pathname,
     exists: true,
     revision: String(fileStat.mtimeMs),
+    uploadedAt: fileStat.mtime.toISOString(),
     contentType,
     sizeBytes: fileStat.size,
   }
