@@ -160,7 +160,7 @@ export async function HomeTemplate() {
             ))}
           </div>
           <div className="menu-preview-actions">
-            <Link className="menu-preview-cta menu-preview-cta--carte" href="/carte" prefetch={false}>
+            <Link className="button button-primary menu-preview-cta" href="/carte" prefetch={false}>
               <ChefHatIcon size={18} aria-hidden="true" />
               {dictionary.home.fullMenuLink}
               <ArrowRightIcon size={16} aria-hidden="true" />

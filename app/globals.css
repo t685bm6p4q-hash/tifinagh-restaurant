@@ -1604,16 +1604,13 @@ a.nav-cta.nav-active {
   transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
 }
 
-.menu-preview-cta--carte {
-  background: var(--surface);
-  color: var(--terracotta);
-  border: 1px solid var(--terracotta);
-}
-
-.menu-preview-cta--carte:hover {
-  background: rgba(196, 106, 78, 0.12);
-  color: var(--terracotta);
-  transform: translateY(-1px);
+.menu-preview-actions .menu-preview-cta.button-primary {
+  min-width: min(100%, 300px);
+  padding: 15px 26px;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  line-height: 1.35;
 }
 
 .menu-preview-cta--daily {
@@ -2238,16 +2235,22 @@ button.footer-link {
 }
 
 .button-carte-link {
-  background: transparent !important;
+  background: linear-gradient(180deg, var(--wood-mid) 0%, var(--wood) 100%) !important;
   color: var(--gold) !important;
-  border: 1px solid var(--gold) !important;
+  border: 2px solid var(--gold) !important;
+  font-family: Georgia, 'Times New Roman', serif;
   font-weight: 600;
   white-space: nowrap;
   flex-shrink: 0;
+  box-shadow:
+    inset 0 1px 0 rgba(232, 197, 106, 0.12),
+    0 3px 14px rgba(0, 0, 0, 0.35);
 }
 
 .button-carte-link:hover {
-  background: rgba(214, 173, 69, 0.12) !important;
+  background: linear-gradient(180deg, var(--wood-light) 0%, var(--wood-mid) 100%) !important;
+  border-color: var(--gold-light) !important;
+  color: var(--gold-light) !important;
   transform: translateY(-1px);
 }
 
