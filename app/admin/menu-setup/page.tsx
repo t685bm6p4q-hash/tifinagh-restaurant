@@ -14,7 +14,7 @@ import {
 
 export default function MenuSetupAdmin() {
   const [message, setMessage] = useState<{ type: 'success' | 'error' | 'info'; text: string } | null>(null)
-  const [isUploading, setIsUploading] = useState<boolean>(false)
+  const [uploadingVariant, setUploadingVariant] = useState<MenuDayVariant | null>(null)
   const [chef, setChef] = useState<string>('')
 
   const handleFileUpload = async (variant: MenuDayVariant, e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,19 +52,19 @@ export default function MenuSetupAdmin() {
       return
     }
 
-    setIsUploading(true)
+    setUploadingVariant(variant)
     setMessage({
       type: 'info',
       text: isPdf ? '⏳ Envoi en cours…' : '⏳ Compression puis mise en ligne…',
     })
 
     try {
-      const uploadFile = isPdf ? file : await compressMenuImageInBrowser(file)
+      const uploadFile = isPdf ? file : await compressMenuImageInBrowser(file, variant)
       const formData = new FormData()
       formData.append('file', uploadFile)
       formData.append('variant', variant)
 
-      const response = await fetch('/api/upload-menu', {
+      const response = await fetch(`/api/upload-menu?variant=${variant}`, {
         method: 'POST',
         body: formData,
         credentials: 'same-origin',
@@ -85,7 +85,7 @@ export default function MenuSetupAdmin() {
         const label = variant === 'en' ? 'Menu anglais' : 'Menu français'
         setMessage({
           type: 'success',
-          text: `✅ ${label} à jour ! ${chef ? `(${chef})` : ''}`,
+          text: `✅ ${label} à jour (${parsed.body.pathname ?? (variant === 'en' ? 'menu-du-jour-en.pdf' : 'menu-du-jour.pdf')})${chef ? ` — ${chef}` : ''}`,
         })
         return
       }
@@ -104,42 +104,47 @@ export default function MenuSetupAdmin() {
         setMessage({ type: 'error', text: '❌ Erreur : ' + reason })
       }
     } finally {
-      setIsUploading(false)
+      setUploadingVariant(null)
       input.value = ''
     }
   }
 
-  const uploadButton = (variant: MenuDayVariant, label: string, hint: string) => (
+  const uploadButton = (variant: MenuDayVariant, label: string, hint: string) => {
+    const busy = uploadingVariant !== null
+    const isThis = uploadingVariant === variant
+    return (
     <div style={{ marginBottom: '20px' }}>
       <p style={{ color: 'var(--foreground)', fontSize: '14px', fontWeight: '600', margin: '0 0 8px' }}>
         {label}
       </p>
       <p style={{ color: 'var(--muted)', fontSize: '12px', margin: '0 0 10px' }}>{hint}</p>
-      <label style={{ cursor: isUploading ? 'wait' : 'pointer', display: 'block' }}>
+      <label style={{ cursor: busy ? 'wait' : 'pointer', display: 'block' }}>
         <input
           type="file"
           accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
           onChange={(e) => handleFileUpload(variant, e)}
-          disabled={isUploading}
+          disabled={busy}
           style={{ display: 'none' }}
         />
         <div
           style={{
-            background: isUploading ? 'var(--line)' : '#25d366',
+            background: busy && !isThis ? 'var(--line)' : busy && isThis ? 'var(--line)' : '#25d366',
             color: '#000',
             padding: '14px 20px',
             borderRadius: '8px',
             fontWeight: '600',
-            cursor: isUploading ? 'wait' : 'pointer',
+            cursor: busy ? 'wait' : 'pointer',
             textAlign: 'center',
             fontSize: '15px',
+            opacity: busy && !isThis ? 0.55 : 1,
           }}
         >
-          {isUploading ? '⏳ Envoi…' : '📁 Choisir un fichier'}
+          {isThis ? '⏳ Envoi…' : busy ? '⏳ Autre envoi en cours…' : '📁 Choisir un fichier'}
         </div>
       </label>
     </div>
-  )
+    )
+  }
 
   return (
     <MainContent style={{ background: 'var(--background)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -190,7 +195,8 @@ export default function MenuSetupAdmin() {
         )}
 
         <p style={{ color: 'var(--muted)', fontSize: '12px', textAlign: 'center', marginTop: '4px' }}>
-          Les photos jusqu’à 10 Mo sont compressées automatiquement.
+          Les photos jusqu’à 10 Mo sont compressées automatiquement. Le français et l’anglais sont deux fichiers
+          distincts : déposer le FR ne remplace pas l’EN.
         </p>
 
         {message && (
@@ -242,7 +248,7 @@ export default function MenuSetupAdmin() {
             👀 Menu FR
           </a>
           <a
-            href="/api/menu-pdf?variant=en"
+            href="/api/menu-pdf?variant=en&strict=1"
             target="_blank"
             rel="noopener noreferrer"
             style={{

@@ -28,8 +28,10 @@ export async function POST(request: NextRequest) {
 
   try {
     const formData = await request.formData()
+    const fromForm = formData.get('variant')
+    const fromQuery = request.nextUrl.searchParams.get('variant')
     const variant = parseMenuDayVariant(
-      typeof formData.get('variant') === 'string' ? String(formData.get('variant')) : null,
+      typeof fromForm === 'string' ? fromForm : fromQuery,
     )
     const file = formData.get('file')
 
@@ -99,6 +101,7 @@ export async function POST(request: NextRequest) {
           : 'Menu compressé en WebP (1 Mo max) et mis à jour',
         url: blob.url,
         variant,
+        pathname,
       })
     }
 
@@ -113,6 +116,7 @@ export async function POST(request: NextRequest) {
         : 'Menu compressé en WebP (1 Mo max) et mis à jour localement',
       url: `/${pathname}`,
       variant,
+      pathname,
     })
   } catch (error: unknown) {
     console.error("Erreur lors de l'upload :", error)

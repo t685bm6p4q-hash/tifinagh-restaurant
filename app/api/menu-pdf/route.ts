@@ -19,9 +19,12 @@ function menuDisplayEtag(menu: LoadedPublicMenu, displayWidth: number): string {
 
 async function serveMenu(request: NextRequest, body: boolean) {
   const requested = parseMenuDayVariant(request.nextUrl.searchParams.get('variant'))
+  const strict = request.nextUrl.searchParams.get('strict') === '1'
 
   try {
-    const menu = await loadPublicMenu(requested)
+    const menu = await loadPublicMenu(requested, {
+      fallbackEnToFr: requested === 'en' ? !strict : true,
+    })
     const displayWidth = parseMenuDisplayWidth(request.nextUrl.searchParams.get('w'))
     const contentType =
       menu.contentType.startsWith('image/') ? menu.contentType : sniffMenuContentType(menu.bytes) ?? menu.contentType

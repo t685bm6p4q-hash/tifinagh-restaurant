@@ -12,7 +12,10 @@ function canvasToBlob(
 }
 
 /** Compresse une photo de menu dans le navigateur (WebP ≤ 1 Mo, JPEG en repli). */
-export async function compressMenuImageInBrowser(file: File): Promise<File> {
+export async function compressMenuImageInBrowser(
+  file: File,
+  variant: 'fr' | 'en' = 'fr',
+): Promise<File> {
   const bitmap = await createImageBitmap(file)
   const scale = Math.min(1, MAX_SIDE / Math.max(bitmap.width, bitmap.height))
   let width = Math.max(1, Math.round(bitmap.width * scale))
@@ -70,5 +73,6 @@ export async function compressMenuImageInBrowser(file: File): Promise<File> {
   }
 
   const ext = type === 'image/webp' ? 'webp' : 'jpg'
-  return new File([blob], `menu-du-jour.${ext}`, { type, lastModified: Date.now() })
+  const base = variant === 'en' ? 'menu-du-jour-en' : 'menu-du-jour'
+  return new File([blob], `${base}.${ext}`, { type, lastModified: Date.now() })
 }

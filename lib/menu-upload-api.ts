@@ -8,6 +8,8 @@ const menuUploadSuccessBodySchema = z.object({
   success: z.literal(true),
   message: z.string(),
   url: z.string(),
+  variant: z.enum(['fr', 'en']).optional(),
+  pathname: z.string().optional(),
 })
 
 type MenuUploadErrorBody = z.infer<typeof menuUploadErrorBodySchema>

@@ -52,6 +52,8 @@ export function MenuPdfViewerClient({
   }, [defaultVariant])
 
   const showEnFallback = variant === 'en' && !hasEnglish
+  /** Sur le site FR : onglet EN sans fichier ≠ afficher le menu français en dessous. */
+  const hideMenuBecauseEnMissing = showEnFallback && defaultVariant === 'fr'
   const servedVariant: MenuDayVariant = showEnFallback ? 'fr' : variant
   const url = useMemo(() => menuPdfApiUrl(servedVariant), [servedVariant])
   const previewImageUrl = useMemo(
@@ -168,22 +170,24 @@ export function MenuPdfViewerClient({
         <p className="menu-lang-fallback" role="status">{enFallbackNote}</p>
       ) : null}
 
-      <div
-        className="menu-pdf-viewer-wrap"
-        onDoubleClick={displayKind !== 'pdf' && !useServerLcpImage ? undefined : onPreviewActivate}
-        onTouchEnd={displayKind !== 'pdf' && !useServerLcpImage ? undefined : onPreviewTouchEnd}
-        title={fullscreenOpenLabel}
-      >
-        {media}
-        <div className="menu-pdf-viewer-actions">
-          <button type="button" className="button menu-pdf-fullscreen-open" onClick={openFullscreen}>
-            <Maximize2 size={18} strokeWidth={2.25} aria-hidden="true" />
-            {fullscreenOpenLabel}
-          </button>
+      {!hideMenuBecauseEnMissing ? (
+        <div
+          className="menu-pdf-viewer-wrap"
+          onDoubleClick={displayKind !== 'pdf' && !useServerLcpImage ? undefined : onPreviewActivate}
+          onTouchEnd={displayKind !== 'pdf' && !useServerLcpImage ? undefined : onPreviewTouchEnd}
+          title={fullscreenOpenLabel}
+        >
+          {media}
+          <div className="menu-pdf-viewer-actions">
+            <button type="button" className="button menu-pdf-fullscreen-open" onClick={openFullscreen}>
+              <Maximize2 size={18} strokeWidth={2.25} aria-hidden="true" />
+              {fullscreenOpenLabel}
+            </button>
+          </div>
         </div>
-      </div>
+      ) : null}
 
-      {fullscreen ? (
+      {fullscreen && !hideMenuBecauseEnMissing ? (
         <div
           className="menu-pdf-fullscreen"
           role="dialog"

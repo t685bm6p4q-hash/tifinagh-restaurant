@@ -67,8 +67,17 @@ async function loadMenuFromStorage(
   return { bytes, contentType, revision: String(fileStat.mtimeMs) }
 }
 
+export type LoadPublicMenuOptions = {
+  /** Si false, pas de repli FR quand le fichier EN est absent (aperçu admin strict). */
+  fallbackEnToFr?: boolean
+}
+
 /** Charge le menu pour une variante ; repli EN → FR si demandé. */
-export async function loadPublicMenu(variant: MenuDayVariant = 'fr'): Promise<LoadedPublicMenu> {
+export async function loadPublicMenu(
+  variant: MenuDayVariant = 'fr',
+  options: LoadPublicMenuOptions = {},
+): Promise<LoadedPublicMenu> {
+  const fallbackEnToFr = options.fallbackEnToFr ?? true
   const pathname = menuBlobPathname(variant)
 
   try {
@@ -76,7 +85,10 @@ export async function loadPublicMenu(variant: MenuDayVariant = 'fr'): Promise<Lo
     return { ...menu, variant, fellBackFromEn: false }
   } catch {
     if (variant === 'en') {
-      const fr = await loadPublicMenu('fr')
+      if (!fallbackEnToFr) {
+        throw new Error('MENU_NOT_FOUND')
+      }
+      const fr = await loadPublicMenu('fr', options)
       return { ...fr, variant: 'fr', fellBackFromEn: true }
     }
     if (isBlobConfigured()) {
