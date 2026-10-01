@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import {
-  MENU_IMAGE_DISPLAY_CACHE_IMMUTABLE,
   menuInlineResponseHeaders,
-  menuRevisionCacheKey,
   parseMenuDayVariant,
   sniffMenuContentType,
   type MenuDayVariant,
@@ -45,20 +43,10 @@ async function serveMenu(request: NextRequest, body: boolean) {
 
     const headers = new Headers(menuInlineResponseHeaders(servedType, menu.variant))
     applyMenuEmbedHeaders(headers, servedType)
+    headers.set('Cache-Control', 'no-store, must-revalidate')
     if (displayWidth && contentType.startsWith('image/')) {
-      const cacheKey = menuRevisionCacheKey(request.nextUrl.searchParams.get('r'))
-      const revisionMatches =
-        cacheKey !== null && cacheKey === menuRevisionCacheKey(menu.revision)
-      headers.set(
-        'Cache-Control',
-        revisionMatches ? MENU_IMAGE_DISPLAY_CACHE_IMMUTABLE : 'no-store, must-revalidate',
-      )
       const etag = menuDisplayEtag(menu, displayWidth, requested)
       headers.set('ETag', etag)
-      const ifNoneMatch = request.headers.get('if-none-match')
-      if (ifNoneMatch === etag) {
-        return new NextResponse(null, { status: 304, headers })
-      }
     }
     headers.set('X-Menu-Requested', requested)
     headers.set('X-Menu-Served-Variant', menu.variant)

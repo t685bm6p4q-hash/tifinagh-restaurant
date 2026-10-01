@@ -17,6 +17,7 @@ type MenuDayPreviewImageProps = {
 export function MenuDayPreviewImage({ variant, alt, revision }: MenuDayPreviewImageProps) {
   return (
     <img
+      key={revision ?? variant}
       className="menu-pdf-viewer menu-pdf-viewer--image"
       src={menuPdfApiUrl(variant, { maxWidth: MENU_IMAGE_LCP_WIDTH, revision })}
       srcSet={menuPdfPreviewSrcSet(variant, MENU_IMAGE_PREVIEW_WIDTHS, revision)}

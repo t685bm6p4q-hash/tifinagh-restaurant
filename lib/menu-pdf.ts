@@ -147,9 +147,6 @@ export function menuKindFromContentType(contentType: string): MenuMediaKind {
   return contentType.startsWith('image/') ? 'image' : 'pdf'
 }
 
-/** Images redimensionnées : cache long seulement si l’URL contient `?r=` (révision du fichier). */
-export const MENU_IMAGE_DISPLAY_CACHE_IMMUTABLE = 'public, max-age=31536000, immutable'
-
 export function menuInlineResponseHeaders(
   contentType: string,
   variant: MenuDayVariant = 'fr',

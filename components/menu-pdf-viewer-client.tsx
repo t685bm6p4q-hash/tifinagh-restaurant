@@ -125,6 +125,7 @@ export function MenuPdfViewerClient({
         lcpPreview
       ) : (
         <img
+          key={servedRevision ?? servedVariant}
           className="menu-pdf-viewer menu-pdf-viewer--image"
           src={previewImageUrl}
           srcSet={previewSrcSet}

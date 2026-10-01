@@ -1,4 +1,5 @@
-import { head, list } from '@vercel/blob'
+import { get, head, list } from '@vercel/blob'
+import { unstable_noStore as noStore } from 'next/cache'
 import { access, open, readFile, stat } from 'node:fs/promises'
 import path from 'node:path'
 import {
@@ -62,7 +63,7 @@ async function menuBlobStatusesFromList(): Promise<{
       variant,
       pathname,
       exists: true,
-      revision: blob.uploadedAt.toISOString(),
+      revision: blob.etag || blob.uploadedAt.toISOString(),
       contentType: null,
       sizeBytes: blob.size,
     }
@@ -76,6 +77,7 @@ export async function getMenuStorageOverview(): Promise<{
   fr: MenuStorageStatus
   en: MenuStorageStatus
 }> {
+  noStore()
   if (isBlobConfigured()) {
     return menuBlobStatusesFromList()
   }
@@ -95,7 +97,7 @@ export async function getMenuStorageStatus(variant: MenuDayVariant): Promise<Men
         variant,
         pathname,
         exists: true,
-        revision: meta.uploadedAt.toISOString(),
+        revision: meta.etag || meta.uploadedAt.toISOString(),
         contentType: meta.contentType ?? null,
         sizeBytes: meta.size,
       }
@@ -152,12 +154,16 @@ async function loadMenuFromStorage(
 ): Promise<{ bytes: Uint8Array; contentType: string; revision: string }> {
   if (isBlobConfigured()) {
     const meta = await head(pathname)
-    const upstream = await fetch(meta.url)
-    if (!upstream.ok) throw new Error('Blob fetch failed')
-    const bytes = new Uint8Array(await upstream.arrayBuffer())
+    const result = await get(pathname, { access: 'public', useCache: false })
+    if (!result || result.statusCode !== 200 || !result.stream) {
+      throw new Error('Blob fetch failed')
+    }
+    const bytes = new Uint8Array(await new Response(result.stream).arrayBuffer())
     const sniffed = sniffMenuContentType(bytes)
-    const contentType = sniffed ?? meta.contentType ?? 'application/pdf'
-    return { bytes, contentType, revision: meta.uploadedAt.toISOString() }
+    const contentType =
+      sniffed ?? result.blob.contentType ?? meta.contentType ?? 'application/pdf'
+    const revision = meta.etag || meta.uploadedAt.toISOString()
+    return { bytes, contentType, revision }
   }
 
   const filePath = path.join(process.cwd(), 'public', pathname)
@@ -177,6 +183,7 @@ export async function loadPublicMenu(
   variant: MenuDayVariant = 'fr',
   options: LoadPublicMenuOptions = {},
 ): Promise<LoadedPublicMenu> {
+  noStore()
   const fallbackEnToFr = options.fallbackEnToFr ?? true
   const pathname = menuBlobPathname(variant)
 

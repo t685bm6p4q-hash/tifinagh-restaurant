@@ -32,6 +32,7 @@ export default function MenuSetupAdmin() {
   const [uploadingVariant, setUploadingVariant] = useState<MenuDayVariant | null>(null)
   const [chef, setChef] = useState<string>('')
   const [storage, setStorage] = useState<{ fr: MenuStorageRow; en: MenuStorageRow } | null>(null)
+  const [menuPreviewHref, setMenuPreviewHref] = useState<string | null>(null)
 
   const refreshStorage = useCallback(async () => {
     try {
@@ -118,6 +119,7 @@ export default function MenuSetupAdmin() {
           type: 'success',
           text: `✅ ${label} mis en ligne sur le site${chef ? ` — ${chef}` : ''}`,
         })
+        setMenuPreviewHref(`/menu-du-jour?m=${Date.now()}`)
         void refreshStorage()
         return
       }
@@ -295,6 +297,26 @@ export default function MenuSetupAdmin() {
             <p style={{ color: 'var(--foreground)', margin: 0, fontSize: '14px' }}>{message.text}</p>
           </div>
         )}
+
+        {menuPreviewHref ? (
+          <p style={{ margin: '14px 0 0', textAlign: 'center' }}>
+            <a
+              href={menuPreviewHref}
+              style={{
+                display: 'inline-block',
+                padding: '12px 18px',
+                borderRadius: '5px',
+                background: '#25d366',
+                color: '#000',
+                fontWeight: 700,
+                fontSize: '14px',
+                textDecoration: 'none',
+              }}
+            >
+              Voir le menu à jour sur le site →
+            </a>
+          </p>
+        ) : null}
 
         <div style={{ marginTop: '28px', display: 'flex', flexWrap: 'wrap', gap: '10px', justifyContent: 'center' }}>
           <a
