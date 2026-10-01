@@ -2743,6 +2743,33 @@ select:focus { border-color: var(--terracotta); }
   overflow: hidden;
 }
 
+.menu-pdf-mobile-open {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .menu-pdf-mobile-open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 14px 16px;
+    background: linear-gradient(180deg, var(--wood-mid) 0%, var(--wood) 100%);
+    color: var(--gold);
+    border-bottom: 1px solid var(--line);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  .menu-pdf-viewer--embed {
+    min-height: min(65vh, 520px);
+    height: min(72vh, 640px);
+  }
+}
+
 .menu-pdf-viewer {
   display: block;
   width: 100%;

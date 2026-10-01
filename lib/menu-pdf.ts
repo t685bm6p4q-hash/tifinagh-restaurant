@@ -17,19 +17,33 @@ export function menuDayVariantForLocale(locale: Locale): MenuDayVariant {
   return locale === 'fr' || locale === 'zgh' ? 'fr' : 'en'
 }
 
+export function menuRevisionCacheKey(revision: string | null | undefined): string | null {
+  if (!revision) return null
+  const safe = revision.replace(/[^\dA-Za-z-_.]/g, '').slice(0, 80)
+  return safe.length > 0 ? safe : null
+}
+
 export function menuPdfApiUrl(
   variant: MenuDayVariant,
-  options?: { maxWidth?: number },
+  options?: { maxWidth?: number; revision?: string | null },
 ): string {
   const params = new URLSearchParams()
   if (variant === 'en') params.set('variant', 'en')
   if (options?.maxWidth) params.set('w', String(options.maxWidth))
+  const r = menuRevisionCacheKey(options?.revision)
+  if (r) params.set('r', r)
   const query = params.toString()
   return query ? `${MENU_PDF_URL}?${query}` : MENU_PDF_URL
 }
 
-export function menuPdfPreviewSrcSet(variant: MenuDayVariant, widths: readonly number[]): string {
-  return widths.map((w) => `${menuPdfApiUrl(variant, { maxWidth: w })} ${w}w`).join(', ')
+export function menuPdfPreviewSrcSet(
+  variant: MenuDayVariant,
+  widths: readonly number[],
+  revision?: string | null,
+): string {
+  return widths
+    .map((w) => `${menuPdfApiUrl(variant, { maxWidth: w, revision })} ${w}w`)
+    .join(', ')
 }
 
 export function parseMenuDayVariant(value: string | null | undefined): MenuDayVariant {
@@ -133,9 +147,8 @@ export function menuKindFromContentType(contentType: string): MenuMediaKind {
   return contentType.startsWith('image/') ? 'image' : 'pdf'
 }
 
-/** Variantes redimensionnées (WebP) : menu du jour mis à jour le matin — cache + revalidation ETag. */
-export const MENU_IMAGE_DISPLAY_CACHE_CONTROL =
-  'public, max-age=86400, stale-while-revalidate=604800'
+/** Images redimensionnées : cache long seulement si l’URL contient `?r=` (révision du fichier). */
+export const MENU_IMAGE_DISPLAY_CACHE_IMMUTABLE = 'public, max-age=31536000, immutable'
 
 export function menuInlineResponseHeaders(
   contentType: string,

@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
         contentType,
         addRandomSuffix: false,
         allowOverwrite: true,
-        cacheControlMaxAge: 60,
+        cacheControlMaxAge: 0,
       })
 
       return NextResponse.json({

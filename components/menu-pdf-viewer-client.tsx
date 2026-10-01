@@ -27,6 +27,7 @@ type MenuPdfViewerClientProps = {
   langToggleFr: string
   langToggleEn: string
   enFallbackNote: string
+  revisionByVariant: { fr: string | null; en: string | null }
   fullscreenOpenLabel: string
   fullscreenBackLabel: string
 }
@@ -40,6 +41,7 @@ export function MenuPdfViewerClient({
   langToggleFr,
   langToggleEn,
   enFallbackNote,
+  revisionByVariant,
   fullscreenOpenLabel,
   fullscreenBackLabel,
 }: MenuPdfViewerClientProps) {
@@ -53,14 +55,22 @@ export function MenuPdfViewerClient({
 
   const showEnFallback = variant === 'en' && !hasEnglish
   const servedVariant: MenuDayVariant = showEnFallback ? 'fr' : variant
-  const url = useMemo(() => menuPdfApiUrl(servedVariant), [servedVariant])
+  const servedRevision = revisionByVariant[servedVariant]
+  const url = useMemo(
+    () => menuPdfApiUrl(servedVariant, { revision: servedRevision }),
+    [servedVariant, servedRevision],
+  )
   const previewImageUrl = useMemo(
-    () => menuPdfApiUrl(servedVariant, { maxWidth: MENU_IMAGE_LCP_WIDTH }),
-    [servedVariant],
+    () =>
+      menuPdfApiUrl(servedVariant, {
+        maxWidth: MENU_IMAGE_LCP_WIDTH,
+        revision: servedRevision,
+      }),
+    [servedVariant, servedRevision],
   )
   const previewSrcSet = useMemo(
-    () => menuPdfPreviewSrcSet(servedVariant, MENU_IMAGE_PREVIEW_WIDTHS),
-    [servedVariant],
+    () => menuPdfPreviewSrcSet(servedVariant, MENU_IMAGE_PREVIEW_WIDTHS, servedRevision),
+    [servedVariant, servedRevision],
   )
   const serverKind = kindByVariant[servedVariant]
   const [displayKind, setDisplayKind] = useState<MenuMediaKind>(serverKind)
@@ -130,7 +140,12 @@ export function MenuPdfViewerClient({
         />
       )
     ) : (
-      <iframe className="menu-pdf-viewer" src={url} title={label} />
+      <>
+        <a className="menu-pdf-mobile-open" href={url} target="_blank" rel="noopener noreferrer">
+          {fullscreenOpenLabel}
+        </a>
+        <iframe className="menu-pdf-viewer menu-pdf-viewer--embed" src={url} title={label} />
+      </>
     )
 
   return (
