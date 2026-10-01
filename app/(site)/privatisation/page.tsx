@@ -105,7 +105,7 @@ export default async function Privatisation() {
                 <strong style={{ color: 'var(--foreground)' }}>{p.howStrong}</strong>.
               </p>
               <p style={{ margin: 0 }}>
-                <a href={phoneTel} style={{ color: 'var(--gold)' }}>
+                <a className="contact-phone-link" href={phoneTel}>
                   {phoneDisplay}
                 </a>
                 {' · '}

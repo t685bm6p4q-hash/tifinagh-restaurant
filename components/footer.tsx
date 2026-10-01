@@ -1,8 +1,11 @@
 import Link from 'next/link'
 import {
+  googleMapsUrl,
   googleSearchUrl,
   onlineBookingUrl,
   pagesJaunesUrl,
+  phoneDisplay,
+  phoneTel,
   whatsappLink,
 } from '@/lib/restaurant-data'
 import { CalendarDaysIcon } from '@/components/icons'
@@ -68,11 +71,20 @@ export async function Footer() {
           </Link>
           <p>
             <MapPinIcon />
-            17 Av. Rachel, 75018 Paris
+            <a
+              className="contact-address-link"
+              href={googleMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              17 Av. Rachel, 75018 Paris
+            </a>
           </p>
           <p>
             <PhoneIcon />
-            <a href="tel:+33142942240">01 42 94 22 40</a>
+            <a className="contact-phone-link" href={phoneTel}>
+              {phoneDisplay}
+            </a>
           </p>
           <div className="footer-hours">
             <h2>{dictionary.footer.openingHours}</h2>

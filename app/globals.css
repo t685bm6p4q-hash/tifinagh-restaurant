@@ -1909,6 +1909,12 @@ a.nav-cta.nav-active {
 
 .footer p span { margin-left: auto; }
 
+.footer p .contact-address-link,
+.footer p .contact-phone-link {
+  flex: 1;
+  min-width: 0;
+}
+
 .opening-days,
 .opening-hours {
   display: block;

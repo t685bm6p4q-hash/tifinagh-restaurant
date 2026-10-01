@@ -201,9 +201,16 @@ export async function HomeTemplate() {
             <p className="map-section-lead">{dictionary.home.mapText}</p>
             <p className="map-section-address">
               <span className="map-section-address-label">{dictionary.contact.address}</span>
-              17 Av. Rachel
-              <br />
-              75018 Paris
+              <a
+                className="contact-address-link"
+                href={googleMapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                17 Av. Rachel
+                <br />
+                75018 Paris
+              </a>
             </p>
             <a
               className="map-section-cta text-link"

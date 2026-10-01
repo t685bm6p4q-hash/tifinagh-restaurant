@@ -4,6 +4,7 @@ import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { MenuCrossLink } from '@/components/menu-cross-link'
 import { MenuPdfViewer } from '@/components/menu-pdf-viewer'
+import { phoneDisplay, phoneTel } from '@/lib/restaurant-data'
 import { getI18n } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
@@ -72,7 +73,10 @@ export default async function MenuDuJour() {
               <strong>{dictionary.contact.hoursDays} :</strong> {dictionary.common.hoursRange}
             </p>
             <p className="menu-jour-phone">
-              {d.phoneLabel} <a href="tel:+33142942240">01 42 94 22 40</a>
+              {d.phoneLabel}{' '}
+              <a className="contact-phone-link" href={phoneTel}>
+                {phoneDisplay}
+              </a>
             </p>
           </div>
         </section>
