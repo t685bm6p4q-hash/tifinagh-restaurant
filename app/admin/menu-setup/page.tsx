@@ -20,12 +20,6 @@ type MenuStorageRow = {
   sizeBytes: number | null
 }
 
-function formatMenuSize(bytes: number | null): string {
-  if (bytes == null) return ''
-  if (bytes < 1024) return `${bytes} o`
-  return `${(bytes / 1024).toFixed(1)} Ko`
-}
-
 function formatMenuRevision(revision: string | null): string {
   if (!revision) return 'aucun fichier en ligne'
   const asDate = /^\d+$/.test(revision) ? new Date(Number(revision)) : new Date(revision)
@@ -122,7 +116,7 @@ export default function MenuSetupAdmin() {
         const label = variant === 'en' ? 'Menu anglais' : 'Menu français'
         setMessage({
           type: 'success',
-          text: `✅ ${label} à jour (${parsed.body.pathname ?? (variant === 'en' ? 'menu-du-jour-en.pdf' : 'menu-du-jour.pdf')})${chef ? ` — ${chef}` : ''}`,
+          text: `✅ ${label} mis en ligne sur le site${chef ? ` — ${chef}` : ''}`,
         })
         void refreshStorage()
         return
@@ -226,45 +220,30 @@ export default function MenuSetupAdmin() {
           </label>
         </div>
 
-        {storage ? (
+        {storage && (storage.fr.exists || storage.en.exists) ? (
           <div
             style={{
               marginBottom: '20px',
               padding: '12px 14px',
               borderRadius: '5px',
-              border: '1px solid var(--line)',
-              background: 'var(--surface)',
-              fontSize: '12px',
-              color: 'var(--muted)',
-              lineHeight: 1.5,
+              border: '1px solid rgba(37, 211, 102, 0.35)',
+              background: 'rgba(37, 211, 102, 0.08)',
+              fontSize: '13px',
+              color: 'var(--foreground)',
+              lineHeight: 1.55,
             }}
           >
-            <p style={{ margin: '0 0 8px', color: 'var(--foreground)', fontWeight: 600, fontSize: '13px' }}>
-              Fichiers déjà sur Vercel (pas l’envoi en cours)
+            <p style={{ margin: '0 0 10px', fontWeight: 600, fontSize: '14px' }}>
+              Mise en ligne sur le site
             </p>
-            <p style={{ margin: '0 0 6px', fontSize: '11px' }}>
-              Un horaire identique = souvent deux dépôts la même minute, pas un seul fichier copié deux fois.
-            </p>
-            <p style={{ margin: 0 }}>
-              <strong>FR</strong> ({storage.fr.pathname}) :{' '}
-              {storage.fr.exists
-                ? `en ligne — ${formatMenuRevision(storage.fr.revision)}${storage.fr.sizeBytes != null ? ` — ${formatMenuSize(storage.fr.sizeBytes)}` : ''}`
-                : 'absent'}
-            </p>
-            <p style={{ margin: '6px 0 0' }}>
-              <strong>EN</strong> ({storage.en.pathname}) :{' '}
-              {storage.en.exists
-                ? `en ligne — ${formatMenuRevision(storage.en.revision)}${storage.en.sizeBytes != null ? ` — ${formatMenuSize(storage.en.sizeBytes)}` : ''}`
-                : 'absent'}
-            </p>
-            {storage.fr.exists &&
-            storage.en.exists &&
-            storage.fr.sizeBytes != null &&
-            storage.en.sizeBytes != null &&
-            storage.fr.sizeBytes === storage.en.sizeBytes ? (
-              <p style={{ margin: '8px 0 0', color: 'var(--gold)', fontSize: '11px' }}>
-                Même taille en octets : normal si les deux menus sont identiques ; sinon déposez un fichier EN
-                différent.
+            {storage.fr.exists ? (
+              <p style={{ margin: 0 }}>
+                <strong>Français</strong> — {formatMenuRevision(storage.fr.revision)}
+              </p>
+            ) : null}
+            {storage.en.exists ? (
+              <p style={{ margin: storage.fr.exists ? '6px 0 0' : 0 }}>
+                <strong>English</strong> — {formatMenuRevision(storage.en.revision)}
               </p>
             ) : null}
           </div>
@@ -282,8 +261,7 @@ export default function MenuSetupAdmin() {
         )}
 
         <p style={{ color: 'var(--muted)', fontSize: '12px', textAlign: 'center', marginTop: '4px' }}>
-          Les photos jusqu’à 10 Mo sont compressées automatiquement. Le français et l’anglais sont deux fichiers
-          distincts : déposer le FR ne remplace pas l’EN.
+          Les photos jusqu’à 10 Mo sont compressées automatiquement.
         </p>
 
         {message && (
