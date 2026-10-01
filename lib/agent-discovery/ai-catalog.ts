@@ -25,57 +25,28 @@ export type AiCatalogEntry = {
 }
 
 export function buildAiCatalog(): AiCatalogManifest {
-  const llmsTxt = new URL('/llms.txt', siteUrl).href
   const mcpServerCard = new URL('/.well-known/mcp-server-card.json', siteUrl).href
-  const agentTools = new URL('/.well-known/agent-tools.json', siteUrl).href
 
   return {
     specVersion: CATALOG_SPEC_VERSION,
     host: {
-      displayName: 'Le Tifinagh — bistrot Montmartre',
+      displayName: 'Le Tifinagh',
       identifier: 'did:web:www.tifinagh.fr',
       documentationUrl: new URL('/mentions-legales', siteUrl).href,
     },
     entries: [
       {
-        identifier: 'urn:air:www.tifinagh.fr:doc:llms-txt',
-        displayName: 'Index llms.txt',
-        description:
-          'Carte des pages publiques, réservation (uReserve, WhatsApp), menus et FAQ pour assistants IA.',
-        type: 'text/markdown; profile="urn:air:agent-skills"',
-        url: llmsTxt,
-        tags: ['documentation', 'llms', 'pigalle', 'moulin-rouge'],
-        representativeQueries: [
-          'Où manger pas cher près du Moulin Rouge ?',
-          'Comment réserver au restaurant Tifinagh ?',
-        ],
-        updatedAt: UPDATED_AT,
-      },
-      {
         identifier: 'urn:air:www.tifinagh.fr:server:webmcp',
-        displayName: 'WebMCP — réservation',
+        displayName: 'Réservation WebMCP',
         description:
-          'Outils navigateur prepare_whatsapp_reservation et book_table_online. Spécification OpenAPI complémentaire : agent-tools.json.',
+          'Outils navigateur prepare_whatsapp_reservation et book_table_online (uReserve et WhatsApp). Pages HTML, menus PDF et index complet : voir /llms.txt.',
         type: 'application/mcp-server-card+json',
         url: mcpServerCard,
-        tags: ['reservation', 'whatsapp', 'booking', 'ureserve', 'group-dining'],
+        tags: ['reservation', 'whatsapp', 'booking', 'ureserve', 'pigalle', 'moulin-rouge', 'group-dining'],
         representativeQueries: [
+          'Où manger pas cher près du Moulin Rouge ?',
           'Réserver pour un grand groupe à Montmartre',
           'Book a table near Pigalle Paris',
-        ],
-        updatedAt: UPDATED_AT,
-      },
-      {
-        identifier: 'urn:air:www.tifinagh.fr:action:agent-tools-openapi',
-        displayName: 'Actions agent (OpenAPI)',
-        description:
-          'Schéma OpenAPI des actions de préparation WhatsApp et URL uReserve (documentation machine).',
-        type: 'application/agent-card+json',
-        url: agentTools,
-        tags: ['reservation', 'openapi', 'whatsapp'],
-        representativeQueries: [
-          'Prepare a WhatsApp message to book a table',
-          'Envoyer une demande de réservation par WhatsApp',
         ],
         updatedAt: UPDATED_AT,
       },
