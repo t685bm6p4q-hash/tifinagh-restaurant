@@ -246,8 +246,8 @@ button, input, textarea, select { font: inherit; }
 }
 
 a.nav-cta {
-  background-color: var(--terracotta) !important;
-  color: #fff !important;
+  background-color: var(--gold) !important;
+  color: #111210 !important;
   padding: 9px 16px;
   border-radius: 5px;
   letter-spacing: 0.06em;
@@ -263,8 +263,8 @@ a.nav-cta {
 }
 
 a.nav-cta:hover {
-  background-color: #a85a42 !important;
-  color: #fff !important;
+  background-color: #e8c56a !important;
+  color: #111210 !important;
 }
 
 a.nav-cta.nav-active {
@@ -885,16 +885,16 @@ a.nav-cta.nav-active {
 }
 
 .button-primary {
-  background: var(--terracotta) !important;
-  color: #fff !important;
-  border: 2px solid var(--terracotta) !important;
+  background: var(--gold) !important;
+  color: #111210 !important;
+  border: 2px solid var(--gold) !important;
   font-weight: 600;
 }
 
 .button-primary:hover {
-  background: #a85a42 !important;
-  border-color: #a85a42 !important;
-  color: #fff !important;
+  background: #e8c56a !important;
+  border-color: #e8c56a !important;
+  color: #111210 !important;
 }
 
 .button-whatsapp {
