@@ -7,6 +7,7 @@
   --surface:     #181a17;
   --surface-2:   #20221e;
   --gold:        #d6ad45;
+  --terracotta:  #c46a4e;
   --peach:       #f2a092;
   --muted:       #b8b2a5;
   --line:        #34352f;
@@ -180,7 +181,7 @@ button, input, textarea, select { font: inherit; }
   letter-spacing: 0.08em;
 }
 
-/* Barre horizontale : logo = accueil, bouton vert = réserver */
+/* Barre horizontale : logo = accueil ; vert réservé au WhatsApp */
 @media (min-width: 1381px) {
   .main-nav a.nav-home,
   .main-nav a.nav-reservation {
@@ -244,10 +245,9 @@ button, input, textarea, select { font: inherit; }
   background-color: rgba(214, 173, 69, 0.14) !important;
 }
 
-/* Meme contraste que .button-primary : !important + background-color explicite. */
 a.nav-cta {
-  background-color: #25d366 !important;
-  color: #000 !important;
+  background-color: var(--terracotta) !important;
+  color: #fff !important;
   padding: 9px 16px;
   border-radius: 5px;
   letter-spacing: 0.06em;
@@ -263,8 +263,8 @@ a.nav-cta {
 }
 
 a.nav-cta:hover {
-  background-color: #20bd5b !important;
-  color: #000 !important;
+  background-color: #a85a42 !important;
+  color: #fff !important;
 }
 
 a.nav-cta.nav-active {
@@ -885,17 +885,16 @@ a.nav-cta.nav-active {
 }
 
 .button-primary {
-  background: #25d366 !important;
-  /* Texte fonce : le blanc sur ce vert ne donne que 1.98:1, sous le seuil WCAG AA. */
-  color: #071b10 !important;
-  border-color: #25d366 !important;
+  background: var(--terracotta) !important;
+  color: #fff !important;
+  border: 2px solid var(--terracotta) !important;
   font-weight: 600;
 }
 
 .button-primary:hover {
-  background: #20bd5b !important;
-  border-color: #20bd5b !important;
-  color: #071b10 !important;
+  background: #a85a42 !important;
+  border-color: #a85a42 !important;
+  color: #fff !important;
 }
 
 .button-whatsapp {
@@ -1497,26 +1496,25 @@ a.nav-cta.nav-active {
 
   .map-section-cta {
     display: inline-flex;
-    width: 100%;
-    max-width: 320px;
+    width: auto;
+    max-width: 100%;
     justify-content: center;
     margin: 0 auto;
-    padding: 14px 18px;
-    border: 0;
-    border-radius: var(--radius);
-    background: #25d366 !important;
-    color: #071b10 !important;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    padding: 12px 4px 15px;
+    background: transparent !important;
+    color: var(--gold) !important;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: none;
     text-decoration: none;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    border-bottom: 1px solid var(--gold);
+    box-shadow: none;
   }
 
   .map-section-cta:hover {
-    background: #20bd5b !important;
-    color: #071b10 !important;
+    background: transparent !important;
+    color: var(--gold) !important;
   }
 }
 

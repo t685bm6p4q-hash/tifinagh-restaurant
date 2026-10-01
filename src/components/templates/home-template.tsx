@@ -8,7 +8,6 @@ import {
   ArrowRightIcon,
   CalendarDaysIcon,
   ChefHatIcon,
-  MessageCircleIcon,
   WineIcon,
 } from '@/components/icons'
 import { MapEmbedLazy } from '@/components/map-embed-lazy'
@@ -57,7 +56,7 @@ export async function HomeTemplate() {
             </p>
             <div className="actions">
               <Link className="button button-primary" href="/reservation" prefetch={false}>
-                <MessageCircleIcon size={16} />
+                <CalendarDaysIcon size={16} />
                 {dictionary.home.bookTable}
               </Link>
               <div className="hero-menu-links">
