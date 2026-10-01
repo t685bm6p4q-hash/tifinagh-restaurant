@@ -17,6 +17,13 @@ type MenuStorageRow = {
   exists: boolean
   revision: string | null
   contentType: string | null
+  sizeBytes: number | null
+}
+
+function formatMenuSize(bytes: number | null): string {
+  if (bytes == null) return ''
+  if (bytes < 1024) return `${bytes} o`
+  return `${(bytes / 1024).toFixed(1)} Ko`
 }
 
 function formatMenuRevision(revision: string | null): string {
@@ -233,16 +240,33 @@ export default function MenuSetupAdmin() {
             }}
           >
             <p style={{ margin: '0 0 8px', color: 'var(--foreground)', fontWeight: 600, fontSize: '13px' }}>
-              Fichiers sur le serveur (indépendants)
+              Fichiers déjà sur Vercel (pas l’envoi en cours)
+            </p>
+            <p style={{ margin: '0 0 6px', fontSize: '11px' }}>
+              Un horaire identique = souvent deux dépôts la même minute, pas un seul fichier copié deux fois.
             </p>
             <p style={{ margin: 0 }}>
               <strong>FR</strong> ({storage.fr.pathname}) :{' '}
-              {storage.fr.exists ? `en ligne — ${formatMenuRevision(storage.fr.revision)}` : 'absent'}
+              {storage.fr.exists
+                ? `en ligne — ${formatMenuRevision(storage.fr.revision)}${storage.fr.sizeBytes != null ? ` — ${formatMenuSize(storage.fr.sizeBytes)}` : ''}`
+                : 'absent'}
             </p>
             <p style={{ margin: '6px 0 0' }}>
               <strong>EN</strong> ({storage.en.pathname}) :{' '}
-              {storage.en.exists ? `en ligne — ${formatMenuRevision(storage.en.revision)}` : 'absent'}
+              {storage.en.exists
+                ? `en ligne — ${formatMenuRevision(storage.en.revision)}${storage.en.sizeBytes != null ? ` — ${formatMenuSize(storage.en.sizeBytes)}` : ''}`
+                : 'absent'}
             </p>
+            {storage.fr.exists &&
+            storage.en.exists &&
+            storage.fr.sizeBytes != null &&
+            storage.en.sizeBytes != null &&
+            storage.fr.sizeBytes === storage.en.sizeBytes ? (
+              <p style={{ margin: '8px 0 0', color: 'var(--gold)', fontSize: '11px' }}>
+                Même taille en octets : normal si les deux menus sont identiques ; sinon déposez un fichier EN
+                différent.
+              </p>
+            ) : null}
           </div>
         ) : null}
 
@@ -295,6 +319,19 @@ export default function MenuSetupAdmin() {
         )}
 
         <div style={{ marginTop: '28px', display: 'flex', flexWrap: 'wrap', gap: '10px', justifyContent: 'center' }}>
+          <a
+            href="/menu-du-jour"
+            style={{
+              color: 'var(--gold)',
+              textDecoration: 'none',
+              fontSize: '13px',
+              padding: '8px 14px',
+              borderRadius: '4px',
+              border: '1px solid var(--gold)',
+            }}
+          >
+            🍽 Page menu du jour
+          </a>
           <a
             href="/api/menu-pdf"
             target="_blank"

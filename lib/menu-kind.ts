@@ -1,4 +1,4 @@
-import { head } from '@vercel/blob'
+import { head, list } from '@vercel/blob'
 import { access, open, readFile, stat } from 'node:fs/promises'
 import path from 'node:path'
 import {
@@ -31,6 +31,56 @@ export type MenuStorageStatus = {
   exists: boolean
   revision: string | null
   contentType: string | null
+  sizeBytes: number | null
+}
+
+function emptyMenuStorageStatus(variant: MenuDayVariant): MenuStorageStatus {
+  return {
+    variant,
+    pathname: menuBlobPathname(variant),
+    exists: false,
+    revision: null,
+    contentType: null,
+    sizeBytes: null,
+  }
+}
+
+async function menuBlobStatusesFromList(): Promise<{
+  fr: MenuStorageStatus
+  en: MenuStorageStatus
+}> {
+  const { blobs } = await list({ prefix: 'menu-du-jour' })
+  const byPath = new Map(blobs.map((blob) => [blob.pathname, blob]))
+
+  const fromBlob = (variant: MenuDayVariant): MenuStorageStatus => {
+    const pathname = menuBlobPathname(variant)
+    const blob = byPath.get(pathname)
+    if (!blob || blob.pathname !== pathname) {
+      return emptyMenuStorageStatus(variant)
+    }
+    return {
+      variant,
+      pathname,
+      exists: true,
+      revision: blob.uploadedAt.toISOString(),
+      contentType: null,
+      sizeBytes: blob.size,
+    }
+  }
+
+  return { fr: fromBlob('fr'), en: fromBlob('en') }
+}
+
+/** Statut FR + EN en une lecture (liste Blob exacte par pathname). */
+export async function getMenuStorageOverview(): Promise<{
+  fr: MenuStorageStatus
+  en: MenuStorageStatus
+}> {
+  if (isBlobConfigured()) {
+    return menuBlobStatusesFromList()
+  }
+  const [fr, en] = await Promise.all([getMenuStorageStatus('fr'), getMenuStorageStatus('en')])
+  return { fr, en }
 }
 
 export async function getMenuStorageStatus(variant: MenuDayVariant): Promise<MenuStorageStatus> {
@@ -38,21 +88,25 @@ export async function getMenuStorageStatus(variant: MenuDayVariant): Promise<Men
   if (isBlobConfigured()) {
     try {
       const meta = await head(pathname)
+      if (meta.pathname !== pathname) {
+        return emptyMenuStorageStatus(variant)
+      }
       return {
         variant,
         pathname,
         exists: true,
         revision: meta.uploadedAt.toISOString(),
         contentType: meta.contentType ?? null,
+        sizeBytes: meta.size,
       }
     } catch {
-      return { variant, pathname, exists: false, revision: null, contentType: null }
+      return emptyMenuStorageStatus(variant)
     }
   }
 
   const exists = await staticMenuExists(pathname)
   if (!exists) {
-    return { variant, pathname, exists: false, revision: null, contentType: null }
+    return emptyMenuStorageStatus(variant)
   }
 
   const filePath = path.join(process.cwd(), 'public', pathname)
@@ -67,6 +121,7 @@ export async function getMenuStorageStatus(variant: MenuDayVariant): Promise<Men
     exists: true,
     revision: String(fileStat.mtimeMs),
     contentType,
+    sizeBytes: fileStat.size,
   }
 }
 
