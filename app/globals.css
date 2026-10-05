@@ -3053,6 +3053,52 @@ select:focus { border-color: var(--terracotta); }
   border-top: 1px solid var(--line);
 }
 
+.menu-dishes {
+  max-width: 880px;
+  margin: 12px auto 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+.menu-dishes__summary {
+  cursor: pointer;
+  padding: 14px 16px;
+  color: var(--gold);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.menu-dishes__summary:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: -2px;
+}
+
+.menu-dishes__body {
+  display: grid;
+  gap: 14px;
+  padding: 4px 20px 18px;
+}
+
+.menu-dishes__title {
+  margin: 0 0 6px;
+  color: var(--gold-light);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.menu-dishes__list {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--foreground);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
 .menu-pdf-fullscreen-open {
   width: 100%;
   max-width: 420px;

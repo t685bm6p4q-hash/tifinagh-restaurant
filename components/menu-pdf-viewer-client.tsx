@@ -16,6 +16,11 @@ import {
   type MenuDayVariant,
   type MenuMediaKind,
 } from '@/lib/menu-pdf'
+import {
+  MENU_DISHES_HEADING,
+  parseMenuDishes,
+  type MenuDishesTexts,
+} from '@/lib/menu-dishes-format'
 import { pulseUiHaptic } from '@/lib/ui-haptic'
 
 const MenuPdfFullscreen = dynamic(
@@ -51,6 +56,7 @@ type MenuPdfViewerClientProps = {
   langToggleEn: string
   enFallbackNote: string
   revisionByVariant: { fr: string | null; en: string | null }
+  dishesByVariant: MenuDishesTexts
   fullscreenOpenLabel: string
   fullscreenBackLabel: string
   reserveLabel: string
@@ -65,6 +71,7 @@ export function MenuPdfViewerClient({
   langToggleEn,
   enFallbackNote,
   revisionByVariant,
+  dishesByVariant,
   fullscreenOpenLabel,
   fullscreenBackLabel,
   reserveLabel,
@@ -103,6 +110,14 @@ export function MenuPdfViewerClient({
   const serverKind = kindByVariant[servedVariant]
   const [displayKind, setDisplayKind] = useState<MenuMediaKind>(serverKind)
   const label = labels[servedVariant]
+
+  const dishesVariant: MenuDayVariant =
+    dishesByVariant[servedVariant] ? servedVariant : 'fr'
+  const dishesGroups = useMemo(
+    () => parseMenuDishes(dishesByVariant[dishesVariant]),
+    [dishesByVariant, dishesVariant],
+  )
+  const dishesId = dishesGroups.length > 0 ? 'menu-du-jour-plats' : undefined
 
   useEffect(() => {
     setDisplayKind(serverKind)
@@ -145,6 +160,7 @@ export function MenuPdfViewerClient({
         src={previewImageUrl}
         srcSet={previewSrcSet}
         alt={label}
+        aria-describedby={dishesId}
         width={MENU_IMAGE_LAYOUT_WIDTH}
         height={MENU_IMAGE_LAYOUT_HEIGHT}
         sizes={MENU_IMAGE_SIZES}
@@ -207,6 +223,24 @@ export function MenuPdfViewerClient({
           </button>
         </div>
       </div>
+
+      {dishesId ? (
+        <details className="menu-dishes" id={dishesId} lang={dishesVariant}>
+          <summary className="menu-dishes__summary">{MENU_DISHES_HEADING[dishesVariant]}</summary>
+          <div className="menu-dishes__body">
+            {dishesGroups.map((group, index) => (
+              <div className="menu-dishes__group" key={`${group.title ?? 'plats'}-${index}`}>
+                {group.title ? <p className="menu-dishes__title">{group.title}</p> : null}
+                <ul className="menu-dishes__list">
+                  {group.items.map((item, itemIndex) => (
+                    <li key={`${item}-${itemIndex}`}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </details>
+      ) : null}
 
       {fullscreen ? (
         <MenuPdfFullscreen

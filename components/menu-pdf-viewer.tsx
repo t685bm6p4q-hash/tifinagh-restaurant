@@ -14,6 +14,7 @@ export async function MenuPdfViewer() {
     <MenuPdfViewerClient
       defaultVariant={ctx.defaultVariant}
       revisionByVariant={ctx.revisionByVariant}
+      dishesByVariant={ctx.dishesByVariant}
       hasEnglish={ctx.hasEnglish}
       kindByVariant={ctx.kindByVariant}
       labels={labels}

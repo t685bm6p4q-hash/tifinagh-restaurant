@@ -5,6 +5,8 @@ import {
   MENU_IMAGE_PREVIEW_WIDTHS,
   MENU_IMAGE_SIZES,
 } from '@/lib/menu-image-display'
+import { getMenuDishes } from '@/lib/menu-dishes'
+import type { MenuDishesTexts } from '@/lib/menu-dishes-format'
 import {
   getMenuStorageStatus,
   getPublicMenuKind,
@@ -26,6 +28,7 @@ export type MenuPdfViewerContext = {
   hasEnglish: boolean
   kindByVariant: { fr: MenuMediaKind; en: MenuMediaKind }
   revisionByVariant: { fr: string | null; en: string | null }
+  dishesByVariant: MenuDishesTexts
   lcpPreload:
     | {
         href: string
@@ -39,13 +42,15 @@ export type MenuPdfViewerContext = {
 export const getMenuPdfViewerContext = cache(async (): Promise<MenuPdfViewerContext> => {
   const { dictionary, locale } = await getI18n()
   const defaultVariant = menuDayVariantForLocale(locale)
-  const [hasEnglish, storageFr, storageEn, kindFr, kindEnResolved] = await Promise.all([
-    isPublicMenuAvailable('en'),
-    getMenuStorageStatus('fr'),
-    getMenuStorageStatus('en'),
-    getPublicMenuKind('fr'),
-    getPublicMenuKind('en'),
-  ])
+  const [hasEnglish, storageFr, storageEn, kindFr, kindEnResolved, dishesByVariant] =
+    await Promise.all([
+      isPublicMenuAvailable('en'),
+      getMenuStorageStatus('fr'),
+      getMenuStorageStatus('en'),
+      getPublicMenuKind('fr'),
+      getPublicMenuKind('en'),
+      getMenuDishes(),
+    ])
   const kindEn = hasEnglish ? kindEnResolved : kindFr
 
   const revisionByVariant = {
@@ -80,6 +85,7 @@ export const getMenuPdfViewerContext = cache(async (): Promise<MenuPdfViewerCont
     hasEnglish,
     kindByVariant,
     revisionByVariant,
+    dishesByVariant,
     lcpPreload,
   }
 })

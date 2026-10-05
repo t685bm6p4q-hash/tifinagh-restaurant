@@ -8,6 +8,11 @@ import {
   convertMenuPdfToImageInBrowser,
 } from '@/lib/compress-menu-browser'
 import { parseMenuUploadResponse } from '@/lib/menu-upload-api'
+import {
+  MAX_MENU_DISHES_CHARS,
+  MENU_DISHES_ADMIN_PLACEHOLDER,
+  type MenuDishesTexts,
+} from '@/lib/menu-dishes-format'
 import { formatMenuUploadedAt } from '@/lib/format-menu-uploaded-at'
 import {
   isMenuSourceWithinLimit,
@@ -36,6 +41,49 @@ export default function MenuSetupAdmin() {
   const [chef, setChef] = useState<string>('')
   const [storage, setStorage] = useState<{ fr: MenuStorageRow; en: MenuStorageRow } | null>(null)
   const [menuPreviewHref, setMenuPreviewHref] = useState<string | null>(null)
+  const [dishes, setDishes] = useState<MenuDishesTexts>({ fr: '', en: '' })
+  const [savedDishes, setSavedDishes] = useState<MenuDishesTexts>({ fr: '', en: '' })
+  const [savingDishes, setSavingDishes] = useState<MenuDayVariant | null>(null)
+
+  useEffect(() => {
+    void (async () => {
+      try {
+        const res = await fetch('/api/menu-dishes', { credentials: 'same-origin' })
+        if (!res.ok) return
+        const data = (await res.json()) as MenuDishesTexts
+        setDishes(data)
+        setSavedDishes(data)
+      } catch {
+        /* ignore */
+      }
+    })()
+  }, [])
+
+  const saveDishes = async (variant: MenuDayVariant) => {
+    setSavingDishes(variant)
+    try {
+      const res = await fetch('/api/menu-dishes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ variant, text: dishes[variant] }),
+      })
+      const data = (await res.json()) as Partial<MenuDishesTexts> & { error?: string }
+      if (!res.ok) {
+        setMessage({ type: 'error', text: `❌ ${data.error ?? 'Erreur lors de l’enregistrement du texte'}` })
+        return
+      }
+      setSavedDishes({ fr: data.fr ?? '', en: data.en ?? '' })
+      setMessage({
+        type: 'success',
+        text: `✅ Plats du jour (${variant === 'en' ? 'anglais' : 'français'}) enregistrés sur le site`,
+      })
+    } catch (error: unknown) {
+      setMessage({ type: 'error', text: '❌ Erreur : ' + (error instanceof Error ? error.message : 'inconnue') })
+    } finally {
+      setSavingDishes(null)
+    }
+  }
 
   const refreshStorage = useCallback(async () => {
     try {
@@ -187,7 +235,67 @@ export default function MenuSetupAdmin() {
           {isThis ? '⏳ Envoi…' : '📁 Choisir un fichier'}
         </div>
       </label>
+      {dishesEditor(variant)}
     </div>
+    )
+  }
+
+  const dishesEditor = (variant: MenuDayVariant) => {
+    const dirty = dishes[variant] !== savedDishes[variant]
+    const saving = savingDishes === variant
+    return (
+      <div style={{ marginTop: '12px' }}>
+        <label style={{ display: 'block' }}>
+          <span style={{ color: 'var(--foreground)', fontSize: '13px', fontWeight: 600 }}>
+            {variant === 'en' ? 'Dishes as text (optional)' : 'Plats du jour en texte (optionnel)'}
+          </span>
+          <span style={{ display: 'block', color: 'var(--muted)', fontSize: '12px', margin: '2px 0 6px' }}>
+            Lu par Google et les lecteurs d’écran. Une ligne par plat ; terminez une ligne par « : » pour un titre.
+          </span>
+          <textarea
+            value={dishes[variant]}
+            onChange={(e) => {
+              const value = e.target.value
+              setDishes((prev) => ({ ...prev, [variant]: value }))
+            }}
+            maxLength={MAX_MENU_DISHES_CHARS}
+            rows={7}
+            placeholder={MENU_DISHES_ADMIN_PLACEHOLDER}
+            style={{
+              display: 'block',
+              width: '100%',
+              padding: '10px 12px',
+              borderRadius: '5px',
+              border: '1px solid var(--line)',
+              background: 'var(--background)',
+              color: 'var(--foreground)',
+              fontSize: '14px',
+              lineHeight: 1.5,
+              boxSizing: 'border-box',
+              resize: 'vertical',
+            }}
+          />
+        </label>
+        <button
+          type="button"
+          onClick={() => void saveDishes(variant)}
+          disabled={!dirty || saving}
+          style={{
+            marginTop: '8px',
+            width: '100%',
+            padding: '10px 16px',
+            borderRadius: '6px',
+            border: '1px solid var(--gold)',
+            background: dirty ? 'var(--gold)' : 'transparent',
+            color: dirty ? '#000' : 'var(--muted)',
+            fontWeight: 600,
+            fontSize: '14px',
+            cursor: !dirty || saving ? 'default' : 'pointer',
+          }}
+        >
+          {saving ? '⏳ Enregistrement…' : dirty ? '💾 Enregistrer le texte' : '✓ Texte à jour'}
+        </button>
+      </div>
     )
   }
 
