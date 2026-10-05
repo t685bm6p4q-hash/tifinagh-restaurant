@@ -1133,6 +1133,10 @@ a.nav-cta.nav-active {
   margin-top: 0;
 }
 
+.home-banner + .menu-preview.section {
+  padding-top: 56px;
+}
+
 /* ── Section heading ────────────────────────────────── */
 .section-heading {
   text-align: center;
@@ -1559,8 +1563,6 @@ a.nav-cta.nav-active {
 /* ── Bandeau home ───────────────────────────────────── */
 .home-banner {
   position: relative;
-  height: 240px;
-  overflow: hidden;
   margin-bottom: 0;
 }
 
@@ -1573,17 +1575,20 @@ a.nav-cta.nav-active {
 }
 
 .home-banner-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(17, 18, 16, 0.5) 0%, rgba(17, 18, 16, 0.2) 100%);
+  position: relative;
+  background: linear-gradient(135deg, rgba(17, 18, 16, 0.92) 0%, rgba(17, 18, 16, 0.88) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding: 48px max(28px, 8vw);
 }
 
 .home-banner-content {
-  max-width: 500px;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 20px;
   color: #fff;
 }
 
@@ -1908,13 +1913,21 @@ a.nav-cta.nav-active {
 
 .home-menu-choices--banner {
   margin: 0 auto;
-  max-width: 560px;
+  max-width: 640px;
+  text-align: center;
 }
 
 .home-menu-choices--banner .home-menu-choices-hint {
   color: rgba(255, 255, 255, 0.9);
   font-size: 15px;
-  margin-bottom: 18px;
+  margin: 0 auto 18px;
+  text-align: center;
+}
+
+.home-menu-choices--banner .home-menu-choices-buttons {
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 520px;
 }
 
 .home-menu-choices--banner .home-menu-choice-btn--carte {
@@ -1928,7 +1941,11 @@ a.nav-cta.nav-active {
 }
 
 .home-menu-choices--section {
-  margin-top: 40px;
+  margin: 40px auto 0;
+  max-width: 640px;
+  width: 100%;
+  padding: 0 20px;
+  text-align: center;
 }
 
 .home-menu-choices--section .home-menu-choices-hint {
@@ -1951,6 +1968,14 @@ a.nav-cta.nav-active {
 
 .home-menu-choices--section .home-menu-choice-btn--carte:hover {
   background: rgba(214, 173, 69, 0.1);
+}
+
+@media (min-width: 701px) {
+  .home-menu-choices--banner .home-menu-choice-btn,
+  .home-menu-choices--section .home-menu-choice-btn {
+    flex: 0 1 220px;
+    min-width: 200px;
+  }
 }
 
 @media (max-width: 700px) {
@@ -3564,8 +3589,12 @@ select:focus { border-color: var(--terracotta); }
     font-size: 11px;
   }
 
-  .home-banner {
-    height: 180px;
+  .home-banner-overlay {
+    padding: 36px 7vw;
+  }
+
+  .home-banner + .menu-preview.section {
+    padding-top: 40px;
   }
 
   .gallery {

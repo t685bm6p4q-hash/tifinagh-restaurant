@@ -57,13 +57,12 @@ export async function HomeTemplate() {
               {dictionary.home.heroCopy}
             </p>
             <HomeMealTimesHighlight copy={dictionary.home} />
-            <div className="actions actions--hero">
+            <div className="actions">
               <Link className="button button-primary" href="/reservation" prefetch={false}>
                 <CalendarDaysIcon size={16} />
                 {dictionary.home.bookTable}
               </Link>
-              <HomeMenuChoices copy={dictionary.home} variant="hero" showHint={false} />
-              <Link className="text-link hero-drinks-link" href="/carte/boissons" prefetch={false}>
+              <Link className="text-link" href="/carte/boissons" prefetch={false}>
                 {ux.homeDiscoverDrinks}
               </Link>
             </div>
