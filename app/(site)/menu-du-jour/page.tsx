@@ -50,6 +50,7 @@ export default async function MenuDuJour() {
 
         <section className="section menu-pdf-section" aria-label={d.introTitle}>
           <MenuPdfViewer />
+          <p className="menu-jour-evening-promo">{d.eveningFormulaPromo}</p>
         </section>
 
         <section className="section menu-jour-info">

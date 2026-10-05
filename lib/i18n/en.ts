@@ -142,6 +142,8 @@ export const en: Dictionary = {
     introTitle: "Today's menu",
     introText: "Today's menu — read it directly below.",
     introTextUpdated: 'Last updated on {date}',
+    eveningFormulaPromo:
+      '🌙 Evening: Enjoy our full Set Menu (Starter + Main + Dessert) for 25€!',
     limitedNote: 'Seating is limited — we recommend booking to secure your table.',
     bookNow: 'Book now',
     hoursTitle: 'Opening hours',

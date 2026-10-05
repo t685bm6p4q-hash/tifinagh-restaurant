@@ -144,6 +144,8 @@ export const fr: Dictionary = {
     introTitle: 'Menu du jour',
     introText: 'Menu du jour — consultez l’affichage ci-dessous.',
     introTextUpdated: 'Mis à jour le {date}',
+    eveningFormulaPromo:
+      '🌙 Le soir : Profitez de notre Formule complète (Entrée + Plat + Dessert) à 25 € !',
     limitedNote:
       'Les places sont limitées — nous vous conseillons de réserver pour garantir votre table.',
     bookNow: 'Réserver maintenant',

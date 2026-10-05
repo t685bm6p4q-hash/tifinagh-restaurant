@@ -290,6 +290,8 @@ export type Dictionary = {
     introText: string
     /** `{date}` = dernière mise en ligne (upload Blob), pas la date du jour. */
     introTextUpdated: string
+    /** Sous l’image/PDF du menu du jour. */
+    eveningFormulaPromo: string
     limitedNote: string
     bookNow: string
     hoursTitle: string

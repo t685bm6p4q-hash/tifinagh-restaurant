@@ -143,6 +143,8 @@ export const sv: Dictionary = {
     introTitle: 'Dagens meny',
     introText: 'Dagens meny — läs den direkt nedan.',
     introTextUpdated: 'Uppdaterad {date}',
+    eveningFormulaPromo:
+      '🌙 Evening: Enjoy our full Set Menu (Starter + Main + Dessert) for 25€!',
     limitedNote: 'Antal platser är begränsat — vi rekommenderar bokning för att säkra ditt bord.',
     bookNow: 'Boka nu',
     hoursTitle: 'Öppettider',

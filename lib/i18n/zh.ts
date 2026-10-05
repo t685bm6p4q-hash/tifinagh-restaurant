@@ -137,6 +137,8 @@ export const zh: Dictionary = {
     introTitle: '今日菜单',
     introText: '今日菜单 — 请直接在下方查看。',
     introTextUpdated: '更新于 {date}',
+    eveningFormulaPromo:
+      '🌙 Evening: Enjoy our full Set Menu (Starter + Main + Dessert) for 25€!',
     limitedNote: '座位有限 — 建议预订以确保您的桌位。',
     bookNow: '立即预订',
     hoursTitle: '营业时间',

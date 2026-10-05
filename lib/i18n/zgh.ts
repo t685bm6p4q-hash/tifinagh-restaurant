@@ -142,6 +142,8 @@ export const zgh: Dictionary = {
     introTitle: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ',
     introText: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ — ⵙⴽⵏ ⴷⴰⵢⵏ ⵉⵍⵍⴰ.',
     introTextUpdated: 'ⵜⵓⵙⵙⵓⴷ ⴷⵉ {date}',
+    eveningFormulaPromo:
+      '🌙 Le soir : Profitez de notre Formule complète (Entrée + Plat + Dessert) à 25 € !',
     limitedNote: 'ⵉⵎⴷⴷⴰⵏ ⵉⵎⵙⵙⴰⵏ — ⵙⵙⵖⵔ ⴰⵙⴳⴳⵯⴰⵙ.',
     bookNow: 'ⴰⵙⴳⴳⵯⴰⵙ ⴷⵖⵉ',
     hoursTitle: 'ⵉⵙⵔⴰⴳⵏ ⵏ ⵓⵙⵙⵓⵎⵔ',

@@ -143,6 +143,8 @@ export const ru: Dictionary = {
     introTitle: 'Меню дня',
     introText: 'Меню дня — читайте его прямо ниже.',
     introTextUpdated: 'Обновлено {date}',
+    eveningFormulaPromo:
+      '🌙 Evening: Enjoy our full Set Menu (Starter + Main + Dessert) for 25€!',
     limitedNote: 'Количество мест ограничено — рекомендуем забронировать стол.',
     bookNow: 'Забронировать',
     hoursTitle: 'Часы работы',
