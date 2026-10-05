@@ -36,6 +36,14 @@ export function menuPdfApiUrl(
   return query ? `${MENU_PDF_URL}?${query}` : MENU_PDF_URL
 }
 
+/** URL pour iframe PDF (affichage page entière sur mobile). */
+export function menuPdfEmbedUrl(
+  variant: MenuDayVariant,
+  revision?: string | null,
+): string {
+  return `${menuPdfApiUrl(variant, { revision })}#view=FitH`
+}
+
 export function menuPdfPreviewSrcSet(
   variant: MenuDayVariant,
   widths: readonly number[],
@@ -74,6 +82,13 @@ export const MAX_MENU_UPLOAD_BYTES = 1024 * 1024
 /** Taille max d’une photo source avant compression navigateur (JPEG/PNG/WebP). */
 export const MAX_MENU_IMAGE_SOURCE_BYTES = 10 * 1024 * 1024
 
+/** Formats acceptés à l’upload admin (PDF + images). */
+export const MENU_UPLOAD_ACCEPT =
+  '.pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp'
+
+export const MENU_UPLOAD_FORMATS_HINT =
+  'PDF (max 1 Mo) · JPEG ou PNG jusqu’à 10 Mo (compression auto avant mise en ligne). WebP accepté aussi.'
+
 export function formatMenuUploadFileSize(bytes: number): string {
   const mo = bytes / (1024 * 1024)
   if (mo >= 1) {
@@ -85,7 +100,7 @@ export function formatMenuUploadFileSize(bytes: number): string {
 
 export function menuUploadTooHeavyMessage(sizeBytes: number): string {
   const sizeLabel = formatMenuUploadFileSize(sizeBytes)
-  return `Le fichier est trop lourd (${sizeLabel}). Veuillez le compresser en dessous de 1 Mo ou utiliser un format image (JPEG/WebP) avant de l'envoyer.`
+  return `Le fichier est trop lourd (${sizeLabel}). Veuillez le compresser en dessous de 1 Mo (PDF) ou envoyer une photo JPEG/PNG à compresser.`
 }
 
 export function isMenuUploadWithinSizeLimit(sizeBytes: number): boolean {

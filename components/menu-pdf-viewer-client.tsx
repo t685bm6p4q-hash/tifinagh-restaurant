@@ -9,7 +9,13 @@ import {
   MENU_IMAGE_PREVIEW_WIDTHS,
   MENU_IMAGE_SIZES,
 } from '@/lib/menu-image-display'
-import { menuPdfApiUrl, menuPdfPreviewSrcSet, type MenuDayVariant, type MenuMediaKind } from '@/lib/menu-pdf'
+import {
+  menuPdfApiUrl,
+  menuPdfEmbedUrl,
+  menuPdfPreviewSrcSet,
+  type MenuDayVariant,
+  type MenuMediaKind,
+} from '@/lib/menu-pdf'
 import { pulseUiHaptic } from '@/lib/ui-haptic'
 
 const MenuPdfFullscreen = dynamic(
@@ -74,6 +80,10 @@ export function MenuPdfViewerClient({
   const servedRevision = revisionByVariant[servedVariant]
   const url = useMemo(
     () => menuPdfApiUrl(servedVariant, { revision: servedRevision }),
+    [servedVariant, servedRevision],
+  )
+  const embedUrl = useMemo(
+    () => menuPdfEmbedUrl(servedVariant, servedRevision),
     [servedVariant, servedRevision],
   )
   const previewImageUrl = useMemo(
@@ -147,7 +157,7 @@ export function MenuPdfViewerClient({
         <a className="menu-pdf-mobile-open" href={url} target="_blank" rel="noopener noreferrer">
           {fullscreenOpenLabel}
         </a>
-        <iframe className="menu-pdf-viewer menu-pdf-viewer--embed" src={url} title={label} />
+        <iframe className="menu-pdf-viewer menu-pdf-viewer--embed" src={embedUrl} title={label} />
       </>
     )
 
@@ -203,7 +213,7 @@ export function MenuPdfViewerClient({
 
       {fullscreen ? (
         <MenuPdfFullscreen
-          url={url}
+          url={displayKind === 'image' ? url : embedUrl}
           label={label}
           displayKind={displayKind}
           fullscreenBackLabel={fullscreenBackLabel}

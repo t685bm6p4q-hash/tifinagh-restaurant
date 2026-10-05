@@ -9,8 +9,11 @@ import { formatMenuUploadedAt } from '@/lib/format-menu-uploaded-at'
 import {
   isMenuImageSourceWithinLimit,
   isMenuUploadWithinSizeLimit,
+  MENU_UPLOAD_ACCEPT,
+  MENU_UPLOAD_FORMATS_HINT,
   menuUploadImageSourceTooLargeMessage,
   menuUploadTooHeavyMessage,
+  resolveMenuUpload,
   type MenuDayVariant,
 } from '@/lib/menu-pdf'
 
@@ -51,20 +54,14 @@ export default function MenuSetupAdmin() {
     const file = input.files?.[0]
     if (!file) return
 
-    const name = file.name.toLowerCase()
-    const allowed =
-      name.endsWith('.pdf') ||
-      name.endsWith('.jpg') ||
-      name.endsWith('.jpeg') ||
-      name.endsWith('.png') ||
-      name.endsWith('.webp')
-    if (!allowed) {
-      setMessage({ type: 'error', text: '❌ PDF, JPEG, PNG ou WebP uniquement' })
+    const resolved = resolveMenuUpload(file)
+    if (!resolved) {
+      setMessage({ type: 'error', text: '❌ Formats acceptés : PDF, JPEG ou PNG (WebP possible).' })
       input.value = ''
       return
     }
 
-    const isPdf = name.endsWith('.pdf')
+    const isPdf = resolved.contentType === 'application/pdf'
 
     if (isPdf) {
       if (!isMenuUploadWithinSizeLimit(file.size)) {
@@ -171,7 +168,7 @@ export default function MenuSetupAdmin() {
       >
         <input
           type="file"
-          accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
+          accept={MENU_UPLOAD_ACCEPT}
           onChange={(e) => handleFileUpload(variant, e)}
           disabled={busy}
           style={{ display: 'none' }}
@@ -265,16 +262,16 @@ export default function MenuSetupAdmin() {
         {uploadButton(
           'fr',
           'Menu du jour (français)',
-          'PDF max 1 Mo — JPEG/PNG/WebP jusqu’à 10 Mo (compression auto), servi en français.',
+          `Français — ${MENU_UPLOAD_FORMATS_HINT}`,
         )}
         {uploadButton(
           'en',
           'Daily menu (English)',
-          'PDF max 1 Mo — photos jusqu’à 10 Mo (compression auto) pour l’anglais.',
+          `English — ${MENU_UPLOAD_FORMATS_HINT}`,
         )}
 
         <p style={{ color: 'var(--muted)', fontSize: '12px', textAlign: 'center', marginTop: '4px' }}>
-          PDF : max 1 Mo. Photos JPEG/PNG/WebP : jusqu’à 10 Mo, compressées automatiquement sous 1 Mo avant envoi.
+          {MENU_UPLOAD_FORMATS_HINT} Les images sont converties en WebP pour le site ; les PDF restent en PDF.
         </p>
 
         {message && (
