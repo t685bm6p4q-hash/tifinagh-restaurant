@@ -88,7 +88,7 @@ export const pt: Dictionary = {
     wineTitle: 'Vinos vivos',
     wineText: 'Una selección de viticultores independientes.',
     dishAlt: 'Confit de pato servido en el restaurante',
-    bannerTitle: 'Nuestra selección del día',
+    bannerTitle: 'Menu do dia',
     bannerLink: 'Ver la carta completa',
     menuEyebrow: 'La carta',
     menuTitle: 'El mercado en el plato',
@@ -132,14 +132,14 @@ export const pt: Dictionary = {
     drinksInviteText:
       'A nossa carta de bebidas: pressão, garrafa, aperitivos, digestivos e bebidas quentes.',
     drinksInviteCta: 'Ver carta de bebidas',
-    dailyInviteEyebrow: 'Selección del día',
+    dailyInviteEyebrow: 'Menu do dia',
     dailyInviteTitle: '¿Apetece algo fresco?',
     dailyInviteText:
       'Descubre nuestro menú del día, preparado cada mañana con productos de temporada.',
     dailyInviteCta: 'Descubrir el menú del día',
   },
   dailyMenuPage: {
-    introEyebrow: 'Selección del día',
+    introEyebrow: 'Menu do dia',
     introTitle: 'Menú del día',
     introText: 'Menu do dia — consulte diretamente abaixo.',
     introTextUpdated: 'Atualizado em {date} — mostrado abaixo.',

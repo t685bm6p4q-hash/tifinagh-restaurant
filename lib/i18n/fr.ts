@@ -88,7 +88,7 @@ export const fr: Dictionary = {
     wineTitle: 'Vins vivants',
     wineText: 'Une sélection de vignerons indépendants.',
     dishAlt: 'Plat de canard confit servi au restaurant',
-    bannerTitle: 'Notre sélection du jour',
+    bannerTitle: 'Notre menu du jour',
     bannerLink: 'Découvrir la carte complète',
     menuEyebrow: 'La carte',
     menuTitle: "Le marché dans l'assiette",
@@ -133,14 +133,14 @@ export const fr: Dictionary = {
     drinksInviteText:
       'Notre carte des boissons détaillée : pression, bouteilles, apéritifs, digestifs et boissons chaudes.',
     drinksInviteCta: 'Voir la carte des boissons',
-    dailyInviteEyebrow: 'Sélection du jour',
+    dailyInviteEyebrow: 'Menu du jour',
     dailyInviteTitle: 'Envie de suggestions fraîches ?',
     dailyInviteText:
       'Découvrez notre menu du jour, préparé chaque matin avec des produits de saison.',
     dailyInviteCta: 'Découvrir le menu du jour',
   },
   dailyMenuPage: {
-    introEyebrow: 'Sélection du jour',
+    introEyebrow: 'Menu du jour',
     introTitle: 'Menu du jour',
     introText: 'Menu du jour — consultez l’affichage ci-dessous.',
     introTextUpdated: 'Mis à jour le {date} — affiché ci-dessous.',

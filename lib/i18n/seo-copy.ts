@@ -68,7 +68,7 @@ const seoFr: Dictionary['seo'] = {
     carte: {
       title: 'Carte permanente — plats français maison à Montmartre',
       description:
-        'Carte permanente du bistrot Tifinagh : foie gras, confit de canard, escargots de Bourgogne et desserts maison, au 17 avenue Rachel, Paris 18.',
+        'Découvrez la carte du Tifinagh à Montmartre : cuisine 100% fait maison, viandes de tradition, options végétariennes et cocktails créations.',
     },
     carteBoissons: {
       title: 'Carte des boissons — bières, cocktails & apéritifs | Tifinagh Montmartre',
