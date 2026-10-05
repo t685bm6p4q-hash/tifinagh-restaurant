@@ -247,32 +247,45 @@ async function sniffStaticMenuKind(pathname: string): Promise<MenuMediaKind | nu
 
 async function sniffBlobMenuKind(pathname: string): Promise<MenuMediaKind | null> {
   const meta = await head(pathname)
+  const res = await fetch(meta.url, { headers: { Range: 'bytes=0-31' } })
+  if (res.ok) {
+    const bytes = new Uint8Array(await res.arrayBuffer())
+    const sniffed = sniffMenuContentType(bytes)
+    if (sniffed) return menuKindFromContentType(sniffed)
+  }
+
   const declared = meta.contentType ?? ''
   if (declared.startsWith('image/')) return 'image'
   if (declared.includes('pdf')) return 'pdf'
-
-  const res = await fetch(meta.url, { headers: { Range: 'bytes=0-31' } })
-  if (!res.ok) return null
-  const bytes = new Uint8Array(await res.arrayBuffer())
-  const sniffed = sniffMenuContentType(bytes)
-  return sniffed ? menuKindFromContentType(sniffed) : null
+  return null
 }
 
-/** Détecte PDF vs image sans télécharger tout le fichier (SSR / PageSpeed). */
+function menuKindFromStorageStatus(status: MenuStorageStatus): MenuMediaKind {
+  if (!status.exists) return 'pdf'
+  if (status.contentType?.startsWith('image/')) return 'image'
+  if (status.contentType?.includes('pdf')) return 'pdf'
+  return 'pdf'
+}
+
+/** Détecte PDF vs image (PNG/JPEG/WebP) — priorité au contenu réel, pas au nom `.pdf` sur Blob. */
 export async function getPublicMenuKind(variant: MenuDayVariant = 'fr'): Promise<MenuMediaKind> {
-  const pathname = menuBlobPathname(variant)
+  const status = await getMenuStorageStatus(variant)
+  if (!status.exists) {
+    if (variant === 'en') return getPublicMenuKind('fr')
+    return 'pdf'
+  }
+
   if (isBlobConfigured()) {
     try {
-      const kind = await sniffBlobMenuKind(pathname)
-      if (kind) return kind
-      return 'pdf'
+      const sniffed = await sniffBlobMenuKind(status.pathname)
+      if (sniffed) return sniffed
     } catch {
-      if (variant === 'en') return getPublicMenuKind('fr')
-      return 'pdf'
+      /* repli contentType */
     }
+  } else {
+    const sniffed = await sniffStaticMenuKind(status.pathname)
+    if (sniffed) return sniffed
   }
-  const kind = await sniffStaticMenuKind(pathname)
-  if (kind) return kind
-  if (variant === 'en') return getPublicMenuKind('fr')
-  return 'pdf'
+
+  return menuKindFromStorageStatus(status)
 }

@@ -39,13 +39,14 @@ export type MenuPdfViewerContext = {
 export const getMenuPdfViewerContext = cache(async (): Promise<MenuPdfViewerContext> => {
   const { dictionary, locale } = await getI18n()
   const defaultVariant = menuDayVariantForLocale(locale)
-  const [hasEnglish, kindFr, storageFr, storageEn] = await Promise.all([
+  const [hasEnglish, storageFr, storageEn, kindFr, kindEnResolved] = await Promise.all([
     isPublicMenuAvailable('en'),
-    getPublicMenuKind('fr'),
     getMenuStorageStatus('fr'),
     getMenuStorageStatus('en'),
+    getPublicMenuKind('fr'),
+    getPublicMenuKind('en'),
   ])
-  const kindEn = hasEnglish ? await getPublicMenuKind('en') : kindFr
+  const kindEn = hasEnglish ? kindEnResolved : kindFr
 
   const revisionByVariant = {
     fr: storageFr.revision,

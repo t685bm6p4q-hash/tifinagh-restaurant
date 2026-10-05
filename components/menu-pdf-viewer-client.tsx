@@ -119,8 +119,11 @@ export function MenuPdfViewerClient({
   }, [openFullscreen])
 
   const onImageError = useCallback(() => {
-    setDisplayKind('pdf')
-  }, [])
+    // Ne pas basculer en iframe PDF : un PNG/WebP ne doit pas s’afficher dans une iframe.
+    if (serverKind === 'pdf') {
+      setDisplayKind('pdf')
+    }
+  }, [serverKind])
 
   const media =
     displayKind === 'image' ? (
