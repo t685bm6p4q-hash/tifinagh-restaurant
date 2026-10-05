@@ -52,10 +52,12 @@ export const getMenuPdfViewerContext = cache(async (): Promise<MenuPdfViewerCont
     en: storageEn.revision,
   }
 
+  const kindByVariant = { fr: kindFr, en: kindEn }
   const lcpVariant = defaultVariant
+  const lcpKind = kindByVariant[lcpVariant]
   const lcpRevision = revisionByVariant[lcpVariant]
   const lcpPreload =
-    kindFr === 'image'
+    lcpKind === 'image'
       ? {
           href: menuPdfApiUrl(lcpVariant, {
             maxWidth: MENU_IMAGE_LCP_WIDTH,
@@ -75,7 +77,7 @@ export const getMenuPdfViewerContext = cache(async (): Promise<MenuPdfViewerCont
     locale,
     defaultVariant,
     hasEnglish,
-    kindByVariant: { fr: kindFr, en: kindEn },
+    kindByVariant,
     revisionByVariant,
     lcpPreload,
   }

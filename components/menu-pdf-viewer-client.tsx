@@ -1,7 +1,6 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import type { ReactNode } from 'react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   MENU_IMAGE_LAYOUT_HEIGHT,
@@ -36,7 +35,6 @@ function IconMaximize() {
 
 type MenuPdfViewerClientProps = {
   defaultVariant: MenuDayVariant
-  lcpPreview: ReactNode
   hasEnglish: boolean
   kindByVariant: { fr: MenuMediaKind; en: MenuMediaKind }
   labels: {
@@ -53,7 +51,6 @@ type MenuPdfViewerClientProps = {
 
 export function MenuPdfViewerClient({
   defaultVariant,
-  lcpPreview,
   hasEnglish,
   kindByVariant,
   labels,
@@ -97,7 +94,7 @@ export function MenuPdfViewerClient({
 
   useEffect(() => {
     setDisplayKind(serverKind)
-  }, [serverKind])
+  }, [serverKind, servedVariant, servedRevision])
 
   const openFullscreen = useCallback(() => setFullscreen(true), [])
   const close = useCallback(() => setFullscreen(false), [])
@@ -121,30 +118,27 @@ export function MenuPdfViewerClient({
     lastTapAtRef.current = now
   }, [openFullscreen])
 
-  const useServerLcpImage =
-    displayKind === 'image' && servedVariant === defaultVariant && !showEnFallback
+  const onImageError = useCallback(() => {
+    setDisplayKind('pdf')
+  }, [])
 
   const media =
     displayKind === 'image' ? (
-      useServerLcpImage ? (
-        lcpPreview
-      ) : (
-        <img
-          key={servedRevision ?? servedVariant}
-          className="menu-pdf-viewer menu-pdf-viewer--image"
-          src={previewImageUrl}
-          srcSet={previewSrcSet}
-          alt={label}
-          width={MENU_IMAGE_LAYOUT_WIDTH}
-          height={MENU_IMAGE_LAYOUT_HEIGHT}
-          sizes={MENU_IMAGE_SIZES}
-          decoding="async"
-          fetchPriority="high"
-          onDoubleClick={onPreviewActivate}
-          onTouchEnd={onPreviewTouchEnd}
-          onError={() => setDisplayKind('pdf')}
-        />
-      )
+      <img
+        key={`${servedVariant}-${servedRevision ?? 'default'}`}
+        className="menu-pdf-viewer menu-pdf-viewer--image"
+        src={previewImageUrl}
+        srcSet={previewSrcSet}
+        alt={label}
+        width={MENU_IMAGE_LAYOUT_WIDTH}
+        height={MENU_IMAGE_LAYOUT_HEIGHT}
+        sizes={MENU_IMAGE_SIZES}
+        decoding="async"
+        fetchPriority="high"
+        onDoubleClick={onPreviewActivate}
+        onTouchEnd={onPreviewTouchEnd}
+        onError={onImageError}
+      />
     ) : (
       <>
         <a className="menu-pdf-mobile-open" href={url} target="_blank" rel="noopener noreferrer">
@@ -191,8 +185,8 @@ export function MenuPdfViewerClient({
 
       <div
         className="menu-pdf-viewer-wrap"
-        onDoubleClick={displayKind !== 'pdf' && !useServerLcpImage ? undefined : onPreviewActivate}
-        onTouchEnd={displayKind !== 'pdf' && !useServerLcpImage ? undefined : onPreviewTouchEnd}
+        onDoubleClick={displayKind === 'image' ? onPreviewActivate : undefined}
+        onTouchEnd={displayKind === 'image' ? onPreviewTouchEnd : undefined}
         title={fullscreenOpenLabel}
       >
         {media}
