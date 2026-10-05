@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import Link from 'next/link'
 import {
   googleMapsUrl,
@@ -210,11 +211,13 @@ export function PageIntro({
   eyebrow,
   title,
   text,
+  belowTitle,
   className,
 }: {
   eyebrow: string
   title: string
-  text: string
+  text?: string
+  belowTitle?: ReactNode
   className?: string
 }) {
   const introClass = className ? `page-intro ${className}` : 'page-intro'
@@ -222,7 +225,7 @@ export function PageIntro({
     <section className={introClass}>
       <p className="eyebrow">{eyebrow}</p>
       <h1>{title}</h1>
-      <p>{text}</p>
+      {belowTitle ?? (text ? <p>{text}</p> : null)}
     </section>
   )
 }

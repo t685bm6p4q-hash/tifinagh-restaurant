@@ -142,7 +142,7 @@ export const de: Dictionary = {
     introEyebrow: 'Tagesmenü',
     introTitle: 'Tagesmenü',
     introText: 'Tagesmenü — direkt unten einsehbar.',
-    introTextUpdated: 'Aktualisiert am {date} — unten abgebildet.',
+    introTextUpdated: 'Aktualisiert am {date}',
     limitedNote:
       'Die Plätze sind begrenzt — wir empfehlen eine Reservierung, um Ihren Tisch zu sichern.',
     bookNow: 'Reservieren maintenant',

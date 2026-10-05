@@ -142,7 +142,7 @@ export const ru: Dictionary = {
     introEyebrow: 'Меню дня',
     introTitle: 'Меню дня',
     introText: 'Меню дня — читайте его прямо ниже.',
-    introTextUpdated: 'Обновлено {date} — показано ниже.',
+    introTextUpdated: 'Обновлено {date}',
     limitedNote: 'Количество мест ограничено — рекомендуем забронировать стол.',
     bookNow: 'Забронировать',
     hoursTitle: 'Часы работы',

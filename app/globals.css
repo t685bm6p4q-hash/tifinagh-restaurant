@@ -2313,6 +2313,16 @@ button.footer-link {
   line-height: 1.5;
 }
 
+.menu-jour-page .page-intro--menu-jour .menu-jour-updated-at {
+  font-size: clamp(18px, 3.2vw, 24px);
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--gold);
+  letter-spacing: 0.02em;
+  margin-top: 6px;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+}
+
 .menu-jour-page .menu-pdf-section {
   padding-top: 8px;
   padding-bottom: 20px;

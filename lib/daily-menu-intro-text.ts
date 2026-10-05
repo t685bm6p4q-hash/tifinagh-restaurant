@@ -23,14 +23,27 @@ export async function resolveDailyMenuIntroUploadedAt(locale: Locale): Promise<s
   return null
 }
 
+export type DailyMenuIntroDisplay =
+  | { kind: 'updated'; line: string }
+  | { kind: 'fallback'; line: string }
+
+export function buildDailyMenuIntroDisplay(
+  copy: Pick<Dictionary['dailyMenuPage'], 'introText' | 'introTextUpdated'>,
+  uploadedAt: string | null,
+  locale: Locale,
+): DailyMenuIntroDisplay {
+  const dateLabel = formatMenuUpdatedDateLong(uploadedAt, localeTagForMenuDate(locale))
+  if (!dateLabel) return { kind: 'fallback', line: copy.introText }
+  return { kind: 'updated', line: copy.introTextUpdated.replace('{date}', dateLabel) }
+}
+
 export function buildDailyMenuIntroText(
   copy: Pick<Dictionary['dailyMenuPage'], 'introText' | 'introTextUpdated'>,
   uploadedAt: string | null,
   locale: Locale,
 ): string {
-  const dateLabel = formatMenuUpdatedDateLong(uploadedAt, localeTagForMenuDate(locale))
-  if (!dateLabel) return copy.introText
-  return copy.introTextUpdated.replace('{date}', dateLabel)
+  const display = buildDailyMenuIntroDisplay(copy, uploadedAt, locale)
+  return display.line
 }
 
 export async function resolveDailyMenuIntroText(
@@ -39,4 +52,12 @@ export async function resolveDailyMenuIntroText(
 ): Promise<string> {
   const uploadedAt = await resolveDailyMenuIntroUploadedAt(locale)
   return buildDailyMenuIntroText(copy, uploadedAt, locale)
+}
+
+export async function resolveDailyMenuIntroDisplay(
+  locale: Locale,
+  copy: Dictionary['dailyMenuPage'],
+): Promise<DailyMenuIntroDisplay> {
+  const uploadedAt = await resolveDailyMenuIntroUploadedAt(locale)
+  return buildDailyMenuIntroDisplay(copy, uploadedAt, locale)
 }

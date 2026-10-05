@@ -136,7 +136,7 @@ export const zh: Dictionary = {
     introEyebrow: '今日菜单',
     introTitle: '今日菜单',
     introText: '今日菜单 — 请直接在下方查看。',
-    introTextUpdated: '更新于 {date} — 见下方。',
+    introTextUpdated: '更新于 {date}',
     limitedNote: '座位有限 — 建议预订以确保您的桌位。',
     bookNow: '立即预订',
     hoursTitle: '营业时间',

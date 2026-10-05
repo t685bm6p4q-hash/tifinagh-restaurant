@@ -142,7 +142,7 @@ export const sv: Dictionary = {
     introEyebrow: 'Dagens meny',
     introTitle: 'Dagens meny',
     introText: 'Dagens meny — läs den direkt nedan.',
-    introTextUpdated: 'Uppdaterad {date} — visas nedan.',
+    introTextUpdated: 'Uppdaterad {date}',
     limitedNote: 'Antal platser är begränsat — vi rekommenderar bokning för att säkra ditt bord.',
     bookNow: 'Boka nu',
     hoursTitle: 'Öppettider',
