@@ -29,7 +29,11 @@ export function menuPdfApiUrl(
 ): string {
   const params = new URLSearchParams()
   if (variant === 'en') params.set('variant', 'en')
-  if (options?.maxWidth) params.set('w', String(options.maxWidth))
+  if (options?.maxWidth) {
+    params.set('w', String(options.maxWidth))
+    // Invalide les réponses vides mises en cache « immutable » avant le correctif du redimensionnement.
+    params.set('c', '2')
+  }
   const r = menuRevisionCacheKey(options?.revision)
   if (r) params.set('r', r)
   const query = params.toString()
