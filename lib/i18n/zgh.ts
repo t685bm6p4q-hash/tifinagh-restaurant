@@ -140,7 +140,8 @@ export const zgh: Dictionary = {
   dailyMenuPage: {
     introEyebrow: 'ⵜⴰⵙⵜⴰⵢⵜ ⵏ ⵓⵙⵙⴰⵙ',
     introTitle: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ',
-    introText: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ ⵜⵜⵡⴰⵙⵙⵏⵜ ⴽⵓⵍ ⵜⵉⴼⴰⵡⵉⵏ — ⵙⴽⵏ ⴷⴰⵢⵏ ⵉⵍⵍⴰ.',
+    introText: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ — ⵙⴽⵏ ⴷⴰⵢⵏ ⵉⵍⵍⴰ.',
+    introTextUpdated: 'ⵜⵓⵙⵙⵓⴷ ⴷⵉ {date} — ⵉⵍⵍⴰ ⴷⴰⵢⵏ.',
     limitedNote: 'ⵉⵎⴷⴷⴰⵏ ⵉⵎⵙⵙⴰⵏ — ⵙⵙⵖⵔ ⴰⵙⴳⴳⵯⴰⵙ.',
     bookNow: 'ⴰⵙⴳⴳⵯⴰⵙ ⴷⵖⵉ',
     hoursTitle: 'ⵉⵙⵔⴰⴳⵏ ⵏ ⵓⵙⵙⵓⵎⵔ',

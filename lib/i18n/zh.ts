@@ -135,7 +135,8 @@ export const zh: Dictionary = {
   dailyMenuPage: {
     introEyebrow: '今日精选',
     introTitle: '今日菜单',
-    introText: '每日套餐于清晨更新 — 请直接在下方阅读菜单。',
+    introText: '今日菜单 — 请直接在下方查看。',
+    introTextUpdated: '更新于 {date} — 见下方。',
     limitedNote: '座位有限 — 建议预订以确保您的桌位。',
     bookNow: '立即预订',
     hoursTitle: '营业时间',

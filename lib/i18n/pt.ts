@@ -141,8 +141,8 @@ export const pt: Dictionary = {
   dailyMenuPage: {
     introEyebrow: 'Selección del día',
     introTitle: 'Menú del día',
-    introText:
-      'Menús del día actualizados cada mañana — lea el menú directamente abajo.',
+    introText: 'Menu do dia — consulte diretamente abaixo.',
+    introTextUpdated: 'Atualizado em {date} — mostrado abaixo.',
     limitedNote:
       'Os lugares são limitados — recomendamos reservar para garantir a sua mesa.',
     bookNow: 'Reservar ahora',

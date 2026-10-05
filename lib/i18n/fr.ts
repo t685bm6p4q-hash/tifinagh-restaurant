@@ -124,7 +124,7 @@ export const fr: Dictionary = {
   carte: {
     eyebrow: 'À table',
     title: 'La carte permanente',
-    text: 'Notre carte de bistrot français, renouvelée au fil des saisons.',
+    text: 'Cuisine de bistrot 100 % faite maison.',
     bannerTitle: "Des saveurs d'authenticité",
     bannerText: 'Une sélection de plats généreux, préparés chaque jour avec les meilleurs produits.',
     terraceAlt: 'Terrasse Tifinagh Montmartre avec clients heureux sous parasol rouge',
@@ -142,7 +142,8 @@ export const fr: Dictionary = {
   dailyMenuPage: {
     introEyebrow: 'Sélection du jour',
     introTitle: 'Menu du jour',
-    introText: 'Mis à jour chaque matin — affiché ci-dessous.',
+    introText: 'Menu du jour — consultez l’affichage ci-dessous.',
+    introTextUpdated: 'Mis à jour le {date} — affiché ci-dessous.',
     limitedNote:
       'Les places sont limitées — nous vous conseillons de réserver pour garantir votre table.',
     bookNow: 'Réserver maintenant',

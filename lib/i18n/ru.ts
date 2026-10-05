@@ -141,7 +141,8 @@ export const ru: Dictionary = {
   dailyMenuPage: {
     introEyebrow: 'Выбор дня',
     introTitle: 'Меню дня',
-    introText: 'Меню дня обновляется каждое утро — читайте его прямо ниже.',
+    introText: 'Меню дня — читайте его прямо ниже.',
+    introTextUpdated: 'Обновлено {date} — показано ниже.',
     limitedNote: 'Количество мест ограничено — рекомендуем забронировать стол.',
     bookNow: 'Забронировать',
     hoursTitle: 'Часы работы',

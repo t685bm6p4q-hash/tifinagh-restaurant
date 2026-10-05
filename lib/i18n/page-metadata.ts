@@ -52,7 +52,10 @@ export function resolvePageSeo(
 ): SeoPageCopy {
   switch (pageId) {
     case 'carte':
-      return { title: dictionary.carte.title, description: dictionary.carte.text }
+      return {
+        title: dictionary.carte.title,
+        description: dictionary.seo.pages.carte.description,
+      }
     case 'contact':
       return { title: dictionary.contact.title, description: dictionary.contact.text }
     case 'autourDeNous':
@@ -195,23 +198,26 @@ export async function buildSiteMetadata(): Promise<Metadata> {
 export async function buildPageMetadata(
   pageId: SeoPageId,
   extra?: Metadata,
+  options?: { description?: string },
 ): Promise<Metadata> {
   const locale = await getLocale()
   const dictionary = getDictionary(locale)
   const page = resolvePageSeo(dictionary, pageId)
+  const description = options?.description ?? page.description
+  const pageForSocial: SeoPageCopy = { ...page, description }
   const canonicalPath = seoPagePaths[pageId]
   const canonical = new URL(canonicalPath, siteUrl).href
   const documentTitle = formatDocumentTitle(dictionary, pageId)
   const fallbackSeo = dictionary.seo.pages[pageId]
 
   const metadata: Metadata = {
-    description: page.description,
+    description,
     alternates: {
       canonical,
       languages: buildLanguageAlternates(canonical),
     },
     ...(fallbackSeo.keywords ? { keywords: fallbackSeo.keywords } : {}),
-    ...buildSocialMetadata(locale, page, canonical, documentTitle),
+    ...buildSocialMetadata(locale, pageForSocial, canonical, documentTitle),
     ...extra,
   }
 

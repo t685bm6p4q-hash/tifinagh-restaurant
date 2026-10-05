@@ -141,7 +141,8 @@ export const sv: Dictionary = {
   dailyMenuPage: {
     introEyebrow: 'Dagens urval',
     introTitle: 'Dagens meny',
-    introText: 'Dagens menyer uppdateras varje morgon — läs menyn direkt nedan.',
+    introText: 'Dagens meny — läs den direkt nedan.',
+    introTextUpdated: 'Uppdaterad {date} — visas nedan.',
     limitedNote: 'Antal platser är begränsat — vi rekommenderar bokning för att säkra ditt bord.',
     bookNow: 'Boka nu',
     hoursTitle: 'Öppettider',

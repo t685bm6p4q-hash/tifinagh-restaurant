@@ -5,6 +5,7 @@ import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { MenuCrossLink } from '@/components/menu-cross-link'
 import { MenuPdfViewer } from '@/components/menu-pdf-viewer'
 import { phoneDisplay, phoneTel } from '@/lib/restaurant-data'
+import { resolveDailyMenuIntroText } from '@/lib/daily-menu-intro-text'
 import { getI18n } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
@@ -12,12 +13,15 @@ import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 export const dynamic = 'force-dynamic'
 
 export async function generateMetadata(): Promise<Metadata> {
-  return buildPageMetadata('menuDuJour')
+  const { dictionary, locale } = await getI18n()
+  const description = await resolveDailyMenuIntroText(locale, dictionary.dailyMenuPage)
+  return buildPageMetadata('menuDuJour', undefined, { description })
 }
 
 export default async function MenuDuJour() {
   const { dictionary, locale } = await getI18n()
   const d = dictionary.dailyMenuPage
+  const introText = await resolveDailyMenuIntroText(locale, d)
   const breadcrumbItems = [
     { name: dictionary.nav.home, path: '/' },
     { name: d.introTitle, path: '/menu-du-jour' },
@@ -32,7 +36,7 @@ export default async function MenuDuJour() {
           className="page-intro--menu-jour"
           eyebrow={d.introEyebrow}
           title={d.introTitle}
-          text={d.introText}
+          text={introText}
         />
 
         <section className="section menu-pdf-section" aria-label={d.introTitle}>

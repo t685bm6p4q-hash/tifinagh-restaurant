@@ -286,7 +286,10 @@ export type Dictionary = {
   dailyMenuPage: {
     introEyebrow: string
     introTitle: string
+    /** Si aucun menu en ligne ou date illisible. */
     introText: string
+    /** `{date}` = dernière mise en ligne (upload Blob), pas la date du jour. */
+    introTextUpdated: string
     limitedNote: string
     bookNow: string
     hoursTitle: string
