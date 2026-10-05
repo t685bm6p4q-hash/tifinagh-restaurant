@@ -1,4 +1,4 @@
-export { defaultLocale, localeMeta } from './config'
+export { defaultLocale, localeDirection, localeMeta } from './config'
 export { fr } from './fr'
 export type { Locale } from './config'
 export type { Dictionary } from './types'

@@ -16,6 +16,9 @@ const ureserveLangCode: Record<Locale, string> = {
   pt: 'pt',
   ru: 'ru',
   sv: 'en',
+  ja: 'en',
+  ko: 'en',
+  ar: 'en',
   zgh: 'fr',
 }
 

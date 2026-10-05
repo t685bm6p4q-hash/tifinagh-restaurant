@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { RestaurantSchema } from '@/components/restaurant-schema'
 import { WebMcpTools } from '@/components/web-mcp-tools'
 import { getA11yCopy } from '@/lib/i18n/a11y-copy'
-import { buildSiteMetadata, getI18n, localeMeta } from '@/lib/i18n'
+import { buildSiteMetadata, getI18n, localeDirection, localeMeta } from '@/lib/i18n'
 import { siteUrl } from '@/lib/seo'
 import './globals.css'
 
@@ -21,7 +21,7 @@ export default async function RootLayout({
   const { locale, dictionary } = await getI18n()
   const a11y = getA11yCopy(locale)
   return (
-    <html lang={localeMeta[locale].htmlLang}>
+    <html lang={localeMeta[locale].htmlLang} dir={localeDirection(locale)}>
       <head>
         <link
           rel="ai-catalog"

@@ -113,8 +113,8 @@ export const de: Dictionary = {
     tonightMenu: 'Tagesmenü à jour',
     mealTimesTitle: 'Mittag & Abend',
     mealTimesLunch:
-      '☀️ Mittag — Menüs 16,50 € (Vorspeise + Hauptgang) oder 18,50 € (mit Dessert)',
-    mealTimesEvening: '🌙 Abend — Komplettes Menü (Vorspeise + Hauptgang + Dessert) 25,00 €',
+      '☀️ Mittag — Vorspeise + Hauptgang oder Hauptgang + Dessert für 16,5 € · Vorspeise + Hauptgang + Dessert für 18,5 €',
+    mealTimesEvening: '🌙 Abend — Komplettes Menü (Vorspeise + Hauptgang + Dessert) 25 €',
     mealTimesCta: 'Tagesmenü ansehen',
     quotes: {
       bertrand:
@@ -122,7 +122,7 @@ export const de: Dictionary = {
       vale:
         'Nous venons de quitter le restaurant, tout était très bien, le service était rapide et aimable, l’ambiance très agréable.',
       celine:
-        'L’emplacement nous fait oublier que nous sommes dans Paris de par son calme, zéro bruit de voiture. Un service hyper agréable plein de sourires et un menu entrée + plat à 16€50 et 18€50 en ajoutant le dessert. C’est très bon, avec une touche d’originalité dans toutes les assiettes. Une adresse à garder.',
+        'L’emplacement nous fait oublier que nous sommes dans Paris de par son calme, zéro bruit de voiture. Un service hyper agréable plein de sourires et un menu entrée + plat ou plat + dessert à 16,5 €, ou entrée + plat + dessert à 18,5 €. C’est très bon, avec une touche d’originalité dans toutes les assiettes. Une adresse à garder.',
     },
   },
   carte: {
@@ -151,13 +151,13 @@ export const de: Dictionary = {
     pricingTitle: 'Mittag & Abend — unsere Menüs',
     lunchServiceTitle: '☀️ Mittagsservice',
     lunchServiceNote: 'Tagesgerichte oben — unsere Formeln:',
-    lunchFormulaTwoCourse: 'Vorspeise + Hauptgang',
-    lunchFormulaTwoCoursePrice: '16,50 €',
+    lunchFormulaTwoCourse: 'Vorspeise + Hauptgang oder Hauptgang + Dessert',
+    lunchFormulaTwoCoursePrice: '16,5 €',
     lunchFormulaThreeCourse: 'Vorspeise + Hauptgang + Dessert',
-    lunchFormulaThreeCoursePrice: '18,50 €',
+    lunchFormulaThreeCoursePrice: '18,5 €',
     eveningServiceTitle: '🌙 Abendservice',
     eveningFormulaDetail: 'Komplettes Menü — Vorspeise + Hauptgang + Dessert',
-    eveningFormulaPrice: '25,00 €',
+    eveningFormulaPrice: '25 €',
     eveningFormulaPromo: 'Genießen Sie unser reichhaltiges, hausgemachtes Abendmenü.',
     limitedNote:
       'Die Plätze sind begrenzt — wir empfehlen eine Reservierung, um Ihren Tisch zu sichern.',

@@ -113,8 +113,8 @@ export const pt: Dictionary = {
     tonightMenu: 'Menu do dia atualizado',
     mealTimesTitle: 'Almoço e jantar',
     mealTimesLunch:
-      '☀️ Almoço — menus 16,50 € (entrada + prato) ou 18,50 € (com sobremesa)',
-    mealTimesEvening: '🌙 Jantar — menu completo (entrada + prato + sobremesa) 25,00 €',
+      '☀️ Almoço — Entrada + Prato ou Prato + Sobremesa a 16,5 € · Entrada + Prato + Sobremesa a 18,5 €',
+    mealTimesEvening: '🌙 Jantar — menu completo (entrada + prato + sobremesa) 25 €',
     mealTimesCta: 'Ver o menu do dia',
     quotes: {
       bertrand:
@@ -122,7 +122,7 @@ export const pt: Dictionary = {
       vale:
         'Acabamos de salir del restaurante: todo estuvo muy bien, el servicio fue rápido y amable, el ambiente muy agradable.',
       celine:
-        'El emplazamiento hace olvidar que estamos en París por su calma, ni un ruido de coches. Un servicio encantador, lleno de sonrisas, y un menú entrada + plato a 16,50 € o 18,50 € con el postre. Está riquísimo, con un toque original en cada plato. Una dirección para guardar.',
+        'O local faz-nos esquecer que estamos em Paris pela calma, sem ruído de carros. Um serviço simpático, cheio de sorrisos, e um menu entrada + prato ou prato + sobremesa a 16,5 €, ou entrada + prato + sobremesa a 18,5 €. Está delicioso, com um toque de originalidade em cada prato. Um endereço a guardar.',
     },
   },
   carte: {
@@ -151,13 +151,13 @@ export const pt: Dictionary = {
     pricingTitle: 'Almoço e jantar — as nossas fórmulas',
     lunchServiceTitle: '☀️ Serviço de almoço',
     lunchServiceNote: 'Pratos do dia acima — as nossas fórmulas:',
-    lunchFormulaTwoCourse: 'Entrada + Prato',
-    lunchFormulaTwoCoursePrice: '16,50 €',
+    lunchFormulaTwoCourse: 'Entrada + Prato ou Prato + Sobremesa',
+    lunchFormulaTwoCoursePrice: '16,5 €',
     lunchFormulaThreeCourse: 'Entrada + Prato + Sobremesa',
-    lunchFormulaThreeCoursePrice: '18,50 €',
+    lunchFormulaThreeCoursePrice: '18,5 €',
     eveningServiceTitle: '🌙 Serviço de jantar',
     eveningFormulaDetail: 'Menu completo — Entrada + Prato + Sobremesa',
-    eveningFormulaPrice: '25,00 €',
+    eveningFormulaPrice: '25 €',
     eveningFormulaPromo: 'Desfrute da nossa generosa fórmula de jantar, 100 % caseira.',
     limitedNote:
       'Os lugares são limitados — recomendamos reservar para garantir a sua mesa.',

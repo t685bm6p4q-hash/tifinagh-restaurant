@@ -225,6 +225,90 @@ const drinksRu: Dictionary['drinks'] = {
   },
 }
 
+const drinksJa: Dictionary['drinks'] = {
+  page: {
+    eyebrow: 'バー＆ビストロ',
+    title: 'Tifinagh のドリンク',
+    text:
+      '生ビール、ナチュラルワイン、アペリティフ、カクテル — 店内でも日陰のテラスでも、お料理にぴったりの一杯。',
+    bannerTitle: '食事を延ばす一杯',
+    bannerText: 'クラフトビール、スピリッツ、ソフトドリンク、温かい飲み物 — キッチンと同じ気配りで。',
+    bannerAlt: 'モンマルトル ビストロ Tifinagh のバーの雰囲気',
+    gridLead: '店内メニュー価格 — 透明性のあるドリンク選び。',
+    backEyebrow: 'フードメニュー',
+    backTitle: '料理とデザート',
+    backText: '恒常メニューの前菜、メイン、デザートをご覧ください。',
+    backCta: '料理メニューを見る',
+  },
+  columns: { demi: 'デミ', pinte: 'パイント' },
+  sections: {
+    draftBeer: '生ビール',
+    bottledBeer: '瓶ビール',
+    softs: 'ソフトドリンク',
+    aperitifs: 'アペリティフ',
+    spirits: 'スピリッツ＆食後酒',
+    cocktails: 'カクテル',
+    hot: '温かい飲み物',
+    waters: 'ミネラルウォーター 50 cl',
+  },
+}
+
+const drinksKo: Dictionary['drinks'] = {
+  page: {
+    eyebrow: '바 & 비스트로',
+    title: 'Tifinagh 음료',
+    text:
+      '생맥주, 내추럴 와인, 아페리티프, 칵테일 — 실내 또는 그늘진 테라스에서 요리와 함께 즐기세요.',
+    bannerTitle: '식사를 이어 주는 한 잔',
+    bannerText: '수제 맥주, 주류, 청량음료, 따뜻한 음료 — 주방과 같은 정성으로 제공합니다.',
+    bannerAlt: '몽마르트르 비스트로 Tifinagh 바 분위기',
+    gridLead: '홀 메뉴 가격 — 투명하게 음료를 선택하세요.',
+    backEyebrow: '식사 메뉴',
+    backTitle: '요리 & 디저트',
+    backText: '상설 메뉴의 전채, 메인, 디저트를 확인하세요.',
+    backCta: '식사 메뉴 보기',
+  },
+  columns: { demi: '데미', pinte: '파인트' },
+  sections: {
+    draftBeer: '생맥주',
+    bottledBeer: '병맥주',
+    softs: '청량음료',
+    aperitifs: '아페리티프',
+    spirits: '주류 & 디제스티프',
+    cocktails: '칵테일',
+    hot: '따뜻한 음료',
+    waters: '생수 50 cl',
+  },
+}
+
+const drinksAr: Dictionary['drinks'] = {
+  page: {
+    eyebrow: 'بار ومطعم حيّ',
+    title: 'المشروبات في Tifinagh',
+    text:
+      'بيرة من الصنبور، نبيذ حيّ، aperitifs وكوكتيلات — الرفيق المثالي لأطباقنا، في القاعة أو على التراس الظليل.',
+    bannerTitle: 'كأس يمدّد متعة الوجبة',
+    bannerText: 'بيرة حرفية، مشروبات روحية، غازية وساخنة — تُقدَّم بنفس عناية مطبخنا.',
+    bannerAlt: 'أجواء بار دافئة في مطعم Tifinagh بمونمارتر',
+    gridLead: 'أسعار القائمة في القاعة — اختاروا مشروبكم بكل وضوح.',
+    backEyebrow: 'قائمة الطعام',
+    backTitle: 'أطباق وحلويات',
+    backText: 'اطّلعوا على المقبلات والأطباق الرئيسية والحلويات من القائمة الدائمة.',
+    backCta: 'عرض قائمة الأطباق',
+  },
+  columns: { demi: 'Demi', pinte: 'Pinte' },
+  sections: {
+    draftBeer: 'بيرة من الصنبور',
+    bottledBeer: 'بيرة بالزجاجة',
+    softs: 'مشروبات غازية',
+    aperitifs: 'Aperitifs',
+    spirits: 'مشروبات روحية وdigestifs',
+    cocktails: 'Cocktails',
+    hot: 'مشروبات ساخنة',
+    waters: 'مياه 50 cl',
+  },
+}
+
 const drinksSv: Dictionary['drinks'] = {
   page: {
     eyebrow: 'Bar & bistro',
@@ -283,5 +367,8 @@ export const drinksByLocale: Record<Locale, Dictionary['drinks']> = {
   pt: drinksPt,
   ru: drinksRu,
   sv: drinksSv,
+  ja: drinksJa,
+  ko: drinksKo,
+  ar: drinksAr,
   zgh: drinksZgh,
 }

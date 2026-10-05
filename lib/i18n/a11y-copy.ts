@@ -15,6 +15,9 @@ const copy: Record<Locale, A11yCopy> = {
   pt: { skipToContent: 'Ir para o conteúdo principal', breadcrumbNav: 'Navegação estrutural' },
   ru: { skipToContent: 'Перейти к основному содержанию', breadcrumbNav: 'Навигационная цепочка' },
   sv: { skipToContent: 'Hoppa till huvudinnehåll', breadcrumbNav: 'Brödsmulor' },
+  ja: { skipToContent: 'メインコンテンツへスキップ', breadcrumbNav: 'パンくずリスト' },
+  ko: { skipToContent: '본문으로 건너뛰기', breadcrumbNav: '탐색 경로' },
+  ar: { skipToContent: 'انتقل إلى المحتوى الرئيسي', breadcrumbNav: 'مسار التنقل' },
   zgh: { skipToContent: 'Aller au contenu principal', breadcrumbNav: "Fil d'Ariane" },
 }
 

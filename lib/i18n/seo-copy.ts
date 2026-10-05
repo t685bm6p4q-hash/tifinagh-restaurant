@@ -1,7 +1,10 @@
 import type { Locale } from './config'
 import type { Dictionary } from './types'
 import { HOME_SEO_DESCRIPTION, HOME_SEO_TITLE_FR } from './home-seo-description'
+import { seoAr } from './seo/ar'
 import { seoDe } from './seo/de'
+import { seoJa } from './seo/ja'
+import { seoKo } from './seo/ko'
 import { seoPt } from './seo/pt'
 import { seoRu } from './seo/ru'
 import { seoSv } from './seo/sv'
@@ -617,5 +620,8 @@ export const seoByLocale: Record<Locale, Dictionary['seo']> = {
   pt: withSharedHomeMeta(seoPt),
   ru: withSharedHomeMeta(seoRu),
   sv: withSharedHomeMeta(seoSv),
+  ja: withSharedHomeMeta(seoJa),
+  ko: withSharedHomeMeta(seoKo),
+  ar: withSharedHomeMeta(seoAr),
   zgh: withSharedHomeMeta(seoZgh),
 }

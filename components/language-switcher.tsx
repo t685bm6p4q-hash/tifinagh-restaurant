@@ -34,6 +34,7 @@ export function LanguageSwitcher({
     <details className="lang-switcher">
       <summary className="lang-switcher-trigger" aria-label={dictionary.nav.chooseLanguage}>
         <GlobeIcon />
+        <span className="lang-switcher-flag" aria-hidden="true">{current.flag}</span>
         <span className="lang-switcher-code">{current.short}</span>
         <ChevronIcon />
       </summary>
@@ -52,7 +53,7 @@ export function LanguageSwitcher({
                 aria-current={active ? 'true' : undefined}
                 disabled={active}
               >
-                <span className="lang-option-code">{meta.short}</span>
+                <span className="lang-option-flag" aria-hidden="true">{meta.flag}</span>
                 <span className="lang-option-name">{meta.nativeLabel}</span>
               </button>
             </form>

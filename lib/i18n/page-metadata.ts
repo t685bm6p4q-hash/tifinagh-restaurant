@@ -42,6 +42,9 @@ const openGraphLocale: Record<Locale, string> = {
   pt: 'pt_PT',
   ru: 'ru_RU',
   sv: 'sv_SE',
+  ja: 'ja_JP',
+  ko: 'ko_KR',
+  ar: 'ar_SA',
   zgh: 'fr_FR',
 }
 

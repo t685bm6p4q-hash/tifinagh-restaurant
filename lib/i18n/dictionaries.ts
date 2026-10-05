@@ -3,6 +3,9 @@ import { en } from './en'
 import { es } from './es'
 import { fr } from './fr'
 import { it } from './it'
+import { ar } from './ar'
+import { ja } from './ja'
+import { ko } from './ko'
 import { pt } from './pt'
 import { ru } from './ru'
 import { sv } from './sv'
@@ -16,6 +19,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
   en,
   es,
   it,
+  ja,
+  ko,
+  ar,
   zh,
   de,
   pt,

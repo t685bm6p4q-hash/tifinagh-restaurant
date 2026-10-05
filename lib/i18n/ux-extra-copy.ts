@@ -182,6 +182,63 @@ const sv: UxExtraCopy = {
   },
 }
 
+const ja: UxExtraCopy = {
+  bookingGuide:
+    'オンライン：即時予約 · WhatsApp：メッセージやご要望 · 電話：当日の予約に最適。',
+  homeDiscoverDrinks: 'ドリンクメニュー',
+  mapLoadInteractive: 'Google インタラクティブマップを表示',
+  mapPreviewAlt: 'Tifinagh 周辺のモンマルトル街区の地図',
+  footerExploreTitle: '探す',
+  practical: {
+    title: 'ご来店前に',
+    items: [
+      '料理とドリンクの詳細メニュー（価格付き）をサイトでご確認いただけます。',
+      '本日のメニューは毎朝更新、オンラインでご覧いただけます。',
+      '天候が良い日は日陰のテラスをご利用いただけます。',
+      '100％手作り料理。週末や公演の夜はご予約をおすすめします。',
+      '一部または貸切 — 貸切ページまたはお電話でお見積りください。',
+    ],
+  },
+}
+
+const ko: UxExtraCopy = {
+  bookingGuide:
+    '온라인: 즉시 예약 · WhatsApp: 메시지·요청 · 전화: 당일 예약에 적합.',
+  homeDiscoverDrinks: '음료 메뉴',
+  mapLoadInteractive: 'Google 인터랙티브 지도 표시',
+  mapPreviewAlt: 'Tifinagh 주변 몽마르트르 지도',
+  footerExploreTitle: '둘러보기',
+  practical: {
+    title: '방문 전 참고',
+    items: [
+      '가격이 포함된 상세 식사·음료 메뉴를 사이트에서 확인하세요.',
+      '오늘의 메뉴는 매일 아침 업데이트됩니다.',
+      '날씨가 좋을 때 그늘진 테라스를 이용할 수 있습니다.',
+      '100% 수제 요리. 주말·공연 밤 예약을 권장합니다.',
+      '부분·전체 대관 — 대관 페이지 또는 전화로 견적 문의.',
+    ],
+  },
+}
+
+const ar: UxExtraCopy = {
+  bookingGuide:
+    'عبر الإنترنت: حجز فوري · واتساب: رسالة أو طلب خاص · الهاتف: مثالي لحجز نفس اليوم.',
+  homeDiscoverDrinks: 'قائمة المشروبات',
+  mapLoadInteractive: 'عرض خريطة Google التفاعلية',
+  mapPreviewAlt: 'خريطة حي مونمارتر حول مطعم Tifinagh',
+  footerExploreTitle: 'استكشف',
+  practical: {
+    title: 'معلومات قبل الزيارة',
+    items: [
+      'قوائم الطعام والمشروبات التفصيلية مع الأسعار على الموقع — لتخطيط وجبتكم بكل وضوح.',
+      'قائمة اليوم متاحة على الإنترنت وتُحدَّث كل صباح.',
+      'تراس مظلّل عندما يكون الطقس مناسبًا.',
+      'مطبخ 100٪ منزلي؛ يُنصَح بالحجز في عطلة نهاية الأسبوع وليالي العروض.',
+      'تأجير جزئي أو كامل — اطلبوا عرض سعر عبر صفحة التأجير أو بالهاتف.',
+    ],
+  },
+}
+
 const zgh: UxExtraCopy = {
   bookingGuide:
     'ⵉⵏⵙⵉⵎⵎⵓⵙ · WhatsApp · ⵜⵉⵍⵉⴼⵓⵏ — ⴰⵙⵙⵓⵎⵔ ⵙ ⵉⵏⵙⵉⵎⵎⵓⵙ, ⵉⵣⵏ ⴳ WhatsApp.',
@@ -211,6 +268,9 @@ const uxExtraByLocale: Record<Locale, UxExtraCopy> = {
   pt,
   ru,
   sv,
+  ja,
+  ko,
+  ar,
   zgh,
 }
 

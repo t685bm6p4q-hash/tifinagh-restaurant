@@ -113,8 +113,8 @@ export const it: Dictionary = {
     tonightMenu: 'Menu del giorno aggiornato',
     mealTimesTitle: 'Pranzo e cena',
     mealTimesLunch:
-      '☀️ Pranzo — formule 16,50 € (antipasto + piatto) o 18,50 € (con dessert)',
-    mealTimesEvening: '🌙 Cena — menu completo (antipasto + piatto + dessert) 25,00 €',
+      '☀️ Pranzo — Antipasto + Piatto o Piatto + Dessert a 16,5 € · Antipasto + Piatto + Dessert a 18,5 €',
+    mealTimesEvening: '🌙 Cena — menu completo (antipasto + piatto + dessert) 25 €',
     mealTimesCta: 'Vedi il menu del giorno',
     quotes: {
       bertrand:
@@ -122,7 +122,7 @@ export const it: Dictionary = {
       vale:
         'Siamo appena usciti dal ristorante: tutto era ottimo, il servizio rapido e gentile, l’atmosfera davvero piacevole.',
       celine:
-        'La posizione fa dimenticare di essere a Parigi, talmente è calma: zero rumore di auto. Un servizio sorridente e un menu antipasto + piatto a 16,50 €, 18,50 € con il dessert. È buonissimo, con un tocco di originalità in ogni piatto. Un indirizzo da tenere.',
+        'La posizione fa dimenticare di essere a Parigi, talmente è calma: zero rumore di auto. Un servizio sorridente e un menu antipasto + piatto o piatto + dessert a 16,5 €, o antipasto + piatto + dessert a 18,5 €. È buonissimo, con un tocco di originalità in ogni piatto. Un indirizzo da tenere.',
     },
   },
   carte: {
@@ -150,13 +150,13 @@ export const it: Dictionary = {
     pricingTitle: 'Pranzo e cena — le nostre formule',
     lunchServiceTitle: '☀️ Servizio di pranzo',
     lunchServiceNote: 'Piatti del giorno sopra — le nostre formule:',
-    lunchFormulaTwoCourse: 'Antipasto + Piatto',
-    lunchFormulaTwoCoursePrice: '16,50 €',
+    lunchFormulaTwoCourse: 'Antipasto + Piatto o Piatto + Dessert',
+    lunchFormulaTwoCoursePrice: '16,5 €',
     lunchFormulaThreeCourse: 'Antipasto + Piatto + Dessert',
-    lunchFormulaThreeCoursePrice: '18,50 €',
+    lunchFormulaThreeCoursePrice: '18,5 €',
     eveningServiceTitle: '🌙 Servizio di cena',
     eveningFormulaDetail: 'Menu completo — Antipasto + Piatto + Dessert',
-    eveningFormulaPrice: '25,00 €',
+    eveningFormulaPrice: '25 €',
     eveningFormulaPromo: 'Godetevi la nostra generosa formula serale, tutta fatta in casa.',
     limitedNote:
       'I posti sono limitati — consigliamo di prenotare per garantire il vostro tavolo.',

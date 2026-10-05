@@ -113,8 +113,8 @@ export const zgh: Dictionary = {
     tonightMenu: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ ⵜⵓⵙⵙⵓⵎⵔⵜ',
     mealTimesTitle: 'ⵜⴰⵎⴷⵉⵏⵜ ⴷ ⵜⴰⵎⴷⵉⵏⵜ',
     mealTimesLunch:
-      '☀️ ⵜⴰⵎⴷⵉⵏⵜ — ⵜⵉⴼⵔⵓⵔⵉⵏ 16,50 € ⴷ 18,50 €',
-    mealTimesEvening: '🌙 ⵜⴰⵎⴷⵉⵏⵜ — ⵜⴰⵎⵓⵔⵜ ⵉⵎⵙⵙⴰ 25,00 €',
+      '☀️ Midi — Entrée + Plat ou Plat + Dessert à 16,5 € · Entrée + Plat + Dessert à 18,5 €',
+    mealTimesEvening: '🌙 Soir — formule complète (Entrée + Plat + Dessert) à 25 €',
     mealTimesCta: 'ⵙⴽⵏ ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ',
     quotes: {
       bertrand:
@@ -150,13 +150,13 @@ export const zgh: Dictionary = {
     pricingTitle: 'Midi & Soir — nos formules',
     lunchServiceTitle: '☀️ Service du midi',
     lunchServiceNote: 'Plats du jour affichés ci-dessus — nos formules :',
-    lunchFormulaTwoCourse: 'Entrée + Plat',
-    lunchFormulaTwoCoursePrice: '16,50 €',
+    lunchFormulaTwoCourse: 'Entrée + Plat ou Plat + Dessert',
+    lunchFormulaTwoCoursePrice: '16,5 €',
     lunchFormulaThreeCourse: 'Entrée + Plat + Dessert',
-    lunchFormulaThreeCoursePrice: '18,50 €',
+    lunchFormulaThreeCoursePrice: '18,5 €',
     eveningServiceTitle: '🌙 Service du soir',
     eveningFormulaDetail: 'Formule complète — Entrée + Plat + Dessert',
-    eveningFormulaPrice: '25,00 €',
+    eveningFormulaPrice: '25 €',
     eveningFormulaPromo: 'Profitez de notre formule du soir, généreuse et 100 % maison.',
     limitedNote: 'ⵉⵎⴷⴷⴰⵏ ⵉⵎⵙⵙⴰⵏ — ⵙⵙⵖⵔ ⴰⵙⴳⴳⵯⴰⵙ.',
     bookNow: 'ⴰⵙⴳⴳⵯⴰⵙ ⴷⵖⵉ',

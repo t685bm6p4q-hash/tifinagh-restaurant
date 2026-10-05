@@ -1,7 +1,10 @@
 import type { Locale } from './config'
 import type { PagesCopy } from './types'
 import { galleryAltsEn, galleryAltsFr } from '@/lib/gallery-data'
+import { pagesAr } from './pages/ar'
 import { pagesDe } from './pages/de'
+import { pagesJa } from './pages/ja'
+import { pagesKo } from './pages/ko'
 import { pagesPt } from './pages/pt'
 import { pagesRu } from './pages/ru'
 import { pagesSv } from './pages/sv'
@@ -924,5 +927,8 @@ export const pagesByLocale: Record<Locale, PagesCopy> = {
   pt: pagesPt,
   ru: pagesRu,
   sv: pagesSv,
+  ja: pagesJa,
+  ko: pagesKo,
+  ar: pagesAr,
   zgh: pagesZgh,
 }

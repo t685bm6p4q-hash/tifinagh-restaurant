@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { MenuCrossLink } from '@/components/menu-cross-link'
+import { MenuDayServicePricing } from '@/components/menu-day-service-pricing'
 import { MenuSection } from '@/src/components/organisms/menu-section'
 import { cloudinaryImage } from '@/lib/cloudinary'
 import { getI18n, localizeMenu } from '@/lib/i18n'
@@ -73,6 +74,10 @@ export default async function Carte() {
           {menu.map((section) => (
             <MenuSection key={section.title} title={section.title} items={section.items} />
           ))}
+        </section>
+
+        <section className="section carte-formulas-section" aria-labelledby="carte-formulas-title">
+          <MenuDayServicePricing copy={dictionary.dailyMenuPage} />
         </section>
 
         <MenuCrossLink

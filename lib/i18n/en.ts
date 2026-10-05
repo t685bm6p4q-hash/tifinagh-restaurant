@@ -112,8 +112,8 @@ export const en: Dictionary = {
     tonightMenu: "Today's menu, up to date",
     mealTimesTitle: 'Lunch & Dinner',
     mealTimesLunch:
-      '☀️ Lunch — set menus at €16.50 (starter + main) or €18.50 (starter + main + dessert)',
-    mealTimesEvening: '🌙 Dinner — full set menu (starter + main + dessert) for €25.00',
+      '☀️ Lunch — Starter + Main or Main + Dessert at €16.5 · Starter + Main + Dessert at €18.5',
+    mealTimesEvening: '🌙 Dinner — full set menu (starter + main + dessert) for €25',
     mealTimesCta: "See today's menu",
     quotes: {
       bertrand:
@@ -121,7 +121,7 @@ export const en: Dictionary = {
       vale:
         'We have just left the restaurant: everything was excellent, the service was quick and kind, the atmosphere truly pleasant.',
       celine:
-        'The setting makes you forget you are in Paris — so quiet, not a sound of traffic. Warm, smiling service and a starter + main for €16.50, or €18.50 with dessert. Delicious, with a touch of originality on every plate. An address to keep.',
+        'The setting makes you forget you are in Paris — so quiet, not a sound of traffic. Warm, smiling service and a starter + main or main + dessert for €16.5, or starter + main + dessert for €18.5. Delicious, with a touch of originality on every plate. An address to keep.',
     },
   },
   carte: {
@@ -150,13 +150,13 @@ export const en: Dictionary = {
     pricingTitle: 'Lunch & Dinner — our set menus',
     lunchServiceTitle: '☀️ Lunch service',
     lunchServiceNote: 'Today’s dishes shown above — set menus:',
-    lunchFormulaTwoCourse: 'Starter + Main',
-    lunchFormulaTwoCoursePrice: '€16.50',
+    lunchFormulaTwoCourse: 'Starter + Main or Main + Dessert',
+    lunchFormulaTwoCoursePrice: '€16.5',
     lunchFormulaThreeCourse: 'Starter + Main + Dessert',
-    lunchFormulaThreeCoursePrice: '€18.50',
+    lunchFormulaThreeCoursePrice: '€18.5',
     eveningServiceTitle: '🌙 Dinner service',
     eveningFormulaDetail: 'Full set menu — Starter + Main + Dessert',
-    eveningFormulaPrice: '€25.00',
+    eveningFormulaPrice: '€25',
     eveningFormulaPromo: 'Enjoy our generous, fully homemade dinner set menu.',
     limitedNote: 'Seating is limited — we recommend booking to secure your table.',
     bookNow: 'Book now',

@@ -114,8 +114,8 @@ export const fr: Dictionary = {
     tonightMenu: 'Menu du jour à jour',
     mealTimesTitle: 'Midi & Soir',
     mealTimesLunch:
-      '☀️ Midi — formules Entrée + Plat à 16,50 € ou Entrée + Plat + Dessert à 18,50 €',
-    mealTimesEvening: '🌙 Soir — formule complète (Entrée + Plat + Dessert) à 25,00 €',
+      '☀️ Midi — Entrée + Plat ou Plat + Dessert à 16,5 € · Entrée + Plat + Dessert à 18,5 €',
+    mealTimesEvening: '🌙 Soir — formule complète (Entrée + Plat + Dessert) à 25 €',
     mealTimesCta: 'Consulter le menu du jour',
     quotes: {
       bertrand:
@@ -123,7 +123,7 @@ export const fr: Dictionary = {
       vale:
         'Nous venons de quitter le restaurant, tout était très bien, le service était rapide et aimable, l’ambiance très agréable.',
       celine:
-        'L’emplacement nous fait oublier que nous sommes dans Paris de par son calme, zéro bruit de voiture. Un service hyper agréable plein de sourires et un menu entrée + plat à 16€50 et 18€50 en ajoutant le dessert. C’est très bon, avec une touche d’originalité dans toutes les assiettes. Une adresse à garder.',
+        'L’emplacement nous fait oublier que nous sommes dans Paris de par son calme, zéro bruit de voiture. Un service hyper agréable plein de sourires et un menu entrée + plat ou plat + dessert à 16,5 €, ou entrée + plat + dessert à 18,5 €. C’est très bon, avec une touche d’originalité dans toutes les assiettes. Une adresse à garder.',
     },
   },
   carte: {
@@ -152,13 +152,13 @@ export const fr: Dictionary = {
     pricingTitle: 'Midi & Soir — nos formules',
     lunchServiceTitle: '☀️ Service du midi',
     lunchServiceNote: 'Plats du jour affichés ci-dessus — nos formules :',
-    lunchFormulaTwoCourse: 'Entrée + Plat',
-    lunchFormulaTwoCoursePrice: '16,50 €',
+    lunchFormulaTwoCourse: 'Entrée + Plat ou Plat + Dessert',
+    lunchFormulaTwoCoursePrice: '16,5 €',
     lunchFormulaThreeCourse: 'Entrée + Plat + Dessert',
-    lunchFormulaThreeCoursePrice: '18,50 €',
+    lunchFormulaThreeCoursePrice: '18,5 €',
     eveningServiceTitle: '🌙 Service du soir',
     eveningFormulaDetail: 'Formule complète — Entrée + Plat + Dessert',
-    eveningFormulaPrice: '25,00 €',
+    eveningFormulaPrice: '25 €',
     eveningFormulaPromo: 'Profitez de notre formule du soir, généreuse et 100 % maison.',
     limitedNote:
       'Les places sont limitées — nous vous conseillons de réserver pour garantir votre table.',

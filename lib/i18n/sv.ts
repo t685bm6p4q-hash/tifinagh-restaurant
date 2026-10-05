@@ -113,8 +113,8 @@ export const sv: Dictionary = {
     tonightMenu: 'Aktuell dagens meny',
     mealTimesTitle: 'Lunch & middag',
     mealTimesLunch:
-      '☀️ Lunch — menyer 16,50 € (förrätt + huvudrätt) eller 18,50 € (med dessert)',
-    mealTimesEvening: '🌙 Middag — komplett meny (förrätt + huvudrätt + dessert) 25,00 €',
+      '☀️ Lunch — Förrätt + Huvudrätt eller Huvudrätt + Dessert för 16,5 € · Förrätt + Huvudrätt + Dessert för 18,5 €',
+    mealTimesEvening: '🌙 Middag — komplett meny (förrätt + huvudrätt + dessert) 25 €',
     mealTimesCta: 'Se dagens meny',
     quotes: {
       bertrand:
@@ -122,7 +122,7 @@ export const sv: Dictionary = {
       vale:
         'Vi har just lämnat restaurangen: allt var utmärkt, servicen snabb och vänlig, atmosfären mycket trevlig.',
       celine:
-        'Platsen får en att glömma att man är i Paris — så tyst, inget trafikbuller. Varmt leende service och meny förrätt + huvudrätt för 16,50 €, 18,50 € med dessert. Mycket gott, med en touch av originalitet på varje tallrik. En adress att spara.',
+        'Platsen får en att glömma att man är i Paris — så tyst, inget trafikbuller. Varmt leende service och meny förrätt + huvudrätt eller huvudrätt + dessert för 16,5 €, eller förrätt + huvudrätt + dessert för 18,5 €. Mycket gott, med en touch av originalitet på varje tallrik. En adress att spara.',
     },
   },
   carte: {
@@ -151,13 +151,13 @@ export const sv: Dictionary = {
     pricingTitle: 'Lunch & middag — våra menyer',
     lunchServiceTitle: '☀️ Lunchservering',
     lunchServiceNote: 'Dagens rätter ovan — våra menyer:',
-    lunchFormulaTwoCourse: 'Förrätt + Huvudrätt',
-    lunchFormulaTwoCoursePrice: '16,50 €',
+    lunchFormulaTwoCourse: 'Förrätt + Huvudrätt eller Huvudrätt + Dessert',
+    lunchFormulaTwoCoursePrice: '16,5 €',
     lunchFormulaThreeCourse: 'Förrätt + Huvudrätt + Dessert',
-    lunchFormulaThreeCoursePrice: '18,50 €',
+    lunchFormulaThreeCoursePrice: '18,5 €',
     eveningServiceTitle: '🌙 Middagsservering',
     eveningFormulaDetail: 'Komplett meny — Förrätt + Huvudrätt + Dessert',
-    eveningFormulaPrice: '25,00 €',
+    eveningFormulaPrice: '25 €',
     eveningFormulaPromo: 'Njut av vår generösa, hemlagade middagsmeny.',
     limitedNote: 'Antal platser är begränsat — vi rekommenderar bokning för att säkra ditt bord.',
     bookNow: 'Boka nu',

@@ -113,8 +113,8 @@ export const es: Dictionary = {
     tonightMenu: 'Menú del día actualizado',
     mealTimesTitle: 'Mediodía y noche',
     mealTimesLunch:
-      '☀️ Mediodía — menús 16,50 € (entrante + plato) o 18,50 € (con postre)',
-    mealTimesEvening: '🌙 Noche — menú completo (entrante + plato + postre) 25,00 €',
+      '☀️ Mediodía — Entrante + Plato o Plato + Postre a 16,5 € · Entrante + Plato + Postre a 18,5 €',
+    mealTimesEvening: '🌙 Noche — menú completo (entrante + plato + postre) 25 €',
     mealTimesCta: 'Ver el menú del día',
     quotes: {
       bertrand:
@@ -122,7 +122,7 @@ export const es: Dictionary = {
       vale:
         'Acabamos de salir del restaurante: todo estuvo muy bien, el servicio fue rápido y amable, el ambiente muy agradable.',
       celine:
-        'El emplazamiento hace olvidar que estamos en París por su calma, ni un ruido de coches. Un servicio encantador, lleno de sonrisas, y un menú entrada + plato a 16,50 € o 18,50 € con el postre. Está riquísimo, con un toque original en cada plato. Una dirección para guardar.',
+        'El emplazamiento hace olvidar que estamos en París por su calma, ni un ruido de coches. Un servicio encantador, lleno de sonrisas, y un menú entrante + plato o plato + postre a 16,5 €, o entrante + plato + postre a 18,5 €. Está riquísimo, con un toque original en cada plato. Una dirección para guardar.',
     },
   },
   carte: {
@@ -151,13 +151,13 @@ export const es: Dictionary = {
     pricingTitle: 'Mediodía y noche — nuestras fórmulas',
     lunchServiceTitle: '☀️ Servicio de mediodía',
     lunchServiceNote: 'Platos del día arriba — nuestras fórmulas:',
-    lunchFormulaTwoCourse: 'Entrante + Plato',
-    lunchFormulaTwoCoursePrice: '16,50 €',
+    lunchFormulaTwoCourse: 'Entrante + Plato o Plato + Postre',
+    lunchFormulaTwoCoursePrice: '16,5 €',
     lunchFormulaThreeCourse: 'Entrante + Plato + Postre',
-    lunchFormulaThreeCoursePrice: '18,50 €',
+    lunchFormulaThreeCoursePrice: '18,5 €',
     eveningServiceTitle: '🌙 Servicio de noche',
     eveningFormulaDetail: 'Menú completo — Entrante + Plato + Postre',
-    eveningFormulaPrice: '25,00 €',
+    eveningFormulaPrice: '25 €',
     eveningFormulaPromo: 'Disfrute de nuestra generosa fórmula de noche, 100 % casera.',
     limitedNote:
       'Las plazas son limitadas — le recomendamos reservar para asegurar su mesa.',

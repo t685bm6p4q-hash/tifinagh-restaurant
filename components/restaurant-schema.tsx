@@ -83,7 +83,7 @@ export async function RestaurantSchema() {
     url: siteUrl,
     name: restaurant.name,
     publisher: { '@id': `${siteUrl}/#restaurant` },
-    inLanguage: ['fr', 'en', 'es', 'it', 'zh', 'de', 'pt', 'ru', 'sv'],
+    inLanguage: ['fr', 'en', 'es', 'it', 'zh', 'de', 'pt', 'ru', 'sv', 'ja', 'ko', 'ar'],
   }
 
   const schema = {
