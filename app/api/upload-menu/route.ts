@@ -8,10 +8,8 @@ import { getMenuStorageOverview } from '@/lib/menu-kind'
 import {
   MAX_MENU_UPLOAD_BYTES,
   isBlobConfigured,
-  isMenuImageSourceWithinLimit,
   isMenuUploadWithinSizeLimit,
   menuBlobPathname,
-  menuUploadImageSourceTooLargeMessage,
   menuUploadTooHeavyMessage,
   resolveMenuUpload,
   resolveMenuUploadVariant,
@@ -56,35 +54,28 @@ export async function POST(request: NextRequest) {
     }
 
     const resolved = resolveMenuUpload(file)
-    if (!resolved) {
+    if (!resolved || resolved.contentType === 'application/pdf') {
       return NextResponse.json(
-        { error: 'Le fichier doit être un PDF, un JPEG, un PNG ou un WebP' },
+        { error: 'Le serveur attend une image optimisée (WebP, JPEG ou PNG). Rechargez la page admin.' },
         { status: 400 },
       )
     }
 
-    const isPdf = resolved.contentType === 'application/pdf'
-    if (isPdf && !isMenuUploadWithinSizeLimit(file.size)) {
+    if (!isMenuUploadWithinSizeLimit(file.size)) {
       return NextResponse.json({ error: menuUploadTooHeavyMessage(file.size) }, { status: 400 })
-    }
-    if (!isPdf && !isMenuImageSourceWithinLimit(file.size)) {
-      return NextResponse.json(
-        { error: menuUploadImageSourceTooLargeMessage(file.size) },
-        { status: 400 },
-      )
     }
 
     let buffer = Buffer.from(await file.arrayBuffer())
     const sniffed = sniffMenuContentType(new Uint8Array(buffer))
     if (!sniffed || sniffed !== resolved.contentType) {
       return NextResponse.json(
-        { error: 'Le fichier ne correspond pas à un PDF, JPEG, PNG ou WebP valide' },
+        { error: 'Le fichier ne correspond pas à une image JPEG, PNG ou WebP valide' },
         { status: 400 },
       )
     }
 
     let contentType = sniffed
-    if (!isPdf) {
+    if (contentType !== 'image/webp') {
       try {
         buffer = Buffer.from(await compressMenuImageToWebp(buffer))
         contentType = 'image/webp'
@@ -116,11 +107,7 @@ export async function POST(request: NextRequest) {
 
       return NextResponse.json({
         success: true,
-        message: isPdf
-          ? variant === 'en'
-            ? 'Menu anglais mis à jour avec succès'
-            : 'Menu du jour mis à jour avec succès'
-          : 'Menu compressé en WebP (1 Mo max) et mis à jour',
+        message: 'Menu optimisé en WebP (1 Mo max) et mis à jour',
         url: blob.url,
         variant,
         pathname,
@@ -131,11 +118,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: isPdf
-        ? variant === 'en'
-          ? 'Menu anglais mis à jour localement'
-          : 'Menu du jour mis à jour localement'
-        : 'Menu compressé en WebP (1 Mo max) et mis à jour localement',
+      message: 'Menu optimisé en WebP (1 Mo max) et mis à jour localement',
       url: `/${pathname}`,
       variant,
       pathname,

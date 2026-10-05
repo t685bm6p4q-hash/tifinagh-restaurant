@@ -3,15 +3,18 @@
 import { useCallback, useEffect, useState } from 'react'
 import { AlertCircle, CheckCircle } from 'lucide-react'
 import { MainContent } from '@/components/main-content'
-import { compressMenuImageInBrowser } from '@/lib/compress-menu-browser'
+import {
+  compressMenuImageInBrowser,
+  convertMenuPdfToImageInBrowser,
+} from '@/lib/compress-menu-browser'
 import { parseMenuUploadResponse } from '@/lib/menu-upload-api'
 import { formatMenuUploadedAt } from '@/lib/format-menu-uploaded-at'
 import {
-  isMenuImageSourceWithinLimit,
+  isMenuSourceWithinLimit,
   isMenuUploadWithinSizeLimit,
   MENU_UPLOAD_ACCEPT,
   MENU_UPLOAD_FORMATS_HINT,
-  menuUploadImageSourceTooLargeMessage,
+  menuUploadSourceTooLargeMessage,
   menuUploadTooHeavyMessage,
   resolveMenuUpload,
   type MenuDayVariant,
@@ -56,26 +59,17 @@ export default function MenuSetupAdmin() {
 
     const resolved = resolveMenuUpload(file)
     if (!resolved) {
-      setMessage({ type: 'error', text: '❌ Formats acceptés : PDF, JPEG ou PNG (WebP possible).' })
+      setMessage({ type: 'error', text: '❌ Formats acceptés : PDF, JPEG ou PNG.' })
       input.value = ''
       return
     }
 
     const isPdf = resolved.contentType === 'application/pdf'
 
-    if (isPdf) {
-      if (!isMenuUploadWithinSizeLimit(file.size)) {
-        setMessage({
-          type: 'error',
-          text: menuUploadTooHeavyMessage(file.size),
-        })
-        input.value = ''
-        return
-      }
-    } else if (!isMenuImageSourceWithinLimit(file.size)) {
+    if (!isMenuSourceWithinLimit(file.size)) {
       setMessage({
         type: 'error',
-        text: menuUploadImageSourceTooLargeMessage(file.size),
+        text: menuUploadSourceTooLargeMessage(file.size),
       })
       input.value = ''
       return
@@ -84,20 +78,19 @@ export default function MenuSetupAdmin() {
     setUploadingVariant(variant)
     setMessage({
       type: 'info',
-      text: isPdf ? '⏳ Envoi en cours…' : '⏳ Compression puis mise en ligne…',
+      text: isPdf ? '⏳ Conversion du PDF en image…' : '⏳ Compression puis mise en ligne…',
     })
 
     try {
-      let uploadFile = file
-      if (!isPdf) {
-        uploadFile = await compressMenuImageInBrowser(file, variant)
-        if (!isMenuUploadWithinSizeLimit(uploadFile.size)) {
-          setMessage({
-            type: 'error',
-            text: menuUploadTooHeavyMessage(uploadFile.size),
-          })
-          return
-        }
+      const uploadFile = isPdf
+        ? await convertMenuPdfToImageInBrowser(file, variant)
+        : await compressMenuImageInBrowser(file, variant)
+      if (!isMenuUploadWithinSizeLimit(uploadFile.size)) {
+        setMessage({
+          type: 'error',
+          text: menuUploadTooHeavyMessage(uploadFile.size),
+        })
+        return
       }
       const formData = new FormData()
       formData.append('file', uploadFile)
@@ -142,6 +135,11 @@ export default function MenuSetupAdmin() {
       if (reason === 'IMAGE_TOO_HEAVY') {
         setMessage({ type: 'error', text: menuUploadTooHeavyMessage(file.size) })
         return
+      } else if (reason === 'PDF_RENDER') {
+        setMessage({
+          type: 'error',
+          text: '❌ Impossible de lire ce PDF. Essayez de l’exporter à nouveau ou envoyez une photo JPEG/PNG.',
+        })
       } else {
         setMessage({ type: 'error', text: '❌ Erreur : ' + reason })
       }
@@ -262,16 +260,16 @@ export default function MenuSetupAdmin() {
         {uploadButton(
           'fr',
           'Menu du jour (français)',
-          `Français — ${MENU_UPLOAD_FORMATS_HINT}`,
+          'Fichier affiché aux visiteurs en français.',
         )}
         {uploadButton(
           'en',
           'Daily menu (English)',
-          `English — ${MENU_UPLOAD_FORMATS_HINT}`,
+          'Fichier affiché aux visiteurs en anglais.',
         )}
 
         <p style={{ color: 'var(--muted)', fontSize: '12px', textAlign: 'center', marginTop: '4px' }}>
-          {MENU_UPLOAD_FORMATS_HINT} Les images sont converties en WebP pour le site ; les PDF restent en PDF.
+          {MENU_UPLOAD_FORMATS_HINT}
         </p>
 
         {message && (
