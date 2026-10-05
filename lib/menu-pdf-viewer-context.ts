@@ -1,0 +1,86 @@
+import { cache } from 'react'
+import { getI18n } from '@/lib/i18n'
+import {
+  MENU_IMAGE_LCP_WIDTH,
+  MENU_IMAGE_PREVIEW_WIDTHS,
+  MENU_IMAGE_SIZES,
+} from '@/lib/menu-image-display'
+import {
+  getMenuStorageStatus,
+  getPublicMenuKind,
+  isPublicMenuAvailable,
+} from '@/lib/menu-kind'
+import {
+  menuDayVariantForLocale,
+  menuDuJourAlt,
+  menuPdfApiUrl,
+  menuPdfPreviewSrcSet,
+  type MenuDayVariant,
+  type MenuMediaKind,
+} from '@/lib/menu-pdf'
+
+export type MenuPdfViewerContext = {
+  dictionary: Awaited<ReturnType<typeof getI18n>>['dictionary']
+  locale: Awaited<ReturnType<typeof getI18n>>['locale']
+  defaultVariant: MenuDayVariant
+  hasEnglish: boolean
+  kindByVariant: { fr: MenuMediaKind; en: MenuMediaKind }
+  revisionByVariant: { fr: string | null; en: string | null }
+  lcpPreload:
+    | {
+        href: string
+        imageSrcSet: string
+        imageSizes: string
+      }
+    | null
+}
+
+/** Données partagées menu du jour (une seule résolution par requête RSC). */
+export const getMenuPdfViewerContext = cache(async (): Promise<MenuPdfViewerContext> => {
+  const { dictionary, locale } = await getI18n()
+  const defaultVariant = menuDayVariantForLocale(locale)
+  const [hasEnglish, kindFr, storageFr, storageEn] = await Promise.all([
+    isPublicMenuAvailable('en'),
+    getPublicMenuKind('fr'),
+    getMenuStorageStatus('fr'),
+    getMenuStorageStatus('en'),
+  ])
+  const kindEn = hasEnglish ? await getPublicMenuKind('en') : kindFr
+
+  const revisionByVariant = {
+    fr: storageFr.revision,
+    en: storageEn.revision,
+  }
+
+  const lcpVariant = defaultVariant
+  const lcpRevision = revisionByVariant[lcpVariant]
+  const lcpPreload =
+    kindFr === 'image'
+      ? {
+          href: menuPdfApiUrl(lcpVariant, {
+            maxWidth: MENU_IMAGE_LCP_WIDTH,
+            revision: lcpRevision,
+          }),
+          imageSrcSet: menuPdfPreviewSrcSet(
+            lcpVariant,
+            MENU_IMAGE_PREVIEW_WIDTHS,
+            lcpRevision,
+          ),
+          imageSizes: MENU_IMAGE_SIZES,
+        }
+      : null
+
+  return {
+    dictionary,
+    locale,
+    defaultVariant,
+    hasEnglish,
+    kindByVariant: { fr: kindFr, en: kindEn },
+    revisionByVariant,
+    lcpPreload,
+  }
+})
+
+export function menuPdfViewerLabels(): { fr: string; en: string } {
+  return { fr: menuDuJourAlt('fr'), en: menuDuJourAlt('en') }
+}

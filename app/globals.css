@@ -2241,6 +2241,19 @@ button.footer-link {
   gap: 60px;
 }
 
+.section.menu-page {
+  padding-bottom: 32px;
+}
+
+.section.carte-formulas-section {
+  padding-top: 20px;
+  padding-bottom: 100px;
+}
+
+.carte-formulas-section .menu-jour-service-pricing {
+  margin-top: 0;
+}
+
 /* ── Maillage Carte ↔ Menu du jour ─────────────────── */
 .menu-cross-link {
   padding: 28px max(28px, 8vw);
@@ -3361,6 +3374,15 @@ select:focus { border-color: var(--terracotta); }
 
   .section {
     padding: 70px 7vw;
+  }
+
+  .section.menu-page {
+    padding-bottom: 24px;
+  }
+
+  .section.carte-formulas-section {
+    padding-top: 16px;
+    padding-bottom: 70px;
   }
 
   .story,

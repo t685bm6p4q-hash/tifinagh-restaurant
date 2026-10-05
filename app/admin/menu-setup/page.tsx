@@ -7,9 +7,10 @@ import { compressMenuImageInBrowser } from '@/lib/compress-menu-browser'
 import { parseMenuUploadResponse } from '@/lib/menu-upload-api'
 import { formatMenuUploadedAt } from '@/lib/format-menu-uploaded-at'
 import {
-  MAX_MENU_PDF_BYTES,
-  MAX_MENU_UPLOAD_BYTES,
-  PDF_TOO_HEAVY_MESSAGE,
+  isMenuImageSourceWithinLimit,
+  isMenuUploadWithinSizeLimit,
+  menuUploadImageSourceTooLargeMessage,
+  menuUploadTooHeavyMessage,
   type MenuDayVariant,
 } from '@/lib/menu-pdf'
 
@@ -65,17 +66,20 @@ export default function MenuSetupAdmin() {
 
     const isPdf = name.endsWith('.pdf')
 
-    if (isPdf && file.size > MAX_MENU_PDF_BYTES) {
+    if (isPdf) {
+      if (!isMenuUploadWithinSizeLimit(file.size)) {
+        setMessage({
+          type: 'error',
+          text: menuUploadTooHeavyMessage(file.size),
+        })
+        input.value = ''
+        return
+      }
+    } else if (!isMenuImageSourceWithinLimit(file.size)) {
       setMessage({
         type: 'error',
-        text: `❌ ${PDF_TOO_HEAVY_MESSAGE}`,
+        text: menuUploadImageSourceTooLargeMessage(file.size),
       })
-      input.value = ''
-      return
-    }
-
-    if (!isPdf && file.size > MAX_MENU_UPLOAD_BYTES) {
-      setMessage({ type: 'error', text: '❌ Fichier trop gros (max 10 MB)' })
       input.value = ''
       return
     }
@@ -87,7 +91,17 @@ export default function MenuSetupAdmin() {
     })
 
     try {
-      const uploadFile = isPdf ? file : await compressMenuImageInBrowser(file, variant)
+      let uploadFile = file
+      if (!isPdf) {
+        uploadFile = await compressMenuImageInBrowser(file, variant)
+        if (!isMenuUploadWithinSizeLimit(uploadFile.size)) {
+          setMessage({
+            type: 'error',
+            text: menuUploadTooHeavyMessage(uploadFile.size),
+          })
+          return
+        }
+      }
       const formData = new FormData()
       formData.append('file', uploadFile)
       formData.append('variant', variant)
@@ -129,7 +143,8 @@ export default function MenuSetupAdmin() {
     } catch (error: unknown) {
       const reason = error instanceof Error ? error.message : 'Erreur inconnue'
       if (reason === 'IMAGE_TOO_HEAVY') {
-        setMessage({ type: 'error', text: '❌ Impossible de compresser cette image sous 1 Mo' })
+        setMessage({ type: 'error', text: menuUploadTooHeavyMessage(file.size) })
+        return
       } else {
         setMessage({ type: 'error', text: '❌ Erreur : ' + reason })
       }
@@ -250,16 +265,16 @@ export default function MenuSetupAdmin() {
         {uploadButton(
           'fr',
           'Menu du jour (français)',
-          'Fichier servi sur le site en français — menu-du-jour.pdf (ou WebP).',
+          'PDF max 1 Mo — JPEG/PNG/WebP jusqu’à 10 Mo (compression auto), servi en français.',
         )}
         {uploadButton(
           'en',
           'Daily menu (English)',
-          'Fichier pour les visiteurs en anglais — menu-du-jour-en.pdf (ou WebP).',
+          'PDF max 1 Mo — photos jusqu’à 10 Mo (compression auto) pour l’anglais.',
         )}
 
         <p style={{ color: 'var(--muted)', fontSize: '12px', textAlign: 'center', marginTop: '4px' }}>
-          Les photos jusqu’à 10 Mo sont compressées automatiquement.
+          PDF : max 1 Mo. Photos JPEG/PNG/WebP : jusqu’à 10 Mo, compressées automatiquement sous 1 Mo avant envoi.
         </p>
 
         {message && (
@@ -290,7 +305,16 @@ export default function MenuSetupAdmin() {
             ) : (
               <AlertCircle size={18} color={message.type === 'error' ? '#ff6464' : 'var(--gold)'} style={{ flexShrink: 0, marginTop: '1px' }} />
             )}
-            <p style={{ color: 'var(--foreground)', margin: 0, fontSize: '14px' }}>{message.text}</p>
+            <p
+              style={{
+                color: message.type === 'error' ? '#ff6464' : 'var(--foreground)',
+                margin: 0,
+                fontSize: '14px',
+                lineHeight: 1.45,
+              }}
+            >
+              {message.text}
+            </p>
           </div>
         )}
 

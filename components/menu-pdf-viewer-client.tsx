@@ -1,7 +1,7 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import type { ReactNode } from 'react'
-import { ArrowLeft, Maximize2 } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   MENU_IMAGE_LAYOUT_HEIGHT,
@@ -13,7 +13,26 @@ import {
 import { menuPdfApiUrl, menuPdfPreviewSrcSet, type MenuDayVariant, type MenuMediaKind } from '@/lib/menu-pdf'
 import { pulseUiHaptic } from '@/lib/ui-haptic'
 
+const MenuPdfFullscreen = dynamic(
+  () => import('@/components/menu-pdf-fullscreen').then((m) => m.MenuPdfFullscreen),
+  { ssr: false },
+)
+
 const DOUBLE_TAP_MS = 320
+
+function IconMaximize() {
+  return (
+    <svg width={18} height={18} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"
+        stroke="currentColor"
+        strokeWidth={2.25}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
 
 type MenuPdfViewerClientProps = {
   defaultVariant: MenuDayVariant
@@ -102,20 +121,6 @@ export function MenuPdfViewerClient({
     lastTapAtRef.current = now
   }, [openFullscreen])
 
-  useEffect(() => {
-    if (!fullscreen) return
-    const prevOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') close()
-    }
-    window.addEventListener('keydown', onKey)
-    return () => {
-      document.body.style.overflow = prevOverflow
-      window.removeEventListener('keydown', onKey)
-    }
-  }, [fullscreen, close])
-
   const useServerLcpImage =
     displayKind === 'image' && servedVariant === defaultVariant && !showEnFallback
 
@@ -193,31 +198,20 @@ export function MenuPdfViewerClient({
         {media}
         <div className="menu-pdf-viewer-actions">
           <button type="button" className="button menu-pdf-fullscreen-open" onClick={openFullscreen}>
-            <Maximize2 size={18} strokeWidth={2.25} aria-hidden="true" />
+            <IconMaximize />
             {fullscreenOpenLabel}
           </button>
         </div>
       </div>
 
       {fullscreen ? (
-        <div
-          className="menu-pdf-fullscreen"
-          role="dialog"
-          aria-modal="true"
-          aria-label={label}
-        >
-          <button type="button" className="button menu-pdf-fullscreen-back" onClick={close}>
-            <ArrowLeft size={18} strokeWidth={2.25} aria-hidden="true" />
-            {fullscreenBackLabel}
-          </button>
-          <div className="menu-pdf-fullscreen-body">
-            {displayKind === 'image' ? (
-              <img className="menu-pdf-fullscreen-media" src={url} alt={label} decoding="async" />
-            ) : (
-              <iframe className="menu-pdf-fullscreen-media" src={url} title={label} />
-            )}
-          </div>
-        </div>
+        <MenuPdfFullscreen
+          url={url}
+          label={label}
+          displayKind={displayKind}
+          fullscreenBackLabel={fullscreenBackLabel}
+          onClose={close}
+        />
       ) : null}
     </>
   )

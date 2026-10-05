@@ -4,6 +4,7 @@ import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { MenuCrossLink } from '@/components/menu-cross-link'
 import { MenuDayServicePricing } from '@/components/menu-day-service-pricing'
+import { MenuPdfPreloadLinks } from '@/components/menu-pdf-preload-links'
 import { MenuPdfViewer } from '@/components/menu-pdf-viewer'
 import { phoneDisplay, phoneTel } from '@/lib/restaurant-data'
 import {
@@ -33,6 +34,7 @@ export default async function MenuDuJour() {
 
   return (
     <>
+      <MenuPdfPreloadLinks />
       <Header />
       <MainContent className="menu-jour-page">
         <PageBreadcrumbs locale={locale} items={breadcrumbItems} />

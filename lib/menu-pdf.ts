@@ -68,9 +68,38 @@ export function resolveMenuUploadVariant(
   return { variant }
 }
 
-export const MAX_MENU_PDF_BYTES = Math.floor(4.5 * 1024 * 1024)
-export const PDF_TOO_HEAVY_MESSAGE = 'Le PDF est trop lourd, veuillez le compresser.'
-export const MAX_MENU_UPLOAD_BYTES = 10 * 1024 * 1024
+/** Poids max du fichier envoyé au serveur (PDF ou image déjà compressée). */
+export const MAX_MENU_UPLOAD_BYTES = 1024 * 1024
+
+/** Taille max d’une photo source avant compression navigateur (JPEG/PNG/WebP). */
+export const MAX_MENU_IMAGE_SOURCE_BYTES = 10 * 1024 * 1024
+
+export function formatMenuUploadFileSize(bytes: number): string {
+  const mo = bytes / (1024 * 1024)
+  if (mo >= 1) {
+    return `${mo.toLocaleString('fr-FR', { maximumFractionDigits: 1 })} Mo`
+  }
+  const ko = bytes / 1024
+  return `${ko.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} Ko`
+}
+
+export function menuUploadTooHeavyMessage(sizeBytes: number): string {
+  const sizeLabel = formatMenuUploadFileSize(sizeBytes)
+  return `Le fichier est trop lourd (${sizeLabel}). Veuillez le compresser en dessous de 1 Mo ou utiliser un format image (JPEG/WebP) avant de l'envoyer.`
+}
+
+export function isMenuUploadWithinSizeLimit(sizeBytes: number): boolean {
+  return sizeBytes <= MAX_MENU_UPLOAD_BYTES
+}
+
+export function isMenuImageSourceWithinLimit(sizeBytes: number): boolean {
+  return sizeBytes <= MAX_MENU_IMAGE_SOURCE_BYTES
+}
+
+export function menuUploadImageSourceTooLargeMessage(sizeBytes: number): string {
+  const sizeLabel = formatMenuUploadFileSize(sizeBytes)
+  return `L'image est trop volumineuse (${sizeLabel}, max 10 Mo). Choisissez une photo plus légère avant l'envoi.`
+}
 
 /** Alt / title du menu, avec la date du jour à Paris. */
 export function menuDuJourAlt(variant: MenuDayVariant = 'fr'): string {

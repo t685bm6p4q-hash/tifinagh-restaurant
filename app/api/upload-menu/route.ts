@@ -6,11 +6,13 @@ import { isAdminAuthorized } from '@/lib/admin-auth'
 import { compressMenuImageToWebp } from '@/lib/compress-menu-image'
 import { getMenuStorageOverview } from '@/lib/menu-kind'
 import {
-  MAX_MENU_PDF_BYTES,
   MAX_MENU_UPLOAD_BYTES,
-  PDF_TOO_HEAVY_MESSAGE,
   isBlobConfigured,
+  isMenuImageSourceWithinLimit,
+  isMenuUploadWithinSizeLimit,
   menuBlobPathname,
+  menuUploadImageSourceTooLargeMessage,
+  menuUploadTooHeavyMessage,
   resolveMenuUpload,
   resolveMenuUploadVariant,
   sniffMenuContentType,
@@ -62,10 +64,12 @@ export async function POST(request: NextRequest) {
     }
 
     const isPdf = resolved.contentType === 'application/pdf'
-    const maxBytes = isPdf ? MAX_MENU_PDF_BYTES : MAX_MENU_UPLOAD_BYTES
-    if (file.size > maxBytes) {
+    if (isPdf && !isMenuUploadWithinSizeLimit(file.size)) {
+      return NextResponse.json({ error: menuUploadTooHeavyMessage(file.size) }, { status: 400 })
+    }
+    if (!isPdf && !isMenuImageSourceWithinLimit(file.size)) {
       return NextResponse.json(
-        { error: isPdf ? PDF_TOO_HEAVY_MESSAGE : 'La photo est trop volumineuse (max 10 MB)' },
+        { error: menuUploadImageSourceTooLargeMessage(file.size) },
         { status: 400 },
       )
     }
@@ -87,12 +91,16 @@ export async function POST(request: NextRequest) {
       } catch (error: unknown) {
         if (error instanceof Error && error.message === 'IMAGE_TOO_HEAVY') {
           return NextResponse.json(
-            { error: 'Impossible de compresser cette image sous 1 Mo' },
+            { error: menuUploadTooHeavyMessage(file.size) },
             { status: 400 },
           )
         }
         throw error
       }
+    }
+
+    if (buffer.length > MAX_MENU_UPLOAD_BYTES) {
+      return NextResponse.json({ error: menuUploadTooHeavyMessage(buffer.length) }, { status: 400 })
     }
 
     const pathname = menuBlobPathname(variant)
