@@ -21,11 +21,13 @@ async function resizeMenuImageCached(
   cacheKey: string,
 ): Promise<Buffer> {
   const bytes = input
-  return unstable_cache(
-    () => resizeMenuImageForDisplay(bytes, displayWidth),
-    ['menu-pdf-webp', cacheKey],
+  // unstable_cache sérialise en JSON : un Buffer reviendrait vide au cache hit.
+  const base64 = await unstable_cache(
+    async () => (await resizeMenuImageForDisplay(bytes, displayWidth)).toString('base64'),
+    ['menu-pdf-webp-b64', cacheKey],
     { revalidate: false },
   )()
+  return Buffer.from(base64, 'base64')
 }
 
 function menuDisplayEtag(
