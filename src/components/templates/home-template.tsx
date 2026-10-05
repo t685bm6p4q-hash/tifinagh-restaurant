@@ -62,9 +62,6 @@ export async function HomeTemplate() {
                 <CalendarDaysIcon size={16} />
                 {dictionary.home.bookTable}
               </Link>
-              <Link className="text-link" href="/carte/boissons" prefetch={false}>
-                {ux.homeDiscoverDrinks}
-              </Link>
             </div>
           </div>
         </section>
