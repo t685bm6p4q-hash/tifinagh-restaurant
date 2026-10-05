@@ -111,6 +111,11 @@ export const sv: Dictionary = {
     mapAria: 'Öppna Tifinagh i Google Maps',
     facadeAlt: 'Fasaden på restaurang Tifinagh, 17 avenue Rachel i Montmartre',
     tonightMenu: 'Aktuell dagens meny',
+    mealTimesTitle: 'Lunch & middag',
+    mealTimesLunch:
+      '☀️ Lunch — menyer 16,50 € (förrätt + huvudrätt) eller 18,50 € (med dessert)',
+    mealTimesEvening: '🌙 Middag — komplett meny (förrätt + huvudrätt + dessert) 25,00 €',
+    mealTimesCta: 'Se dagens meny',
     quotes: {
       bertrand:
         'En mycket lugn plats, utmärkt välkomnande, fantastisk mat — den här restaurangen får full pott. Bravo till hela teamet!',
@@ -143,8 +148,17 @@ export const sv: Dictionary = {
     introTitle: 'Dagens meny',
     introText: 'Dagens meny — läs den direkt nedan.',
     introTextUpdated: 'Uppdaterad {date}',
-    eveningFormulaPromo:
-      '🌙 Evening: Enjoy our full Set Menu (Starter + Main + Dessert) for 25€!',
+    pricingTitle: 'Lunch & middag — våra menyer',
+    lunchServiceTitle: '☀️ Lunchservering',
+    lunchServiceNote: 'Dagens rätter ovan — våra menyer:',
+    lunchFormulaTwoCourse: 'Förrätt + Huvudrätt',
+    lunchFormulaTwoCoursePrice: '16,50 €',
+    lunchFormulaThreeCourse: 'Förrätt + Huvudrätt + Dessert',
+    lunchFormulaThreeCoursePrice: '18,50 €',
+    eveningServiceTitle: '🌙 Middagsservering',
+    eveningFormulaDetail: 'Komplett meny — Förrätt + Huvudrätt + Dessert',
+    eveningFormulaPrice: '25,00 €',
+    eveningFormulaPromo: 'Njut av vår generösa, hemlagade middagsmeny.',
     limitedNote: 'Antal platser är begränsat — vi rekommenderar bokning för att säkra ditt bord.',
     bookNow: 'Boka nu',
     hoursTitle: 'Öppettider',

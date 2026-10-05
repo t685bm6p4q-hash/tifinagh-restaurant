@@ -111,6 +111,11 @@ export const es: Dictionary = {
     mapAria: 'Abrir Tifinagh en Google Maps',
     facadeAlt: 'Fachada del restaurante Tifinagh, 17 avenue Rachel en Montmartre',
     tonightMenu: 'Menú del día actualizado',
+    mealTimesTitle: 'Mediodía y noche',
+    mealTimesLunch:
+      '☀️ Mediodía — menús 16,50 € (entrante + plato) o 18,50 € (con postre)',
+    mealTimesEvening: '🌙 Noche — menú completo (entrante + plato + postre) 25,00 €',
+    mealTimesCta: 'Ver el menú del día',
     quotes: {
       bertrand:
         'Un lugar muy tranquilo, excelente acogida, cocina de gran calidad: este restaurante lo tiene todo. ¡Bravo a todo el equipo!',
@@ -143,8 +148,17 @@ export const es: Dictionary = {
     introTitle: 'Menú del día',
     introText: 'Menú del día — consúltelo directamente abajo.',
     introTextUpdated: 'Actualizado el {date}',
-    eveningFormulaPromo:
-      '🌙 Evening: Enjoy our full Set Menu (Starter + Main + Dessert) for 25€!',
+    pricingTitle: 'Mediodía y noche — nuestras fórmulas',
+    lunchServiceTitle: '☀️ Servicio de mediodía',
+    lunchServiceNote: 'Platos del día arriba — nuestras fórmulas:',
+    lunchFormulaTwoCourse: 'Entrante + Plato',
+    lunchFormulaTwoCoursePrice: '16,50 €',
+    lunchFormulaThreeCourse: 'Entrante + Plato + Postre',
+    lunchFormulaThreeCoursePrice: '18,50 €',
+    eveningServiceTitle: '🌙 Servicio de noche',
+    eveningFormulaDetail: 'Menú completo — Entrante + Plato + Postre',
+    eveningFormulaPrice: '25,00 €',
+    eveningFormulaPromo: 'Disfrute de nuestra generosa fórmula de noche, 100 % casera.',
     limitedNote:
       'Las plazas son limitadas — le recomendamos reservar para asegurar su mesa.',
     bookNow: 'Reservar ahora',

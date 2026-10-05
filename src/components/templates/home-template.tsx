@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Header, Footer, MainContent } from '@/components/site-shell'
+import { HomeMealTimesHighlight } from '@/components/home-meal-times-highlight'
 import { TonightStrip } from '@/components/tonight-strip'
 import { BookingChannels } from '@/components/booking-channels'
 import { SectionHeading } from '@/src/components/molecules/section-heading'
@@ -54,6 +55,7 @@ export async function HomeTemplate() {
             <p className="hero-copy">
               {dictionary.home.heroCopy}
             </p>
+            <HomeMealTimesHighlight copy={dictionary.home} />
             <div className="actions">
               <Link className="button button-primary" href="/reservation" prefetch={false}>
                 <CalendarDaysIcon size={16} />

@@ -110,7 +110,12 @@ export const pt: Dictionary = {
     mapText: 'Encuéntrenos en el 17 avenue Rachel, entre Pigalle, Place de Clichy y el Cementerio de Montmartre.',
     mapAria: 'Abrir Tifinagh en Google Maps',
     facadeAlt: 'Fachada del restaurante Tifinagh, 17 avenue Rachel en Montmartre',
-    tonightMenu: 'Menú del día actualizado',
+    tonightMenu: 'Menu do dia atualizado',
+    mealTimesTitle: 'Almoço e jantar',
+    mealTimesLunch:
+      '☀️ Almoço — menus 16,50 € (entrada + prato) ou 18,50 € (com sobremesa)',
+    mealTimesEvening: '🌙 Jantar — menu completo (entrada + prato + sobremesa) 25,00 €',
+    mealTimesCta: 'Ver o menu do dia',
     quotes: {
       bertrand:
         'Un lugar muy tranquilo, excelente acogida, cocina de gran calidad: este restaurante lo tiene todo. ¡Bravo a todo el equipo!',
@@ -143,8 +148,17 @@ export const pt: Dictionary = {
     introTitle: 'Menú del día',
     introText: 'Menu do dia — consulte diretamente abaixo.',
     introTextUpdated: 'Atualizado em {date}',
-    eveningFormulaPromo:
-      '🌙 Evening: Enjoy our full Set Menu (Starter + Main + Dessert) for 25€!',
+    pricingTitle: 'Almoço e jantar — as nossas fórmulas',
+    lunchServiceTitle: '☀️ Serviço de almoço',
+    lunchServiceNote: 'Pratos do dia acima — as nossas fórmulas:',
+    lunchFormulaTwoCourse: 'Entrada + Prato',
+    lunchFormulaTwoCoursePrice: '16,50 €',
+    lunchFormulaThreeCourse: 'Entrada + Prato + Sobremesa',
+    lunchFormulaThreeCoursePrice: '18,50 €',
+    eveningServiceTitle: '🌙 Serviço de jantar',
+    eveningFormulaDetail: 'Menu completo — Entrada + Prato + Sobremesa',
+    eveningFormulaPrice: '25,00 €',
+    eveningFormulaPromo: 'Desfrute da nossa generosa fórmula de jantar, 100 % caseira.',
     limitedNote:
       'Os lugares são limitados — recomendamos reservar para garantir a sua mesa.',
     bookNow: 'Reservar ahora',

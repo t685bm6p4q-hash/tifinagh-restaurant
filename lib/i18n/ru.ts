@@ -111,6 +111,11 @@ export const ru: Dictionary = {
     mapAria: 'Открыть Tifinagh в Google Maps',
     facadeAlt: 'Фасад ресторана Tifinagh, 17 avenue Rachel в Монмартре',
     tonightMenu: 'Актуальное меню дня',
+    mealTimesTitle: 'Обед и вечер',
+    mealTimesLunch:
+      '☀️ Обед — меню 16,50 € (закуска + основное) или 18,50 € (с десертом)',
+    mealTimesEvening: '🌙 Вечер — полное меню (закуска + основное + десерт) 25,00 €',
+    mealTimesCta: 'Смотреть меню дня',
     quotes: {
       bertrand:
         'Очень тихое место, отличный приём, выдающаяся кухня — этот ресторан на все сто. Браво всей команде!',
@@ -143,8 +148,17 @@ export const ru: Dictionary = {
     introTitle: 'Меню дня',
     introText: 'Меню дня — читайте его прямо ниже.',
     introTextUpdated: 'Обновлено {date}',
-    eveningFormulaPromo:
-      '🌙 Evening: Enjoy our full Set Menu (Starter + Main + Dessert) for 25€!',
+    pricingTitle: 'Обед и вечер — наши формулы',
+    lunchServiceTitle: '☀️ Обеденный сервис',
+    lunchServiceNote: 'Блюда дня выше — наши формулы:',
+    lunchFormulaTwoCourse: 'Закуска + Основное',
+    lunchFormulaTwoCoursePrice: '16,50 €',
+    lunchFormulaThreeCourse: 'Закуска + Основное + Десерт',
+    lunchFormulaThreeCoursePrice: '18,50 €',
+    eveningServiceTitle: '🌙 Вечерний сервис',
+    eveningFormulaDetail: 'Полное меню — Закуска + Основное + Десерт',
+    eveningFormulaPrice: '25,00 €',
+    eveningFormulaPromo: 'Попробуйте наше щедрое домашнее вечернее меню.',
     limitedNote: 'Количество мест ограничено — рекомендуем забронировать стол.',
     bookNow: 'Забронировать',
     hoursTitle: 'Часы работы',

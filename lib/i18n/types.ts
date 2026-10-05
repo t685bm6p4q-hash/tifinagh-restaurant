@@ -232,6 +232,10 @@ export type Dictionary = {
     mapAria: string
     facadeAlt: string
     tonightMenu: string
+    mealTimesTitle: string
+    mealTimesLunch: string
+    mealTimesEvening: string
+    mealTimesCta: string
     quotes: {
       bertrand: string
       vale: string
@@ -290,7 +294,17 @@ export type Dictionary = {
     introText: string
     /** `{date}` = dernière mise en ligne (upload Blob), pas la date du jour. */
     introTextUpdated: string
-    /** Sous l’image/PDF du menu du jour. */
+    pricingTitle: string
+    lunchServiceTitle: string
+    lunchServiceNote: string
+    lunchFormulaTwoCourse: string
+    lunchFormulaTwoCoursePrice: string
+    lunchFormulaThreeCourse: string
+    lunchFormulaThreeCoursePrice: string
+    eveningServiceTitle: string
+    eveningFormulaDetail: string
+    eveningFormulaPrice: string
+    /** Sous l’image/PDF du menu du jour (encadré soir). */
     eveningFormulaPromo: string
     limitedNote: string
     bookNow: string

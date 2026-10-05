@@ -112,6 +112,11 @@ export const fr: Dictionary = {
     mapAria: 'Ouvrir Tifinagh sur Google Maps',
     facadeAlt: 'Façade du restaurant Tifinagh, 17 avenue Rachel à Montmartre',
     tonightMenu: 'Menu du jour à jour',
+    mealTimesTitle: 'Midi & Soir',
+    mealTimesLunch:
+      '☀️ Midi — formules Entrée + Plat à 16,50 € ou Entrée + Plat + Dessert à 18,50 €',
+    mealTimesEvening: '🌙 Soir — formule complète (Entrée + Plat + Dessert) à 25,00 €',
+    mealTimesCta: 'Consulter le menu du jour',
     quotes: {
       bertrand:
         'Endroit très calme, excellent accueil, cuisine de grande qualité, ce restaurant coche toutes les cases, bravo à toute l’équipe !',
@@ -144,8 +149,17 @@ export const fr: Dictionary = {
     introTitle: 'Menu du jour',
     introText: 'Menu du jour — consultez l’affichage ci-dessous.',
     introTextUpdated: 'Mis à jour le {date}',
-    eveningFormulaPromo:
-      '🌙 Le soir : Profitez de notre Formule complète (Entrée + Plat + Dessert) à 25 € !',
+    pricingTitle: 'Midi & Soir — nos formules',
+    lunchServiceTitle: '☀️ Service du midi',
+    lunchServiceNote: 'Plats du jour affichés ci-dessus — nos formules :',
+    lunchFormulaTwoCourse: 'Entrée + Plat',
+    lunchFormulaTwoCoursePrice: '16,50 €',
+    lunchFormulaThreeCourse: 'Entrée + Plat + Dessert',
+    lunchFormulaThreeCoursePrice: '18,50 €',
+    eveningServiceTitle: '🌙 Service du soir',
+    eveningFormulaDetail: 'Formule complète — Entrée + Plat + Dessert',
+    eveningFormulaPrice: '25,00 €',
+    eveningFormulaPromo: 'Profitez de notre formule du soir, généreuse et 100 % maison.',
     limitedNote:
       'Les places sont limitées — nous vous conseillons de réserver pour garantir votre table.',
     bookNow: 'Réserver maintenant',

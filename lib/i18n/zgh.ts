@@ -111,6 +111,11 @@ export const zgh: Dictionary = {
     mapAria: 'ⵙⵍⵍⵓ Tifinagh ⴳ Google Maps',
     facadeAlt: 'ⴰⵏⴰⵎⵎⴰⵙ Tifinagh, 17 avenue Rachel ⴳ Montmartre',
     tonightMenu: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ ⵜⵓⵙⵙⵓⵎⵔⵜ',
+    mealTimesTitle: 'ⵜⴰⵎⴷⵉⵏⵜ ⴷ ⵜⴰⵎⴷⵉⵏⵜ',
+    mealTimesLunch:
+      '☀️ ⵜⴰⵎⴷⵉⵏⵜ — ⵜⵉⴼⵔⵓⵔⵉⵏ 16,50 € ⴷ 18,50 €',
+    mealTimesEvening: '🌙 ⵜⴰⵎⴷⵉⵏⵜ — ⵜⴰⵎⵓⵔⵜ ⵉⵎⵙⵙⴰ 25,00 €',
+    mealTimesCta: 'ⵙⴽⵏ ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ',
     quotes: {
       bertrand:
         'ⴰⴷⴳⵉ ⴰⵎⵍⵍⴰⵍ, ⴰⵙⵙⵓⵎⵔ ⵉⵎⵙⵙⴰⵏ, ⵓⵛⵛⵉ ⵉⵎⵙⵙⴰⵏ — ⴰⵙⵙⵉⵏⵉ ⴰⵎⵙⵙⵉ ⴽⵓⵍ ⵉⵎⵙⵙⴰⵏ. ⵉⵙⵙⵓⵎⵔ ⵉ ⵜⵉⵔⴰⴱⴱⵓⵜ!',
@@ -142,8 +147,17 @@ export const zgh: Dictionary = {
     introTitle: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ',
     introText: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ — ⵙⴽⵏ ⴷⴰⵢⵏ ⵉⵍⵍⴰ.',
     introTextUpdated: 'ⵜⵓⵙⵙⵓⴷ ⴷⵉ {date}',
-    eveningFormulaPromo:
-      '🌙 Le soir : Profitez de notre Formule complète (Entrée + Plat + Dessert) à 25 € !',
+    pricingTitle: 'Midi & Soir — nos formules',
+    lunchServiceTitle: '☀️ Service du midi',
+    lunchServiceNote: 'Plats du jour affichés ci-dessus — nos formules :',
+    lunchFormulaTwoCourse: 'Entrée + Plat',
+    lunchFormulaTwoCoursePrice: '16,50 €',
+    lunchFormulaThreeCourse: 'Entrée + Plat + Dessert',
+    lunchFormulaThreeCoursePrice: '18,50 €',
+    eveningServiceTitle: '🌙 Service du soir',
+    eveningFormulaDetail: 'Formule complète — Entrée + Plat + Dessert',
+    eveningFormulaPrice: '25,00 €',
+    eveningFormulaPromo: 'Profitez de notre formule du soir, généreuse et 100 % maison.',
     limitedNote: 'ⵉⵎⴷⴷⴰⵏ ⵉⵎⵙⵙⴰⵏ — ⵙⵙⵖⵔ ⴰⵙⴳⴳⵯⴰⵙ.',
     bookNow: 'ⴰⵙⴳⴳⵯⴰⵙ ⴷⵖⵉ',
     hoursTitle: 'ⵉⵙⵔⴰⴳⵏ ⵏ ⵓⵙⵙⵓⵎⵔ',

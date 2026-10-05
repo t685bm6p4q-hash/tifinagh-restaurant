@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { MenuCrossLink } from '@/components/menu-cross-link'
+import { MenuDayServicePricing } from '@/components/menu-day-service-pricing'
 import { MenuPdfViewer } from '@/components/menu-pdf-viewer'
 import { phoneDisplay, phoneTel } from '@/lib/restaurant-data'
 import {
@@ -50,7 +51,7 @@ export default async function MenuDuJour() {
 
         <section className="section menu-pdf-section" aria-label={d.introTitle}>
           <MenuPdfViewer />
-          <p className="menu-jour-evening-promo">{d.eveningFormulaPromo}</p>
+          <MenuDayServicePricing copy={d} />
         </section>
 
         <section className="section menu-jour-info">

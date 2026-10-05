@@ -2328,19 +2328,154 @@ button.footer-link {
   padding-bottom: 20px;
 }
 
-.menu-jour-evening-promo {
+.menu-jour-service-pricing {
   max-width: 880px;
-  margin: 20px auto 0;
-  padding: 16px 20px;
-  text-align: center;
-  font-size: clamp(16px, 2.9vw, 20px);
+  margin: 24px auto 0;
+}
+
+.menu-jour-service-pricing-title {
+  margin: 0 0 16px;
+  font-size: clamp(20px, 3.5vw, 26px);
   font-weight: 600;
-  line-height: 1.5;
+  text-align: center;
   color: var(--foreground);
+}
+
+.menu-jour-service-pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.menu-jour-service-card {
+  padding: 18px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.menu-jour-service-card--lunch {
+  border-color: rgba(214, 173, 69, 0.35);
+  background: rgba(214, 173, 69, 0.08);
+}
+
+.menu-jour-service-card--evening {
+  border-color: rgba(214, 173, 69, 0.55);
   background: rgba(214, 173, 69, 0.14);
-  border: 1px solid rgba(214, 173, 69, 0.5);
-  border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+}
+
+.menu-jour-service-card h3 {
+  margin: 0 0 10px;
+  font-size: clamp(17px, 2.8vw, 20px);
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.menu-jour-service-note {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.menu-jour-service-formulas {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu-jour-service-formulas li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 15px;
+}
+
+.menu-jour-service-formulas li strong {
+  font-size: clamp(17px, 2.6vw, 20px);
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.menu-jour-service-evening-detail {
+  margin: 0 0 8px;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.menu-jour-service-evening-price {
+  margin: 0 0 10px;
+  font-size: clamp(26px, 4vw, 32px);
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1.1;
+}
+
+.menu-jour-service-evening-promo {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.hero-meal-times {
+  margin-top: 22px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(231, 185, 121, 0.45);
+  background: rgba(23, 33, 29, 0.55);
+  backdrop-filter: blur(4px);
+  max-width: 520px;
+}
+
+.hero-meal-times-title {
+  margin: 0 0 10px;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #e7b979;
+  font-weight: 600;
+}
+
+.hero-meal-times-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hero-meal-times-item {
+  font-size: 14px;
+  line-height: 1.45;
+  color: #f4f1ea;
+  font-weight: 500;
+}
+
+.hero-meal-times-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #e7b979;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.hero-meal-times-link:hover {
+  color: #fff;
+}
+
+@media (max-width: 720px) {
+  .menu-jour-service-pricing-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .menu-lang-toggle {
