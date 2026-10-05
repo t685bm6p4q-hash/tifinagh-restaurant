@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect } from 'react'
 import type { MenuMediaKind } from '@/lib/menu-pdf'
 
@@ -8,6 +9,7 @@ type MenuPdfFullscreenProps = {
   label: string
   displayKind: MenuMediaKind
   fullscreenBackLabel: string
+  reserveLabel: string
   onClose: () => void
 }
 
@@ -30,6 +32,7 @@ export function MenuPdfFullscreen({
   label,
   displayKind,
   fullscreenBackLabel,
+  reserveLabel,
   onClose,
 }: MenuPdfFullscreenProps) {
   useEffect(() => {
@@ -57,6 +60,11 @@ export function MenuPdfFullscreen({
         ) : (
           <iframe className="menu-pdf-fullscreen-media" src={url} title={label} />
         )}
+      </div>
+      <div className="menu-pdf-fullscreen-reserve">
+        <Link className="button button-primary" href="/reservation" prefetch={false}>
+          {reserveLabel}
+        </Link>
       </div>
     </div>
   )

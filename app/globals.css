@@ -3121,6 +3121,22 @@ select:focus { border-color: var(--terracotta); }
   padding: 64px 12px 12px;
 }
 
+.menu-pdf-fullscreen-reserve {
+  flex: none;
+  display: flex;
+  justify-content: center;
+  padding: 0 12px calc(12px + env(safe-area-inset-bottom));
+}
+
+.menu-pdf-fullscreen-reserve .button {
+  width: 100%;
+  max-width: 420px;
+}
+
+.menu-pdf-viewer--image {
+  touch-action: manipulation;
+}
+
 .menu-pdf-fullscreen-media {
   display: block;
   width: 100%;
@@ -3131,7 +3147,7 @@ select:focus { border-color: var(--terracotta); }
 }
 
 .menu-pdf-fullscreen-body iframe.menu-pdf-fullscreen-media {
-  min-height: calc(100vh - 76px);
+  min-height: calc(100vh - 150px);
 }
 
 .footer-quartier {

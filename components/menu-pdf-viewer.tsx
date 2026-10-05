@@ -22,6 +22,7 @@ export async function MenuPdfViewer() {
       enFallbackNote={d.enFallbackNote}
       fullscreenOpenLabel={d.fullscreenOpen}
       fullscreenBackLabel={d.fullscreenBack}
+      reserveLabel={d.bookNow}
     />
   )
 }

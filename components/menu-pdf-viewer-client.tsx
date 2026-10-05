@@ -53,6 +53,7 @@ type MenuPdfViewerClientProps = {
   revisionByVariant: { fr: string | null; en: string | null }
   fullscreenOpenLabel: string
   fullscreenBackLabel: string
+  reserveLabel: string
 }
 
 export function MenuPdfViewerClient({
@@ -66,6 +67,7 @@ export function MenuPdfViewerClient({
   revisionByVariant,
   fullscreenOpenLabel,
   fullscreenBackLabel,
+  reserveLabel,
 }: MenuPdfViewerClientProps) {
   const [variant, setVariant] = useState<MenuDayVariant>(defaultVariant)
   const [fullscreen, setFullscreen] = useState(false)
@@ -196,12 +198,7 @@ export function MenuPdfViewerClient({
         <p className="menu-lang-fallback" role="status">{enFallbackNote}</p>
       ) : null}
 
-      <div
-        className="menu-pdf-viewer-wrap"
-        onDoubleClick={displayKind === 'image' ? onPreviewActivate : undefined}
-        onTouchEnd={displayKind === 'image' ? onPreviewTouchEnd : undefined}
-        title={fullscreenOpenLabel}
-      >
+      <div className="menu-pdf-viewer-wrap" title={fullscreenOpenLabel}>
         {media}
         <div className="menu-pdf-viewer-actions">
           <button type="button" className="button menu-pdf-fullscreen-open" onClick={openFullscreen}>
@@ -217,6 +214,7 @@ export function MenuPdfViewerClient({
           label={label}
           displayKind={displayKind}
           fullscreenBackLabel={fullscreenBackLabel}
+          reserveLabel={reserveLabel}
           onClose={close}
         />
       ) : null}
