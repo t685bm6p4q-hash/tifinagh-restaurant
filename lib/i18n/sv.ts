@@ -95,7 +95,12 @@ export const sv: Dictionary = {
     menuText: 'En kort meny som förnyas med säsongerna.',
     dailyMenuLink: 'Dagens meny',
     dailyMenuAria: 'Dagens meny',
-    fullMenuLink: 'Hela menyn',
+    fullMenuLink: 'Matmenyn',
+    menuChoicesTitle: 'Välj din meny',
+    menuChoicesHint:
+      'Dagens meny uppdateras varje morgon; fasta menyn har våra klassiker året runt.',
+    menuChoiceDaily: 'Dagens meny',
+    menuChoiceCarte: 'Matmenyn',
     reviewsEyebrow: 'Stamgästernas ord',
     reviewsTitle: 'Vad våra gäster säger',
     googleReviewsAria: 'Läs omdömen om Tifinagh Montmartre på Google',

@@ -218,6 +218,10 @@ export type Dictionary = {
     dailyMenuLink: string
     dailyMenuAria: string
     fullMenuLink: string
+    menuChoicesTitle: string
+    menuChoicesHint: string
+    menuChoiceDaily: string
+    menuChoiceCarte: string
     reviewsEyebrow: string
     reviewsTitle: string
     googleReviewsAria: string

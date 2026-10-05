@@ -95,7 +95,12 @@ export const ja: Dictionary = {
     menuText: '季節ごとに入れ替わる、厳選された短いメニュー。',
     dailyMenuLink: '本日のメニュー',
     dailyMenuAria: '本日のメニュー',
-    fullMenuLink: 'フルメニュー',
+    fullMenuLink: '定番メニュー',
+    menuChoicesTitle: 'メニューを選ぶ',
+    menuChoicesHint:
+      '本日のメニューは毎朝更新。定番メニューは一年中、クラシックな料理をご用意しています。',
+    menuChoiceDaily: '本日のメニュー',
+    menuChoiceCarte: '定番メニュー',
     reviewsEyebrow: '常連の声',
     reviewsTitle: 'お客様のお言葉',
     googleReviewsAria: 'Google で Tifinagh モンマルトルの口コミを読む',

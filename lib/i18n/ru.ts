@@ -95,7 +95,12 @@ export const ru: Dictionary = {
     menuText: 'Короткое меню, обновляемое по сезонам.',
     dailyMenuLink: 'Меню дня',
     dailyMenuAria: 'Меню дня',
-    fullMenuLink: 'Всё меню',
+    fullMenuLink: 'Карта блюд',
+    menuChoicesTitle: 'Выберите меню',
+    menuChoicesHint:
+      'Меню дня обновляется каждое утро; постоянная карта — наши классические блюда круглый год.',
+    menuChoiceDaily: 'Меню дня',
+    menuChoiceCarte: 'Карта блюд',
     reviewsEyebrow: 'Слова постоянных гостей',
     reviewsTitle: 'Что говорят наши гости',
     googleReviewsAria: 'Отзывы о Tifinagh Montmartre в Google',

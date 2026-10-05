@@ -95,7 +95,12 @@ export const ar: Dictionary = {
     menuText: 'قائمة مختصرة تتجدد مع المواسم.',
     dailyMenuLink: 'قائمة اليوم',
     dailyMenuAria: 'قائمة اليوم',
-    fullMenuLink: 'القائمة كاملة',
+    fullMenuLink: 'القائمة الدائمة',
+    menuChoicesTitle: 'اختروا القائمة',
+    menuChoicesHint:
+      'قائمة اليوم تُحدَّث كل صباح؛ القائمة الدائمة تعرض كلاسيكياتنا طوال السنة.',
+    menuChoiceDaily: 'قائمة اليوم',
+    menuChoiceCarte: 'القائمة الدائمة',
     reviewsEyebrow: 'كلمات الزبائن الدائمين',
     reviewsTitle: 'ماذا يقول ضيوفنا',
     googleReviewsAria: 'اقرأ تقييمات Tifinagh Montmartre على Google',

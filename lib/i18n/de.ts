@@ -95,7 +95,12 @@ export const de: Dictionary = {
     menuText: 'Une carte courte, renouvelée au fil des saisons.',
     dailyMenuLink: 'Consulter le menu du jour',
     dailyMenuAria: 'Consulter le menu du jour',
-    fullMenuLink: 'Voir toute la carte',
+    fullMenuLink: 'Die Speisekarte',
+    menuChoicesTitle: 'Wählen Sie Ihr Menü',
+    menuChoicesHint:
+      'Das Tagesmenü wird jeden Morgen aktualisiert; die Dauerkarte bietet unsere Klassiker das ganze Jahr.',
+    menuChoiceDaily: 'Tagesmenü',
+    menuChoiceCarte: 'Die Speisekarte',
     reviewsEyebrow: 'Le mot des habitués',
     reviewsTitle: 'Ce que nos clients disent de nous',
     googleReviewsAria: 'Voir les avis Google de Tifinagh Montmartre',

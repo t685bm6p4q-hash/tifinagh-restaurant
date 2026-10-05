@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Header, Footer, MainContent } from '@/components/site-shell'
 import { HomeMealTimesHighlight } from '@/components/home-meal-times-highlight'
+import { HomeMenuChoices } from '@/components/home-menu-choices'
 import { TonightStrip } from '@/components/tonight-strip'
 import { BookingChannels } from '@/components/booking-channels'
 import { SectionHeading } from '@/src/components/molecules/section-heading'
@@ -56,20 +57,15 @@ export async function HomeTemplate() {
               {dictionary.home.heroCopy}
             </p>
             <HomeMealTimesHighlight copy={dictionary.home} />
-            <div className="actions">
+            <div className="actions actions--hero">
               <Link className="button button-primary" href="/reservation" prefetch={false}>
                 <CalendarDaysIcon size={16} />
                 {dictionary.home.bookTable}
               </Link>
-              <div className="hero-menu-links">
-                <Link className="text-link" href="/carte" prefetch={false}>
-                  {dictionary.home.discoverMenu}
-                </Link>
-                <span className="hero-menu-links-sep" aria-hidden="true">·</span>
-                <Link className="text-link" href="/carte/boissons" prefetch={false}>
-                  {ux.homeDiscoverDrinks}
-                </Link>
-              </div>
+              <HomeMenuChoices copy={dictionary.home} variant="hero" showHint={false} />
+              <Link className="text-link hero-drinks-link" href="/carte/boissons" prefetch={false}>
+                {ux.homeDiscoverDrinks}
+              </Link>
             </div>
           </div>
         </section>
@@ -130,10 +126,8 @@ export async function HomeTemplate() {
         <section className="home-banner">
           <div className="home-banner-overlay">
             <div className="home-banner-content">
-              <h2>{dictionary.home.bannerTitle}</h2>
-              <Link className="text-link home-banner-link" href="/carte" prefetch={false}>
-                {dictionary.home.bannerLink} <ArrowRightIcon size={14} />
-              </Link>
+              <h2>{dictionary.home.menuChoicesTitle}</h2>
+              <HomeMenuChoices copy={dictionary.home} variant="banner" />
             </div>
           </div>
         </section>
@@ -161,21 +155,7 @@ export async function HomeTemplate() {
               </div>
             ))}
           </div>
-          <div className="menu-preview-actions">
-            <Link className="button button-primary menu-preview-cta" href="/carte" prefetch={false}>
-              <ChefHatIcon size={18} aria-hidden="true" />
-              {dictionary.home.fullMenuLink}
-              <ArrowRightIcon size={16} aria-hidden="true" />
-            </Link>
-            <Link
-              href="/menu-du-jour"
-              prefetch={false}
-              className="menu-preview-cta menu-preview-cta--daily"
-              aria-label={dictionary.home.dailyMenuAria}
-            >
-              📋 {dictionary.home.dailyMenuLink}
-            </Link>
-          </div>
+          <HomeMenuChoices copy={dictionary.home} variant="section" />
         </section>
 
         {/* ── Avis clients ──────────────────────────────── */}

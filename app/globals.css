@@ -1589,7 +1589,7 @@ a.nav-cta.nav-active {
 
 .home-banner-content h2 {
   font-size: clamp(28px, 5vw, 40px);
-  margin: 0 0 8px;
+  margin: 0 0 12px;
   font-family: Georgia, serif;
   font-weight: 300;
 }
@@ -1821,16 +1821,147 @@ a.nav-cta.nav-active {
   gap: 10px;
 }
 
-.hero-menu-links {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 10px;
+.actions--hero {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
 }
 
-.hero-menu-links-sep {
+.hero-drinks-link {
+  font-size: 13px;
+  opacity: 0.92;
+}
+
+.home-menu-choices {
+  width: 100%;
+  max-width: 520px;
+}
+
+.home-menu-choices-hint {
+  margin: 0 0 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 42em;
+}
+
+.home-menu-choices-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.home-menu-choice-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  flex: 1 1 200px;
+  min-width: min(100%, 200px);
+  padding: 13px 20px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  text-decoration: none;
+  line-height: 1.35;
+  text-align: center;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.home-menu-choice-btn--daily {
+  background: var(--gold);
+  color: #1c1e1a;
+  border: 1px solid var(--gold);
+}
+
+.home-menu-choice-btn--daily:hover {
+  background: #e0bc58;
+  color: #1c1e1a;
+  transform: translateY(-1px);
+}
+
+.home-menu-choice-btn--carte {
+  background: transparent;
+  color: inherit;
+  border: 1px solid currentColor;
+}
+
+.home-menu-choice-btn--carte:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+.home-menu-choices--hero .home-menu-choices-hint {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.home-menu-choices--hero .home-menu-choice-btn--carte {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+.home-menu-choices--hero .home-menu-choice-btn--carte:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.home-menu-choices--banner {
+  margin: 0 auto;
+  max-width: 560px;
+}
+
+.home-menu-choices--banner .home-menu-choices-hint {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 15px;
+  margin-bottom: 18px;
+}
+
+.home-menu-choices--banner .home-menu-choice-btn--carte {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.home-menu-choices--banner .home-menu-choice-btn--carte:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.home-menu-choices--section {
+  margin-top: 40px;
+}
+
+.home-menu-choices--section .home-menu-choices-hint {
+  text-align: center;
   color: var(--muted);
-  opacity: 0.7;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.home-menu-choices--section .home-menu-choices-buttons {
+  justify-content: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.home-menu-choices--section .home-menu-choice-btn--carte {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.home-menu-choices--section .home-menu-choice-btn--carte:hover {
+  background: rgba(214, 173, 69, 0.1);
+}
+
+@media (max-width: 700px) {
+  .home-menu-choices-buttons {
+    flex-direction: column;
+  }
+
+  .home-menu-choice-btn {
+    flex: 1 1 auto;
+    width: 100%;
+  }
 }
 
 .footer-hours {

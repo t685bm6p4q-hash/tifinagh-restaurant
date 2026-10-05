@@ -95,7 +95,12 @@ export const zgh: Dictionary = {
     menuText: 'ⵜⴰⵎⵓⵔⵜ ⵜⴰⵎⵣⵡⴰⵔⵜ, ⵜⵜⵡⴰⵙⵙⵏⵜ ⵙ ⵉⵎⵙⵙⴰⵏ.',
     dailyMenuLink: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ',
     dailyMenuAria: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ',
-    fullMenuLink: 'ⵜⴰⵎⵓⵔⵜ ⵜⴰⵎⴰⵜⴰⵢⵜ',
+    fullMenuLink: 'La carte',
+    menuChoicesTitle: 'Choisissez votre menu',
+    menuChoicesHint:
+      'Le menu du jour est mis à jour chaque matin ; la carte permanente propose nos classiques toute l’année.',
+    menuChoiceDaily: 'Le menu du jour',
+    menuChoiceCarte: 'La carte',
     reviewsEyebrow: 'ⴰⵡⴰⵍ ⵏ ⵉⵎⵙⵙⵏⵉ',
     reviewsTitle: 'ⵎⴰ ⵜⵉⵏⵏⴰ ⵉⵎⵙⵙⵏⵉⵏ ⵏⵏⵖ',
     googleReviewsAria: 'ⵉⵙⵏⵏⵉⵏ Google ⵏ Tifinagh Montmartre',

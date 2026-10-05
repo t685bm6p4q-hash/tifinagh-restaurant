@@ -95,7 +95,12 @@ export const ko: Dictionary = {
     menuText: '제철에 따라 바뀌는 짧은 메뉴.',
     dailyMenuLink: '오늘의 메뉴',
     dailyMenuAria: '오늘의 메뉴',
-    fullMenuLink: '전체 메뉴',
+    fullMenuLink: '상설 메뉴',
+    menuChoicesTitle: '메뉴 선택',
+    menuChoicesHint:
+      '오늘의 메뉴는 매일 아침 업데이트됩니다. 상설 메뉴는 일년 내내 클래식 요리를 제공합니다.',
+    menuChoiceDaily: '오늘의 메뉴',
+    menuChoiceCarte: '상설 메뉴',
     reviewsEyebrow: '단골의 말',
     reviewsTitle: '고객 후기',
     googleReviewsAria: 'Google에서 Tifinagh Montmartre 후기 보기',
