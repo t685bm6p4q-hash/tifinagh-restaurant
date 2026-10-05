@@ -296,7 +296,7 @@ export type Dictionary = {
     introTitle: string
     /** Si aucun menu en ligne ou date illisible. */
     introText: string
-    /** `{date}` = dernière mise en ligne (upload Blob), pas la date du jour. */
+    /** `{date}` = date et heure de mise en ligne (Europe/Paris, 24 h), pas la date du jour. */
     introTextUpdated: string
     pricingTitle: string
     lunchServiceTitle: string
