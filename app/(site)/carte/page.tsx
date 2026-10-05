@@ -76,7 +76,7 @@ export default async function Carte() {
           ))}
         </section>
 
-        <section className="section carte-formulas-section" aria-labelledby="carte-formulas-title">
+        <section className="section carte-formulas-section" aria-labelledby="menu-jour-pricing-title">
           <MenuDayServicePricing copy={dictionary.dailyMenuPage} />
         </section>
 

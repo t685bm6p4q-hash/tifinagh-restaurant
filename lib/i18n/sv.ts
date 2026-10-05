@@ -75,7 +75,6 @@ export const sv: Dictionary = {
     heroCopy:
       'Generös fransk mat, färska säsongsråvaror och själen i ett äkta kvartersbistro.',
     bookTable: 'Boka bord',
-    discoverMenu: 'Utforska menyn',
     heroImageAlt: 'Matsalen på restaurang Tifinagh i Montmartre',
     storyEyebrow: 'Tifinagh-andan',
     storyTitle: 'Fransk autenticitet vid foten av Montmartre och Pigalle',
@@ -88,13 +87,9 @@ export const sv: Dictionary = {
     wineTitle: 'Levande viner',
     wineText: 'Ett urval av oberoende vinproducenter.',
     dishAlt: 'Ankconfit serverad på restaurangen',
-    bannerTitle: 'Dagens meny',
-    bannerLink: 'Se hela menyn',
     menuEyebrow: 'Menyn',
     menuTitle: 'Marknaden på tallriken',
     menuText: 'En kort meny som förnyas med säsongerna.',
-    dailyMenuLink: 'Dagens meny',
-    dailyMenuAria: 'Dagens meny',
     fullMenuLink: 'Matmenyn',
     menuChoicesTitle: 'Välj din meny',
     menuChoicesHint:

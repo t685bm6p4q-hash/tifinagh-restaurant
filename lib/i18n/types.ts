@@ -199,7 +199,6 @@ export type Dictionary = {
     heroTitleEm: string
     heroCopy: string
     bookTable: string
-    discoverMenu: string
     heroImageAlt: string
     storyEyebrow: string
     storyTitle: string
@@ -210,13 +209,9 @@ export type Dictionary = {
     wineTitle: string
     wineText: string
     dishAlt: string
-    bannerTitle: string
-    bannerLink: string
     menuEyebrow: string
     menuTitle: string
     menuText: string
-    dailyMenuLink: string
-    dailyMenuAria: string
     fullMenuLink: string
     menuChoicesTitle: string
     menuChoicesHint: string

@@ -75,7 +75,6 @@ export const ja: Dictionary = {
     heroCopy:
       'たっぷりのフランス料理、旬の新鮮な食材、本物の街のビストロの心。',
     bookTable: 'テーブル予約',
-    discoverMenu: 'メニューを見る',
     heroImageAlt: 'モンマルトル レストラン Tifinagh のダイニングルーム',
     storyEyebrow: 'Tifinagh の精神',
     storyTitle: 'モンマルトルとピガールの麓で味わうフランスの本格',
@@ -88,13 +87,9 @@ export const ja: Dictionary = {
     wineTitle: 'ナチュラルワイン',
     wineText: '独立系生産者のワインセレクション。',
     dishAlt: 'レストランで提供するコンフィ・ド・カナール',
-    bannerTitle: '本日のメニュー',
-    bannerLink: 'メニュー全体を見る',
     menuEyebrow: 'メニュー',
     menuTitle: '市場の味を皿に',
     menuText: '季節ごとに入れ替わる、厳選された短いメニュー。',
-    dailyMenuLink: '本日のメニュー',
-    dailyMenuAria: '本日のメニュー',
     fullMenuLink: '定番メニュー',
     menuChoicesTitle: 'メニューを選ぶ',
     menuChoicesHint:

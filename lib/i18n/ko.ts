@@ -75,7 +75,6 @@ export const ko: Dictionary = {
     heroCopy:
       '푸짐한 프랑스 요리, 신선한 제철 식재료, 진정한 동네 비스트로의 영혼.',
     bookTable: '테이블 예약',
-    discoverMenu: '메뉴 보기',
     heroImageAlt: '몽마르트르 Tifinagh 레스토랑 다이닝 룸',
     storyEyebrow: 'Tifinagh 정신',
     storyTitle: '몽마르트르와 피갈 발치의 프랑스 정통성',
@@ -88,13 +87,9 @@ export const ko: Dictionary = {
     wineTitle: '내추럴 와인',
     wineText: '독립 와인메이커 선별.',
     dishAlt: '레스토랑에서 서빙하는 오리 콩피',
-    bannerTitle: '오늘의 메뉴',
-    bannerLink: '전체 메뉴 보기',
     menuEyebrow: '메뉴',
     menuTitle: '시장이 담긴 한 접시',
     menuText: '제철에 따라 바뀌는 짧은 메뉴.',
-    dailyMenuLink: '오늘의 메뉴',
-    dailyMenuAria: '오늘의 메뉴',
     fullMenuLink: '상설 메뉴',
     menuChoicesTitle: '메뉴 선택',
     menuChoicesHint:

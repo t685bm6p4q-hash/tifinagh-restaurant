@@ -75,7 +75,6 @@ export const ar: Dictionary = {
     heroCopy:
       'مطبخ فرنسي سخي، منتجات موسمية طازجة وروح مطعم حيّ أصيل.',
     bookTable: 'احجز مائدة',
-    discoverMenu: 'استكشف القائمة',
     heroImageAlt: 'قاعة مطعم Tifinagh في مونمارتر',
     storyEyebrow: 'روح Tifinagh',
     storyTitle: 'أصالة فرنسية عند سفح مونمارتر وPigalle',
@@ -88,13 +87,9 @@ export const ar: Dictionary = {
     wineTitle: 'نبيذ حيّ',
     wineText: 'اختيار من منتجي نبيذ مستقلين.',
     dishAlt: 'confit de canard يُقدَّم في المطعم',
-    bannerTitle: 'قائمة اليوم',
-    bannerLink: 'عرض القائمة كاملة',
     menuEyebrow: 'القائمة',
     menuTitle: 'السوق على طبق',
     menuText: 'قائمة مختصرة تتجدد مع المواسم.',
-    dailyMenuLink: 'قائمة اليوم',
-    dailyMenuAria: 'قائمة اليوم',
     fullMenuLink: 'القائمة الدائمة',
     menuChoicesTitle: 'اختروا القائمة',
     menuChoicesHint:

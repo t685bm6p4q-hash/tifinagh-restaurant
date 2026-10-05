@@ -75,7 +75,6 @@ export const es: Dictionary = {
     heroCopy:
       'Una cocina francesa generosa, productos frescos de temporada y el alma de un verdadero bistró de barrio.',
     bookTable: 'Reservar una mesa',
-    discoverMenu: 'Descubrir la carta',
     heroImageAlt: 'Sala del restaurante Tifinagh en Montmartre',
     storyEyebrow: 'El espíritu Tifinagh',
     storyTitle: 'La autenticidad francesa al pie de Montmartre y Pigalle',
@@ -88,13 +87,9 @@ export const es: Dictionary = {
     wineTitle: 'Vinos vivos',
     wineText: 'Una selección de viticultores independientes.',
     dishAlt: 'Confit de pato servido en el restaurante',
-    bannerTitle: 'Menú del día',
-    bannerLink: 'Ver la carta completa',
     menuEyebrow: 'La carta',
     menuTitle: 'El mercado en el plato',
     menuText: 'Una carta breve, renovada al ritmo de las estaciones.',
-    dailyMenuLink: 'Consultar el menú del día',
-    dailyMenuAria: 'Consultar el menú del día',
     fullMenuLink: 'La carta',
     menuChoicesTitle: 'Elija su menú',
     menuChoicesHint:

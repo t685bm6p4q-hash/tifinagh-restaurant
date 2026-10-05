@@ -75,7 +75,6 @@ export const zgh: Dictionary = {
     heroCopy:
       'ⵜⴰⵎⴰⵣⵉⵖⵜ ⵜⴰⵕⴰⵏⵙⵓⵙⵉⵜ ⵜⴰⵎⵙⵙⴰⵏⵜ, ⵉⵓⵅⴰⵏⵏ ⵉⵎⵙⵙⴰⵏ ⴷ ⵜⵎⴰⵣⵉⵔⵜ ⵏ ⴱⵉⵙⵜⵔⵓ ⴰⵎⵇⵔⴰⵏ.',
     bookTable: 'ⴰⵙⴳⴳⵯⴰⵙ ⵜⴰⵎⴰⴹⵓⵏⵜ',
-    discoverMenu: 'ⵙⴽⵏ ⵜⴰⵎⵓⵔⵜ',
     heroImageAlt: 'ⵜⴰⵙⴰⵍⵍⴰ ⵏ Tifinagh ⴳ Montmartre',
     storyEyebrow: 'ⴰⵙⴰⵎⵎⴰⵙ Tifinagh',
     storyTitle: 'ⴰⵎⵥⵍⴰⵏ ⴰⵕⴰⵏⵙⵓⵙⵉ ⴷⴰⵔ Montmartre ⴷ Pigalle',
@@ -88,13 +87,9 @@ export const zgh: Dictionary = {
     wineTitle: 'ⵉⵏⵣⵉⵢⵏ ⵉⵎⵖⵓⵔⴰⵏ',
     wineText: 'ⵜⴰⵙⵜⴰⵢⵜ ⵏ ⵉⵎⵙⵙⵏⵉⵏ ⵉⵎⵙⵙⵏⵉⵏ.',
     dishAlt: 'ⴰⵏⴰⵙ ⴰⵎⵙⵙⵓⵙ ⵉⵜⵜⵓⵙⵙⵓⵎⵔ ⴳ ⵓⵙⵙⵉⵏⵉ',
-    bannerTitle: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ',
-    bannerLink: 'ⵙⴽⵏ ⵜⴰⵎⵓⵔⵜ ⵜⴰⵎⴰⵜⴰⵢⵜ',
     menuEyebrow: 'ⵜⴰⵎⵓⵔⵜ',
     menuTitle: 'ⴰⵙⵔⴰⴳ ⴳ ⵜⴰⵙⵙⴰ',
     menuText: 'ⵜⴰⵎⵓⵔⵜ ⵜⴰⵎⵣⵡⴰⵔⵜ, ⵜⵜⵡⴰⵙⵙⵏⵜ ⵙ ⵉⵎⵙⵙⴰⵏ.',
-    dailyMenuLink: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ',
-    dailyMenuAria: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵓⵙⵙⴰⵙ',
     fullMenuLink: 'La carte',
     menuChoicesTitle: 'Choisissez votre menu',
     menuChoicesHint:

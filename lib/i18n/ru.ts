@@ -75,7 +75,6 @@ export const ru: Dictionary = {
     heroCopy:
       'Щедрая французская кухня, свежие сезонные продукты и душа настоящего квартального бистро.',
     bookTable: 'Забронировать стол',
-    discoverMenu: 'Открыть меню',
     heroImageAlt: 'Зал ресторана Tifinagh в Монмартре',
     storyEyebrow: 'Дух Tifinagh',
     storyTitle: 'Французская аутентичность у подножия Монмартра и Пигаля',
@@ -88,13 +87,9 @@ export const ru: Dictionary = {
     wineTitle: 'Живые вина',
     wineText: 'Подборка независимых виноделов.',
     dishAlt: 'Утиное конфи, поданное в ресторане',
-    bannerTitle: 'Меню дня',
-    bannerLink: 'Смотреть полное меню',
     menuEyebrow: 'Меню',
     menuTitle: 'Рынок на тарелке',
     menuText: 'Короткое меню, обновляемое по сезонам.',
-    dailyMenuLink: 'Меню дня',
-    dailyMenuAria: 'Меню дня',
     fullMenuLink: 'Карта блюд',
     menuChoicesTitle: 'Выберите меню',
     menuChoicesHint:
