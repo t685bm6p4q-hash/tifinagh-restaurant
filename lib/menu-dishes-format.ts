@@ -30,17 +30,26 @@ Desserts :
 
 * Liste des allergènes disponible sur demande.`
 
-const CATEGORY_LABELS =
-  /^(entr[ée]es?|plats?|desserts?|starters?|mains?|desserts?)$/i
-
 const PRICE_HINT =
   /€|entr[ée]e\s*\+\s*plat|plat\s*\+\s*dessert|menu\s*du\s*jour/i
+
+/** Tirets en tête/fin de ligne — tiret ASCII en dernier pour éviter une plage regex accidentelle. */
+const LEADING_DECOR = /^[*•·.\s–—-]+/
+const TRAILING_DECOR = /[*•·.\s–—_:]+$/ 
+
+const CATEGORY_CANONICAL: { pattern: RegExp; label: string }[] = [
+  { pattern: /^entree?s?$/, label: 'Entrées' },
+  { pattern: /^plats?$/, label: 'Plats' },
+  { pattern: /^desserts?$/, label: 'Desserts' },
+  { pattern: /^starters?$/, label: 'Starters' },
+  { pattern: /^mains?$/, label: 'Mains' },
+]
 
 function stripLineDecor(line: string): string {
   return line
     .trim()
-    .replace(/^[-–—*•·.\s]+/, '')
-    .replace(/[-–—*•·.\s]+$/, '')
+    .replace(LEADING_DECOR, '')
+    .replace(TRAILING_DECOR, '')
     .replace(/\s+/g, ' ')
     .trim()
 }
@@ -60,9 +69,17 @@ function isAllergenNote(trimmed: string, compact: string): boolean {
   return false
 }
 
-function isCategoryLine(compact: string): boolean {
-  const bare = compact.replace(/:$/, '').trim()
-  return CATEGORY_LABELS.test(bare)
+function categoryLettersKey(line: string): string {
+  return compactKey(line).replace(/[^a-z]/g, '')
+}
+
+function resolveCategoryLabel(line: string): string | null {
+  const key = categoryLettersKey(line.replace(/:$/, ''))
+  if (!key) return null
+  for (const { pattern, label } of CATEGORY_CANONICAL) {
+    if (pattern.test(key)) return label
+  }
+  return null
 }
 
 function isPriceLine(trimmed: string, compact: string): boolean {
@@ -71,7 +88,19 @@ function isPriceLine(trimmed: string, compact: string): boolean {
 }
 
 function stripListPrefix(line: string): string {
-  return line.trim().replace(/^[-–—*•·]+\s*/, '').trim()
+  return line.trim().replace(/^[*•·–—-]+\s*/, '').trim()
+}
+
+/** Affiche les montants en euros sans centimes (16,50 € → 17 €). */
+export function formatMenuTariffText(text: string): string {
+  const rounded = text.replace(
+    /(\d{1,3})[,.](\d{1,2})(?=\s*€)/g,
+    (_, whole: string, cents: string) => {
+      const value = Number(whole) + Number(cents.padEnd(2, '0')) / 100
+      return String(Math.round(value))
+    },
+  )
+  return rounded.replace(/\s*€/g, ' €')
 }
 
 /**
@@ -93,22 +122,17 @@ export function parseMenuDishLines(text: string): MenuDishLine[] {
     }
 
     if (isPriceLine(trimmed, compact)) {
-      lines.push({ kind: 'price', text: stripLineDecor(trimmed) })
+      lines.push({
+        kind: 'price',
+        text: formatMenuTariffText(stripLineDecor(trimmed)),
+      })
       continue
     }
 
-    if (isCategoryLine(compact) || (trimmed.endsWith(':') && isCategoryLine(compact.replace(/:$/, '')))) {
-      const label = stripLineDecor(trimmed.replace(/:$/, ''))
-      lines.push({ kind: 'category', text: label })
+    const categoryLabel = resolveCategoryLabel(trimmed)
+    if (categoryLabel) {
+      lines.push({ kind: 'category', text: categoryLabel })
       continue
-    }
-
-    if (trimmed.endsWith(':')) {
-      const label = stripLineDecor(trimmed.slice(0, -1))
-      if (isCategoryLine(compactKey(label))) {
-        lines.push({ kind: 'category', text: label })
-        continue
-      }
     }
 
     lines.push({ kind: 'dish', text: stripListPrefix(trimmed) })
