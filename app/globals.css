@@ -3074,22 +3074,28 @@ select:focus { border-color: var(--terracotta); }
   align-items: center;
   gap: 6px;
   padding: 8px 14px;
-  border: 1px solid var(--gold);
+  border: 1px solid rgba(214, 173, 69, 0.55);
   border-radius: 2rem;
-  background: rgba(10, 10, 10, 0.78);
+  background: rgba(10, 10, 10, 0.12);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   color: var(--gold-light);
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.03em;
   pointer-events: none;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.85),
+    0 0 12px rgba(0, 0, 0, 0.45);
+  box-shadow: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 @media (hover: hover) {
   .menu-pdf-preview-trigger:hover .menu-pdf-preview-badge {
-    background: rgba(10, 10, 10, 0.92);
+    background: rgba(10, 10, 10, 0.22);
+    border-color: rgba(232, 197, 106, 0.75);
     color: #fff;
   }
 }
