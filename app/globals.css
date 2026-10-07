@@ -1933,21 +1933,13 @@ a.nav-cta.nav-active {
 }
 
 .home-menu-choices--section .home-menu-choice-btn--carte {
-  border: 2px solid transparent;
-  background:
-    var(--gold-fill-soft) padding-box,
-    var(--gold-edge) border-box;
-  background-size: 100% 100%, 260% 260%;
-  animation: gold-edge-sheen var(--gold-sheen-duration) ease-in-out infinite;
-  color: #faf0c8;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  background: transparent;
 }
 
 .home-menu-choices--section .home-menu-choice-btn--carte:hover {
-  background:
-    var(--gold-fill-soft-hover) padding-box,
-    var(--gold-edge) border-box;
-  background-size: 100% 100%, 280% 280%;
-  color: #fff;
+  background: rgba(214, 173, 69, 0.1);
 }
 
 @media (min-width: 701px) {
@@ -2418,13 +2410,9 @@ button.footer-link {
 }
 
 .button-carte-link {
-  border: 2px solid transparent !important;
-  background:
-    var(--gold-fill-cta) padding-box,
-    var(--gold-edge) border-box !important;
-  background-size: 100% 100%, 260% 260% !important;
-  animation: gold-edge-sheen var(--gold-sheen-duration) ease-in-out infinite;
-  color: var(--gold-light) !important;
+  background: linear-gradient(180deg, var(--wood-mid) 0%, var(--wood) 100%) !important;
+  color: var(--gold) !important;
+  border: 2px solid var(--gold) !important;
   font-family: Georgia, 'Times New Roman', serif;
   font-weight: 600;
   white-space: nowrap;
@@ -2435,11 +2423,9 @@ button.footer-link {
 }
 
 .button-carte-link:hover {
-  background:
-    var(--gold-fill-cta-hover) padding-box,
-    var(--gold-edge) border-box !important;
-  background-size: 100% 100%, 300% 300% !important;
-  color: #fff !important;
+  background: linear-gradient(180deg, var(--wood-light) 0%, var(--wood-mid) 100%) !important;
+  border-color: var(--gold-light) !important;
+  color: var(--gold-light) !important;
   transform: translateY(-1px);
 }
 
