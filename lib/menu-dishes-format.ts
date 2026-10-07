@@ -142,13 +142,18 @@ function stripListPrefix(line: string): string {
   return line.trim().replace(/^[*•·–—-]+\s*/, '').trim()
 }
 
-/** Montants en euros entiers (16,50 € → 16 €), espace avant €. */
+/** Montants au format restaurant FR (16,50 → 16,5 €), espace avant €. */
 export function formatMenuTariffText(text: string): string {
-  const wholeEuros = text.replace(
-    /(\d{1,3})[,.]\d{1,2}(?=\s*€)/g,
-    (_, whole: string) => whole,
+  const withPrices = text.replace(
+    /(\d{1,3})[,.](\d{1,2})(?=\s*€)/g,
+    (_, whole: string, dec: string) => {
+      const cents = dec.padEnd(2, '0').slice(0, 2)
+      const value = Number(whole) + Number(cents) / 100
+      const withComma = value.toFixed(2).replace('.', ',')
+      return withComma.replace(/,00$/, '').replace(/,(\d)0$/, ',$1')
+    },
   )
-  return wholeEuros.replace(/\s*€/g, ' €')
+  return withPrices.replace(/\s*€/g, ' €')
 }
 
 /**
