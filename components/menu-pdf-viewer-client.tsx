@@ -57,10 +57,11 @@ type MenuPdfViewerClientProps = {
   enFallbackNote: string
   revisionByVariant: { fr: string | null; en: string | null }
   dishesByVariant: MenuDishesTexts
-  fullscreenOpenLabel: string
-  fullscreenShortLabel: string
-  fullscreenBackLabel: string
-  reserveLabel: string
+  fullscreenByVariant: Record<
+    MenuDayVariant,
+    { open: string; short: string; back: string }
+  >
+  reserveByVariant: Record<MenuDayVariant, string>
   share: {
     label: string
     copiedLabel: string
@@ -79,10 +80,8 @@ export function MenuPdfViewerClient({
   enFallbackNote,
   revisionByVariant,
   dishesByVariant,
-  fullscreenOpenLabel,
-  fullscreenShortLabel,
-  fullscreenBackLabel,
-  reserveLabel,
+  fullscreenByVariant,
+  reserveByVariant,
   share,
 }: MenuPdfViewerClientProps) {
   const [variant, setVariant] = useState<MenuDayVariant>(defaultVariant)
@@ -94,6 +93,9 @@ export function MenuPdfViewerClient({
 
   const showEnFallback = variant === 'en' && !hasEnglish
   const servedVariant: MenuDayVariant = showEnFallback ? 'fr' : variant
+  const menuUiVariant: MenuDayVariant = showEnFallback ? 'fr' : variant
+  const fullscreenUi = fullscreenByVariant[menuUiVariant]
+  const reserveLabel = reserveByVariant[menuUiVariant]
   const servedRevision = revisionByVariant[servedVariant]
   const url = useMemo(
     () => menuPdfApiUrl(servedVariant, { revision: servedRevision }),
@@ -164,7 +166,7 @@ export function MenuPdfViewerClient({
     }
   }, [serverKind])
 
-  const previewAriaLabel = `${label} — ${fullscreenOpenLabel}`
+  const previewAriaLabel = `${label} — ${fullscreenUi.open}`
 
   const floatingFullscreen = (
     <div className="menu-pdf-float-actions">
@@ -175,10 +177,10 @@ export function MenuPdfViewerClient({
           event.stopPropagation()
           openFullscreen()
         }}
-        aria-label={fullscreenOpenLabel}
+        aria-label={fullscreenUi.open}
       >
         <IconMaximize size={18} />
-        <span className="menu-pdf-preview-badge__text">{fullscreenShortLabel}</span>
+        <span className="menu-pdf-preview-badge__text">{fullscreenUi.short}</span>
       </button>
       {displayKind === 'pdf' ? (
         <a
@@ -186,10 +188,10 @@ export function MenuPdfViewerClient({
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={fullscreenOpenLabel}
+          aria-label={fullscreenUi.open}
         >
           <IconMaximize size={18} />
-          <span className="menu-pdf-preview-badge__text">{fullscreenShortLabel}</span>
+          <span className="menu-pdf-preview-badge__text">{fullscreenUi.short}</span>
         </a>
       ) : null}
     </div>
@@ -295,7 +297,7 @@ export function MenuPdfViewerClient({
           url={displayKind === 'image' ? url : embedUrl}
           label={label}
           displayKind={displayKind}
-          closeLabel={fullscreenBackLabel}
+          closeLabel={fullscreenUi.back}
           reserveLabel={reserveLabel}
           onClose={close}
         />

@@ -1,4 +1,5 @@
 import { MenuPdfViewerClient } from '@/components/menu-pdf-viewer-client'
+import { getDictionary } from '@/lib/i18n/get-locale'
 import {
   getMenuPdfViewerContext,
   menuPdfViewerLabels,
@@ -9,6 +10,8 @@ export async function MenuPdfViewer() {
   const ctx = await getMenuPdfViewerContext()
   const d = ctx.dictionary.dailyMenuPage
   const labels = menuPdfViewerLabels()
+  const menuFr = getDictionary('fr').dailyMenuPage
+  const menuEn = getDictionary('en').dailyMenuPage
 
   return (
     <MenuPdfViewerClient
@@ -21,16 +24,25 @@ export async function MenuPdfViewer() {
       langToggleFr={d.langToggleFr}
       langToggleEn={d.langToggleEn}
       enFallbackNote={d.enFallbackNote}
-      fullscreenOpenLabel={d.fullscreenOpen}
-      fullscreenShortLabel={d.fullscreenShort}
-      fullscreenBackLabel={d.fullscreenBack}
+      fullscreenByVariant={{
+        fr: {
+          open: menuFr.fullscreenOpen,
+          short: menuFr.fullscreenShort,
+          back: menuFr.fullscreenBack,
+        },
+        en: {
+          open: menuEn.fullscreenOpen,
+          short: menuEn.fullscreenShort,
+          back: menuEn.fullscreenBack,
+        },
+      }}
       share={{
         label: d.shareMenuLabel,
         copiedLabel: d.shareMenuCopied,
         shareTitle: d.shareMenuTitle,
         shareText: d.shareMenuText,
       }}
-      reserveLabel={d.bookNow}
+      reserveByVariant={{ fr: menuFr.bookNow, en: menuEn.bookNow }}
     />
   )
 }
