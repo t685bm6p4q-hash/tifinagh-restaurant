@@ -33,17 +33,35 @@ Desserts :
 const PRICE_HINT =
   /€|entr[ée]e\s*\+\s*plat|plat\s*\+\s*dessert|menu\s*du\s*jour/i
 
-/** Tirets en tête/fin de ligne — tiret ASCII en dernier pour éviter une plage regex accidentelle. */
-const LEADING_DECOR = /^[*•·.\s–—-]+/
-const TRAILING_DECOR = /[*•·.\s–—_:]+$/ 
+const LEADING_DECOR = /^[*•·.\s–—_:-]+/
+const TRAILING_DECOR = /[*•·.\s–—_:-]+$/
 
-const CATEGORY_CANONICAL: { pattern: RegExp; label: string }[] = [
-  { pattern: /^entree?s?$/, label: 'Entrées' },
-  { pattern: /^plats?$/, label: 'Plats' },
-  { pattern: /^desserts?$/, label: 'Desserts' },
-  { pattern: /^starters?$/, label: 'Starters' },
-  { pattern: /^mains?$/, label: 'Mains' },
-]
+type MenuCategoryId = 'starters' | 'mains' | 'desserts'
+
+const CATEGORY_LABELS: Record<MenuCategoryId, Record<MenuDayVariant, string>> = {
+  starters: { fr: 'Entrées', en: 'Starters' },
+  mains: { fr: 'Plats', en: 'Mains' },
+  desserts: { fr: 'Desserts', en: 'Desserts' },
+}
+
+const CATEGORY_REFERENCE_KEYS: Record<MenuCategoryId, readonly string[]> = {
+  starters: ['entrees', 'entree', 'starters', 'starter'],
+  mains: ['plats', 'plat', 'mains', 'main'],
+  desserts: ['desserts', 'dessert'],
+}
+
+/** Fautes d’OCR déjà rencontrées, au-delà de la tolérance automatique. */
+const CATEGORY_TYPO_ALIASES: Record<string, MenuCategoryId> = {
+  erirees: 'starters',
+  eritrees: 'starters',
+  entrtes: 'starters',
+  piats: 'mains',
+  dessrts: 'desserts',
+  desents: 'desserts',
+}
+
+const CATEGORY_LEADING_ARTICLE = /^(les|nos|our|the)\s+/
+const CATEGORY_MAX_WORDS = 2
 
 function stripLineDecor(line: string): string {
   return line
@@ -63,23 +81,56 @@ function compactKey(line: string): string {
     .trim()
 }
 
+function levenshtein(a: string, b: string): number {
+  if (a === b) return 0
+  const row: number[] = Array.from({ length: b.length + 1 }, (_, index) => index)
+  for (let i = 1; i <= a.length; i++) {
+    let diagonal = row[0] ?? 0
+    row[0] = i
+    for (let j = 1; j <= b.length; j++) {
+      const above = row[j] ?? 0
+      const left = row[j - 1] ?? 0
+      const cost = a.charCodeAt(i - 1) === b.charCodeAt(j - 1) ? 0 : 1
+      row[j] = Math.min(above + 1, left + 1, diagonal + cost)
+      diagonal = above
+    }
+  }
+  return row[b.length] ?? Math.max(a.length, b.length)
+}
+
+/** Plus le mot est court, moins on tolère de fautes (sinon « Pain » deviendrait « Mains »). */
+function maxTypoDistance(reference: string): number {
+  if (reference.length >= 7) return 2
+  if (reference.length >= 5) return 1
+  return 0
+}
+
+function resolveCategoryId(line: string): MenuCategoryId | null {
+  const words = compactKey(line).replace(CATEGORY_LEADING_ARTICLE, '')
+  if (!words || words.split(' ').length > CATEGORY_MAX_WORDS) return null
+
+  const key = words.replace(/[^a-z]/g, '')
+  if (!key) return null
+
+  const alias = CATEGORY_TYPO_ALIASES[key]
+  if (alias) return alias
+
+  let best: { id: MenuCategoryId; distance: number } | null = null
+  for (const id of Object.keys(CATEGORY_REFERENCE_KEYS) as MenuCategoryId[]) {
+    for (const reference of CATEGORY_REFERENCE_KEYS[id]) {
+      if (Math.abs(reference.length - key.length) > 1) continue
+      const distance = levenshtein(key, reference)
+      if (distance > maxTypoDistance(reference)) continue
+      if (!best || distance < best.distance) best = { id, distance }
+    }
+  }
+  return best?.id ?? null
+}
+
 function isAllergenNote(trimmed: string, compact: string): boolean {
   if (/allerg[eè]ne/i.test(compact) || /allergen/i.test(compact)) return true
   if (/^\*/.test(trimmed) && /allerg/i.test(trimmed)) return true
   return false
-}
-
-function categoryLettersKey(line: string): string {
-  return compactKey(line).replace(/[^a-z]/g, '')
-}
-
-function resolveCategoryLabel(line: string): string | null {
-  const key = categoryLettersKey(line.replace(/:$/, ''))
-  if (!key) return null
-  for (const { pattern, label } of CATEGORY_CANONICAL) {
-    if (pattern.test(key)) return label
-  }
-  return null
 }
 
 function isPriceLine(trimmed: string, compact: string): boolean {
@@ -105,9 +156,9 @@ export function formatMenuTariffText(text: string): string {
 
 /**
  * Parse le texte du menu ligne par ligne pour un rendu type carte bistro.
- * Ordre des règles : note allergènes → formule/prix → catégorie → plat.
+ * Ordre des règles : note allergènes → formule/prix → catégorie (tolérante aux fautes d’OCR) → plat.
  */
-export function parseMenuDishLines(text: string): MenuDishLine[] {
+export function parseMenuDishLines(text: string, variant: MenuDayVariant = 'fr'): MenuDishLine[] {
   const lines: MenuDishLine[] = []
 
   for (const rawLine of text.split('\n')) {
@@ -122,20 +173,18 @@ export function parseMenuDishLines(text: string): MenuDishLine[] {
     }
 
     if (isPriceLine(trimmed, compact)) {
-      lines.push({
-        kind: 'price',
-        text: formatMenuTariffText(stripLineDecor(trimmed)),
-      })
+      lines.push({ kind: 'price', text: formatMenuTariffText(stripLineDecor(trimmed)) })
       continue
     }
 
-    const categoryLabel = resolveCategoryLabel(trimmed)
-    if (categoryLabel) {
-      lines.push({ kind: 'category', text: categoryLabel })
+    const categoryId = resolveCategoryId(trimmed)
+    if (categoryId) {
+      lines.push({ kind: 'category', text: CATEGORY_LABELS[categoryId][variant] })
       continue
     }
 
-    lines.push({ kind: 'dish', text: stripListPrefix(trimmed) })
+    const dish = stripListPrefix(trimmed)
+    if (dish) lines.push({ kind: 'dish', text: dish })
   }
 
   return lines
