@@ -165,7 +165,6 @@ export function MenuPdfViewerClient({
         className="menu-pdf-preview-trigger"
         onDoubleClick={openFullscreen}
         onTouchEnd={onPreviewTouchEnd}
-        title={fullscreenOpenLabel}
       >
         <img
           key={`${servedVariant}-${servedRevision ?? 'default'}`}
@@ -181,10 +180,18 @@ export function MenuPdfViewerClient({
           fetchPriority="high"
           onError={onImageError}
         />
-        <span className="menu-pdf-preview-badge" aria-hidden="true">
+        <button
+          type="button"
+          className="menu-pdf-preview-badge"
+          onClick={(event) => {
+            event.stopPropagation()
+            openFullscreen()
+          }}
+          aria-label={fullscreenOpenLabel}
+        >
           <IconMaximize size={16} />
           {fullscreenShortLabel}
-        </span>
+        </button>
       </div>
     ) : (
       <iframe className="menu-pdf-viewer menu-pdf-viewer--embed" src={embedUrl} title={label} />
