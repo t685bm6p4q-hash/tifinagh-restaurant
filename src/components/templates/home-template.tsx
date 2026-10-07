@@ -58,7 +58,7 @@ export async function HomeTemplate() {
             </p>
             <HomeMealTimesHighlight copy={dictionary.home} />
             <div className="actions">
-              <Link className="button button-primary" href="/reservation" prefetch={false}>
+              <Link className="button button-primary hero-reserve-cta" href="/reservation" prefetch={false}>
                 <CalendarDaysIcon size={16} />
                 {dictionary.home.bookTable}
               </Link>
