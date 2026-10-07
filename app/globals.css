@@ -3840,7 +3840,7 @@ select:focus { border-color: var(--terracotta); }
 
   .site-header {
     height: auto;
-    min-height: calc(62px + env(safe-area-inset-top, 0px));
+    min-height: calc(70px + env(safe-area-inset-top, 0px));
     padding: env(safe-area-inset-top, 0px) 4vw 10px;
   }
 
@@ -3859,8 +3859,11 @@ select:focus { border-color: var(--terracotta); }
   }
 
   .brand-logo {
-    width: 46px;
-    height: 46px;
+    width: 58px;
+    height: 58px;
+    box-shadow:
+      0 0 0 1px rgba(214, 173, 69, 0.4),
+      0 4px 14px rgba(0, 0, 0, 0.45);
   }
 
   .header-tools {
