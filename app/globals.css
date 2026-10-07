@@ -191,12 +191,27 @@ button, input, textarea, select { font: inherit; }
 }
 
 .brand-logo {
-  width: 52px;
-  height: 52px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
   border-radius: 50%;
   flex-shrink: 0;
   background: transparent;
+}
+
+@media (min-width: 701px) {
+  .brand-logo {
+    width: 64px;
+    height: 64px;
+    box-shadow:
+      0 0 0 1px rgba(214, 173, 69, 0.32),
+      0 4px 14px rgba(0, 0, 0, 0.35);
+  }
+
+  .brand {
+    gap: 12px;
+    font-size: 15px;
+  }
 }
 
 .main-nav {
@@ -2755,8 +2770,20 @@ button.footer-link {
   transition: left 0.28s cubic-bezier(0.34, 1.2, 0.64, 1);
 }
 
+.menu-lang-switch__panel[data-variant='fr'] .menu-lang-switch__thumb {
+  background:
+    linear-gradient(180deg, var(--wood-mid) 0%, var(--wood) 100%) padding-box,
+    var(--menu-gold-edge, linear-gradient(125deg, #e8c56a, #d6ad45, #e8c56a)) border-box;
+}
+
 .menu-lang-switch__panel[data-variant='en'] .menu-lang-switch__thumb {
   left: calc(50% + 2.5px);
+  background:
+    linear-gradient(135deg, #f5e6a8 0%, #e8c56a 38%, #d6ad45 72%, #c49a3a 100%) padding-box,
+    var(--menu-gold-edge, linear-gradient(125deg, #e8c56a, #d6ad45, #e8c56a)) border-box;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 2px 16px rgba(214, 173, 69, 0.35);
 }
 
 .menu-lang-switch__label {
