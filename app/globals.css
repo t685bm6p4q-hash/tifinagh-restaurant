@@ -3004,6 +3004,12 @@ select:focus { border-color: var(--terracotta); }
 }
 
 @media (max-width: 900px) {
+  /* Menu image : pastille flottante + double-tap ; pas de barre haute ni bouton bas. */
+  .menu-pdf-viewer-wrap:not(.menu-pdf-viewer-wrap--pdf) .menu-pdf-viewer-topbar,
+  .menu-pdf-viewer-actions {
+    display: none;
+  }
+
   /* Sur mobile, un PDF en iframe ne montre souvent que la 1re page : on l’ouvre dans un onglet. */
   .menu-pdf-viewer-wrap--pdf .menu-pdf-viewer-topbar .menu-pdf-mobile-open {
     display: inline-flex;
