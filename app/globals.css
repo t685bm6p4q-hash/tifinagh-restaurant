@@ -3004,6 +3004,10 @@ select:focus { border-color: var(--terracotta); }
 }
 
 @media (max-width: 900px) {
+  .menu-pdf-preview-badge {
+    display: inline-flex;
+  }
+
   /* Menu image : pastille flottante + double-tap ; pas de barre haute ni bouton bas. */
   .menu-pdf-viewer-wrap:not(.menu-pdf-viewer-wrap--pdf) .menu-pdf-viewer-topbar,
   .menu-pdf-viewer-actions {
@@ -3067,6 +3071,7 @@ select:focus { border-color: var(--terracotta); }
 }
 
 .menu-pdf-preview-badge {
+  display: none;
   position: absolute;
   right: 14px;
   bottom: 14px;
