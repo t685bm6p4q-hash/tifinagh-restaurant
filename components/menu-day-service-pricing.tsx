@@ -29,14 +29,14 @@ export function MenuDayServicePricing({ copy }: { copy: MenuDayPricingCopy }) {
             <dd className="menu-jour-service-rates__value">
               <span>
                 {copy.lunchFormulaTwoCourse}{' '}
-                <strong>({copy.lunchFormulaTwoCoursePrice})</strong>
+                <strong>{copy.lunchFormulaTwoCoursePrice}</strong>
               </span>
               <span className="menu-jour-service-rates__sep" aria-hidden="true">
                 |
               </span>
               <span>
                 {copy.lunchFormulaThreeCourse}{' '}
-                <strong>({copy.lunchFormulaThreeCoursePrice})</strong>
+                <strong>{copy.lunchFormulaThreeCoursePrice}</strong>
               </span>
             </dd>
           </div>
@@ -45,7 +45,7 @@ export function MenuDayServicePricing({ copy }: { copy: MenuDayPricingCopy }) {
             <dd className="menu-jour-service-rates__value menu-jour-service-rates__value--evening">
               <span>
                 {copy.eveningFormulaDetail}{' '}
-                <strong>({copy.eveningFormulaPrice})</strong>
+                <strong>{copy.eveningFormulaPrice}</strong>
               </span>
             </dd>
           </div>
