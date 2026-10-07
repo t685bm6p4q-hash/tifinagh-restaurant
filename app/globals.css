@@ -3366,33 +3366,45 @@ select:focus { border-color: var(--terracotta); }
   justify-content: center;
   gap: 8px;
   min-width: 190px;
-  min-height: 44px;
-  padding: 10px 22px;
+  min-height: 48px;
+  padding: 12px 22px;
   border: 2px solid transparent;
   border-radius: 2rem;
   background:
-    linear-gradient(rgba(17, 18, 16, 0.35), rgba(17, 18, 16, 0.35)) padding-box,
+    linear-gradient(var(--surface), var(--surface)) padding-box,
     var(--menu-gold-edge, linear-gradient(125deg, #e8c56a, #d6ad45, #e8c56a)) border-box;
   background-size: 100% 100%, 260% 260%;
   animation: menu-gold-sheen 8s ease-in-out infinite;
-  color: var(--gold-light);
+  color: var(--foreground);
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.03em;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
+}
+
+.menu-share__button svg {
+  color: var(--gold-light);
+  flex-shrink: 0;
 }
 
 .menu-share__button:hover {
   background:
-    linear-gradient(rgba(214, 173, 69, 0.14), rgba(214, 173, 69, 0.08)) padding-box,
+    linear-gradient(var(--surface-2), var(--surface-2)) padding-box,
     var(--menu-gold-edge, linear-gradient(125deg, #e8c56a, #d6ad45, #e8c56a)) border-box;
   background-size: 100% 100%, 280% 280%;
   color: #fff;
-  box-shadow: 0 0 22px rgba(214, 173, 69, 0.2);
+  box-shadow:
+    0 8px 26px rgba(0, 0, 0, 0.35),
+    0 0 22px rgba(214, 173, 69, 0.18);
   transform: translateY(-1px);
+}
+
+.menu-share__button:hover svg {
+  color: #faf0c8;
 }
 
 .menu-share__button:focus-visible {
@@ -3402,9 +3414,12 @@ select:focus { border-color: var(--terracotta); }
 
 .menu-share__button--copied,
 .menu-share__button--copied:hover {
-  background: rgba(214, 173, 69, 0.18);
-  border-color: var(--gold-light);
+  background:
+    linear-gradient(#2a2418, #2a2418) padding-box,
+    var(--menu-gold-edge, linear-gradient(125deg, #e8c56a, #d6ad45, #e8c56a)) border-box;
+  background-size: 100% 100%, 280% 280%;
   color: #fff;
+  transform: none;
 }
 
 .menu-pdf-fullscreen-open {
