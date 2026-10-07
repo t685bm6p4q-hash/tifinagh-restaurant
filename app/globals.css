@@ -1946,13 +1946,15 @@ a.nav-cta.nav-active {
 }
 
 .home-menu-choices--banner .home-menu-choice-btn--carte {
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.75);
-  background: rgba(255, 255, 255, 0.06);
+  color: var(--gold-light);
+  border: 2px solid var(--gold);
+  background: rgba(214, 173, 69, 0.1);
 }
 
 .home-menu-choices--banner .home-menu-choice-btn--carte:hover {
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(214, 173, 69, 0.18);
+  border-color: var(--gold-light);
+  color: #fff;
 }
 
 .home-menu-choices--section {
@@ -1977,8 +1979,8 @@ a.nav-cta.nav-active {
 }
 
 .home-menu-choices--section .home-menu-choice-btn--carte {
-  color: var(--gold);
-  border: 1px solid var(--gold);
+  color: var(--gold-light);
+  border: 2px solid var(--gold);
   background: transparent;
 }
 
