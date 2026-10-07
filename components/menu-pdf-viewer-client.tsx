@@ -30,6 +30,20 @@ const MenuPdfFullscreen = dynamic(
   { ssr: false },
 )
 
+function IconMaximize({ size = 20 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"
+        stroke="currentColor"
+        strokeWidth={2.25}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 type MenuPdfViewerClientProps = {
   defaultVariant: MenuDayVariant
   hasEnglish: boolean
@@ -66,6 +80,7 @@ export function MenuPdfViewerClient({
   revisionByVariant,
   dishesByVariant,
   fullscreenOpenLabel,
+  fullscreenShortLabel,
   fullscreenBackLabel,
   reserveLabel,
   share,
@@ -128,7 +143,7 @@ export function MenuPdfViewerClient({
   useEffect(() => {
     const details = dishesDetailsRef.current
     if (!details || !dishesId) return
-    if (window.matchMedia('(min-width: 901px)').matches) details.open = true
+    details.open = !window.matchMedia('(min-width: 901px)').matches
   }, [dishesId])
 
   const openFullscreen = useCallback(() => {
@@ -143,16 +158,6 @@ export function MenuPdfViewerClient({
     setVariant((v) => (v === 'fr' ? 'en' : 'fr'))
   }, [])
 
-  const onEmbedKeyDown = useCallback(
-    (event: React.KeyboardEvent) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault()
-        openFullscreen()
-      }
-    },
-    [openFullscreen],
-  )
-
   const onImageError = useCallback(() => {
     if (serverKind === 'pdf') {
       setDisplayKind('pdf')
@@ -161,46 +166,66 @@ export function MenuPdfViewerClient({
 
   const previewAriaLabel = `${label} — ${fullscreenOpenLabel}`
 
-  const media =
-    displayKind === 'image' ? (
+  const floatingFullscreen = (
+    <div className="menu-pdf-float-actions">
       <button
         type="button"
-        className="menu-pdf-preview-trigger"
-        onClick={openFullscreen}
-        aria-label={previewAriaLabel}
-        aria-describedby={dishesId}
+        className="menu-pdf-preview-badge menu-pdf-preview-badge--lightbox"
+        onClick={(event) => {
+          event.stopPropagation()
+          openFullscreen()
+        }}
+        aria-label={fullscreenOpenLabel}
       >
-        <img
-          key={`${servedVariant}-${servedRevision ?? 'default'}`}
-          className="menu-pdf-viewer menu-pdf-viewer--image"
-          src={previewImageUrl}
-          srcSet={previewSrcSet}
-          alt=""
-          width={MENU_IMAGE_LAYOUT_WIDTH}
-          height={MENU_IMAGE_LAYOUT_HEIGHT}
-          sizes={MENU_IMAGE_SIZES}
-          decoding="async"
-          fetchPriority="high"
-          onError={onImageError}
-        />
+        <IconMaximize size={18} />
+        <span className="menu-pdf-preview-badge__text">{fullscreenShortLabel}</span>
       </button>
-    ) : (
-      <div
-        className="menu-pdf-preview-trigger menu-pdf-preview-trigger--embed"
-        role="button"
-        tabIndex={0}
-        onClick={openFullscreen}
-        onKeyDown={onEmbedKeyDown}
-        aria-label={previewAriaLabel}
-      >
-        <iframe
-          className="menu-pdf-viewer menu-pdf-viewer--embed"
-          src={embedUrl}
-          title={label}
-          tabIndex={-1}
-        />
-      </div>
-    )
+      {displayKind === 'pdf' ? (
+        <a
+          className="menu-pdf-preview-badge menu-pdf-preview-badge--native"
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={fullscreenOpenLabel}
+        >
+          <IconMaximize size={18} />
+          <span className="menu-pdf-preview-badge__text">{fullscreenShortLabel}</span>
+        </a>
+      ) : null}
+    </div>
+  )
+
+  const pdfEmbed = (
+    <iframe
+      className="menu-pdf-viewer menu-pdf-viewer--embed"
+      src={embedUrl}
+      title={label}
+    />
+  )
+
+  const imagePreview = (
+    <button
+      type="button"
+      className="menu-pdf-preview-trigger"
+      onClick={openFullscreen}
+      aria-label={previewAriaLabel}
+      aria-describedby={dishesId}
+    >
+      <img
+        key={`${servedVariant}-${servedRevision ?? 'default'}`}
+        className="menu-pdf-viewer menu-pdf-viewer--image"
+        src={previewImageUrl}
+        srcSet={previewSrcSet}
+        alt=""
+        width={MENU_IMAGE_LAYOUT_WIDTH}
+        height={MENU_IMAGE_LAYOUT_HEIGHT}
+        sizes={MENU_IMAGE_SIZES}
+        decoding="async"
+        fetchPriority="high"
+        onError={onImageError}
+      />
+    </button>
+  )
 
   return (
     <>
@@ -237,12 +262,17 @@ export function MenuPdfViewerClient({
         <p className="menu-lang-fallback" role="status">{enFallbackNote}</p>
       ) : null}
 
-      <div className="menu-pdf-viewer-wrap">{media}</div>
+      <div
+        className={`menu-pdf-viewer-wrap${displayKind === 'pdf' ? ' menu-pdf-viewer-wrap--pdf' : ''}`}
+      >
+        {displayKind === 'pdf' ? pdfEmbed : imagePreview}
+        {floatingFullscreen}
+      </div>
 
       {dishesId ? (
         <details
           ref={dishesDetailsRef}
-          className="menu-dishes menu-dishes--desktop-open"
+          className="menu-dishes"
           id={dishesId}
           lang={dishesVariant}
         >
