@@ -2699,7 +2699,8 @@ button.footer-link {
 }
 
 .menu-lang-toggle {
-  max-width: 880px;
+  width: 67%;
+  max-width: calc(880px * 2 / 3);
   margin: 0 auto 12px;
   padding: 0 4px;
   box-sizing: border-box;
