@@ -2660,12 +2660,16 @@ button.footer-link {
 }
 
 .menu-lang-switch__label--on {
-  background: linear-gradient(180deg, #faf0c8 0%, #e8c56a 45%, #d6ad45 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #faf0c8;
   font-family: Georgia, 'Times New Roman', serif;
   font-weight: 700;
+  text-shadow:
+    0 0 18px rgba(232, 197, 106, 0.45),
+    0 1px 0 rgba(0, 0, 0, 0.35);
+}
+
+.menu-lang-switch__label:not(.menu-lang-switch__label--on) {
+  opacity: 0.72;
 }
 
 .menu-lang-fallback {
