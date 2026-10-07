@@ -3,16 +3,16 @@ import type { Dictionary } from '@/lib/i18n/types'
 type MenuDayPricingCopy = Pick<
   Dictionary['dailyMenuPage'],
   | 'pricingTitle'
-  | 'lunchServiceTitle'
-  | 'lunchServiceNote'
+  | 'pricingDishesHint'
+  | 'pricingLunchLabel'
+  | 'pricingEveningLabel'
+  | 'pricingHomemadeNote'
   | 'lunchFormulaTwoCourse'
   | 'lunchFormulaTwoCoursePrice'
   | 'lunchFormulaThreeCourse'
   | 'lunchFormulaThreeCoursePrice'
-  | 'eveningServiceTitle'
   | 'eveningFormulaDetail'
   | 'eveningFormulaPrice'
-  | 'eveningFormulaPromo'
 >
 
 export function MenuDayServicePricing({ copy }: { copy: MenuDayPricingCopy }) {
@@ -21,27 +21,36 @@ export function MenuDayServicePricing({ copy }: { copy: MenuDayPricingCopy }) {
       <h2 id="menu-jour-pricing-title" className="menu-jour-service-pricing-title">
         {copy.pricingTitle}
       </h2>
-      <div className="menu-jour-service-pricing-grid">
-        <div className="menu-jour-service-card menu-jour-service-card--lunch">
-          <h3>{copy.lunchServiceTitle}</h3>
-          <p className="menu-jour-service-note">{copy.lunchServiceNote}</p>
-          <ul className="menu-jour-service-formulas">
-            <li>
-              <span>{copy.lunchFormulaTwoCourse}</span>
-              <strong>{copy.lunchFormulaTwoCoursePrice}</strong>
-            </li>
-            <li>
-              <span>{copy.lunchFormulaThreeCourse}</span>
-              <strong>{copy.lunchFormulaThreeCoursePrice}</strong>
-            </li>
-          </ul>
-        </div>
-        <div className="menu-jour-service-card menu-jour-service-card--evening">
-          <h3>{copy.eveningServiceTitle}</h3>
-          <p className="menu-jour-service-evening-detail">{copy.eveningFormulaDetail}</p>
-          <p className="menu-jour-service-evening-price">{copy.eveningFormulaPrice}</p>
-          <p className="menu-jour-service-evening-promo">{copy.eveningFormulaPromo}</p>
-        </div>
+      <div className="menu-jour-service-card menu-jour-service-card--unified">
+        <p className="menu-jour-service-card__hint">{copy.pricingDishesHint}</p>
+        <dl className="menu-jour-service-rates">
+          <div className="menu-jour-service-rates__row">
+            <dt className="menu-jour-service-rates__label">{copy.pricingLunchLabel}</dt>
+            <dd className="menu-jour-service-rates__value">
+              <span>
+                {copy.lunchFormulaTwoCourse}{' '}
+                <strong>({copy.lunchFormulaTwoCoursePrice})</strong>
+              </span>
+              <span className="menu-jour-service-rates__sep" aria-hidden="true">
+                |
+              </span>
+              <span>
+                {copy.lunchFormulaThreeCourse}{' '}
+                <strong>({copy.lunchFormulaThreeCoursePrice})</strong>
+              </span>
+            </dd>
+          </div>
+          <div className="menu-jour-service-rates__row">
+            <dt className="menu-jour-service-rates__label">{copy.pricingEveningLabel}</dt>
+            <dd className="menu-jour-service-rates__value menu-jour-service-rates__value--evening">
+              <span>
+                {copy.eveningFormulaDetail}{' '}
+                <strong>({copy.eveningFormulaPrice})</strong>
+              </span>
+            </dd>
+          </div>
+        </dl>
+        <p className="menu-jour-service-card__footnote">{copy.pricingHomemadeNote}</p>
       </div>
     </aside>
   )

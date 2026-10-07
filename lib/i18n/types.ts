@@ -294,6 +294,12 @@ export type Dictionary = {
     /** `{date}` = date et heure de mise en ligne (Europe/Paris, 24 h), pas la date du jour. */
     introTextUpdated: string
     pricingTitle: string
+    /** Intro discrète dans la carte formules (menu du jour). */
+    pricingDishesHint: string
+    pricingLunchLabel: string
+    pricingEveningLabel: string
+    /** Mention maison en bas de carte formules. */
+    pricingHomemadeNote: string
     lunchServiceTitle: string
     lunchServiceNote: string
     lunchFormulaTwoCourse: string
