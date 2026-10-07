@@ -142,13 +142,13 @@ function stripListPrefix(line: string): string {
   return line.trim().replace(/^[*•·–—-]+\s*/, '').trim()
 }
 
-/** Normalise les montants (virgule française, espace avant €) sans arrondir. */
+/** Montants en euros entiers (16,50 € → 16 €), espace avant €. */
 export function formatMenuTariffText(text: string): string {
-  const withDecimals = text.replace(
-    /(\d{1,3})[,.](\d{1,2})(?=\s*€)/g,
-    (_, whole: string, dec: string) => `${whole},${dec}`,
+  const wholeEuros = text.replace(
+    /(\d{1,3})[,.]\d{1,2}(?=\s*€)/g,
+    (_, whole: string) => whole,
   )
-  return withDecimals.replace(/\s*€/g, ' €')
+  return wholeEuros.replace(/\s*€/g, ' €')
 }
 
 /**
