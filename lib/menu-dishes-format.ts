@@ -33,8 +33,9 @@ Desserts :
 const PRICE_HINT =
   /€|entr[ée]e\s*\+\s*plat|plat\s*\+\s*dessert|menu\s*du\s*jour/i
 
-const LEADING_DECOR = /^[*•·.\s–—_:-]+/
-const TRAILING_DECOR = /[*•·.\s–—_:-]+$/
+const LEADING_DECOR = /^[*•·.\s–—_:\-]+/
+/** Parasites OCR en fin de ligne : « .- », « : », tirets collés, etc. */
+const TRAILING_DECOR = /(?:[*•·\s–—_:\-]+|\.-|-\.|\.)+$/i
 
 type MenuCategoryId = 'starters' | 'mains' | 'desserts'
 
@@ -45,9 +46,47 @@ const CATEGORY_LABELS: Record<MenuCategoryId, Record<MenuDayVariant, string>> = 
 }
 
 const CATEGORY_REFERENCE_KEYS: Record<MenuCategoryId, readonly string[]> = {
-  starters: ['entrees', 'entree', 'starters', 'starter'],
-  mains: ['plats', 'plat', 'mains', 'main'],
+  starters: [
+    'entrees',
+    'entree',
+    'starters',
+    'starter',
+    'appetizers',
+    'appetizer',
+    'appetisers',
+    'appetiser',
+  ],
+  mains: [
+    'plats',
+    'plat',
+    'mains',
+    'main',
+    'maincourses',
+    'maincourse',
+  ],
   desserts: ['desserts', 'dessert'],
+}
+
+/** Libellés multi-mots (après compactKey) → catégorie. */
+const CATEGORY_PHRASE_ALIASES: Record<string, MenuCategoryId> = {
+  'main courses': 'mains',
+  'main course': 'mains',
+  'main-courses': 'mains',
+  'main-course': 'mains',
+  starters: 'starters',
+  starter: 'starters',
+  appetizers: 'starters',
+  appetizer: 'starters',
+  appetisers: 'starters',
+  appetiser: 'starters',
+  desserts: 'desserts',
+  dessert: 'desserts',
+  entrees: 'starters',
+  entree: 'starters',
+  plats: 'mains',
+  plat: 'mains',
+  mains: 'mains',
+  main: 'mains',
 }
 
 /** Fautes d’OCR déjà rencontrées, au-delà de la tolérance automatique. */
@@ -56,12 +95,14 @@ const CATEGORY_TYPO_ALIASES: Record<string, MenuCategoryId> = {
   eritrees: 'starters',
   entrtes: 'starters',
   piats: 'mains',
+  maincourses: 'mains',
+  maincourse: 'mains',
   dessrts: 'desserts',
   desents: 'desserts',
 }
 
 const CATEGORY_LEADING_ARTICLE = /^(les|nos|our|the)\s+/
-const CATEGORY_MAX_WORDS = 2
+const CATEGORY_MAX_WORDS = 3
 
 function stripLineDecor(line: string): string {
   return line
@@ -77,6 +118,7 @@ function compactKey(line: string): string {
     .toLowerCase()
     .normalize('NFD')
     .replace(/\p{M}/gu, '')
+    .replace(/[-–—./]+/g, ' ')
     .replace(/[:\s]+/g, ' ')
     .trim()
 }
@@ -106,10 +148,16 @@ function maxTypoDistance(reference: string): number {
 }
 
 function resolveCategoryId(line: string): MenuCategoryId | null {
-  const words = compactKey(line).replace(CATEGORY_LEADING_ARTICLE, '')
-  if (!words || words.split(' ').length > CATEGORY_MAX_WORDS) return null
+  const phrase = compactKey(line).replace(CATEGORY_LEADING_ARTICLE, '').trim()
+  if (!phrase) return null
 
-  const key = words.replace(/[^a-z]/g, '')
+  const wordCount = phrase.split(/\s+/).length
+  if (wordCount > CATEGORY_MAX_WORDS) return null
+
+  const phraseHit = CATEGORY_PHRASE_ALIASES[phrase]
+  if (phraseHit) return phraseHit
+
+  const key = phrase.replace(/[^a-z]/g, '')
   if (!key) return null
 
   const alias = CATEGORY_TYPO_ALIASES[key]
