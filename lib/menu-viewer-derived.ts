@@ -1,8 +1,8 @@
 import type { MenuDishesTexts } from '@/lib/menu-dishes-format'
 import type { MenuDayVariant } from '@/lib/menu-pdf'
 
-/** Desktop : plats repliés ; en dessous : ouverts par défaut. */
-export const MENU_DISHES_BREAKPOINT_PX = 901
+/** Desktop : plats repliés au chargement ; en dessous : ouverts. */
+export const MENU_DISHES_DESKTOP_QUERY = '(min-width: 901px)'
 
 export function menuShowEnFallback(
   variant: MenuDayVariant,

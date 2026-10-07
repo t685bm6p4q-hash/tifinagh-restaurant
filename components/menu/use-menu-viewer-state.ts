@@ -1,26 +1,24 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
+import { parseMenuDishLines } from '@/lib/menu-dishes-format'
 import {
   MENU_IMAGE_LCP_WIDTH,
   MENU_IMAGE_PREVIEW_WIDTHS,
 } from '@/lib/menu-image-display'
 import {
-  menuDishesSource,
-  menuShowEnFallback,
-  menuServedVariant,
-} from '@/lib/menu-viewer-derived'
-import type { MenuPdfViewerClientProps } from '@/lib/menu-viewer-types'
-import {
   menuPdfApiUrl,
   menuPdfEmbedUrl,
   menuPdfPreviewSrcSet,
   type MenuDayVariant,
-  type MenuMediaKind,
 } from '@/lib/menu-pdf'
 import {
-  parseMenuDishLines,
-} from '@/lib/menu-dishes-format'
+  menuDishesSource,
+  menuServedVariant,
+  menuShowEnFallback,
+} from '@/lib/menu-viewer-derived'
+import type { MenuPdfViewerClientProps } from '@/lib/menu-viewer-types'
+import { pulseUiHaptic } from '@/lib/ui-haptic'
 
 type UseMenuViewerStateInput = Pick<
   MenuPdfViewerClientProps,
@@ -34,6 +32,9 @@ type UseMenuViewerStateInput = Pick<
   | 'reserveByVariant'
 >
 
+/** Choix utilisateur valable tant que la locale serveur (`defaultVariant`) ne change pas. */
+type VariantChoice = { base: MenuDayVariant; variant: MenuDayVariant }
+
 export function useMenuViewerState({
   defaultVariant,
   hasEnglish,
@@ -44,76 +45,48 @@ export function useMenuViewerState({
   fullscreenByVariant,
   reserveByVariant,
 }: UseMenuViewerStateInput) {
-  const [variant, setVariant] = useState<MenuDayVariant>(defaultVariant)
+  const [choice, setChoice] = useState<VariantChoice | null>(null)
   const [fullscreen, setFullscreen] = useState(false)
 
-  useEffect(() => {
-    setVariant(defaultVariant)
-  }, [defaultVariant])
-
+  const variant = choice?.base === defaultVariant ? choice.variant : defaultVariant
   const showEnFallback = menuShowEnFallback(variant, hasEnglish)
   const servedVariant = menuServedVariant(variant, hasEnglish)
-  const uiVariant = servedVariant
-  const fullscreenUi = fullscreenByVariant[uiVariant]
-  const reserveLabel = reserveByVariant[uiVariant]
   const servedRevision = revisionByVariant[servedVariant]
-  const serverKind = kindByVariant[servedVariant]
+  const displayKind = kindByVariant[servedVariant]
   const label = labels[servedVariant]
+  const fullscreenUi = fullscreenByVariant[servedVariant]
+  const reserveLabel = reserveByVariant[servedVariant]
 
-  const [displayKind, setDisplayKind] = useState<MenuMediaKind>(serverKind)
-
-  useEffect(() => {
-    setDisplayKind(serverKind)
-  }, [serverKind, servedVariant, servedRevision])
-
-  const url = useMemo(
-    () => menuPdfApiUrl(servedVariant, { revision: servedRevision }),
-    [servedVariant, servedRevision],
-  )
-  const embedUrl = useMemo(
-    () => menuPdfEmbedUrl(servedVariant, servedRevision),
-    [servedVariant, servedRevision],
-  )
-  const previewImageUrl = useMemo(
-    () =>
-      menuPdfApiUrl(servedVariant, {
-        maxWidth: MENU_IMAGE_LCP_WIDTH,
-        revision: servedRevision,
-      }),
-    [servedVariant, servedRevision],
-  )
-  const previewSrcSet = useMemo(
-    () => menuPdfPreviewSrcSet(servedVariant, MENU_IMAGE_PREVIEW_WIDTHS, servedRevision),
-    [servedVariant, servedRevision],
+  const url = menuPdfApiUrl(servedVariant, { revision: servedRevision })
+  const embedUrl = menuPdfEmbedUrl(servedVariant, servedRevision)
+  const previewImageUrl = menuPdfApiUrl(servedVariant, {
+    maxWidth: MENU_IMAGE_LCP_WIDTH,
+    revision: servedRevision,
+  })
+  const previewSrcSet = menuPdfPreviewSrcSet(
+    servedVariant,
+    MENU_IMAGE_PREVIEW_WIDTHS,
+    servedRevision,
   )
 
-  const dishesSource = useMemo(
-    () => menuDishesSource(dishesByVariant, servedVariant),
-    [dishesByVariant, servedVariant],
-  )
+  const dishesSource = menuDishesSource(dishesByVariant, servedVariant)
   const dishesLines = useMemo(
     () => parseMenuDishLines(dishesSource.text, dishesSource.variant),
-    [dishesSource],
+    [dishesSource.text, dishesSource.variant],
   )
   const dishesId = dishesLines.length > 0 ? 'menu-du-jour-plats' : undefined
 
   const openFullscreen = useCallback(() => {
+    pulseUiHaptic()
     setFullscreen(true)
   }, [])
+
   const closeFullscreen = useCallback(() => setFullscreen(false), [])
 
   const toggleMenuLang = useCallback(() => {
-    setVariant((current) => (current === 'fr' ? 'en' : 'fr'))
-  }, [])
-
-  const onImageError = useCallback(() => {
-    if (serverKind === 'pdf') {
-      setDisplayKind('pdf')
-    }
-  }, [serverKind])
-
-  const lightboxUrl = displayKind === 'image' ? url : embedUrl
-  const previewAriaLabel = `${label} — ${fullscreenUi.open}`
+    pulseUiHaptic()
+    setChoice({ base: defaultVariant, variant: variant === 'fr' ? 'en' : 'fr' })
+  }, [defaultVariant, variant])
 
   return {
     variant,
@@ -126,7 +99,9 @@ export function useMenuViewerState({
     embedUrl,
     previewImageUrl,
     previewSrcSet,
-    dishesSource,
+    lightboxUrl: displayKind === 'image' ? url : embedUrl,
+    previewAriaLabel: `${label} — ${fullscreenUi.open}`,
+    dishesLang: dishesSource.variant,
     dishesLines,
     dishesId,
     fullscreen,
@@ -135,8 +110,5 @@ export function useMenuViewerState({
     openFullscreen,
     closeFullscreen,
     toggleMenuLang,
-    onImageError,
-    lightboxUrl,
-    previewAriaLabel,
   }
 }

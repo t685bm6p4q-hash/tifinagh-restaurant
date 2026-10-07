@@ -1,6 +1,5 @@
 import { getDictionary } from '@/lib/i18n/get-locale'
 import {
-  getMenuPdfViewerContext,
   menuPdfViewerLabels,
   type MenuPdfViewerContext,
 } from '@/lib/menu-pdf-viewer-context'
@@ -45,4 +44,3 @@ export function buildMenuPdfViewerClientProps(
   }
 }
 
-export { getMenuPdfViewerContext }

@@ -2,9 +2,8 @@
 
 import type { MouseEvent } from 'react'
 import { MaximizeIcon } from '@/components/icons'
-import type { MenuFullscreenLabels } from '@/lib/menu-viewer-types'
 import type { MenuMediaKind } from '@/lib/menu-pdf'
-import { pulseUiHaptic } from '@/lib/ui-haptic'
+import type { MenuFullscreenLabels } from '@/lib/menu-viewer-types'
 
 type MenuFloatingFullscreenBadgesProps = {
   displayKind: MenuMediaKind
@@ -21,7 +20,6 @@ export function MenuFloatingFullscreenBadges({
 }: MenuFloatingFullscreenBadgesProps) {
   const openLightbox = (event: MouseEvent) => {
     event.stopPropagation()
-    pulseUiHaptic()
     onOpenLightbox()
   }
 

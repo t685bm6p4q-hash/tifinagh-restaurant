@@ -1,7 +1,6 @@
 'use client'
 
 import type { MenuDayVariant } from '@/lib/menu-pdf'
-import { pulseUiHaptic } from '@/lib/ui-haptic'
 
 type MenuLangSwitchProps = {
   variant: MenuDayVariant
@@ -16,11 +15,6 @@ export function MenuLangSwitch({
   langToggleEn,
   onToggle,
 }: MenuLangSwitchProps) {
-  const handleClick = () => {
-    pulseUiHaptic()
-    onToggle()
-  }
-
   return (
     <div className="menu-lang-toggle">
       <button
@@ -33,7 +27,7 @@ export function MenuLangSwitch({
             ? `${langToggleFr} — activer ${langToggleEn}`
             : `${langToggleEn} — activer ${langToggleFr}`
         }
-        onClick={handleClick}
+        onClick={onToggle}
       >
         <span className="menu-lang-switch__panel" data-variant={variant}>
           <span className="menu-lang-switch__thumb" aria-hidden="true" />

@@ -13,16 +13,8 @@ const MenuPdfFullscreen = dynamic(
   { ssr: false },
 )
 
-export type { MenuPdfViewerClientProps }
-
 export function MenuPdfViewerClient(props: MenuPdfViewerClientProps) {
-  const {
-    langToggleFr,
-    langToggleEn,
-    enFallbackNote,
-    share,
-  } = props
-
+  const { langToggleFr, langToggleEn, enFallbackNote, share } = props
   const state = useMenuViewerState(props)
 
   return (
@@ -53,13 +45,12 @@ export function MenuPdfViewerClient(props: MenuPdfViewerClientProps) {
         previewAriaLabel={state.previewAriaLabel}
         fullscreenLabels={state.fullscreenUi}
         onOpenLightbox={state.openFullscreen}
-        onImageError={state.onImageError}
       />
 
       {state.dishesId ? (
         <MenuDishesDetails
           dishesId={state.dishesId}
-          lang={state.dishesSource.variant}
+          lang={state.dishesLang}
           lines={state.dishesLines}
         />
       ) : null}

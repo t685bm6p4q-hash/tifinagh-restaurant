@@ -1,14 +1,13 @@
 'use client'
 
+import { MenuFloatingFullscreenBadges } from '@/components/menu/menu-floating-fullscreen-badges'
 import {
   MENU_IMAGE_LAYOUT_HEIGHT,
   MENU_IMAGE_LAYOUT_WIDTH,
   MENU_IMAGE_SIZES,
 } from '@/lib/menu-image-display'
 import type { MenuDayVariant, MenuMediaKind } from '@/lib/menu-pdf'
-import { MenuFloatingFullscreenBadges } from '@/components/menu/menu-floating-fullscreen-badges'
 import type { MenuFullscreenLabels } from '@/lib/menu-viewer-types'
-import { pulseUiHaptic } from '@/lib/ui-haptic'
 
 type MenuMediaPreviewProps = {
   displayKind: MenuMediaKind
@@ -23,7 +22,6 @@ type MenuMediaPreviewProps = {
   previewAriaLabel: string
   fullscreenLabels: MenuFullscreenLabels
   onOpenLightbox: () => void
-  onImageError: () => void
 }
 
 export function MenuMediaPreview({
@@ -39,13 +37,7 @@ export function MenuMediaPreview({
   previewAriaLabel,
   fullscreenLabels,
   onOpenLightbox,
-  onImageError,
 }: MenuMediaPreviewProps) {
-  const openFromImage = () => {
-    pulseUiHaptic()
-    onOpenLightbox()
-  }
-
   return (
     <div
       className={`menu-pdf-viewer-wrap${displayKind === 'pdf' ? ' menu-pdf-viewer-wrap--pdf' : ''}`}
@@ -60,7 +52,7 @@ export function MenuMediaPreview({
         <button
           type="button"
           className="menu-pdf-preview-trigger"
-          onClick={openFromImage}
+          onClick={onOpenLightbox}
           aria-label={previewAriaLabel}
           aria-describedby={dishesDescribedBy}
         >
@@ -75,7 +67,6 @@ export function MenuMediaPreview({
             sizes={MENU_IMAGE_SIZES}
             decoding="async"
             fetchPriority="high"
-            onError={onImageError}
           />
         </button>
       )}

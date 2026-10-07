@@ -300,17 +300,12 @@ export type Dictionary = {
     pricingEveningLabel: string
     /** Mention maison en bas de carte formules. */
     pricingHomemadeNote: string
-    lunchServiceTitle: string
-    lunchServiceNote: string
     lunchFormulaTwoCourse: string
     lunchFormulaTwoCoursePrice: string
     lunchFormulaThreeCourse: string
     lunchFormulaThreeCoursePrice: string
-    eveningServiceTitle: string
     eveningFormulaDetail: string
     eveningFormulaPrice: string
-    /** Sous l’image/PDF du menu du jour (encadré soir). */
-    eveningFormulaPromo: string
     limitedNote: string
     bookNow: string
     hoursTitle: string
