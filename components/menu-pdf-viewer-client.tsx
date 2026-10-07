@@ -16,9 +16,10 @@ import {
   type MenuDayVariant,
   type MenuMediaKind,
 } from '@/lib/menu-pdf'
+import { MenuDishesCard } from '@/components/menu-dishes-card'
 import {
   MENU_DISHES_HEADING,
-  parseMenuDishes,
+  parseMenuDishLines,
   type MenuDishesTexts,
 } from '@/lib/menu-dishes-format'
 import { pulseUiHaptic } from '@/lib/ui-haptic'
@@ -113,11 +114,11 @@ export function MenuPdfViewerClient({
 
   const dishesVariant: MenuDayVariant =
     dishesByVariant[servedVariant] ? servedVariant : 'fr'
-  const dishesGroups = useMemo(
-    () => parseMenuDishes(dishesByVariant[dishesVariant]),
+  const dishesLines = useMemo(
+    () => parseMenuDishLines(dishesByVariant[dishesVariant]),
     [dishesByVariant, dishesVariant],
   )
-  const dishesId = dishesGroups.length > 0 ? 'menu-du-jour-plats' : undefined
+  const dishesId = dishesLines.length > 0 ? 'menu-du-jour-plats' : undefined
 
   useEffect(() => {
     setDisplayKind(serverKind)
@@ -228,16 +229,7 @@ export function MenuPdfViewerClient({
         <details className="menu-dishes" id={dishesId} lang={dishesVariant}>
           <summary className="menu-dishes__summary">{MENU_DISHES_HEADING[dishesVariant]}</summary>
           <div className="menu-dishes__body">
-            {dishesGroups.map((group, index) => (
-              <div className="menu-dishes__group" key={`${group.title ?? 'plats'}-${index}`}>
-                {group.title ? <p className="menu-dishes__title">{group.title}</p> : null}
-                <ul className="menu-dishes__list">
-                  {group.items.map((item, itemIndex) => (
-                    <li key={`${item}-${itemIndex}`}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            <MenuDishesCard lines={dishesLines} />
           </div>
         </details>
       ) : null}
