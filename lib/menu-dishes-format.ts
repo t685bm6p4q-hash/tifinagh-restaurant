@@ -142,16 +142,13 @@ function stripListPrefix(line: string): string {
   return line.trim().replace(/^[*•·–—-]+\s*/, '').trim()
 }
 
-/** Affiche les montants en euros sans centimes (16,50 € → 17 €). */
+/** Normalise les montants (virgule française, espace avant €) sans arrondir. */
 export function formatMenuTariffText(text: string): string {
-  const rounded = text.replace(
+  const withDecimals = text.replace(
     /(\d{1,3})[,.](\d{1,2})(?=\s*€)/g,
-    (_, whole: string, cents: string) => {
-      const value = Number(whole) + Number(cents.padEnd(2, '0')) / 100
-      return String(Math.round(value))
-    },
+    (_, whole: string, dec: string) => `${whole},${dec}`,
   )
-  return rounded.replace(/\s*€/g, ' €')
+  return withDecimals.replace(/\s*€/g, ' €')
 }
 
 /**
