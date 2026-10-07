@@ -8,16 +8,16 @@ type MenuPdfFullscreenProps = {
   url: string
   label: string
   displayKind: MenuMediaKind
-  fullscreenBackLabel: string
+  closeLabel: string
   reserveLabel: string
   onClose: () => void
 }
 
-function IconArrowLeft() {
+function IconClose() {
   return (
-    <svg width={18} height={18} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg width={22} height={22} viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
-        d="M19 12H5M5 12l7 7M5 12l7-7"
+        d="M18 6 6 18M6 6l12 12"
         stroke="currentColor"
         strokeWidth={2.25}
         strokeLinecap="round"
@@ -31,15 +31,15 @@ export function MenuPdfFullscreen({
   url,
   label,
   displayKind,
-  fullscreenBackLabel,
+  closeLabel,
   reserveLabel,
   onClose,
 }: MenuPdfFullscreenProps) {
   useEffect(() => {
     const prevOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose()
     }
     window.addEventListener('keydown', onKey)
     return () => {
@@ -49,19 +49,40 @@ export function MenuPdfFullscreen({
   }, [onClose])
 
   return (
-    <div className="menu-pdf-fullscreen" role="dialog" aria-modal="true" aria-label={label}>
-      <button type="button" className="button menu-pdf-fullscreen-back" onClick={onClose}>
-        <IconArrowLeft />
-        {fullscreenBackLabel}
+    <div
+      className="menu-pdf-fullscreen"
+      role="dialog"
+      aria-modal="true"
+      aria-label={label}
+      onClick={onClose}
+    >
+      <button
+        type="button"
+        className="menu-pdf-fullscreen-close"
+        onClick={onClose}
+        aria-label={closeLabel}
+      >
+        <IconClose />
       </button>
-      <div className="menu-pdf-fullscreen-body">
+      <div
+        className="menu-pdf-fullscreen-body"
+        onClick={(event) => event.stopPropagation()}
+      >
         {displayKind === 'image' ? (
-          <img className="menu-pdf-fullscreen-media" src={url} alt={label} decoding="async" />
+          <img
+            className="menu-pdf-fullscreen-media menu-pdf-fullscreen-media--image"
+            src={url}
+            alt={label}
+            decoding="async"
+          />
         ) : (
           <iframe className="menu-pdf-fullscreen-media" src={url} title={label} />
         )}
       </div>
-      <div className="menu-pdf-fullscreen-reserve">
+      <div
+        className="menu-pdf-fullscreen-reserve"
+        onClick={(event) => event.stopPropagation()}
+      >
         <Link className="button button-primary" href="/reservation" prefetch={false}>
           {reserveLabel}
         </Link>

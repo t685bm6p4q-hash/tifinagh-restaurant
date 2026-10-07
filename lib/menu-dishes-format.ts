@@ -31,7 +31,7 @@ Desserts :
 * Liste des allergènes disponible sur demande.`
 
 const PRICE_HINT =
-  /€|entr[ée]e\s*\+\s*plat|plat\s*\+\s*dessert|menu\s*du\s*jour/i
+  /€|entr[ée]e\s*\+\s*plat|plat\s*\+\s*dessert|starter\s*\+\s*main|main\s*course\s*\+\s*dessert|\+ dessert|menu\s*du\s*jour/i
 
 const LEADING_DECOR = /^[*•·.\s–—_:\-]+/
 /** Parasites OCR en fin de ligne : « .- », « : », tirets collés, etc. */
@@ -190,18 +190,33 @@ function stripListPrefix(line: string): string {
   return line.trim().replace(/^[*•·–—-]+\s*/, '').trim()
 }
 
-/** Montants au format restaurant FR (16,50 → 16,5 €), espace avant €. */
-export function formatMenuTariffText(text: string): string {
-  const withPrices = text.replace(
+function formatMenuAmount(value: number, variant: MenuDayVariant): string {
+  const fixed = value.toFixed(2)
+  if (variant === 'en') {
+    return fixed.replace(/\.00$/, '').replace(/(\.\d)0$/, '$1')
+  }
+  const withComma = fixed.replace('.', ',')
+  return withComma.replace(/,00$/, '').replace(/,(\d)0$/, ',$1')
+}
+
+function parseMoneyParts(whole: string, dec: string): number {
+  const cents = dec.padEnd(2, '0').slice(0, 2)
+  return Number(whole) + Number(cents) / 100
+}
+
+/** Montants FR (16,50 → 16,5 €) ; EN (€16.50 → €16.5). */
+export function formatMenuTariffText(text: string, variant: MenuDayVariant = 'fr'): string {
+  let out = text.replace(/€\s*(\d{1,3})[,.](\d{1,2})/g, (_, whole: string, dec: string) => {
+    const amount = formatMenuAmount(parseMoneyParts(whole, dec), variant)
+    return `€${amount}`
+  })
+
+  out = out.replace(
     /(\d{1,3})[,.](\d{1,2})(?=\s*€)/g,
-    (_, whole: string, dec: string) => {
-      const cents = dec.padEnd(2, '0').slice(0, 2)
-      const value = Number(whole) + Number(cents) / 100
-      const withComma = value.toFixed(2).replace('.', ',')
-      return withComma.replace(/,00$/, '').replace(/,(\d)0$/, ',$1')
-    },
+    (_, whole: string, dec: string) => formatMenuAmount(parseMoneyParts(whole, dec), variant),
   )
-  return withPrices.replace(/\s*€/g, ' €')
+
+  return out.replace(/\s*€/g, ' €')
 }
 
 /**
@@ -223,7 +238,7 @@ export function parseMenuDishLines(text: string, variant: MenuDayVariant = 'fr')
     }
 
     if (isPriceLine(trimmed, compact)) {
-      lines.push({ kind: 'price', text: formatMenuTariffText(stripLineDecor(trimmed)) })
+      lines.push({ kind: 'price', text: formatMenuTariffText(stripLineDecor(trimmed), variant) })
       continue
     }
 

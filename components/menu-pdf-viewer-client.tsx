@@ -30,22 +30,6 @@ const MenuPdfFullscreen = dynamic(
   { ssr: false },
 )
 
-const DOUBLE_TAP_MS = 320
-
-function IconMaximize({ size = 18 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"
-        stroke="currentColor"
-        strokeWidth={2.25}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
 type MenuPdfViewerClientProps = {
   defaultVariant: MenuDayVariant
   hasEnglish: boolean
@@ -82,14 +66,12 @@ export function MenuPdfViewerClient({
   revisionByVariant,
   dishesByVariant,
   fullscreenOpenLabel,
-  fullscreenShortLabel,
   fullscreenBackLabel,
   reserveLabel,
   share,
 }: MenuPdfViewerClientProps) {
   const [variant, setVariant] = useState<MenuDayVariant>(defaultVariant)
   const [fullscreen, setFullscreen] = useState(false)
-  const lastTapAtRef = useRef(0)
 
   useEffect(() => {
     setVariant(defaultVariant)
@@ -122,19 +104,38 @@ export function MenuPdfViewerClient({
   const [displayKind, setDisplayKind] = useState<MenuMediaKind>(serverKind)
   const label = labels[servedVariant]
 
-  const dishesVariant: MenuDayVariant =
-    dishesByVariant[servedVariant] ? servedVariant : 'fr'
+  const dishesSource = useMemo(() => {
+    const fr = dishesByVariant.fr.trim()
+    const en = dishesByVariant.en.trim()
+    if (servedVariant === 'en' && en) return { text: en, variant: 'en' as MenuDayVariant }
+    if (fr) return { text: fr, variant: 'fr' as MenuDayVariant }
+    if (en) return { text: en, variant: 'en' as MenuDayVariant }
+    return { text: '', variant: servedVariant }
+  }, [dishesByVariant, servedVariant])
+
+  const dishesVariant = dishesSource.variant
   const dishesLines = useMemo(
-    () => parseMenuDishLines(dishesByVariant[dishesVariant], dishesVariant),
-    [dishesByVariant, dishesVariant],
+    () => parseMenuDishLines(dishesSource.text, dishesSource.variant),
+    [dishesSource],
   )
   const dishesId = dishesLines.length > 0 ? 'menu-du-jour-plats' : undefined
+  const dishesDetailsRef = useRef<HTMLDetailsElement>(null)
 
   useEffect(() => {
     setDisplayKind(serverKind)
   }, [serverKind, servedVariant, servedRevision])
 
-  const openFullscreen = useCallback(() => setFullscreen(true), [])
+  useEffect(() => {
+    const details = dishesDetailsRef.current
+    if (!details || !dishesId) return
+    if (window.matchMedia('(min-width: 901px)').matches) details.open = true
+  }, [dishesId])
+
+  const openFullscreen = useCallback(() => {
+    pulseUiHaptic()
+    setFullscreen(true)
+  }, [])
+
   const close = useCallback(() => setFullscreen(false), [])
 
   const toggleMenuLang = useCallback(() => {
@@ -142,37 +143,39 @@ export function MenuPdfViewerClient({
     setVariant((v) => (v === 'fr' ? 'en' : 'fr'))
   }, [])
 
-  const onPreviewTouchEnd = useCallback(() => {
-    const now = Date.now()
-    if (now - lastTapAtRef.current <= DOUBLE_TAP_MS) {
-      lastTapAtRef.current = 0
-      openFullscreen()
-      return
-    }
-    lastTapAtRef.current = now
-  }, [openFullscreen])
+  const onEmbedKeyDown = useCallback(
+    (event: React.KeyboardEvent) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault()
+        openFullscreen()
+      }
+    },
+    [openFullscreen],
+  )
 
   const onImageError = useCallback(() => {
-    // Ne pas basculer en iframe PDF : un PNG/WebP ne doit pas s’afficher dans une iframe.
     if (serverKind === 'pdf') {
       setDisplayKind('pdf')
     }
   }, [serverKind])
 
+  const previewAriaLabel = `${label} — ${fullscreenOpenLabel}`
+
   const media =
     displayKind === 'image' ? (
-      <div
+      <button
+        type="button"
         className="menu-pdf-preview-trigger"
-        onDoubleClick={openFullscreen}
-        onTouchEnd={onPreviewTouchEnd}
+        onClick={openFullscreen}
+        aria-label={previewAriaLabel}
+        aria-describedby={dishesId}
       >
         <img
           key={`${servedVariant}-${servedRevision ?? 'default'}`}
           className="menu-pdf-viewer menu-pdf-viewer--image"
           src={previewImageUrl}
           srcSet={previewSrcSet}
-          alt={label}
-          aria-describedby={dishesId}
+          alt=""
           width={MENU_IMAGE_LAYOUT_WIDTH}
           height={MENU_IMAGE_LAYOUT_HEIGHT}
           sizes={MENU_IMAGE_SIZES}
@@ -180,21 +183,23 @@ export function MenuPdfViewerClient({
           fetchPriority="high"
           onError={onImageError}
         />
-        <button
-          type="button"
-          className="menu-pdf-preview-badge"
-          onClick={(event) => {
-            event.stopPropagation()
-            openFullscreen()
-          }}
-          aria-label={fullscreenOpenLabel}
-        >
-          <IconMaximize size={16} />
-          {fullscreenShortLabel}
-        </button>
-      </div>
+      </button>
     ) : (
-      <iframe className="menu-pdf-viewer menu-pdf-viewer--embed" src={embedUrl} title={label} />
+      <div
+        className="menu-pdf-preview-trigger menu-pdf-preview-trigger--embed"
+        role="button"
+        tabIndex={0}
+        onClick={openFullscreen}
+        onKeyDown={onEmbedKeyDown}
+        aria-label={previewAriaLabel}
+      >
+        <iframe
+          className="menu-pdf-viewer menu-pdf-viewer--embed"
+          src={embedUrl}
+          title={label}
+          tabIndex={-1}
+        />
+      </div>
     )
 
   return (
@@ -232,48 +237,15 @@ export function MenuPdfViewerClient({
         <p className="menu-lang-fallback" role="status">{enFallbackNote}</p>
       ) : null}
 
-      <div
-        className={`menu-pdf-viewer-wrap${displayKind === 'pdf' ? ' menu-pdf-viewer-wrap--pdf' : ''}`}
-      >
-        <div className="menu-pdf-viewer-topbar">
-          <button
-            type="button"
-            className="button menu-pdf-fullscreen-open menu-pdf-fullscreen-open--top"
-            onClick={openFullscreen}
-            aria-label={fullscreenOpenLabel}
-          >
-            <IconMaximize />
-            {fullscreenShortLabel}
-          </button>
-          {displayKind === 'pdf' ? (
-            <a
-              className="button menu-pdf-fullscreen-open menu-pdf-mobile-open"
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={fullscreenOpenLabel}
-            >
-              <IconMaximize />
-              {fullscreenShortLabel}
-            </a>
-          ) : null}
-        </div>
-        {media}
-        <div className="menu-pdf-viewer-actions">
-          <button
-            type="button"
-            className="button menu-pdf-fullscreen-open"
-            onClick={openFullscreen}
-            aria-label={fullscreenOpenLabel}
-          >
-            <IconMaximize />
-            {fullscreenShortLabel}
-          </button>
-        </div>
-      </div>
+      <div className="menu-pdf-viewer-wrap">{media}</div>
 
       {dishesId ? (
-        <details className="menu-dishes" id={dishesId} lang={dishesVariant}>
+        <details
+          ref={dishesDetailsRef}
+          className="menu-dishes menu-dishes--desktop-open"
+          id={dishesId}
+          lang={dishesVariant}
+        >
           <summary className="menu-dishes__summary">{MENU_DISHES_HEADING[dishesVariant]}</summary>
           <div className="menu-dishes__body">
             <MenuDishesCard lines={dishesLines} />
@@ -293,7 +265,7 @@ export function MenuPdfViewerClient({
           url={displayKind === 'image' ? url : embedUrl}
           label={label}
           displayKind={displayKind}
-          fullscreenBackLabel={fullscreenBackLabel}
+          closeLabel={fullscreenBackLabel}
           reserveLabel={reserveLabel}
           onClose={close}
         />
