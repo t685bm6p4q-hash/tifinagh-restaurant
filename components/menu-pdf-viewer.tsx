@@ -24,6 +24,12 @@ export async function MenuPdfViewer() {
       fullscreenOpenLabel={d.fullscreenOpen}
       fullscreenShortLabel={d.fullscreenShort}
       fullscreenBackLabel={d.fullscreenBack}
+      share={{
+        label: d.shareMenuLabel,
+        copiedLabel: d.shareMenuCopied,
+        shareTitle: d.shareMenuTitle,
+        shareText: d.shareMenuText,
+      }}
       reserveLabel={d.bookNow}
     />
   )

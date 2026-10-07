@@ -3192,6 +3192,52 @@ select:focus { border-color: var(--terracotta); }
   }
 }
 
+.menu-share {
+  display: flex;
+  justify-content: center;
+  max-width: 880px;
+  margin: 14px auto 0;
+}
+
+.menu-share__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 190px;
+  min-height: 44px;
+  padding: 10px 22px;
+  border: 1px solid var(--gold);
+  border-radius: 2rem;
+  background: transparent;
+  color: var(--gold-light);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.menu-share__button:hover {
+  background: rgba(214, 173, 69, 0.12);
+  border-color: var(--gold-light);
+  color: #fff;
+}
+
+.menu-share__button:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 3px;
+}
+
+.menu-share__button--copied,
+.menu-share__button--copied:hover {
+  background: rgba(214, 173, 69, 0.18);
+  border-color: var(--gold-light);
+  color: #fff;
+}
+
 .menu-pdf-fullscreen-open {
   width: auto;
   min-width: 180px;

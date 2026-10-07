@@ -17,6 +17,7 @@ import {
   type MenuMediaKind,
 } from '@/lib/menu-pdf'
 import { MenuDishesCard } from '@/components/menu-dishes-card'
+import { MenuShareButton } from '@/components/menu-share-button'
 import {
   MENU_DISHES_HEADING,
   parseMenuDishLines,
@@ -62,6 +63,12 @@ type MenuPdfViewerClientProps = {
   fullscreenShortLabel: string
   fullscreenBackLabel: string
   reserveLabel: string
+  share: {
+    label: string
+    copiedLabel: string
+    shareTitle: string
+    shareText: string
+  }
 }
 
 export function MenuPdfViewerClient({
@@ -78,6 +85,7 @@ export function MenuPdfViewerClient({
   fullscreenShortLabel,
   fullscreenBackLabel,
   reserveLabel,
+  share,
 }: MenuPdfViewerClientProps) {
   const [variant, setVariant] = useState<MenuDayVariant>(defaultVariant)
   const [fullscreen, setFullscreen] = useState(false)
@@ -117,7 +125,7 @@ export function MenuPdfViewerClient({
   const dishesVariant: MenuDayVariant =
     dishesByVariant[servedVariant] ? servedVariant : 'fr'
   const dishesLines = useMemo(
-    () => parseMenuDishLines(dishesByVariant[dishesVariant]),
+    () => parseMenuDishLines(dishesByVariant[dishesVariant], dishesVariant),
     [dishesByVariant, dishesVariant],
   )
   const dishesId = dishesLines.length > 0 ? 'menu-du-jour-plats' : undefined
@@ -265,6 +273,13 @@ export function MenuPdfViewerClient({
           </div>
         </details>
       ) : null}
+
+      <MenuShareButton
+        label={share.label}
+        copiedLabel={share.copiedLabel}
+        shareTitle={share.shareTitle}
+        shareText={share.shareText}
+      />
 
       {fullscreen ? (
         <MenuPdfFullscreen

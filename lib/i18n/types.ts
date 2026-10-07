@@ -319,6 +319,10 @@ export type Dictionary = {
     /** Libellé visible du bouton ; fullscreenOpen reste le nom accessible. */
     fullscreenShort: string
     fullscreenBack: string
+    shareMenuLabel: string
+    shareMenuCopied: string
+    shareMenuTitle: string
+    shareMenuText: string
     langToggleFr: string
     langToggleEn: string
     enFallbackNote: string
