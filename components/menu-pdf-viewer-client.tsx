@@ -31,9 +31,9 @@ const MenuPdfFullscreen = dynamic(
 
 const DOUBLE_TAP_MS = 320
 
-function IconMaximize() {
+function IconMaximize({ size = 18 }: { size?: number }) {
   return (
-    <svg width={18} height={18} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
         d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"
         stroke="currentColor"
@@ -59,6 +59,7 @@ type MenuPdfViewerClientProps = {
   revisionByVariant: { fr: string | null; en: string | null }
   dishesByVariant: MenuDishesTexts
   fullscreenOpenLabel: string
+  fullscreenShortLabel: string
   fullscreenBackLabel: string
   reserveLabel: string
 }
@@ -74,6 +75,7 @@ export function MenuPdfViewerClient({
   revisionByVariant,
   dishesByVariant,
   fullscreenOpenLabel,
+  fullscreenShortLabel,
   fullscreenBackLabel,
   reserveLabel,
 }: MenuPdfViewerClientProps) {
@@ -127,10 +129,6 @@ export function MenuPdfViewerClient({
   const openFullscreen = useCallback(() => setFullscreen(true), [])
   const close = useCallback(() => setFullscreen(false), [])
 
-  const onPreviewActivate = useCallback(() => {
-    openFullscreen()
-  }, [openFullscreen])
-
   const toggleMenuLang = useCallback(() => {
     pulseUiHaptic()
     setVariant((v) => (v === 'fr' ? 'en' : 'fr'))
@@ -155,29 +153,33 @@ export function MenuPdfViewerClient({
 
   const media =
     displayKind === 'image' ? (
-      <img
-        key={`${servedVariant}-${servedRevision ?? 'default'}`}
-        className="menu-pdf-viewer menu-pdf-viewer--image"
-        src={previewImageUrl}
-        srcSet={previewSrcSet}
-        alt={label}
-        aria-describedby={dishesId}
-        width={MENU_IMAGE_LAYOUT_WIDTH}
-        height={MENU_IMAGE_LAYOUT_HEIGHT}
-        sizes={MENU_IMAGE_SIZES}
-        decoding="async"
-        fetchPriority="high"
-        onDoubleClick={onPreviewActivate}
+      <div
+        className="menu-pdf-preview-trigger"
+        onDoubleClick={openFullscreen}
         onTouchEnd={onPreviewTouchEnd}
-        onError={onImageError}
-      />
+        title={fullscreenOpenLabel}
+      >
+        <img
+          key={`${servedVariant}-${servedRevision ?? 'default'}`}
+          className="menu-pdf-viewer menu-pdf-viewer--image"
+          src={previewImageUrl}
+          srcSet={previewSrcSet}
+          alt={label}
+          aria-describedby={dishesId}
+          width={MENU_IMAGE_LAYOUT_WIDTH}
+          height={MENU_IMAGE_LAYOUT_HEIGHT}
+          sizes={MENU_IMAGE_SIZES}
+          decoding="async"
+          fetchPriority="high"
+          onError={onImageError}
+        />
+        <span className="menu-pdf-preview-badge" aria-hidden="true">
+          <IconMaximize size={16} />
+          {fullscreenShortLabel}
+        </span>
+      </div>
     ) : (
-      <>
-        <a className="menu-pdf-mobile-open" href={url} target="_blank" rel="noopener noreferrer">
-          {fullscreenOpenLabel}
-        </a>
-        <iframe className="menu-pdf-viewer menu-pdf-viewer--embed" src={embedUrl} title={label} />
-      </>
+      <iframe className="menu-pdf-viewer menu-pdf-viewer--embed" src={embedUrl} title={label} />
     )
 
   return (
@@ -215,12 +217,42 @@ export function MenuPdfViewerClient({
         <p className="menu-lang-fallback" role="status">{enFallbackNote}</p>
       ) : null}
 
-      <div className="menu-pdf-viewer-wrap" title={fullscreenOpenLabel}>
+      <div
+        className={`menu-pdf-viewer-wrap${displayKind === 'pdf' ? ' menu-pdf-viewer-wrap--pdf' : ''}`}
+      >
+        <div className="menu-pdf-viewer-topbar">
+          <button
+            type="button"
+            className="button menu-pdf-fullscreen-open menu-pdf-fullscreen-open--top"
+            onClick={openFullscreen}
+            aria-label={fullscreenOpenLabel}
+          >
+            <IconMaximize />
+            {fullscreenShortLabel}
+          </button>
+          {displayKind === 'pdf' ? (
+            <a
+              className="button menu-pdf-fullscreen-open menu-pdf-mobile-open"
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={fullscreenOpenLabel}
+            >
+              <IconMaximize />
+              {fullscreenShortLabel}
+            </a>
+          ) : null}
+        </div>
         {media}
         <div className="menu-pdf-viewer-actions">
-          <button type="button" className="button menu-pdf-fullscreen-open" onClick={openFullscreen}>
+          <button
+            type="button"
+            className="button menu-pdf-fullscreen-open"
+            onClick={openFullscreen}
+            aria-label={fullscreenOpenLabel}
+          >
             <IconMaximize />
-            {fullscreenOpenLabel}
+            {fullscreenShortLabel}
           </button>
         </div>
       </div>

@@ -171,6 +171,7 @@ export const ko: Dictionary = {
       '전통 à la carte의 전채, 메인, 디저트 — 오늘의 스페셜뿐 아니라 연중 제공됩니다.',
     carteInviteCta: '전체 메뉴',
     fullscreenOpen: '전체 화면으로 메뉴 열기',
+    fullscreenShort: '전체 화면',
     fullscreenBack: '돌아가기',
     langToggleFr: 'Français',
     langToggleEn: 'English',

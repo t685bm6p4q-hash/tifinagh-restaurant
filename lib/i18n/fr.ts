@@ -173,6 +173,7 @@ export const fr: Dictionary = {
       'Retrouvez nos entrées, plats et desserts de saison, à savourer tout au long de l’année.',
     carteInviteCta: 'Consulter la carte générale',
     fullscreenOpen: 'Ouvrir le menu en plein écran',
+    fullscreenShort: 'Plein écran',
     fullscreenBack: 'Retour',
     langToggleFr: 'Français',
     langToggleEn: 'English',

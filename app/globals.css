@@ -2992,25 +2992,25 @@ select:focus { border-color: var(--terracotta); }
   overflow: hidden;
 }
 
-.menu-pdf-mobile-open {
+.menu-pdf-viewer-topbar {
+  padding: 12px 16px;
+  text-align: center;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.menu-pdf-viewer-topbar .menu-pdf-mobile-open {
   display: none;
 }
 
 @media (max-width: 900px) {
-  .menu-pdf-mobile-open {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 14px 16px;
-    background: linear-gradient(180deg, var(--wood-mid) 0%, var(--wood) 100%);
-    color: var(--gold);
-    border-bottom: 1px solid var(--line);
-    font-family: Georgia, 'Times New Roman', serif;
-    font-weight: 600;
-    font-size: 14px;
-    text-decoration: none;
-    text-align: center;
+  /* Sur mobile, un PDF en iframe ne montre souvent que la 1re page : on l’ouvre dans un onglet. */
+  .menu-pdf-viewer-wrap--pdf .menu-pdf-viewer-topbar .menu-pdf-mobile-open {
+    display: inline-flex;
+  }
+
+  .menu-pdf-viewer-wrap--pdf .menu-pdf-viewer-topbar .menu-pdf-fullscreen-open--top {
+    display: none;
   }
 
   .menu-pdf-viewer--embed {
@@ -3046,8 +3046,50 @@ select:focus { border-color: var(--terracotta); }
   height: auto;
 }
 
+.menu-pdf-preview-trigger {
+  position: relative;
+  display: block;
+  width: 100%;
+  cursor: zoom-in;
+  overflow: hidden;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.menu-pdf-preview-trigger .menu-pdf-viewer--image {
+  display: block;
+}
+
+.menu-pdf-preview-badge {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--gold);
+  border-radius: 2rem;
+  background: rgba(10, 10, 10, 0.78);
+  color: var(--gold-light);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  pointer-events: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+@media (hover: hover) {
+  .menu-pdf-preview-trigger:hover .menu-pdf-preview-badge {
+    background: rgba(10, 10, 10, 0.92);
+    color: #fff;
+  }
+}
+
 .menu-pdf-viewer-actions {
-  padding: 16px;
+  padding: 12px 16px;
   text-align: center;
   background: var(--surface);
   border-top: 1px solid var(--line);
@@ -3151,9 +3193,11 @@ select:focus { border-color: var(--terracotta); }
 }
 
 .menu-pdf-fullscreen-open {
-  width: 100%;
-  max-width: 420px;
+  width: auto;
+  min-width: 180px;
+  max-width: 100%;
   margin: 0 auto;
+  border-radius: 2rem !important;
   background: linear-gradient(180deg, var(--wood-mid) 0%, var(--wood) 100%) !important;
   color: var(--gold-light) !important;
   border: 2px solid var(--gold) !important;

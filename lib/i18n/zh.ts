@@ -162,6 +162,7 @@ export const zh: Dictionary = {
     carteInviteText: '查看我们的当季前菜、主菜与甜点，全年供应。',
     carteInviteCta: '查看完整菜单',
     fullscreenOpen: '全屏查看菜单',
+    fullscreenShort: '全屏',
     fullscreenBack: '返回',
     langToggleFr: 'Français',
     langToggleEn: 'English',

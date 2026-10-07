@@ -171,6 +171,7 @@ export const ja: Dictionary = {
       '伝統的なアラカルトの前菜、メイン、デザート — 本日のスペシャルだけではなく、一年中ご利用いただけます。',
     carteInviteCta: 'フルメニュー',
     fullscreenOpen: 'メニューを全画面で開く',
+    fullscreenShort: '全画面',
     fullscreenBack: '戻る',
     langToggleFr: 'Français',
     langToggleEn: 'English',

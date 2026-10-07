@@ -316,6 +316,8 @@ export type Dictionary = {
     carteInviteText: string
     carteInviteCta: string
     fullscreenOpen: string
+    /** Libellé visible du bouton ; fullscreenOpen reste le nom accessible. */
+    fullscreenShort: string
     fullscreenBack: string
     langToggleFr: string
     langToggleEn: string

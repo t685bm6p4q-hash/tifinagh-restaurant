@@ -172,6 +172,7 @@ export const es: Dictionary = {
       'Descubre nuestros entrantes, platos y postres de temporada, para disfrutar todo el año.',
     carteInviteCta: 'Consultar la carta general',
     fullscreenOpen: 'Abrir el menú a pantalla completa',
+    fullscreenShort: 'Pantalla completa',
     fullscreenBack: 'Volver',
     langToggleFr: 'Français',
     langToggleEn: 'English',

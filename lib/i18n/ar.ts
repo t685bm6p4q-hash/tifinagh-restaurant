@@ -171,6 +171,7 @@ export const ar: Dictionary = {
       'مقبلات وأطباق رئيسية وحلويات من قائمتنا التقليدية à la carte — متاحة طوال العام، وليس اقتراحات اليوم فقط.',
     carteInviteCta: 'القائمة كاملة',
     fullscreenOpen: 'فتح القائمة بملء الشاشة',
+    fullscreenShort: 'ملء الشاشة',
     fullscreenBack: 'رجوع',
     langToggleFr: 'Français',
     langToggleEn: 'English',
