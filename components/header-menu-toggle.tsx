@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 
-const NAV_TOGGLE_ID = 'nav-toggle'
+export const NAV_TOGGLE_ID = 'nav-toggle'
 
 function MenuIcon() {
   return (
@@ -45,7 +45,10 @@ type HeaderMenuToggleProps = {
   toggleMenuLabel: string
 }
 
-/** Bouton accessible ; le checkbox `#nav-toggle` reste le levier CSS (sibling ~ .main-nav). */
+/**
+ * Label natif → bascule `#nav-toggle` sans attendre l’hydratation (mobile fiable).
+ * Le checkbox pilote l’ouverture CSS (sibling ~ .main-nav).
+ */
 export function HeaderMenuToggle({ menuButton, toggleMenuLabel }: HeaderMenuToggleProps) {
   const [open, setOpen] = useState(false)
 
@@ -62,22 +65,13 @@ export function HeaderMenuToggle({ menuButton, toggleMenuLabel }: HeaderMenuTogg
     return () => input.removeEventListener('change', syncFromInput)
   }, [syncFromInput])
 
-  const toggle = () => {
-    const input = document.getElementById(NAV_TOGGLE_ID)
-    if (!(input instanceof HTMLInputElement)) return
-    input.checked = !input.checked
-    input.dispatchEvent(new Event('change', { bubbles: true }))
-    setOpen(input.checked)
-  }
-
   return (
-    <button
-      type="button"
+    <label
+      htmlFor={NAV_TOGGLE_ID}
       className="menu-toggle"
       aria-expanded={open}
       aria-controls="main-nav"
       aria-label={toggleMenuLabel}
-      onClick={toggle}
     >
       <span className="menu-toggle-open" aria-hidden="true">
         <span className="menu-toggle-label">{menuButton}</span>
@@ -86,6 +80,6 @@ export function HeaderMenuToggle({ menuButton, toggleMenuLabel }: HeaderMenuTogg
       <span className="menu-toggle-close" aria-hidden="true">
         <CloseMenuIcon />
       </span>
-    </button>
+    </label>
   )
 }

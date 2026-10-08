@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { HeaderScrollShell } from '@/components/header-scroll-shell'
 import { navItems } from '@/lib/restaurant-data'
 import { isNavActive } from '@/lib/nav-active'
-import { HeaderMenuToggle } from '@/components/header-menu-toggle'
+import { HeaderMenuToggle, NAV_TOGGLE_ID } from '@/components/header-menu-toggle'
 import { LanguageSwitcher } from '@/components/language-switcher'
 import { defaultLocale, type Locale } from '@/lib/i18n/config'
 import { fr } from '@/lib/i18n/fr'
@@ -95,7 +95,7 @@ export function HeaderShell({
     <HeaderScrollShell>
       <input
         type="checkbox"
-        id="nav-toggle"
+        id={NAV_TOGGLE_ID}
         className="nav-toggle-input"
         tabIndex={-1}
         aria-hidden="true"
