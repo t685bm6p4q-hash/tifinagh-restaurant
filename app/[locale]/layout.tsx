@@ -8,7 +8,6 @@ import { buildSiteMetadata, localeDirection, localeMeta } from '@/lib/i18n'
 import { getDictionary } from '@/lib/i18n/get-locale'
 import { isLocale, locales, type Locale } from '@/lib/i18n/config'
 import { SiteLocaleProvider } from '@/lib/i18n/site-locale'
-import { setRequestLocale } from '@/lib/i18n/request-locale'
 import { siteUrl } from '@/lib/seo'
 
 type LayoutProps = {
@@ -26,8 +25,8 @@ export const viewport: Viewport = {
 }
 
 export async function generateMetadata({ params }: LayoutProps): Promise<Metadata> {
-  bindPageLocale((await params).locale)
-  return buildSiteMetadata()
+  const locale = bindPageLocale((await params).locale)
+  return buildSiteMetadata(locale)
 }
 
 export default async function LocaleRootLayout({ children, params }: LayoutProps) {
@@ -35,7 +34,6 @@ export default async function LocaleRootLayout({ children, params }: LayoutProps
   if (!isLocale(raw)) notFound()
 
   const locale = raw as Locale
-  setRequestLocale(locale)
   const dictionary = getDictionary(locale)
   const a11y = getA11yCopy(locale)
 

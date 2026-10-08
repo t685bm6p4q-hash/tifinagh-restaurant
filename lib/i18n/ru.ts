@@ -101,6 +101,7 @@ export const ru: Dictionary = {
     googleReviewsAria: 'Отзывы о Tifinagh Montmartre в Google',
     googleReviewsTitle: 'Отзывы Google',
     googleReviewsSubtitle: 'Смотреть в Google Maps',
+    pagesJaunesReviewsAria: 'Открыть страницу Tifinagh Montmartre на PagesJaunes',
     reserveEyebrow: 'Столик ждёт вас',
     reserveTitle: 'Забронируйте свой момент',
     reserveText:

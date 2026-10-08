@@ -121,13 +121,15 @@ export function GoogleReviewsBadge() {
 }
 
 export function PagesJaunesReviewsBadge() {
+  const dictionary = useSiteDictionary()
+
   return (
     <a
       className="google-reviews-badge pagesjaunes-reviews-badge"
       href={pagesJaunesUrl}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Voir la fiche PagesJaunes de Tifinagh Montmartre"
+      aria-label={dictionary.home.pagesJaunesReviewsAria}
     >
       <PagesJaunesIcon size={26} variant="wordmark" />
     </a>

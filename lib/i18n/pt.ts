@@ -98,9 +98,10 @@ export const pt: Dictionary = {
     menuChoiceCarte: 'A carta',
     reviewsEyebrow: 'La voz de los habituales',
     reviewsTitle: 'Lo que dicen nuestros clientes',
-    googleReviewsAria: 'Ver las opiniones de Google de Tifinagh Montmartre',
-    googleReviewsTitle: 'Opiniones de Google',
-    googleReviewsSubtitle: 'Ver en Google Maps',
+    googleReviewsAria: 'Ver as avaliações do Google de Tifinagh Montmartre',
+    googleReviewsTitle: 'Avaliações Google',
+    googleReviewsSubtitle: 'Ver no Google Maps',
+    pagesJaunesReviewsAria: 'Ver a ficha do Tifinagh Montmartre no PagesJaunes',
     reserveEyebrow: 'Una mesa le espera',
     reserveTitle: 'Reserve su momento',
     reserveText:

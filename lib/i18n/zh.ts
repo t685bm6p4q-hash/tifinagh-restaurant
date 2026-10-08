@@ -99,6 +99,7 @@ export const zh: Dictionary = {
     googleReviewsAria: '查看 Tifinagh Montmartre 的 Google 评价',
     googleReviewsTitle: 'Google 评价',
     googleReviewsSubtitle: '在 Google 地图上查看',
+    pagesJaunesReviewsAria: '在 PagesJaunes 上查看 Tifinagh Montmartre 页面',
     reserveEyebrow: '为您留好座位',
     reserveTitle: '预订属于您的时光',
     reserveText: '无论双人晚餐、大桌聚会、私人活动还是商务用餐，我们的团队都乐于接待您。',

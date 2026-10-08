@@ -101,6 +101,7 @@ export const sv: Dictionary = {
     googleReviewsAria: 'Läs omdömen om Tifinagh Montmartre på Google',
     googleReviewsTitle: 'Google-omdömen',
     googleReviewsSubtitle: 'Se på Google Maps',
+    pagesJaunesReviewsAria: 'Se Tifinagh Montmartre på PagesJaunes',
     reserveEyebrow: 'Ett bord väntar',
     reserveTitle: 'Boka din stund',
     reserveText:

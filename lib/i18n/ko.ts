@@ -101,6 +101,7 @@ export const ko: Dictionary = {
     googleReviewsAria: 'Google에서 Tifinagh Montmartre 후기 보기',
     googleReviewsTitle: 'Google 후기',
     googleReviewsSubtitle: 'Google 지도에서 보기',
+    pagesJaunesReviewsAria: 'PagesJaunes에서 Tifinagh Montmartre 페이지 보기',
     reserveEyebrow: '테이블이 기다립니다',
     reserveTitle: '당신의 시간을 예약하세요',
     reserveText:

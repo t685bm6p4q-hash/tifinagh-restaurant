@@ -222,6 +222,7 @@ export type Dictionary = {
     googleReviewsAria: string
     googleReviewsTitle: string
     googleReviewsSubtitle: string
+    pagesJaunesReviewsAria: string
     reserveEyebrow: string
     reserveTitle: string
     reserveText: string

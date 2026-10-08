@@ -101,6 +101,7 @@ export const zgh: Dictionary = {
     googleReviewsAria: 'ⵉⵙⵏⵏⵉⵏ Google ⵏ Tifinagh Montmartre',
     googleReviewsTitle: 'ⵉⵙⵏⵏⵉⵏ Google',
     googleReviewsSubtitle: 'ⵙⴽⵏ ⴳ Google Maps',
+    pagesJaunesReviewsAria: 'ⵙⴽⵏ ⵜⴰⵙⵏⴰ PagesJaunes ⵏ Tifinagh Montmartre',
     reserveEyebrow: 'ⵜⴰⵎⴰⴹⵓⵏⵜ ⵜⴰⵔⴰⵔⴰⵢⵜ',
     reserveTitle: 'ⴰⵙⴳⴳⵯⴰⵙ ⴰⵙⵙⵉ ⵏⵏⵖ',
     reserveText:

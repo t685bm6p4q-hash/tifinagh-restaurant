@@ -101,6 +101,7 @@ export const it: Dictionary = {
     googleReviewsAria: 'Vedere le recensioni Google di Tifinagh Montmartre',
     googleReviewsTitle: 'Recensioni Google',
     googleReviewsSubtitle: 'Vedi su Google Maps',
+    pagesJaunesReviewsAria: 'Vedere la scheda PagesJaunes di Tifinagh Montmartre',
     reserveEyebrow: 'Un tavolo vi aspetta',
     reserveTitle: 'Prenotate il vostro momento',
     reserveText:

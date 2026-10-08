@@ -4,7 +4,7 @@ import type { Locale } from '@/lib/i18n/config'
 import type { Dictionary } from '@/lib/i18n/types'
 import type { LocalePageParams } from '@/lib/i18n/metadata-for-locale-page'
 
-/** Lie la locale URL (SSG/ISR sûr) avant tout `getI18n()`. */
+/** Locale + dictionnaire depuis le segment URL (SSG/ISR sûr). */
 export async function initPageI18n(params: LocalePageParams['params']): Promise<{
   locale: Locale
   dictionary: Dictionary

@@ -11,6 +11,6 @@ export async function metadataForLocalePage(
   pageId: SeoPageId,
   options?: { description?: string },
 ): Promise<Metadata> {
-  bindPageLocale((await params).locale)
-  return buildPageMetadata(pageId, undefined, options)
+  const locale = bindPageLocale((await params).locale)
+  return buildPageMetadata(pageId, locale, undefined, options)
 }

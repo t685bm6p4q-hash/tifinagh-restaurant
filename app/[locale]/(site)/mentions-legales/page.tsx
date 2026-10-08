@@ -5,8 +5,8 @@ import { type LocalePageParams } from '@/lib/i18n/metadata-for-locale-page'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
 export async function generateMetadata({ params }: LocalePageParams): Promise<Metadata> {
-  bindPageLocale((await params).locale)
-  return buildPageMetadata('mentionsLegales', { robots: { index: false, follow: true } })
+  const locale = bindPageLocale((await params).locale)
+  return buildPageMetadata('mentionsLegales', locale, { robots: { index: false, follow: true } })
 }
 
 export default function MentionsLegales() {

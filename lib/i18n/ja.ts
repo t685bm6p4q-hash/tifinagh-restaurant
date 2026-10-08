@@ -101,6 +101,7 @@ export const ja: Dictionary = {
     googleReviewsAria: 'Google で Tifinagh モンマルトルの口コミを読む',
     googleReviewsTitle: 'Google レビュー',
     googleReviewsSubtitle: 'Google マップで見る',
+    pagesJaunesReviewsAria: 'PagesJaunes で Tifinagh モンマルトルのページを見る',
     reserveEyebrow: 'お席をご用意',
     reserveTitle: 'ひとときを予約',
     reserveText:

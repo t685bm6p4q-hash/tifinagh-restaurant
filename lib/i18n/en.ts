@@ -100,6 +100,7 @@ export const en: Dictionary = {
     googleReviewsAria: 'Read Tifinagh Montmartre reviews on Google',
     googleReviewsTitle: 'Google reviews',
     googleReviewsSubtitle: 'See on Google Maps',
+    pagesJaunesReviewsAria: 'View Tifinagh Montmartre listing on PagesJaunes',
     reserveEyebrow: 'A table is waiting',
     reserveTitle: 'Reserve your moment',
     reserveText:

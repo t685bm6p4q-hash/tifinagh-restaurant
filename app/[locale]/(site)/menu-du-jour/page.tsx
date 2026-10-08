@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: LocalePageParams): Promise<Me
   const locale = bindPageLocale((await params).locale)
   const dictionary = getDictionary(locale)
   const description = await resolveDailyMenuIntroText(locale, dictionary.dailyMenuPage)
-  return buildPageMetadata('menuDuJour', undefined, { description })
+  return buildPageMetadata('menuDuJour', locale, undefined, { description })
 }
 
 export default async function MenuDuJour({ params }: LocalePageParams) {
