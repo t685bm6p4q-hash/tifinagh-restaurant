@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { isAdminAuthorized } from '@/lib/admin-auth'
 import { revalidateMenuPublicCache } from '@/lib/menu-public-cache'
 import { compressMenuImageToWebp } from '@/lib/compress-menu-image'
+import { probeMenuBlobAccess } from '@/lib/menu-blob-access-probe'
 import { getMenuStorageOverview } from '@/lib/menu-kind'
 import {
   MAX_MENU_UPLOAD_BYTES,
@@ -25,7 +26,24 @@ export async function GET(request: NextRequest) {
 
   const { fr, en } = await getMenuStorageOverview()
 
-  return NextResponse.json({ fr, en })
+  if (!isBlobConfigured()) {
+    return NextResponse.json({ fr, en, blobPrivateOnlyReady: null, publicFallbackEnabled: true })
+  }
+
+  const [frAccess, enAccess] = await Promise.all([
+    fr.exists ? probeMenuBlobAccess(fr.pathname) : Promise.resolve(null),
+    en.exists ? probeMenuBlobAccess(en.pathname) : Promise.resolve(null),
+  ])
+
+  const frReady = !fr.exists || frAccess?.privateOnlyReady === true
+  const enReady = !en.exists || enAccess?.privateOnlyReady === true
+
+  return NextResponse.json({
+    fr: { ...fr, blobAccess: frAccess },
+    en: { ...en, blobAccess: enAccess },
+    blobPrivateOnlyReady: frReady && enReady,
+    publicFallbackEnabled: process.env.MENU_BLOB_ALLOW_PUBLIC_FALLBACK !== '0',
+  })
 }
 
 export async function POST(request: NextRequest) {

@@ -25,6 +25,13 @@ import {
   type MenuDayVariant,
 } from '@/lib/menu-pdf'
 
+type MenuBlobAccessRow = {
+  privateReadable: boolean
+  publicReadable: boolean
+  privateOnlyReady: boolean
+  publicLegacyPresent: boolean
+}
+
 type MenuStorageRow = {
   pathname: string
   exists: boolean
@@ -33,13 +40,21 @@ type MenuStorageRow = {
   uploadedAt: string | null
   contentType: string | null
   sizeBytes: number | null
+  blobAccess?: MenuBlobAccessRow | null
+}
+
+type MenuStorageOverview = {
+  fr: MenuStorageRow
+  en: MenuStorageRow
+  blobPrivateOnlyReady?: boolean | null
+  publicFallbackEnabled?: boolean
 }
 
 export default function MenuSetupAdmin() {
   const [message, setMessage] = useState<{ type: 'success' | 'error' | 'info'; text: string } | null>(null)
   const [uploadingVariant, setUploadingVariant] = useState<MenuDayVariant | null>(null)
   const [chef, setChef] = useState<string>('')
-  const [storage, setStorage] = useState<{ fr: MenuStorageRow; en: MenuStorageRow } | null>(null)
+  const [storage, setStorage] = useState<MenuStorageOverview | null>(null)
   const [menuPreviewHref, setMenuPreviewHref] = useState<string | null>(null)
   const [dishes, setDishes] = useState<MenuDishesTexts>({ fr: '', en: '' })
   const [savedDishes, setSavedDishes] = useState<MenuDishesTexts>({ fr: '', en: '' })
@@ -89,7 +104,7 @@ export default function MenuSetupAdmin() {
     try {
       const res = await fetch('/api/upload-menu', { credentials: 'same-origin' })
       if (!res.ok) return
-      const data = (await res.json()) as { fr: MenuStorageRow; en: MenuStorageRow }
+      const data = (await res.json()) as MenuStorageOverview
       setStorage(data)
     } catch {
       /* ignore */
@@ -361,6 +376,49 @@ export default function MenuSetupAdmin() {
               <p style={{ margin: storage.fr.exists ? '6px 0 0' : 0 }}>
                 <strong>English</strong> — {formatMenuUploadedAt(storage.en.uploadedAt)}
               </p>
+            ) : null}
+            {storage.blobPrivateOnlyReady != null ? (
+              <div
+                style={{
+                  marginTop: '12px',
+                  paddingTop: '10px',
+                  borderTop: '1px solid rgba(37, 211, 102, 0.25)',
+                  fontSize: '12px',
+                }}
+              >
+                <p style={{ margin: '0 0 6px', fontWeight: 600 }}>
+                  Sécurité Blob{' '}
+                  {storage.blobPrivateOnlyReady ? (
+                    <span style={{ color: '#25d366' }}>— prêt pour mode privé seul</span>
+                  ) : (
+                    <span style={{ color: '#ffb347' }}>— re-upload ou nettoyage Storage requis</span>
+                  )}
+                </p>
+                {(['fr', 'en'] as const).map((variant) => {
+                  const row = storage[variant]
+                  const access = row.blobAccess
+                  if (!row.exists || !access) return null
+                  return (
+                    <p key={variant} style={{ margin: '4px 0 0', color: 'var(--muted)' }}>
+                      {variant === 'fr' ? 'FR' : 'EN'} : lecture privée{' '}
+                      {access.privateReadable ? 'OK' : 'KO'}
+                      {access.publicLegacyPresent
+                        ? ' · copie publique legacy encore présente (supprimer sur Vercel Storage)'
+                        : ' · pas de copie publique détectée'}
+                    </p>
+                  )
+                })}
+                {storage.publicFallbackEnabled === false ? (
+                  <p style={{ margin: '8px 0 0', color: '#25d366' }}>
+                    MENU_BLOB_ALLOW_PUBLIC_FALLBACK=0 actif en production.
+                  </p>
+                ) : (
+                  <p style={{ margin: '8px 0 0', color: 'var(--muted)' }}>
+                    Repli public encore autorisé (variable non à 0). Validez avec{' '}
+                    <code style={{ fontSize: '11px' }}>npm run verify:menu-prod</code> avant de couper.
+                  </p>
+                )}
+              </div>
             ) : null}
           </div>
         ) : null}

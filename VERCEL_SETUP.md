@@ -105,7 +105,50 @@ Vercel redéploie automatiquement.
 
 ---
 
-## 6. Redéploiement après changement de variables
+## 6. Menus Blob 100 % privés (procédure pro)
+
+Objectif : servir les menus uniquement via `/api/menu-pdf`, sans repli sur d’anciens fichiers **public** dans le store.
+
+### Étape A — Nettoyage Vercel Storage
+
+1. **Storage → Blob** (store lié au projet).
+2. Supprimer les copies **publiques** legacy des pathnames :
+   - `menu-du-jour.pdf` (FR)
+   - `menu-du-jour-en.pdf` (EN)
+3. Ne supprimez pas les fichiers **privés** créés par l’admin récent.
+
+### Étape B — Re-upload admin
+
+1. `/admin/menu-setup` → renvoyer **FR** et **EN**.
+2. Dans le bandeau **Sécurité Blob**, vérifier :
+   - **lecture privée OK** pour FR et EN ;
+   - idéalement **pas de copie publique legacy**.
+
+### Étape C — Vérification intermédiaire (sans couper le repli)
+
+En local, depuis le repo :
+
+```bash
+npm run verify:menu-prod
+# ou : npm run verify:menu-prod https://www.tifinagh.fr
+```
+
+Tant que le repli public est actif (`MENU_BLOB_ALLOW_PUBLIC_FALLBACK` absent ou ≠ `0`), le site reste tolérant.
+
+### Étape D — Activation `MENU_BLOB_ALLOW_PUBLIC_FALLBACK=0`
+
+1. **Settings → Environment Variables → Production** → `MENU_BLOB_ALLOW_PUBLIC_FALLBACK` = `0`.
+2. **Redeploy** production.
+3. Re-tester : `npm run verify:menu-prod` + page `/menu-du-jour`.
+
+### Rollback (30 s)
+
+1. Supprimer la variable **ou** la retirer de la valeur `0`.
+2. **Redeploy** production.
+
+---
+
+## 7. Redéploiement après changement de variables
 
 Les variables d’env ne sont lues qu’au build/runtime selon le cas :
 
@@ -114,7 +157,7 @@ Les variables d’env ne sont lues qu’au build/runtime selon le cas :
 
 ---
 
-## 7. Dépannage
+## 8. Dépannage
 
 | Symptôme | Cause probable | Solution |
 |----------|----------------|----------|
