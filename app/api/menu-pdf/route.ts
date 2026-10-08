@@ -92,7 +92,7 @@ async function serveMenu(request: NextRequest, body: boolean) {
     if (!body) {
       return new NextResponse(null, { status: 200, headers })
     }
-    return new NextResponse(Buffer.from(bytes), { headers })
+    return new NextResponse(bytes, { headers })
   } catch {
     return NextResponse.json({ error: 'Menu du jour indisponible' }, { status: 404 })
   }

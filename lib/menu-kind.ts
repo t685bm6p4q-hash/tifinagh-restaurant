@@ -183,10 +183,21 @@ async function loadMenuBytesFromBlob(
 
 function loadMenuFromBlobCached(pathname: string, revision: string) {
   return unstable_cache(
-    () => loadMenuBytesFromBlob(pathname),
-    ['menu-blob-bytes-v1', pathname, revision],
+    async () => {
+      const loaded = await loadMenuBytesFromBlob(pathname)
+      return {
+        base64: Buffer.from(loaded.bytes).toString('base64'),
+        contentType: loaded.contentType,
+        revision: loaded.revision,
+      }
+    },
+    ['menu-blob-bytes-b64-v2', pathname, revision],
     { tags: [MENU_PUBLIC_CACHE_TAG], revalidate: 604_800 },
-  )()
+  )().then(({ base64, contentType, revision: rev }) => ({
+    bytes: new Uint8Array(Buffer.from(base64, 'base64')),
+    contentType,
+    revision: rev,
+  }))
 }
 
 async function loadMenuFromStorage(
