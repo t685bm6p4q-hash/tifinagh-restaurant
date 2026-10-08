@@ -1,11 +1,13 @@
+'use client'
+
 import { phoneDisplay, phoneTel } from '@/lib/restaurant-data'
-import { getI18n } from '@/lib/i18n'
+import { useSiteDictionary } from '@/lib/i18n/site-locale'
 
 /**
  * CTA flottant mobile — lien tel: natif, zero JS, masque sur desktop.
  */
-export async function StickyCallBar() {
-  const { dictionary } = getI18n()
+export function StickyCallBar() {
+  const dictionary = useSiteDictionary()
 
   return (
     <div className="sticky-call-bar" role="navigation" aria-label={dictionary.sticky.aria}>

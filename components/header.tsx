@@ -1,7 +1,10 @@
+'use client'
+
 import { HeaderShell } from '@/components/header-nav'
-import { getI18n } from '@/lib/i18n/get-locale'
+import { useSiteDictionary, useSiteLocale } from '@/lib/i18n/site-locale'
 
 export function Header() {
-  const { locale, dictionary } = getI18n()
+  const locale = useSiteLocale()
+  const dictionary = useSiteDictionary()
   return <HeaderShell locale={locale} dictionary={dictionary} />
 }

@@ -39,7 +39,7 @@ export default async function MenuDuJour({ params }: LocalePageParams) {
 
   return (
     <>
-      <MenuPdfPreloadLinks />
+      <MenuPdfPreloadLinks locale={locale} />
       <Header />
       <MainContent className="menu-jour-page">
         <PageBreadcrumbs locale={locale} items={breadcrumbItems} />
@@ -57,7 +57,7 @@ export default async function MenuDuJour({ params }: LocalePageParams) {
         />
 
         <section className="section menu-pdf-section" aria-label={d.introTitle}>
-          <MenuPdfViewer />
+          <MenuPdfViewer locale={locale} />
           <MenuDayServicePricing copy={d} />
         </section>
 

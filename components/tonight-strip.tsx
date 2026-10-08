@@ -1,9 +1,12 @@
+'use client'
+
 import { LocalizedLink } from '@/components/localized-link'
-import { getI18n } from '@/lib/i18n'
+import { useSiteDictionary, useSiteLocale } from '@/lib/i18n/site-locale'
 
 /** Bandeau info — CSS pur, hors hero, zero JS / zero image. */
-export async function TonightStrip() {
-  const { dictionary, locale } = getI18n()
+export function TonightStrip() {
+  const locale = useSiteLocale()
+  const dictionary = useSiteDictionary()
 
   return (
     <div className="tonight-strip" role="status">
@@ -12,7 +15,9 @@ export async function TonightStrip() {
         <span className="tonight-strip-sep" aria-hidden="true">·</span>
         {dictionary.hours.hours}
         <span className="tonight-strip-sep" aria-hidden="true">·</span>
-        <LocalizedLink href="/menu-du-jour" locale={locale} prefetch={false}>{dictionary.home.tonightMenu}</LocalizedLink>
+        <LocalizedLink href="/menu-du-jour" locale={locale} prefetch={false}>
+          {dictionary.home.tonightMenu}
+        </LocalizedLink>
       </p>
     </div>
   )

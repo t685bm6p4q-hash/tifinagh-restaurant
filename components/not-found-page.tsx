@@ -1,14 +1,16 @@
+'use client'
+
 import { LocalizedLink } from '@/components/localized-link'
 import { MainContent } from '@/components/site-shell'
-import { getI18n } from '@/lib/i18n'
 import { getNotFoundCopy } from '@/lib/i18n/not-found-copy'
+import { useSiteLocale } from '@/lib/i18n/site-locale'
 
 /**
  * Volontairement sans Header ni Footer : le not-found est sérialisé dans le payload RSC,
  * son poids s'ajoute donc à tout le site.
  */
-export async function NotFoundPage() {
-  const { locale } = getI18n()
+export function NotFoundPage() {
+  const locale = useSiteLocale()
   const copy = getNotFoundCopy(locale)
 
   return (

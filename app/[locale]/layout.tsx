@@ -7,7 +7,7 @@ import { bindPageLocale } from '@/lib/i18n/bind-page-locale'
 import { buildSiteMetadata, localeDirection, localeMeta } from '@/lib/i18n'
 import { getDictionary } from '@/lib/i18n/get-locale'
 import { isLocale, locales, type Locale } from '@/lib/i18n/config'
-import { LocaleContext } from '@/lib/i18n/locale-context'
+import { SiteLocaleProvider } from '@/lib/i18n/site-locale'
 import { setRequestLocale } from '@/lib/i18n/request-locale'
 import { siteUrl } from '@/lib/seo'
 
@@ -48,14 +48,14 @@ export default async function LocaleRootLayout({ children, params }: LayoutProps
         />
       </head>
       <body>
-        <LocaleContext.Provider value={locale}>
+        <SiteLocaleProvider locale={locale}>
           <a className="skip-link" href="#main-content">
             {a11y.skipToContent}
           </a>
           <RestaurantSchema />
           <WebMcpTools locale={locale} whatsappCopy={dictionary.reservationPage} />
           {children}
-        </LocaleContext.Provider>
+        </SiteLocaleProvider>
       </body>
     </html>
   )

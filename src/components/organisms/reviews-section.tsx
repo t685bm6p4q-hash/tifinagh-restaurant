@@ -1,14 +1,16 @@
+'use client'
+
 import { ReviewsList } from '@/components/reviews-list'
 import {
   GoogleReviewsBadge,
   PagesJaunesReviewsBadge,
 } from '@/components/booking-channels'
 import { SectionHeading } from '../molecules/section-heading'
-import { getI18n } from '@/lib/i18n'
+import { useSiteDictionary } from '@/lib/i18n/site-locale'
 import type { Testimonial } from '@/lib/restaurant-data'
 
-export async function ReviewsSection({ reviews }: { reviews: Testimonial[] }) {
-  const { dictionary } = getI18n()
+export function ReviewsSection({ reviews }: { reviews: Testimonial[] }) {
+  const dictionary = useSiteDictionary()
 
   return (
     <section className="reviews section">

@@ -1,14 +1,13 @@
 import type { Metadata } from 'next'
 import { HomeTemplate } from '@/src/components/templates/home-template'
-import { bindPageLocale } from '@/lib/i18n/bind-page-locale'
-import { metadataForLocalePage, type LocalePageParams } from '@/lib/i18n/metadata-for-locale-page'
+import { initPageI18n, metadataForLocalePage, type LocalePageParams } from '@/lib/i18n'
 
 export async function generateMetadata({ params }: LocalePageParams): Promise<Metadata> {
   return metadataForLocalePage(params, 'home')
 }
 
 export default async function Home({ params }: LocalePageParams) {
-  bindPageLocale((await params).locale)
+  const { locale, dictionary } = await initPageI18n(params)
   return (
     <>
       <link
@@ -27,7 +26,7 @@ export default async function Home({ params }: LocalePageParams) {
         media="(min-width: 769px)"
         fetchPriority="high"
       />
-      <HomeTemplate />
+      <HomeTemplate locale={locale} dictionary={dictionary} />
     </>
   )
 }

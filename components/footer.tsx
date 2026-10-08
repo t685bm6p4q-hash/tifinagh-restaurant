@@ -1,3 +1,5 @@
+'use client'
+
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import {
@@ -13,7 +15,8 @@ import { CalendarDaysIcon } from '@/components/icons'
 import { PagesJaunesIcon } from '@/components/pagesjaunes-logo'
 import { InstagramIcon, FacebookIcon } from '@/components/icons'
 import { CookieSettingsButton } from '@/components/cookie-settings-button'
-import { getI18n, getUxExtra, localeHref, localizeMetro, localizeSeoLinks } from '@/lib/i18n'
+import { getUxExtra, localeHref, localizeMetro, localizeSeoLinks } from '@/lib/i18n'
+import { useSiteDictionary, useSiteLocale } from '@/lib/i18n/site-locale'
 
 function MapPinIcon() {
   return (
@@ -51,8 +54,9 @@ function GoogleGIcon({ size = 16 }: { size?: number }) {
   )
 }
 
-export async function Footer() {
-  const { dictionary, locale } = getI18n()
+export function Footer() {
+  const locale = useSiteLocale()
+  const dictionary = useSiteDictionary()
   const ux = getUxExtra(locale)
   const metroStations = localizeMetro(dictionary)
   const seoLinks = localizeSeoLinks(dictionary)

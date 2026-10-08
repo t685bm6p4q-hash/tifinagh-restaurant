@@ -1,3 +1,5 @@
+'use client'
+
 import {
   googleMapsUrl,
   onlineBookingUrl,
@@ -8,7 +10,8 @@ import {
 } from '@/lib/restaurant-data'
 import { CalendarDaysIcon } from '@/components/icons'
 import { PagesJaunesIcon } from '@/components/pagesjaunes-logo'
-import { getI18n, getUxExtra, localeHref } from '@/lib/i18n'
+import { getUxExtra, localeHref } from '@/lib/i18n'
+import { useSiteDictionary, useSiteLocale } from '@/lib/i18n/site-locale'
 
 const CHIP_ICON_SIZE = 20
 
@@ -50,11 +53,12 @@ type BookingChannelsProps = {
 /**
  * 3 canaux de reservation — 100 % serveur, aucun JS, aucun asset externe.
  */
-export async function BookingChannels({
+export function BookingChannels({
   title,
   className = '',
 }: BookingChannelsProps) {
-  const { dictionary, locale } = getI18n()
+  const locale = useSiteLocale()
+  const dictionary = useSiteDictionary()
   const ux = getUxExtra(locale)
   const heading = title ?? dictionary.booking.title
 
@@ -96,8 +100,8 @@ export async function BookingChannels({
   )
 }
 
-export async function GoogleReviewsBadge() {
-  const { dictionary } = getI18n()
+export function GoogleReviewsBadge() {
+  const dictionary = useSiteDictionary()
 
   return (
     <a

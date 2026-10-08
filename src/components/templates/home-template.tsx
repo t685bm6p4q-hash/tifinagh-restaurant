@@ -14,10 +14,16 @@ import {
 } from '@/components/icons'
 import { MapEmbedLazy } from '@/components/map-embed-lazy'
 import { googleMapsEmbedUrl, googleMapsUrl } from '@/lib/restaurant-data'
-import { getI18n, getUxExtra, localizeMenu, localizeTestimonials } from '@/lib/i18n'
+import type { Locale } from '@/lib/i18n/config'
+import type { Dictionary } from '@/lib/i18n/types'
+import { getUxExtra, localizeMenu, localizeTestimonials } from '@/lib/i18n'
 
-export async function HomeTemplate() {
-  const { dictionary, locale } = getI18n()
+type HomeTemplateProps = {
+  locale: Locale
+  dictionary: Dictionary
+}
+
+export function HomeTemplate({ locale, dictionary }: HomeTemplateProps) {
   const ux = getUxExtra(locale)
   const menu = localizeMenu(dictionary)
   const reviews = localizeTestimonials(dictionary)
