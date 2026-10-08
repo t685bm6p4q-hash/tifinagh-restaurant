@@ -1,9 +1,6 @@
 import {
-  MENU_IMAGE_LAYOUT_HEIGHT,
-  MENU_IMAGE_LAYOUT_WIDTH,
   MENU_IMAGE_LCP_WIDTH,
   MENU_IMAGE_PREVIEW_WIDTHS,
-  MENU_IMAGE_SIZES,
 } from '@/lib/menu-image-display'
 import {
   menuDuJourAlt,

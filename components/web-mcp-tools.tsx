@@ -104,7 +104,7 @@ function bookTableTool(locale: Locale): ModelContextTool {
       },
     },
     execute(input) {
-      const lang = (input.lang as Locale | undefined) ?? 'fr'
+      const lang = (input.lang as Locale | undefined) ?? locale
       const bookingUrl = onlineBookingUrl(lang)
       if (input.openBooking === true) {
         window.open(bookingUrl, '_blank', 'noopener,noreferrer')
