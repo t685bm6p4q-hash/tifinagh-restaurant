@@ -44,6 +44,25 @@ function localeHref(path, locale) {
   return `/${locale}${normalized}`
 }
 
+function cookieLocaleRedirectPath(internalPath, localeFromPath, cookieValue) {
+  if (localeFromPath) return null
+  if (!isLocale(cookieValue) || cookieValue === defaultLocale) return null
+  return localeHref(internalPath, cookieValue)
+}
+
+describe('cookieLocaleRedirectPath', () => {
+  it('redirige vers /en quand le cookie est anglais', () => {
+    assert.equal(cookieLocaleRedirectPath('/carte', null, 'en'), '/en/carte')
+    assert.equal(cookieLocaleRedirectPath('/', null, 'en'), '/en')
+  })
+
+  it('ne redirige pas le français ni une URL déjà préfixée', () => {
+    assert.equal(cookieLocaleRedirectPath('/carte', null, 'fr'), null)
+    assert.equal(cookieLocaleRedirectPath('/carte', null, undefined), null)
+    assert.equal(cookieLocaleRedirectPath('/carte', 'en', 'de'), null)
+  })
+})
+
 describe('stripLocalePrefix', () => {
   it('laisse le français sans préfixe', () => {
     assert.deepEqual(stripLocalePrefix('/carte'), {

@@ -11,7 +11,8 @@ import {
 } from '@/lib/admin-auth'
 import { buildContentSecurityPolicy, createCspNonce } from '@/lib/csp'
 import { canonicalHost } from '@/lib/seo'
-import { stripLocalePrefix } from '@/lib/i18n/locale-path'
+import { localeCookieName } from '@/lib/i18n/config'
+import { cookieLocaleRedirectPath, stripLocalePrefix } from '@/lib/i18n/locale-path'
 
 function withHtmlCsp(
   request: NextRequest,
@@ -82,6 +83,19 @@ export function proxy(request: NextRequest) {
         r.headers.set('X-Robots-Tag', 'noindex, nofollow')
       })
       return withPathname(response, pathname, { localeFromPath })
+    }
+  }
+
+  if (!pathname.startsWith('/admin')) {
+    const cookieRedirect = cookieLocaleRedirectPath(
+      pathname,
+      localeFromPath,
+      request.cookies.get(localeCookieName)?.value,
+    )
+    if (cookieRedirect && cookieRedirect !== rawPathname) {
+      const url = request.nextUrl.clone()
+      url.pathname = cookieRedirect
+      return NextResponse.redirect(url, 307)
     }
   }
 

@@ -33,3 +33,17 @@ export function localeHref(path: string, locale: Locale): string {
 export function isLocalePrefixedPath(pathname: string): boolean {
   return stripLocalePrefix(pathname).localeFromPath != null
 }
+
+/**
+ * Redirige les URLs sans préfixe vers la locale du cookie (≠ FR)
+ * pour aligner cache CDN et contenu affiché.
+ */
+export function cookieLocaleRedirectPath(
+  internalPath: string,
+  localeFromPath: Locale | null,
+  cookieValue: string | undefined,
+): string | null {
+  if (localeFromPath) return null
+  if (!isLocale(cookieValue) || cookieValue === defaultLocale) return null
+  return localeHref(internalPath, cookieValue)
+}

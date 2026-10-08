@@ -11,6 +11,6 @@ export {
   localizeTestimonials,
 } from './localize'
 export { buildPageMetadata, buildSiteMetadata } from './page-metadata'
-export { localeHref, stripLocalePrefix } from './locale-path'
+export { cookieLocaleRedirectPath, localeHref, stripLocalePrefix } from './locale-path'
 export { languageAlternatesForPath, absoluteLocalizedUrl } from './language-alternates'
 export { getUxExtra } from './ux-extra-copy'
