@@ -10,7 +10,7 @@ export type HomeMenuChoicesCopy = Pick<
 type HomeMenuChoicesProps = {
   copy: HomeMenuChoicesCopy
   /** hero: sur fond sombre du bandeau ; banner: texte clair ; section: fond sombre de la preview */
-  variant: 'hero' | 'banner' | 'section'
+  variant: 'banner' | 'section'
   showHint?: boolean
 }
 
