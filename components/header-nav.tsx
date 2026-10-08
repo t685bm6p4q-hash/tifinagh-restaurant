@@ -59,7 +59,7 @@ function HeaderNav({
   dictionary: Dictionary
 }) {
   return (
-    <nav className="main-nav" aria-label={dictionary.nav.ariaMain}>
+    <nav id="main-nav" className="main-nav" aria-label={dictionary.nav.ariaMain}>
       {navItems.map((item) => {
         const active = isNavActive(pathname, item.href)
         const className = [
@@ -100,7 +100,7 @@ export function HeaderShell({
 }) {
   return (
     <HeaderScrollShell>
-      <input type="checkbox" id="nav-toggle" className="nav-toggle-input" aria-hidden="true" tabIndex={-1} />
+      <input type="checkbox" id="nav-toggle" className="nav-toggle-input" aria-controls="main-nav" />
       <Link href="/" className="brand" prefetch={false}>
         <img
           className="brand-logo"

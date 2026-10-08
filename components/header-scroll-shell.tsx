@@ -27,11 +27,21 @@ export function HeaderScrollShell({ children }: { children: ReactNode }) {
       pulseUiHaptic()
     }
 
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return
+      const toggle = node.querySelector<HTMLInputElement>('.nav-toggle-input')
+      if (!toggle?.checked) return
+      toggle.checked = false
+      toggle.focus()
+    }
+
     node.addEventListener('pointerup', onPointerUp)
+    node.addEventListener('keydown', onKeyDown)
 
     return () => {
       window.removeEventListener('scroll', sync)
       node.removeEventListener('pointerup', onPointerUp)
+      node.removeEventListener('keydown', onKeyDown)
     }
   }, [])
 

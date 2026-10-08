@@ -560,6 +560,12 @@ a.nav-cta.nav-active {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+  visibility: hidden;
+}
+
+.nav-toggle-input:focus-visible ~ .header-tools .menu-toggle {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 2px;
 }
 
 .sr-only {
@@ -2930,6 +2936,13 @@ input:focus,
 textarea:focus,
 select:focus { border-color: var(--terracotta); }
 
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -3723,6 +3736,10 @@ select:focus { border-color: var(--terracotta); }
 
   .menu-toggle {
     display: inline-flex;
+  }
+
+  .nav-toggle-input {
+    visibility: visible;
   }
 
   .main-nav {

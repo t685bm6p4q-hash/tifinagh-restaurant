@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+import { useDialogFocus } from '@/components/use-dialog-focus'
 import type { MenuMediaKind } from '@/lib/menu-pdf'
 
 type MenuPdfFullscreenProps = {
@@ -35,21 +36,22 @@ export function MenuPdfFullscreen({
   reserveLabel,
   onClose,
 }: MenuPdfFullscreenProps) {
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const closeRef = useRef<HTMLButtonElement>(null)
+
+  useDialogFocus(dialogRef, closeRef, onClose)
+
   useEffect(() => {
     const prevOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose()
-    }
-    window.addEventListener('keydown', onKey)
     return () => {
       document.body.style.overflow = prevOverflow
-      window.removeEventListener('keydown', onKey)
     }
-  }, [onClose])
+  }, [])
 
   return (
     <div
+      ref={dialogRef}
       className="menu-pdf-fullscreen"
       role="dialog"
       aria-modal="true"
@@ -57,6 +59,7 @@ export function MenuPdfFullscreen({
       onClick={onClose}
     >
       <button
+        ref={closeRef}
         type="button"
         className="menu-pdf-fullscreen-close"
         onClick={onClose}

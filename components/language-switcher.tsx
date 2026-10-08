@@ -38,7 +38,7 @@ export function LanguageSwitcher({
         <span className="lang-switcher-code">{current.short}</span>
         <ChevronIcon />
       </summary>
-      <div className="lang-switcher-menu" role="listbox" aria-label={dictionary.nav.language}>
+      <div className="lang-switcher-menu" role="group" aria-label={dictionary.nav.language}>
         {locales.map((code) => {
           const meta = localeMeta[code]
           const active = code === locale

@@ -23,11 +23,12 @@ export function MenuPdfViewerClient(props: MenuPdfViewerClientProps) {
         variant={state.variant}
         langToggleFr={langToggleFr}
         langToggleEn={langToggleEn}
+        describedBy={state.showEnFallback ? 'menu-lang-fallback' : undefined}
         onToggle={state.toggleMenuLang}
       />
 
       {state.showEnFallback ? (
-        <p className="menu-lang-fallback" role="status">
+        <p id="menu-lang-fallback" className="menu-lang-fallback" role="status">
           {enFallbackNote}
         </p>
       ) : null}
