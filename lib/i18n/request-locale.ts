@@ -15,13 +15,3 @@ export function peekRequestLocale(): Locale | null {
 export function getRequestLocale(): Locale {
   return localeSlot().value ?? defaultLocale
 }
-
-const pathnameSlot = cache(() => ({ value: '/' as string }))
-
-export function setRequestPathname(pathname: string): void {
-  pathnameSlot().value = pathname.startsWith('/') ? pathname : `/${pathname}`
-}
-
-export function getRequestPathname(): string {
-  return pathnameSlot().value
-}

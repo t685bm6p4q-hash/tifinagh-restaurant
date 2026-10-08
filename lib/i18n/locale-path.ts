@@ -48,7 +48,7 @@ export function cookieLocaleRedirectPath(
   return localeHref(internalPath, cookieValue)
 }
 
-/** Locale effective pour le rendu (proxy → x-locale, sans cookies() côté RSC). */
+/** Locale effective pour le rendu (URL / cookie, sans cookies() côté RSC marketing). */
 export function resolveRequestLocale(
   localeFromPath: Locale | null,
   cookieValue: string | undefined,

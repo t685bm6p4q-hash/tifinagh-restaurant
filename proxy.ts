@@ -26,7 +26,6 @@ function withHtmlCsp(
   const nonce = createCspNonce()
   const requestHeaders = new Headers(request.headers)
   requestHeaders.set('x-nonce', nonce)
-  requestHeaders.set('x-locale', locale)
   const response = NextResponse.next({
     request: { headers: requestHeaders },
   })
@@ -60,12 +59,11 @@ function applyPublicHtmlEdgeCache(
   response.headers.set('Vercel-CDN-Cache-Control', PUBLIC_HTML_EDGE_CACHE)
 }
 
-function withPathname(
+function withMarketingResponse(
   response: NextResponse,
   pathname: string,
   options?: { localeFromPath?: string | null; method?: string },
 ) {
-  response.headers.set('x-pathname', pathname)
   if (options?.localeFromPath) {
     syncLocalePathCookie(response, options.localeFromPath)
   }
@@ -77,7 +75,7 @@ function withPathname(
  * Redirige vers www (évite la boucle Google apex ↔ www) et l'alias *.vercel.app.
  * Gate HTTP Basic Auth sur /admin/* avant tout rendu HTML.
  * Sans MENU_ADMIN_PASSWORD → 503 (fail-closed, jamais d'admin ouvert).
- * Injecte x-pathname pour la nav active côté serveur (zero JS client).
+ * Rewrite locale + CSP nonce ; hint CDN sur le HTML marketing.
  */
 function requestHost(request: NextRequest): string {
   const [hostname] = (request.headers.get('host') ?? '').split(':')
@@ -117,7 +115,7 @@ export function proxy(request: NextRequest) {
       const response = withHtmlCsp(request, siteLocale, (r) => {
         r.headers.set('X-Robots-Tag', 'noindex, nofollow')
       })
-      return withPathname(response, pathname, { localeFromPath, method: requestMethod })
+      return withMarketingResponse(response, pathname, { localeFromPath, method: requestMethod })
     }
   }
 
@@ -154,13 +152,11 @@ export function proxy(request: NextRequest) {
     const nonce = createCspNonce()
     const requestHeaders = new Headers(request.headers)
     requestHeaders.set('x-nonce', nonce)
-    requestHeaders.set('x-locale', siteLocale)
-    requestHeaders.set('x-pathname', pathname)
     const url = request.nextUrl.clone()
     url.pathname = routedPathname
     const response = NextResponse.rewrite(url, { request: { headers: requestHeaders } })
     response.headers.set('Content-Security-Policy', buildContentSecurityPolicy(nonce))
-    return withPathname(response, pathname, { localeFromPath, method: requestMethod })
+    return withMarketingResponse(response, pathname, { localeFromPath, method: requestMethod })
   }
 
   if (pathname.startsWith('/admin')) {
@@ -184,7 +180,7 @@ export function proxy(request: NextRequest) {
         r.headers.set('X-Robots-Tag', 'noindex, nofollow')
         r.headers.set('Cache-Control', 'no-store')
       })
-      return withPathname(response, pathname, { localeFromPath, method: requestMethod })
+      return withMarketingResponse(response, pathname, { localeFromPath, method: requestMethod })
     }
 
     if (isAdminRateLimited(request)) {
@@ -206,7 +202,7 @@ export function proxy(request: NextRequest) {
         r.headers.set('Cache-Control', 'no-store')
       })
       setAdminSessionCookie(response, expected)
-      return withPathname(response, pathname, { localeFromPath, method: requestMethod })
+      return withMarketingResponse(response, pathname, { localeFromPath, method: requestMethod })
     }
     if (password) recordAdminAuthFailure(request)
 
@@ -220,7 +216,7 @@ export function proxy(request: NextRequest) {
     })
   }
 
-  return withPathname(withHtmlCsp(request, siteLocale), pathname, {
+  return withMarketingResponse(withHtmlCsp(request, siteLocale), pathname, {
     localeFromPath,
     method: requestMethod,
   })

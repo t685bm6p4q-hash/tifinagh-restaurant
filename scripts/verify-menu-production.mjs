@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 /**
- * Smoke test prod (ou preview) avant MENU_BLOB_ALLOW_PUBLIC_FALLBACK=0.
+ * Smoke test prod (ou preview) — API menu + page /menu-du-jour.
+ * Sonde optionnelle des copies publiques Blob si BLOB_STORE_ID ou MENU_BLOB_LEGACY_PUBLIC_BASE_URL.
+ *
  * Usage: node scripts/verify-menu-production.mjs [baseUrl]
  */
 const base = (process.argv[2] ?? process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.tifinagh.fr').replace(
   /\/$/,
   '',
 )
+
+const MENU_PATHS = ['menu-du-jour.pdf', 'menu-du-jour-en.pdf']
 
 const checks = []
 
@@ -53,12 +57,72 @@ async function pageHasMenuPreview() {
   return ok
 }
 
+function publicBlobBases() {
+  const bases = new Set()
+  const legacy = process.env.MENU_BLOB_LEGACY_PUBLIC_BASE_URL?.replace(/\/$/, '')
+  if (legacy) bases.add(legacy)
+  const storeId = process.env.BLOB_STORE_ID?.replace(/^store_/i, '')
+  if (storeId) {
+    bases.add(`https://${storeId.toLowerCase()}.public.blob.vercel-storage.com`)
+  }
+  return [...bases]
+}
+
+/** HEAD anonyme sur .public.blob.* — copie legacy encore téléchargeable sans auth. */
+async function noAnonymousPublicMenuCopies() {
+  const bases = publicBlobBases()
+  if (bases.length === 0) {
+    checks.push({
+      label: 'Sonde Blob public anonyme (skip — BLOB_STORE_ID non défini)',
+      ok: true,
+      status: '—',
+      url: '(local: vercel env pull)',
+    })
+    return true
+  }
+
+  let ok = true
+  for (const pathname of MENU_PATHS) {
+    const encodedPath = pathname
+      .split('/')
+      .map((segment) => encodeURIComponent(segment))
+      .join('/')
+    for (const blobBase of bases) {
+      const url = `${blobBase}/${encodedPath}`
+      try {
+        const res = await fetch(url, {
+          method: 'HEAD',
+          redirect: 'follow',
+          signal: AbortSignal.timeout(8_000),
+        })
+        const reachable = res.ok
+        checks.push({
+          label: `Blob public anonyme ${pathname} (${blobBase})`,
+          ok: !reachable,
+          status: res.status,
+          url,
+        })
+        if (reachable) ok = false
+      } catch {
+        checks.push({
+          label: `Blob public anonyme ${pathname} (${blobBase})`,
+          ok: true,
+          status: 'timeout/err',
+          url,
+        })
+      }
+    }
+  }
+  return ok
+}
+
 let failed = false
 
 if (!(await headMenu('/api/menu-pdf', 'HEAD menu FR'))) failed = true
 if (!(await headMenu('/api/menu-pdf?variant=en&strict=1', 'HEAD menu EN strict'))) failed = true
 if (!(await getMenuBody('/api/menu-pdf?w=640', 'GET menu FR redimensionné (w=640)'))) failed = true
 if (!(await pageHasMenuPreview())) failed = true
+if (!(await noAnonymousPublicMenuCopies())) failed = true
 
 for (const c of checks) {
   const extra =
@@ -72,9 +136,14 @@ for (const c of checks) {
 }
 
 if (failed) {
-  console.error('\nÉchec — ne pas activer MENU_BLOB_ALLOW_PUBLIC_FALLBACK=0.')
+  console.error('\nÉchec — corriger l’API menu / Blob avant MENU_BLOB_ALLOW_PUBLIC_FALLBACK=0.')
   process.exit(1)
 }
 
-console.log('\nOK — étape intermédiaire validée. Vous pouvez enchaîner le basculement privé (admin + Vercel).')
+const strictBlob = process.env.MENU_BLOB_ALLOW_PUBLIC_FALLBACK === '0'
+console.log(
+  strictBlob
+    ? '\nOK — prod menu + mode Blob strict (MENU_BLOB_ALLOW_PUBLIC_FALLBACK=0).'
+    : '\nOK — prod menu. Pour couper le repli public : admin Blob → puis MENU_BLOB_ALLOW_PUBLIC_FALLBACK=0 sur Vercel.',
+)
 process.exit(0)
