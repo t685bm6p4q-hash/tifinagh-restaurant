@@ -1,4 +1,5 @@
-import { get, head, list } from '@vercel/blob'
+import { head, list } from '@vercel/blob'
+import { readMenuBlob, readMenuBlobPrefix } from '@/lib/menu-blob-store'
 import { unstable_cache, unstable_noStore as noStore } from 'next/cache'
 import { MENU_PUBLIC_CACHE_TAG } from '@/lib/menu-public-cache'
 import { access, open, readFile, stat } from 'node:fs/promises'
@@ -172,14 +173,11 @@ export type LoadedPublicMenu = {
 async function loadMenuBytesFromBlob(
   pathname: string,
 ): Promise<{ bytes: Uint8Array; contentType: string; revision: string }> {
-  const result = await get(pathname, { access: 'public', useCache: false })
-  if (!result || result.statusCode !== 200 || !result.stream) {
-    throw new Error('Blob fetch failed')
-  }
-  const bytes = new Uint8Array(await new Response(result.stream).arrayBuffer())
+  const blob = await readMenuBlob(pathname)
+  const bytes = new Uint8Array(await new Response(blob.stream).arrayBuffer())
   const sniffed = sniffMenuContentType(bytes)
-  const contentType = sniffed ?? result.blob.contentType ?? 'application/pdf'
-  const revision = result.blob.etag || result.blob.uploadedAt.toISOString()
+  const contentType = sniffed ?? blob.contentType ?? 'application/pdf'
+  const revision = blob.etag || blob.uploadedAt.toISOString()
   return { bytes, contentType, revision }
 }
 
@@ -274,16 +272,17 @@ async function sniffStaticMenuKind(pathname: string): Promise<MenuMediaKind | nu
 
 async function sniffBlobMenuKind(pathname: string): Promise<MenuMediaKind | null> {
   const meta = await headMenuBlob(pathname)
-  const res = await fetch(meta.url, { headers: { Range: 'bytes=0-31' } })
-  if (res.ok) {
-    const bytes = new Uint8Array(await res.arrayBuffer())
-    const sniffed = sniffMenuContentType(bytes)
-    if (sniffed) return menuKindFromContentType(sniffed)
-  }
-
   const declared = meta.contentType ?? ''
   if (declared.startsWith('image/')) return 'image'
   if (declared.includes('pdf')) return 'pdf'
+
+  try {
+    const bytes = await readMenuBlobPrefix(pathname, 32)
+    const sniffed = sniffMenuContentType(bytes)
+    if (sniffed) return menuKindFromContentType(sniffed)
+  } catch {
+    /* repli contentType */
+  }
   return null
 }
 

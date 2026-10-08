@@ -1,6 +1,6 @@
 import { writeFile } from 'fs/promises'
 import { join } from 'path'
-import { put } from '@vercel/blob'
+import { writePrivateMenuBlob } from '@/lib/menu-blob-store'
 import { NextRequest, NextResponse } from 'next/server'
 import { isAdminAuthorized } from '@/lib/admin-auth'
 import { revalidateMenuPublicCache } from '@/lib/menu-public-cache'
@@ -11,6 +11,7 @@ import {
   isBlobConfigured,
   isMenuUploadWithinSizeLimit,
   menuBlobPathname,
+  menuPdfApiUrl,
   menuUploadTooHeavyMessage,
   resolveMenuUpload,
   resolveMenuUploadVariant,
@@ -98,19 +99,13 @@ export async function POST(request: NextRequest) {
     const pathname = menuBlobPathname(variant)
 
     if (isBlobConfigured()) {
-      const blob = await put(pathname, buffer, {
-        access: 'public',
-        contentType,
-        addRandomSuffix: false,
-        allowOverwrite: true,
-        cacheControlMaxAge: 0,
-      })
+      await writePrivateMenuBlob(pathname, buffer, contentType)
 
       revalidateMenuPublicCache()
       return NextResponse.json({
         success: true,
         message: 'Menu optimisé en WebP (1 Mo max) et mis à jour',
-        url: blob.url,
+        url: menuPdfApiUrl(variant),
         variant,
         pathname,
       })

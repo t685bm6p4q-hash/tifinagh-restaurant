@@ -1,4 +1,4 @@
-import { get, put } from '@vercel/blob'
+import { readMenuBlob, writePrivateMenuBlob } from '@/lib/menu-blob-store'
 import { unstable_noStore as noStore } from 'next/cache'
 import { readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
@@ -28,8 +28,7 @@ export async function getMenuDishes(): Promise<MenuDishesTexts> {
   noStore()
   try {
     if (isBlobConfigured()) {
-      const result = await get(MENU_DISHES_PATHNAME, { access: 'public', useCache: false })
-      if (!result || result.statusCode !== 200 || !result.stream) return EMPTY
+      const result = await readMenuBlob(MENU_DISHES_PATHNAME)
       return parseStored(await new Response(result.stream).text())
     }
     return parseStored(await readFile(path.join(process.cwd(), 'public', MENU_DISHES_PATHNAME), 'utf8'))
@@ -44,13 +43,11 @@ export async function saveMenuDishes(variant: MenuDayVariant, text: string): Pro
   const body = JSON.stringify(next)
 
   if (isBlobConfigured()) {
-    await put(MENU_DISHES_PATHNAME, body, {
-      access: 'public',
-      contentType: 'application/json; charset=utf-8',
-      addRandomSuffix: false,
-      allowOverwrite: true,
-      cacheControlMaxAge: 0,
-    })
+    await writePrivateMenuBlob(
+      MENU_DISHES_PATHNAME,
+      body,
+      'application/json; charset=utf-8',
+    )
   } else {
     await writeFile(path.join(process.cwd(), 'public', MENU_DISHES_PATHNAME), body, 'utf8')
   }

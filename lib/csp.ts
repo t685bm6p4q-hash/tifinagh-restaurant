@@ -13,7 +13,7 @@ export function buildContentSecurityPolicy(nonce: string): string {
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ''} https://www.googletagmanager.com https://connect.facebook.net`,
     "script-src-attr 'none'",
     "worker-src 'self' blob:",
-    "connect-src 'self' https://wa.me https://api.whatsapp.com https://*.public.blob.vercel-storage.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://www.facebook.com https://connect.facebook.net https://graph.facebook.com",
+    "connect-src 'self' https://wa.me https://api.whatsapp.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://www.facebook.com https://connect.facebook.net https://graph.facebook.com",
     'upgrade-insecure-requests',
   ].join('; ')
 }
