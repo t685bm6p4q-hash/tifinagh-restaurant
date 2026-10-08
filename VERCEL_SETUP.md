@@ -109,6 +109,8 @@ Vercel redéploie automatiquement.
 
 Objectif : servir les menus uniquement via `/api/menu-pdf`, sans repli sur d’anciens fichiers **public** dans le store.
 
+> **Store « public only »** : si l’upload admin renvoie une erreur ou si `vercel blob put` refuse `access: 'private'`, le store lié au projet n’accepte pas encore le mode privé. L’app ré-enregistre alors en **public** (menus toujours servis via l’API). Pour `MENU_BLOB_ALLOW_PUBLIC_FALLBACK=0`, créez un **Blob store avec accès privé** (Vercel Storage) et reliez-le au projet.
+
 ### Étape A — Nettoyage Vercel Storage
 
 1. **Storage → Blob** (store lié au projet).

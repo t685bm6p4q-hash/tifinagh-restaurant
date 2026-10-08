@@ -389,9 +389,12 @@ export default function MenuSetupAdmin() {
                 <p style={{ margin: '0 0 6px', fontWeight: 600 }}>
                   Sécurité Blob{' '}
                   {storage.blobPrivateOnlyReady ? (
-                    <span style={{ color: '#25d366' }}>— prêt pour mode privé seul</span>
+                    <span style={{ color: '#25d366' }}>— lecture privée OK (store compatible)</span>
                   ) : (
-                    <span style={{ color: '#ffb347' }}>— re-upload ou nettoyage Storage requis</span>
+                    <span style={{ color: '#ffb347' }}>
+                      — store public Vercel : upload OK en public, pas de mode privé seul tant que le
+                      store n’est pas migré
+                    </span>
                   )}
                 </p>
                 {(['fr', 'en'] as const).map((variant) => {

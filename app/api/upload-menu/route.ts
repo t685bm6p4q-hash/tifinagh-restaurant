@@ -141,6 +141,13 @@ export async function POST(request: NextRequest) {
     })
   } catch (error: unknown) {
     console.error("Erreur lors de l'upload :", error)
+    const msg = error instanceof Error ? error.message : ''
+    if (msg.includes('BLOB_READ_WRITE_TOKEN') || msg.includes('token')) {
+      return NextResponse.json(
+        { error: 'Blob Vercel indisponible — vérifiez BLOB_READ_WRITE_TOKEN sur Vercel.' },
+        { status: 503 },
+      )
+    }
     return NextResponse.json({ error: 'Erreur lors du traitement du fichier' }, { status: 500 })
   }
 }

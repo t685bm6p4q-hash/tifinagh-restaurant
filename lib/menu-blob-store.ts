@@ -46,16 +46,36 @@ export async function readMenuBlobPrefix(pathname: string, maxBytes: number): Pr
   return full.subarray(0, Math.min(maxBytes, full.length))
 }
 
+function isPublicOnlyBlobStoreError(error: unknown): boolean {
+  const msg = error instanceof Error ? error.message : String(error)
+  return (
+    msg.includes('public store') ||
+    msg.includes('private access') ||
+    msg.includes('configured with private access')
+  )
+}
+
+const menuBlobPutOptions = (contentType: string) => ({
+  contentType,
+  addRandomSuffix: false as const,
+  allowOverwrite: true,
+  cacheControlMaxAge: 0,
+})
+
+/**
+ * Écriture admin — privé si le store le permet, sinon public (store Vercel « public only »).
+ * Le menu reste servi uniquement via `/api/menu-pdf`, pas d’URL Blob dans le HTML.
+ */
 export async function writePrivateMenuBlob(
   pathname: string,
   body: MenuBlobBody,
   contentType: string,
 ) {
-  return put(pathname, body, {
-    access: 'private',
-    contentType,
-    addRandomSuffix: false,
-    allowOverwrite: true,
-    cacheControlMaxAge: 0,
-  })
+  const opts = menuBlobPutOptions(contentType)
+  try {
+    return await put(pathname, body, { ...opts, access: 'private' })
+  } catch (error: unknown) {
+    if (!isPublicOnlyBlobStoreError(error)) throw error
+    return put(pathname, body, { ...opts, access: 'public' })
+  }
 }
