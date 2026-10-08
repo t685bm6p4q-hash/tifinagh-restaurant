@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { localeMeta, locales, type Locale } from './config'
+import type { Locale } from './config'
 import { getDictionary, getLocale } from './get-locale'
 import type { Dictionary, SeoPageCopy } from './types'
 import { restaurant, siteUrl } from '@/lib/seo'
@@ -22,16 +22,6 @@ export const seoPagePaths: Record<SeoPageId, string> = {
   restaurantPlaceDeClichy: '/restaurant-place-de-clichy',
 }
 
-/** Même URL pour toutes les langues (i18n par cookie) — signale les équivalents à Google. */
-function buildLanguageAlternates(canonicalHref: string): Record<string, string> {
-  const languages: Record<string, string> = {}
-  for (const loc of locales) {
-    languages[localeMeta[loc].htmlLang] = canonicalHref
-  }
-  languages['x-default'] = canonicalHref
-  return languages
-}
-
 const openGraphLocale: Record<Locale, string> = {
   fr: 'fr_FR',
   en: 'en_GB',
@@ -48,73 +38,10 @@ const openGraphLocale: Record<Locale, string> = {
   zgh: 'fr_FR',
 }
 
-/** Textes SEO alignés sur le contenu visible (i18n) quand la page est traduite. */
-export function resolvePageSeo(
-  dictionary: Dictionary,
-  pageId: SeoPageId,
-): SeoPageCopy {
-  switch (pageId) {
-    case 'carte':
-      return {
-        title: dictionary.carte.title,
-        description: dictionary.seo.pages.carte.description,
-      }
-    case 'contact':
-      return { title: dictionary.contact.title, description: dictionary.contact.text }
-    case 'autourDeNous':
-      return {
-        title: dictionary.pages.around.introTitle,
-        description: dictionary.pages.around.introText,
-      }
-    case 'galerie':
-      return {
-        title: dictionary.pages.gallery.introTitle,
-        description: dictionary.pages.gallery.introText,
-      }
-    case 'privatisation':
-      return {
-        title: dictionary.pages.privatisation.introTitle,
-        description: dictionary.pages.privatisation.introText,
-      }
-    case 'menuDuJour':
-      return {
-        title: dictionary.dailyMenuPage.introTitle,
-        description: dictionary.dailyMenuPage.introText,
-      }
-    case 'restaurantMontmartre':
-      return dictionary.seo.pages.restaurantMontmartre
-    case 'restaurantPigalle':
-      return dictionary.seo.pages.restaurantPigalle
-    case 'restaurantPlaceDeClichy':
-      return dictionary.seo.pages.restaurantPlaceDeClichy
-    case 'home':
-      return {
-        title: dictionary.seo.pages.home.title,
-        description: dictionary.seo.pages.home.description,
-      }
-    case 'carteBoissons':
-      return {
-        title: dictionary.drinks.page.title,
-        description: dictionary.drinks.page.text,
-      }
-    case 'reservation':
-      return {
-        title: dictionary.reservationPage.introTitle,
-        description: dictionary.reservationPage.introText,
-      }
-    default:
-      return dictionary.seo.pages[pageId]
-  }
-}
-
-export function formatDocumentTitle(
-  dictionary: Dictionary,
-  pageId: SeoPageId,
-): string {
-  const page = resolvePageSeo(dictionary, pageId)
+function formatDocumentTitle(dictionary: Dictionary, pageId: SeoPageId): string {
+  const page = dictionary.seo.pages[pageId]
   if (pageId === 'home') return page.title
-  const template = dictionary.seo.site.titleTemplate
-  return template.replace('%s', page.title)
+  return dictionary.seo.site.titleTemplate.replace('%s', page.title)
 }
 
 function buildSocialMetadata(
@@ -122,31 +49,31 @@ function buildSocialMetadata(
   page: SeoPageCopy,
   canonical: string,
   documentTitle: string,
+  imageAlt: string,
 ): Pick<Metadata, 'openGraph' | 'twitter'> {
-  const url = new URL(canonical, siteUrl).href
   return {
     openGraph: {
       type: 'website',
       locale: openGraphLocale[locale],
-      url,
+      url: canonical,
       siteName: restaurant.name,
       title: documentTitle,
       description: page.description,
-      images: [{ url: restaurant.image, width: 1200, height: 630, alt: dictionaryOgImageAlt(locale) }],
+      images: [{ ...restaurant.ogImage, alt: imageAlt }],
     },
     twitter: {
       card: 'summary_large_image',
       title: documentTitle,
       description: page.description,
-      images: [restaurant.image],
+      images: [restaurant.ogImage.url],
     },
   }
 }
 
-function dictionaryOgImageAlt(locale: Locale): string {
-  return getDictionary(locale).seo.site.ogImageAlt
-}
-
+/**
+ * Pas de `alternates.languages` : la langue est choisie par cookie sur une URL unique,
+ * des hreflang pointant tous vers la même URL seraient ignorés (ou contradictoires) par Google.
+ */
 export async function buildSiteMetadata(): Promise<Metadata> {
   const locale = await getLocale()
   const dictionary = getDictionary(locale)
@@ -170,7 +97,6 @@ export async function buildSiteMetadata(): Promise<Metadata> {
     keywords: site.keywords,
     alternates: {
       canonical: siteUrl,
-      languages: buildLanguageAlternates(siteUrl),
     },
     openGraph: {
       type: 'website',
@@ -179,13 +105,13 @@ export async function buildSiteMetadata(): Promise<Metadata> {
       siteName: restaurant.name,
       title: site.defaultTitle,
       description: site.ogDescription,
-      images: [{ url: restaurant.image, width: 1200, height: 630, alt: site.ogImageAlt }],
+      images: [{ ...restaurant.ogImage, alt: site.ogImageAlt }],
     },
     twitter: {
       card: 'summary_large_image',
       title: site.twitterTitle,
       description: site.twitterDescription,
-      images: [restaurant.image],
+      images: [restaurant.ogImage.url],
     },
     robots:
       process.env.VERCEL_ENV === 'preview'
@@ -205,30 +131,23 @@ export async function buildPageMetadata(
 ): Promise<Metadata> {
   const locale = await getLocale()
   const dictionary = getDictionary(locale)
-  const page = resolvePageSeo(dictionary, pageId)
+  const page = dictionary.seo.pages[pageId]
   const description = options?.description ?? page.description
-  const pageForSocial: SeoPageCopy = { ...page, description }
-  const canonicalPath = seoPagePaths[pageId]
-  const canonical = new URL(canonicalPath, siteUrl).href
+  const canonical = new URL(seoPagePaths[pageId], siteUrl).href
   const documentTitle = formatDocumentTitle(dictionary, pageId)
-  const fallbackSeo = dictionary.seo.pages[pageId]
 
-  const metadata: Metadata = {
+  return {
+    title: pageId === 'home' ? { absolute: page.title } : page.title,
     description,
-    alternates: {
+    alternates: { canonical },
+    ...(page.keywords ? { keywords: page.keywords } : {}),
+    ...buildSocialMetadata(
+      locale,
+      { ...page, description },
       canonical,
-      languages: buildLanguageAlternates(canonical),
-    },
-    ...(fallbackSeo.keywords ? { keywords: fallbackSeo.keywords } : {}),
-    ...buildSocialMetadata(locale, pageForSocial, canonical, documentTitle),
+      documentTitle,
+      dictionary.seo.site.ogImageAlt,
+    ),
     ...extra,
   }
-
-  if (pageId === 'home') {
-    metadata.title = { absolute: page.title }
-  } else {
-    metadata.title = page.title
-  }
-
-  return metadata
 }

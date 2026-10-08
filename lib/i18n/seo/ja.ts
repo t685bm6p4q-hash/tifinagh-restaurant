@@ -37,7 +37,7 @@ export const seoJa: Dictionary['seo'] = {
         'Tifinagh ビストロの French Classics：フォアグラ、コンフィ・ド・カナール、ブルゴーニュ風エスカルゴ、手作りデザート。パリ18区ラシェル通り17。',
     },
     carteBoissons: {
-      title: 'ドリンクメニュー — ビール、カクテル、アペリティフ | Tifinagh モンマルトル',
+      title: 'ドリンクメニュー — ビール、カクテル、アペリティフ',
       description:
         '生ビール・瓶ビール、ソフトドリンク、アペリティフ、カクテル、食後酒、温かい飲み物。ビストロ Tifinagh、パリ18区ラシェル通り17。',
     },

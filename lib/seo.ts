@@ -55,6 +55,11 @@ export const restaurant = {
     labelFull: 'Ouvert tous les jours · 10h – 00h',
   },
   image: 'https://res.cloudinary.com/dc9xmxpvv/image/upload/v1787938428/489A1930_p9tklu.jpg',
+  ogImage: {
+    url: 'https://res.cloudinary.com/dc9xmxpvv/image/upload/c_fill,g_auto,w_1200,h_630,f_jpg,q_auto/v1787938428/489A1930_p9tklu.jpg',
+    width: 1200,
+    height: 630,
+  },
   social: [
     'https://instagram.com/tifinagh_restaurant',
     'https://facebook.com/profile.php?id=100068081029708',

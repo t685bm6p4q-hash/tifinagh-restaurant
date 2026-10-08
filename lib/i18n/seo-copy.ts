@@ -74,7 +74,7 @@ const seoFr: Dictionary['seo'] = {
         'Découvrez la carte du Tifinagh à Montmartre : cuisine 100% fait maison, viandes de tradition, options végétariennes et cocktails créations.',
     },
     carteBoissons: {
-      title: 'Carte des boissons — bières, cocktails & apéritifs | Tifinagh Montmartre',
+      title: 'Carte des boissons — bières, cocktails & apéritifs',
       description:
         'Bières pression et bouteille, softs, apéritifs, cocktails, digestifs et boissons chaudes au bistrot Tifinagh, 17 avenue Rachel, Paris 18.',
     },
@@ -194,7 +194,7 @@ const seoEn: Dictionary['seo'] = {
         'Tifinagh bistro French Classics: foie gras, duck confit, Burgundy snails and homemade desserts at 17 avenue Rachel, Paris 18.',
     },
     carteBoissons: {
-      title: 'Drinks menu — beers, cocktails & apéritifs | Tifinagh Montmartre',
+      title: 'Drinks menu — beers, cocktails & apéritifs',
       description:
         'Draft and bottled beers, soft drinks, apéritifs, cocktails, spirits and hot drinks at Tifinagh bistro, 17 avenue Rachel, Paris 18.',
     },
@@ -313,7 +313,7 @@ const seoEs: Dictionary['seo'] = {
         'Carta del bistró Tifinagh: foie gras, confit de pato, caracoles de Borgoña y postres caseros, 17 avenue Rachel, París 18.',
     },
     carteBoissons: {
-      title: 'Carta de bebidas — cervezas, cócteles y aperitivos | Tifinagh Montmartre',
+      title: 'Carta de bebidas — cervezas, cócteles y aperitivos',
       description:
         'Cervezas de barril y botella, refrescos, aperitivos, cócteles, digestivos y bebidas calientes en el bistró Tifinagh, París 18.',
     },
@@ -429,7 +429,7 @@ const seoIt: Dictionary['seo'] = {
         'Carta del bistrot Tifinagh: foie gras, confit de canard, lumache di Borgogna e dolci fatti in casa, 17 avenue Rachel, Parigi 18.',
     },
     carteBoissons: {
-      title: 'Carta delle bevande — birre, cocktail e aperitivi | Tifinagh Montmartre',
+      title: 'Carta delle bevande — birre, cocktail e aperitivi',
       description:
         'Birre alla spina e in bottiglia, soft drink, aperitivi, cocktail, digestivi e bevande calde al bistrot Tifinagh, Parigi 18.',
     },
@@ -543,7 +543,7 @@ const seoZh: Dictionary['seo'] = {
         'Tifinagh 小酒馆固定菜单：鹅肝、油封鸭、勃艮第蜗牛与自制甜点，巴黎18区 Rachel 大道17号。',
     },
     carteBoissons: {
-      title: '饮品单 — 啤酒、鸡尾酒与开胃酒 | Tifinagh Montmartre',
+      title: '饮品单 — 啤酒、鸡尾酒与开胃酒',
       description:
         '生啤与瓶装啤酒、软饮、开胃酒、鸡尾酒、烈酒与热饮，蒙马特 Tifinagh 小酒馆，巴黎18区。',
     },

@@ -1,12 +1,18 @@
 import type { MetadataRoute } from 'next'
 import { siteUrl } from '@/lib/seo'
 
-/** Pages publiques, hors espace admin et mentions legales (non indexees). */
+/** À avancer à chaque modification réelle du contenu des pages éditoriales. */
+const CONTENT_UPDATED_AT = new Date('2026-10-08')
+
+/**
+ * Pages publiques, hors espace admin et mentions legales (non indexees).
+ * /menu-du-jour change chaque jour : pas de lastModified plutôt qu'une date inventée.
+ */
 const routes = [
   { path: '/', priority: 1 },
   { path: '/carte', priority: 0.9 },
   { path: '/carte/boissons', priority: 0.85 },
-  { path: '/menu-du-jour', priority: 0.8 },
+  { path: '/menu-du-jour', priority: 0.8, daily: true },
   { path: '/galerie', priority: 0.7 },
   { path: '/privatisation', priority: 0.7 },
   { path: '/reservation', priority: 0.8 },
@@ -18,12 +24,10 @@ const routes = [
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date()
-
-  return routes.map(({ path, priority }) => ({
+  return routes.map(({ path, priority, daily }) => ({
     url: `${siteUrl}${path}`,
-    lastModified,
-    changeFrequency: path === '/menu-du-jour' ? 'daily' : 'monthly',
+    ...(daily ? {} : { lastModified: CONTENT_UPDATED_AT }),
+    changeFrequency: daily ? 'daily' : 'monthly',
     priority,
   }))
 }

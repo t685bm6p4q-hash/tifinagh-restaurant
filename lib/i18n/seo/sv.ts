@@ -37,7 +37,7 @@ export const seoSv: Dictionary['seo'] = {
         'French Classics på Tifinagh-bistrot: foie gras, ankconfit, Bourgogne-sniglar och hemlagade desserter, 17 avenue Rachel, Paris 18.',
     },
     carteBoissons: {
-      title: 'Dryckesmeny — öl, cocktails och aperitifer | Tifinagh Montmartre',
+      title: 'Dryckesmeny — öl, cocktails och aperitifer',
       description:
         'Fat- och flasköl, läsk, aperitifer, cocktails, digestifer och varma drycker på bistrot Tifinagh, 17 avenue Rachel, Paris 18.',
     },

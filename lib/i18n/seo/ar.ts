@@ -37,7 +37,7 @@ export const seoAr: Dictionary['seo'] = {
         'French Classics في مطعم Tifinagh: foie gras وconfit de canard وescargots de Bourgogne وحلويات منزلية، 17 avenue Rachel، باريس 18.',
     },
     carteBoissons: {
-      title: 'قائمة المشروبات — بيرة وكوكتيلات وaperitifs | Tifinagh Montmartre',
+      title: 'قائمة المشروبات — بيرة وكوكتيلات وaperitifs',
       description:
         'بيرة من الصنبور والزجاجة، مشروبات غازية، aperitifs وcocktails وdigestifs ومشروبات ساخنة في مطعم Tifinagh، 17 avenue Rachel، باريس 18.',
     },

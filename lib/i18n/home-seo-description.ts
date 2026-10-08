@@ -2,6 +2,6 @@
 export const HOME_SEO_TITLE_FR =
   'Le Tifinagh · Bistrot français & terrasse | Montmartre Paris 18'
 
-/** Meta description accueil FR (autres langues : texte propre dans seo-copy). */
+/** Meta description accueil FR, ≤ 160 caractères (autres langues : texte propre dans seo-copy). */
 export const HOME_SEO_DESCRIPTION =
-  'Découvrez le vrai goût du bistrot parisien au Tifinagh, Paris 18 ! Cuisine 100 % faite maison, plats réconfortants et ambiance authentique près de Montmartre. Réservez votre table pour un repas généreux à prix doux.'
+  'Bistrot parisien au pied de Montmartre, Paris 18 : cuisine 100 % faite maison, plats réconfortants, terrasse au calme et prix doux. Réservez votre table.'

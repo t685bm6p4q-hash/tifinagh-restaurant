@@ -37,7 +37,7 @@ export const seoZgh: Dictionary['seo'] = {
         'French Classics ⴳ Tifinagh: foie gras, confit, escargots ⴷ ⵉⵖⵓⵎⵎⴰⵏ ⴷ ⴰⴷⴳ, 17 avenue Rachel, ⴱⴰⵔⵉⵙ 18.',
     },
     carteBoissons: {
-      title: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵉⵙⵙⵓⵏ — ⵉⵙⵙⵓⵏ, ⴽⵓⴽⵟⴰⵢⵍⵙ | Tifinagh Montmartre',
+      title: 'ⵜⴰⵎⵓⵔⵜ ⵏ ⵉⵙⵙⵓⵏ — ⵉⵙⵙⵓⵏ, ⴽⵓⴽⵟⴰⵢⵍⵙ',
       description:
         'ⵉⵙⵙⵓⵏ, ⵙⵓⴼⵜ, ⴰⴱⵉⵔⵉⵜⵉⴼ, ⴽⵓⴽⵟⴰⵢⵍⵙ ⴷ ⵉⵙⵙⵓⵏ ⵉⵎⵙⵙⴰⵏ ⴳ ⴱⵉⵙⵜⵔⵓ Tifinagh, 17 avenue Rachel, Paris 18.',
     },

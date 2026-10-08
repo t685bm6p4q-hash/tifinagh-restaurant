@@ -37,7 +37,7 @@ export const seoKo: Dictionary['seo'] = {
         'Tifinagh 비스트로 French Classics: 푸아그라, 오리 콩피, 부르고뉴 달팽이, 수제 디저트. 파리 18구 아베뉴 라셸 17번.',
     },
     carteBoissons: {
-      title: '음료 메뉴 — 맥주, 칵테일, 아페리티프 | Tifinagh Montmartre',
+      title: '음료 메뉴 — 맥주, 칵테일, 아페리티프',
       description:
         '생맥주·병맥주, 청량음료, 아페리티프, 칵테일, 디제스티프, 따뜻한 음료. Tifinagh 비스트로, 파리 18구 아베뉴 라셸 17번.',
     },
