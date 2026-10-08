@@ -34,7 +34,7 @@ export default async function Galerie() {
                   width={size.width}
                   height={size.height}
                   sizes="(max-width: 768px) 100vw, 615px"
-                  quality={60}
+                  unoptimized
                   loading="lazy"
                 />
               </figure>

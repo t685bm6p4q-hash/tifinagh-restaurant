@@ -11,6 +11,7 @@ import { loadPublicMenu } from '@/lib/menu-kind'
 import { parseMenuDisplayWidth } from '@/lib/menu-image-display'
 import { applyMenuEmbedHeaders } from '@/lib/menu-subresource-headers'
 import { menuPdfImageCacheControl } from '@/lib/menu-pdf-response-cache'
+import { MENU_PUBLIC_CACHE_TAG } from '@/lib/menu-public-cache'
 import { resizeMenuImageForDisplay } from '@/lib/resize-menu-image-display'
 
 export const dynamic = 'force-dynamic'
@@ -25,7 +26,7 @@ async function resizeMenuImageCached(
   const base64 = await unstable_cache(
     async () => (await resizeMenuImageForDisplay(bytes, displayWidth)).toString('base64'),
     ['menu-pdf-webp-b64', cacheKey],
-    { revalidate: false },
+    { tags: [MENU_PUBLIC_CACHE_TAG], revalidate: false },
   )()
   return Buffer.from(base64, 'base64')
 }

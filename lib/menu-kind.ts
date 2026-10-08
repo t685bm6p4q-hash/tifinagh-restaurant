@@ -1,5 +1,6 @@
 import { get, head, list } from '@vercel/blob'
-import { unstable_noStore as noStore } from 'next/cache'
+import { unstable_cache, unstable_noStore as noStore } from 'next/cache'
+import { MENU_PUBLIC_CACHE_TAG } from '@/lib/menu-public-cache'
 import { access, open, readFile, stat } from 'node:fs/promises'
 import path from 'node:path'
 import { cache } from 'react'
@@ -168,21 +169,38 @@ export type LoadedPublicMenu = {
   revision: string
 }
 
+async function loadMenuBytesFromBlob(
+  pathname: string,
+): Promise<{ bytes: Uint8Array; contentType: string; revision: string }> {
+  const result = await get(pathname, { access: 'public', useCache: false })
+  if (!result || result.statusCode !== 200 || !result.stream) {
+    throw new Error('Blob fetch failed')
+  }
+  const bytes = new Uint8Array(await new Response(result.stream).arrayBuffer())
+  const sniffed = sniffMenuContentType(bytes)
+  const contentType = sniffed ?? result.blob.contentType ?? 'application/pdf'
+  const revision = result.blob.etag || result.blob.uploadedAt.toISOString()
+  return { bytes, contentType, revision }
+}
+
+function loadMenuFromBlobCached(pathname: string, revision: string) {
+  return unstable_cache(
+    () => loadMenuBytesFromBlob(pathname),
+    ['menu-blob-bytes-v1', pathname, revision],
+    { tags: [MENU_PUBLIC_CACHE_TAG], revalidate: 604_800 },
+  )()
+}
+
 async function loadMenuFromStorage(
   pathname: string,
 ): Promise<{ bytes: Uint8Array; contentType: string; revision: string }> {
   if (isBlobConfigured()) {
     const meta = await headMenuBlob(pathname)
-    const result = await get(pathname, { access: 'public', useCache: false })
-    if (!result || result.statusCode !== 200 || !result.stream) {
-      throw new Error('Blob fetch failed')
+    if (meta.pathname !== pathname) {
+      throw new Error('Blob pathname mismatch')
     }
-    const bytes = new Uint8Array(await new Response(result.stream).arrayBuffer())
-    const sniffed = sniffMenuContentType(bytes)
-    const contentType =
-      sniffed ?? result.blob.contentType ?? meta.contentType ?? 'application/pdf'
     const revision = meta.etag || meta.uploadedAt.toISOString()
-    return { bytes, contentType, revision }
+    return loadMenuFromBlobCached(pathname, revision)
   }
 
   const filePath = path.join(process.cwd(), 'public', pathname)
@@ -285,6 +303,9 @@ export const getPublicMenuKind = cache(async function getPublicMenuKind(
     if (variant === 'en') return getPublicMenuKind('fr')
     return 'pdf'
   }
+
+  if (status.contentType?.startsWith('image/')) return 'image'
+  if (status.contentType?.includes('pdf')) return 'pdf'
 
   if (isBlobConfigured()) {
     try {

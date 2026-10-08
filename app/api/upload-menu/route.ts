@@ -3,6 +3,7 @@ import { join } from 'path'
 import { put } from '@vercel/blob'
 import { NextRequest, NextResponse } from 'next/server'
 import { isAdminAuthorized } from '@/lib/admin-auth'
+import { revalidateMenuPublicCache } from '@/lib/menu-public-cache'
 import { compressMenuImageToWebp } from '@/lib/compress-menu-image'
 import { getMenuStorageOverview } from '@/lib/menu-kind'
 import {
@@ -105,6 +106,7 @@ export async function POST(request: NextRequest) {
         cacheControlMaxAge: 0,
       })
 
+      revalidateMenuPublicCache()
       return NextResponse.json({
         success: true,
         message: 'Menu optimisé en WebP (1 Mo max) et mis à jour',
@@ -115,6 +117,7 @@ export async function POST(request: NextRequest) {
     }
 
     await writeFile(join(process.cwd(), 'public', pathname), buffer)
+    revalidateMenuPublicCache()
 
     return NextResponse.json({
       success: true,

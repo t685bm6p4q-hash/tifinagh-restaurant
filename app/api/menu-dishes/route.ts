@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { isAdminAuthorized } from '@/lib/admin-auth'
+import { revalidateMenuPublicCache } from '@/lib/menu-public-cache'
 import { getMenuDishes, saveMenuDishes } from '@/lib/menu-dishes'
 import { MAX_MENU_DISHES_CHARS, normalizeMenuDishesText } from '@/lib/menu-dishes-format'
 
@@ -38,6 +39,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const saved = await saveMenuDishes(variant, text)
+    revalidateMenuPublicCache()
     return NextResponse.json({ success: true, ...saved })
   } catch (error: unknown) {
     console.error('Erreur enregistrement plats du jour :', error)

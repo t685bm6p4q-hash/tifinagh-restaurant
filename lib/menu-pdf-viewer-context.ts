@@ -7,11 +7,7 @@ import {
 } from '@/lib/menu-image-display'
 import { getMenuDishes } from '@/lib/menu-dishes'
 import type { MenuDishesTexts } from '@/lib/menu-dishes-format'
-import {
-  getMenuStorageStatus,
-  getPublicMenuKind,
-  isPublicMenuAvailable,
-} from '@/lib/menu-kind'
+import { getMenuStorageStatus, getPublicMenuKind } from '@/lib/menu-kind'
 import {
   menuDayVariantForLocale,
   menuDuJourAlt,
@@ -42,15 +38,14 @@ export type MenuPdfViewerContext = {
 export const getMenuPdfViewerContext = cache(async (): Promise<MenuPdfViewerContext> => {
   const { dictionary, locale } = await getI18n()
   const defaultVariant = menuDayVariantForLocale(locale)
-  const [hasEnglish, storageFr, storageEn, kindFr, kindEnResolved, dishesByVariant] =
-    await Promise.all([
-      isPublicMenuAvailable('en'),
-      getMenuStorageStatus('fr'),
-      getMenuStorageStatus('en'),
-      getPublicMenuKind('fr'),
-      getPublicMenuKind('en'),
-      getMenuDishes(),
-    ])
+  const [storageFr, storageEn, kindFr, kindEnResolved, dishesByVariant] = await Promise.all([
+    getMenuStorageStatus('fr'),
+    getMenuStorageStatus('en'),
+    getPublicMenuKind('fr'),
+    getPublicMenuKind('en'),
+    getMenuDishes(),
+  ])
+  const hasEnglish = storageEn.exists
   const kindEn = hasEnglish ? kindEnResolved : kindFr
 
   const revisionByVariant = {

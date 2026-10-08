@@ -74,7 +74,7 @@ export default async function Privatisation() {
                 width={560}
                 height={360}
                 sizes="(max-width: 768px) 100vw, 440px"
-                quality={60}
+                unoptimized
                 loading="lazy"
               />
               <Image
@@ -83,7 +83,7 @@ export default async function Privatisation() {
                 width={560}
                 height={360}
                 sizes="(max-width: 768px) 100vw, 440px"
-                quality={60}
+                unoptimized
                 loading="lazy"
               />
             </div>
