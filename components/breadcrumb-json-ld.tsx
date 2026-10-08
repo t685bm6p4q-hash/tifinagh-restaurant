@@ -1,5 +1,7 @@
 import { headers } from 'next/headers'
 import { serializeJsonLd } from '@/lib/json-ld'
+import { absoluteLocalizedUrl } from '@/lib/i18n/language-alternates'
+import type { Locale } from '@/lib/i18n/config'
 
 export type BreadcrumbItem = {
   name: string
@@ -7,11 +9,11 @@ export type BreadcrumbItem = {
 }
 
 type BreadcrumbJsonLdProps = {
-  siteUrl: string
+  locale: Locale
   items: BreadcrumbItem[]
 }
 
-export async function BreadcrumbJsonLd({ siteUrl, items }: BreadcrumbJsonLdProps) {
+export async function BreadcrumbJsonLd({ locale, items }: BreadcrumbJsonLdProps) {
   const nonce = (await headers()).get('x-nonce') ?? undefined
   const schema = {
     '@context': 'https://schema.org',
@@ -20,7 +22,7 @@ export async function BreadcrumbJsonLd({ siteUrl, items }: BreadcrumbJsonLdProps
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: new URL(item.path, siteUrl).href,
+      item: absoluteLocalizedUrl(item.path, locale),
     })),
   }
 

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import type { Locale } from './config'
 import { getDictionary, getLocale } from './get-locale'
+import { languageAlternatesForPath } from './language-alternates'
 import { localeHref } from './locale-path'
 import type { Dictionary, SeoPageCopy } from './types'
 import { restaurant, siteUrl } from '@/lib/seo'
@@ -96,6 +97,7 @@ export async function buildSiteMetadata(): Promise<Metadata> {
     keywords: site.keywords,
     alternates: {
       canonical,
+      languages: languageAlternatesForPath('/'),
     },
     openGraph: {
       type: 'website',
@@ -138,7 +140,10 @@ export async function buildPageMetadata(
   return {
     title: pageId === 'home' ? { absolute: page.title } : page.title,
     description,
-    alternates: { canonical },
+    alternates: {
+      canonical,
+      languages: languageAlternatesForPath(seoPagePaths[pageId]),
+    },
     ...(page.keywords ? { keywords: page.keywords } : {}),
     ...buildSocialMetadata(
       locale,
