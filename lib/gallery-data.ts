@@ -3,6 +3,25 @@ import { cloudinaryGalleryImage } from '@/lib/cloudinary'
 const GALLERY_STANDARD = { width: 615, height: 420 } as const
 const GALLERY_FEATURED = { width: 615, height: 852 } as const
 
+/**
+ * Noms de fichier SEO (`GALERIE_PHOTOS_SEO.csv`) — métadonnée HTML uniquement ;
+ * les URLs servies restent Cloudinary (Option 1 du guide photos).
+ */
+export const gallerySeoFileNameByPath: Readonly<Record<string, string>> = {
+  'v1787938623/tifinagh-restaurant-pigalle-salle-restaurant_m5x7br.jpg':
+    'tifinagh-salle-restaurant-pigalle-montmartre.jpg',
+  'v1787946633/489A2500_evy0js.jpg': 'tifinagh-terrasse-montmartre-parasol-rouge-clients.jpg',
+  'v1787946633/489A2498_znt3ml.jpg': 'tifinagh-facade-restaurant-nuit-montmartre.jpg',
+  'v1787946632/489A2436_gqgbkp.jpg': 'tifinagh-salle-restaurant-rouge-interieur-montmartre.jpg',
+  'v1787946632/489A2437_gkrxlq.jpg': 'tifinagh-salle-prive-tables-nappe-vichy-restaurant.jpg',
+  'v1787946633/489A2480_iggqgr.jpg': 'tifinagh-terrasse-convivialite-clients-soiree.jpg',
+  'v1787946633/489A2463_jt7lqc.jpg': 'tifinagh-plat-betteraves-poire-gastronomie.jpg',
+  'v1787946633/489A2475_u2q4on.jpg': 'tifinagh-terrasse-parasol-ambiance-soiree.jpg',
+  'v1787946632/489A2472_bwfelb.jpg': 'tifinagh-plat-signature-sauce-safran-gastronomique.jpg',
+  'v1787946633/489A2441_yrctak.jpg': 'tifinagh-salle-evenement-prive-montmartre-restaurant.jpg',
+  'v1787946632/489A2484_yckcxa.jpg': 'tifinagh-plat-poisson-asperges-cuisine-raffinnee.jpg',
+}
+
 /** Ordre harmonisé : salle / plats / ambiance / boissons (25 visuels). */
 export const galleryPhotoPaths: readonly string[] = [
   'v1787938623/tifinagh-restaurant-pigalle-salle-restaurant_m5x7br.jpg',

@@ -91,8 +91,8 @@ Description : Poisson blanc grillé avec asperges fraîches et garniture fine
 ## 🎨 Où utiliser ces photos ?
 
 ### Page Galerie (`/galerie`)
-Affichage actuel : Cloudinary direct
-**À faire :** Mettre à jour avec les noms SEO optimisés
+Affichage : Cloudinary + `next/image`, alts FR/EN dans `lib/gallery-data.ts`.
+**Fait :** `data-seo-filename` + mapping `gallerySeoFileNameByPath` (CSV) sur les visuels concernés.
 
 ### Page Accueil
 - Utiliser les meilleures photos de terrasse pour l'ambiance
@@ -170,11 +170,11 @@ curl -o public/images/tifinagh-terrasse-montmartre-parasol-rouge-clients.jpg \
 
 ## 🎯 Prochaines étapes
 
-1. ✅ **Noms SEO créés** → Voir fichier GALERIE_PHOTOS_SEO.csv
-2. ⬜ **Mettre à jour la page galerie** avec les noms optimisés
-3. ⬜ **Ajouter photos sur autres pages** (accueil, menu du jour, carte)
-4. ⬜ **Compresser pour web** si images > 500KB
-5. ⬜ **Tester alt text** avec un lecteur d'écran
+1. ✅ **Noms SEO créés** → `GALERIE_PHOTOS_SEO.csv`
+2. ✅ **Galerie** → alts + `data-seo-filename` (`lib/gallery-data.ts`, page `[locale]/galerie`)
+3. ⬜ **Photos sur autres pages** (accueil, menu du jour, carte) — optionnel
+4. ✅ **Compression web** → Cloudinary `q_auto,f_auto` (`lib/cloudinary.ts`)
+5. ⬜ **Tester alt text** avec un lecteur d'écran (QA manuelle)
 
 ---
 
