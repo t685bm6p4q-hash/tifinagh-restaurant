@@ -8,6 +8,8 @@ import {
   COOKIE_CONSENT_STORAGE_KEY,
   type CookieConsentStatus,
 } from '@/lib/cookie-consent'
+import { localeHref } from '@/lib/i18n/locale-path'
+import { localeFromHtmlLang } from '@/lib/i18n/locale-from-html-lang'
 import { cookieBannerCopyForHtmlLang } from '@/lib/i18n/cookie-banner-copy'
 
 /**
@@ -74,6 +76,10 @@ export function CookieConsentBanner() {
   if (dismissed) return null
 
   const copy = cookieBannerCopyForHtmlLang(document.documentElement.lang)
+  const legalHref = localeHref(
+    '/mentions-legales',
+    localeFromHtmlLang(document.documentElement.lang),
+  )
 
   return (
     <div className="cookie-banner" role="dialog" aria-labelledby="cookie-banner-title">
@@ -83,7 +89,7 @@ export function CookieConsentBanner() {
         </p>
         <p className="cookie-banner__text">
           {copy.text}{' '}
-          <Link href="/mentions-legales" className="cookie-banner__link">
+          <Link href={legalHref} className="cookie-banner__link">
             {copy.learnMore}
           </Link>
         </p>

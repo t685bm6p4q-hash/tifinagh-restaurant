@@ -1020,7 +1020,10 @@ a.nav-cta.nav-active {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .button-primary:hover {
+  .button-primary:hover,
+  .home-menu-choice-btn--daily:hover,
+  .button-menu-jour:hover,
+  .menu-share__button:hover {
     animation: gold-edge-sheen var(--gold-sheen-duration) ease-in-out infinite;
   }
 }
@@ -1748,7 +1751,6 @@ a.nav-cta.nav-active {
     var(--gold-fill-solid) padding-box,
     var(--gold-edge) border-box;
   background-size: 100% 100%, 260% 260%;
-  animation: gold-edge-sheen var(--gold-sheen-duration) ease-in-out infinite;
   color: #1c1e1a;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
 }
@@ -2291,7 +2293,6 @@ button.footer-link {
     var(--gold-fill-soft) padding-box,
     var(--gold-edge) border-box !important;
   background-size: 100% 100%, 260% 260% !important;
-  animation: gold-edge-sheen var(--gold-sheen-duration) ease-in-out infinite;
   color: #faf0c8 !important;
   font-weight: 700;
   white-space: nowrap;
@@ -3429,7 +3430,6 @@ select:focus-visible {
     var(--gold-fill-soft) padding-box,
     var(--gold-edge) border-box;
   background-size: 100% 100%, 260% 260%;
-  animation: gold-edge-sheen var(--gold-sheen-duration) ease-in-out infinite;
   color: #faf0c8;
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 15px;

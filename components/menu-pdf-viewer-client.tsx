@@ -7,6 +7,7 @@ import { MenuLangSwitch } from '@/components/menu/menu-lang-switch'
 import { MenuMediaPreview } from '@/components/menu/menu-media-preview'
 import { useMenuViewerState } from '@/components/menu/use-menu-viewer-state'
 import { MenuShareButton } from '@/components/menu-share-button'
+import { localeHref } from '@/lib/i18n/locale-path'
 import type { MenuPdfViewerClientProps } from '@/lib/menu-viewer-types'
 import type { ReactNode } from 'react'
 
@@ -20,6 +21,7 @@ export function MenuPdfViewerClient(
 ) {
   const {
     initialSnapshotKey,
+    locale,
     langToggleFr,
     langToggleEn,
     enFallbackNote,
@@ -96,6 +98,7 @@ export function MenuPdfViewerClient(
           displayKind={state.displayKind}
           closeLabel={state.fullscreenUi.back}
           reserveLabel={state.reserveLabel}
+          reservationHref={localeHref('/reservation', locale)}
           onClose={state.closeFullscreen}
         />
       ) : null}

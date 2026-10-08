@@ -13,6 +13,7 @@ export async function MenuPdfViewer() {
     <MenuPdfViewerClient
       {...buildMenuPdfViewerClientProps(ctx)}
       initialSnapshotKey={initialSnapshot.key}
+      locale={ctx.locale}
     >
       <MenuMediaPreviewServer snapshot={initialSnapshot} />
     </MenuPdfViewerClient>

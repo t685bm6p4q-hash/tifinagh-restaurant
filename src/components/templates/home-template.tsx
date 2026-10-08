@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { LocalizedLink } from '@/components/localized-link'
 import { Header, Footer, MainContent } from '@/components/site-shell'
 import { HomeMealTimesHighlight } from '@/components/home-meal-times-highlight'
 import { HomeMenuChoices } from '@/components/home-menu-choices'
@@ -56,12 +56,12 @@ export async function HomeTemplate() {
             <p className="hero-copy">
               {dictionary.home.heroCopy}
             </p>
-            <HomeMealTimesHighlight copy={dictionary.home} />
+            <HomeMealTimesHighlight copy={dictionary.home} locale={locale} />
             <div className="actions">
-              <Link className="button button-primary hero-reserve-cta" href="/reservation" prefetch={false}>
+              <LocalizedLink className="button button-primary hero-reserve-cta" href="/reservation" locale={locale} prefetch={false}>
                 <CalendarDaysIcon size={16} />
                 {dictionary.home.bookTable}
-              </Link>
+              </LocalizedLink>
             </div>
           </div>
         </section>
@@ -123,7 +123,7 @@ export async function HomeTemplate() {
           <div className="home-banner-overlay">
             <div className="home-banner-content">
               <h2>{dictionary.home.menuChoicesTitle}</h2>
-              <HomeMenuChoices copy={dictionary.home} variant="banner" />
+              <HomeMenuChoices copy={dictionary.home} locale={locale} variant="banner" />
             </div>
           </div>
         </section>
@@ -151,7 +151,7 @@ export async function HomeTemplate() {
               </div>
             ))}
           </div>
-          <HomeMenuChoices copy={dictionary.home} variant="section" />
+          <HomeMenuChoices copy={dictionary.home} locale={locale} variant="section" />
         </section>
 
         {/* ── Avis clients ──────────────────────────────── */}

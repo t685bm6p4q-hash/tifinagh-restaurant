@@ -11,6 +11,7 @@ type MenuPdfFullscreenProps = {
   displayKind: MenuMediaKind
   closeLabel: string
   reserveLabel: string
+  reservationHref: string
   onClose: () => void
 }
 
@@ -34,6 +35,7 @@ export function MenuPdfFullscreen({
   displayKind,
   closeLabel,
   reserveLabel,
+  reservationHref,
   onClose,
 }: MenuPdfFullscreenProps) {
   const dialogRef = useRef<HTMLDivElement>(null)
@@ -86,7 +88,7 @@ export function MenuPdfFullscreen({
         className="menu-pdf-fullscreen-reserve"
         onClick={(event) => event.stopPropagation()}
       >
-        <Link className="button button-primary" href="/reservation" prefetch={false}>
+        <Link className="button button-primary" href={reservationHref} prefetch={false}>
           {reserveLabel}
         </Link>
       </div>

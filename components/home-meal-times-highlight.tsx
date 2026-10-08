@@ -1,4 +1,5 @@
-import Link from 'next/link'
+import { LocalizedLink } from '@/components/localized-link'
+import type { Locale } from '@/lib/i18n'
 import type { Dictionary } from '@/lib/i18n/types'
 
 type HomeMealTimesCopy = Pick<
@@ -6,7 +7,13 @@ type HomeMealTimesCopy = Pick<
   'mealTimesTitle' | 'mealTimesLunch' | 'mealTimesEvening' | 'mealTimesCta'
 >
 
-export function HomeMealTimesHighlight({ copy }: { copy: HomeMealTimesCopy }) {
+export function HomeMealTimesHighlight({
+  copy,
+  locale,
+}: {
+  copy: HomeMealTimesCopy
+  locale: Locale
+}) {
   return (
     <div className="hero-meal-times" aria-label={copy.mealTimesTitle}>
       <p className="hero-meal-times-title">{copy.mealTimesTitle}</p>
@@ -14,9 +21,9 @@ export function HomeMealTimesHighlight({ copy }: { copy: HomeMealTimesCopy }) {
         <li className="hero-meal-times-item hero-meal-times-item--lunch">{copy.mealTimesLunch}</li>
         <li className="hero-meal-times-item hero-meal-times-item--evening">{copy.mealTimesEvening}</li>
       </ul>
-      <Link className="hero-meal-times-link" href="/menu-du-jour" prefetch={false}>
+      <LocalizedLink className="hero-meal-times-link" href="/menu-du-jour" locale={locale} prefetch={false}>
         {copy.mealTimesCta}
-      </Link>
+      </LocalizedLink>
     </div>
   )
 }

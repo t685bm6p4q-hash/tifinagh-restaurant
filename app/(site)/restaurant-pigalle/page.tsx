@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
+import { LocalizedLink } from '@/components/localized-link'
 import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
@@ -50,15 +50,15 @@ export default async function RestaurantPigalle() {
             <p>{p.directionsText}</p>
 
             <div className="local-actions">
-              <Link className="button button-primary" href="/reservation">
+              <LocalizedLink className="button button-primary" href="/reservation" locale={locale}>
                 {dictionary.home.bookTable}
-              </Link>
-              <Link className="text-link" href="/carte">
+              </LocalizedLink>
+              <LocalizedLink className="text-link" href="/carte" locale={locale}>
                 {dictionary.home.fullMenuLink}
-              </Link>
-              <Link className="text-link" href="/contact">
+              </LocalizedLink>
+              <LocalizedLink className="text-link" href="/contact" locale={locale}>
                 {p.accessContact}
-              </Link>
+              </LocalizedLink>
             </div>
 
             <BookingChannels title={p.bookingTitle} />

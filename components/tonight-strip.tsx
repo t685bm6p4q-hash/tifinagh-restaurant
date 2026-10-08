@@ -1,9 +1,9 @@
-import Link from 'next/link'
+import { LocalizedLink } from '@/components/localized-link'
 import { getI18n } from '@/lib/i18n'
 
 /** Bandeau info — CSS pur, hors hero, zero JS / zero image. */
 export async function TonightStrip() {
-  const { dictionary } = await getI18n()
+  const { dictionary, locale } = await getI18n()
 
   return (
     <div className="tonight-strip" role="status">
@@ -12,7 +12,7 @@ export async function TonightStrip() {
         <span className="tonight-strip-sep" aria-hidden="true">·</span>
         {dictionary.hours.hours}
         <span className="tonight-strip-sep" aria-hidden="true">·</span>
-        <Link href="/menu-du-jour" prefetch={false}>{dictionary.home.tonightMenu}</Link>
+        <LocalizedLink href="/menu-du-jour" locale={locale} prefetch={false}>{dictionary.home.tonightMenu}</LocalizedLink>
       </p>
     </div>
   )

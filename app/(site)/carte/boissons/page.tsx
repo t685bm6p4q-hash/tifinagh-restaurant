@@ -7,7 +7,7 @@ import { MenuCrossLink } from '@/components/menu-cross-link'
 import { DrinksMenuGrid } from '@/src/components/organisms/drinks-menu-grid'
 import { cloudinaryImage } from '@/lib/cloudinary'
 import { DRINKS_BANNER_CLOUDINARY_PATH } from '@/lib/drinks-banner'
-import { getI18n, localizeDrinks } from '@/lib/i18n'
+import { getI18n, localeHref, localizeDrinks } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -56,7 +56,7 @@ export default async function CarteBoissonsPage() {
           eyebrow={d.backEyebrow}
           title={d.backTitle}
           text={d.backText}
-          href="/carte"
+          href={localeHref('/carte', locale)}
           cta={d.backCta}
           variant="to-carte"
         />
@@ -65,7 +65,7 @@ export default async function CarteBoissonsPage() {
           eyebrow={dictionary.carte.dailyInviteEyebrow}
           title={dictionary.carte.dailyInviteTitle}
           text={dictionary.carte.dailyInviteText}
-          href="/menu-du-jour"
+          href={localeHref('/menu-du-jour', locale)}
           cta={dictionary.carte.dailyInviteCta}
           variant="to-daily"
         />

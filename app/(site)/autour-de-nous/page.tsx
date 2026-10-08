@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
+import { LocalizedLink } from '@/components/localized-link'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
 import { LocalQuartierDetails } from '@/components/local-quartier-details'
@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AutourDeNous() {
-  const { dictionary } = await getI18n()
+  const { dictionary, locale } = await getI18n()
   const p = dictionary.pages.around
 
   return (
@@ -61,10 +61,10 @@ export default async function AutourDeNous() {
                 const link = p.localLinks[page.key]
                 return (
                   <li key={page.href}>
-                    <Link href={page.href} className="around-link-card">
+                    <LocalizedLink href={page.href} locale={locale} className="around-link-card">
                       <strong>{link.title}</strong>
                       <span>{link.text}</span>
-                    </Link>
+                    </LocalizedLink>
                   </li>
                 )
               })}
@@ -75,18 +75,18 @@ export default async function AutourDeNous() {
             <p>
               {p.openPrefix}
               <strong>{p.openEveryDay}</strong>, {dictionary.common.hoursRange}.{' '}
-              <Link href="/contact" className="text-link">
+              <LocalizedLink href="/contact" locale={locale} className="text-link">
                 {p.accessPlan}
-              </Link>
+              </LocalizedLink>
             </p>
 
             <div className="local-actions">
-              <Link className="button button-primary" href="/reservation">
+              <LocalizedLink className="button button-primary" href="/reservation" locale={locale}>
                 {dictionary.home.bookTable}
-              </Link>
-              <Link className="text-link" href="/carte">
+              </LocalizedLink>
+              <LocalizedLink className="text-link" href="/carte" locale={locale}>
                 {dictionary.home.fullMenuLink}
-              </Link>
+              </LocalizedLink>
             </div>
 
             <BookingChannels title={p.contactUs} />

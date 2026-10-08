@@ -1,3 +1,4 @@
+import type { Locale } from '@/lib/i18n/config'
 import type { MenuDishesTexts } from '@/lib/menu-dishes-format'
 import type { MenuDayVariant, MenuMediaKind } from '@/lib/menu-pdf'
 
@@ -29,4 +30,5 @@ export type MenuPdfViewerStateProps = {
 
 export type MenuPdfViewerClientProps = MenuPdfViewerStateProps & {
   initialSnapshotKey: string
+  locale: Locale
 }
