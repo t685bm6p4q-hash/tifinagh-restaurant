@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const root = process.cwd()
-const adminPath = join(root, 'app/admin/menu-setup/page.tsx')
+const adminPath = join(root, 'app/[locale]/admin/menu-setup/page.tsx')
 const admin = readFileSync(adminPath, 'utf8')
 
 const forbiddenInAdmin = [

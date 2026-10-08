@@ -130,13 +130,34 @@ export function proxy(request: NextRequest) {
     }
   }
 
-  if (localeFromPath && rawPathname !== pathname) {
+  if (
+    localeFromPath === defaultLocale &&
+    rawPathname.startsWith(`/${defaultLocale}`) &&
+    rawPathname !== pathname
+  ) {
+    const url = request.nextUrl.clone()
+    url.pathname = pathname
+    return NextResponse.redirect(url, 308)
+  }
+
+  const internalLocalePath = (locale: Locale, internalPath: string) => {
+    const suffix = internalPath === '/' ? '' : internalPath
+    return `/${locale}${suffix}`
+  }
+
+  const routedPathname =
+    pathname.startsWith('/admin') || !localeFromPath
+      ? internalLocalePath(pathname.startsWith('/admin') ? defaultLocale : siteLocale, pathname)
+      : rawPathname
+
+  if (routedPathname !== rawPathname) {
     const nonce = createCspNonce()
     const requestHeaders = new Headers(request.headers)
     requestHeaders.set('x-nonce', nonce)
     requestHeaders.set('x-locale', siteLocale)
+    requestHeaders.set('x-pathname', pathname)
     const url = request.nextUrl.clone()
-    url.pathname = pathname
+    url.pathname = routedPathname
     const response = NextResponse.rewrite(url, { request: { headers: requestHeaders } })
     response.headers.set('Content-Security-Policy', buildContentSecurityPolicy(nonce))
     return withPathname(response, pathname, { localeFromPath, method: requestMethod })

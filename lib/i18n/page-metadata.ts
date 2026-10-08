@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import type { Locale } from './config'
-import { getDictionary, getLocale } from './get-locale'
+import { getDictionary, resolveLocale } from './get-locale'
 import { languageAlternatesForPath } from './language-alternates'
 import { localeHref } from './locale-path'
 import type { Dictionary, SeoPageCopy } from './types'
@@ -73,8 +73,8 @@ function buildSocialMetadata(
 }
 
 /** Canonique par locale (/en, /de, … ; français sans préfixe). */
-export async function buildSiteMetadata(): Promise<Metadata> {
-  const locale = await getLocale()
+export function buildSiteMetadata(): Metadata {
+  const locale = resolveLocale()
   const dictionary = getDictionary(locale)
   const site = dictionary.seo.site
   const canonical = new URL(localeHref('/', locale), siteUrl).href
@@ -125,12 +125,12 @@ export async function buildSiteMetadata(): Promise<Metadata> {
   }
 }
 
-export async function buildPageMetadata(
+export function buildPageMetadata(
   pageId: SeoPageId,
   extra?: Metadata,
   options?: { description?: string },
-): Promise<Metadata> {
-  const locale = await getLocale()
+): Metadata {
+  const locale = resolveLocale()
   const dictionary = getDictionary(locale)
   const page = dictionary.seo.pages[pageId]
   const description = options?.description ?? page.description

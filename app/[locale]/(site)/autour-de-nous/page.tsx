@@ -1,0 +1,99 @@
+import type { Metadata } from 'next'
+import { LocalizedLink } from '@/components/localized-link'
+import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
+import { BookingChannels } from '@/components/booking-channels'
+import { LocalQuartierDetails } from '@/components/local-quartier-details'
+import { PageBannerImage } from '@/components/page-banner-image'
+import { cloudinaryImage } from '@/lib/cloudinary'
+import { getI18n } from '@/lib/i18n'
+import { metadataForLocalePage, type LocalePageParams } from '@/lib/i18n/metadata-for-locale-page'
+
+const AROUND_BANNER_PATH =
+  'v1788266025/bandeau-image-autour-de-nous-pigalle-montmartre-tifinagh_rqhety.png'
+
+const AROUND_BANNER_SRC = cloudinaryImage(AROUND_BANNER_PATH, 960)
+const AROUND_BANNER_SRCSET = [
+  `${cloudinaryImage(AROUND_BANNER_PATH, 640)} 640w`,
+  `${cloudinaryImage(AROUND_BANNER_PATH, 960)} 960w`,
+  `${cloudinaryImage(AROUND_BANNER_PATH, 1200)} 1200w`,
+  `${cloudinaryImage(AROUND_BANNER_PATH, 1600)} 1600w`,
+].join(', ')
+
+const localPageLinks = [
+  { href: '/restaurant-montmartre', key: 'montmartre' as const },
+  { href: '/restaurant-pigalle', key: 'pigalle' as const },
+  { href: '/restaurant-place-de-clichy', key: 'clichy' as const },
+]
+
+export async function generateMetadata({ params }: LocalePageParams): Promise<Metadata> {
+  return metadataForLocalePage(params, 'autourDeNous')
+}
+
+export default async function AutourDeNous() {
+  const { dictionary, locale } = await getI18n()
+  const p = dictionary.pages.around
+
+  return (
+    <>
+      <Header />
+      <MainContent>
+        <PageIntro eyebrow={p.introEyebrow} title={p.introTitle} text={p.introText} />
+
+        <section className="page-banner" aria-label={p.bannerAria}>
+          <PageBannerImage
+            src={AROUND_BANNER_SRC}
+            srcSet={AROUND_BANNER_SRCSET}
+            alt={p.bannerAlt}
+          />
+        </section>
+
+        <section className="local-page section">
+          <article className="local-card">
+            <h2>{p.neighborhoodsTitle}</h2>
+            <p>
+              {p.neighborhoodsIntro1}
+              <strong>{p.neighborhoodsIntroStrong}</strong>
+              {p.neighborhoodsIntro2}
+            </p>
+
+            <ul className="around-links">
+              {localPageLinks.map((page) => {
+                const link = p.localLinks[page.key]
+                return (
+                  <li key={page.href}>
+                    <LocalizedLink href={page.href} locale={locale} className="around-link-card">
+                      <strong>{link.title}</strong>
+                      <span>{link.text}</span>
+                    </LocalizedLink>
+                  </li>
+                )
+              })}
+            </ul>
+
+            <LocalQuartierDetails dictionary={dictionary} />
+
+            <p>
+              {p.openPrefix}
+              <strong>{p.openEveryDay}</strong>, {dictionary.common.hoursRange}.{' '}
+              <LocalizedLink href="/contact" locale={locale} className="text-link">
+                {p.accessPlan}
+              </LocalizedLink>
+            </p>
+
+            <div className="local-actions">
+              <LocalizedLink className="button button-primary" href="/reservation" locale={locale}>
+                {dictionary.home.bookTable}
+              </LocalizedLink>
+              <LocalizedLink className="text-link" href="/carte" locale={locale}>
+                {dictionary.home.fullMenuLink}
+              </LocalizedLink>
+            </div>
+
+            <BookingChannels title={p.contactUs} />
+          </article>
+        </section>
+      </MainContent>
+      <Footer />
+    </>
+  )
+}

@@ -1,10 +1,16 @@
+'use client'
+
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { HeaderScrollShell } from '@/components/header-scroll-shell'
 import { navItems } from '@/lib/restaurant-data'
 import { isNavActive } from '@/lib/nav-active'
 import { HeaderMenuToggle } from '@/components/header-menu-toggle'
 import { LanguageSwitcher } from '@/components/language-switcher'
-import { defaultLocale, fr, localeHref, type Dictionary, type Locale } from '@/lib/i18n'
+import { defaultLocale, type Locale } from '@/lib/i18n/config'
+import { fr } from '@/lib/i18n/fr'
+import { localeHref, stripLocalePrefix } from '@/lib/i18n/locale-path'
+import type { Dictionary } from '@/lib/i18n/types'
 
 function CalendarDaysIcon() {
   return (
@@ -16,14 +22,13 @@ function CalendarDaysIcon() {
 }
 
 function ReservationCta({
-  pathname,
   dictionary,
   locale,
 }: {
-  pathname: string
   dictionary: Dictionary
   locale: Locale
 }) {
+  const { pathname } = stripLocalePrefix(usePathname() ?? '/')
   const active = pathname === '/reservation'
   return (
     <Link
@@ -39,14 +44,13 @@ function ReservationCta({
 }
 
 function HeaderNav({
-  pathname,
   dictionary,
   locale,
 }: {
-  pathname: string
   dictionary: Dictionary
   locale: Locale
 }) {
+  const { pathname } = stripLocalePrefix(usePathname() ?? '/')
   return (
     <nav id="main-nav" className="main-nav" aria-label={dictionary.nav.ariaMain}>
       {navItems.map((item) => {
@@ -79,14 +83,14 @@ function HeaderNav({
 }
 
 export function HeaderShell({
-  pathname,
   locale = defaultLocale,
   dictionary = fr,
 }: {
-  pathname: string
   locale?: Locale
   dictionary?: Dictionary
 }) {
+  const { pathname } = stripLocalePrefix(usePathname() ?? '/')
+
   return (
     <HeaderScrollShell>
       <input
@@ -108,14 +112,14 @@ export function HeaderShell({
         />
         <span>TIFINAGH</span>
       </Link>
-      <HeaderNav pathname={pathname} dictionary={dictionary} locale={locale} />
+      <HeaderNav dictionary={dictionary} locale={locale} />
       <div className="header-tools">
         <HeaderMenuToggle
           menuButton={dictionary.nav.menuButton}
           toggleMenuLabel={dictionary.nav.toggleMenu}
         />
         <LanguageSwitcher locale={locale} dictionary={dictionary} pathname={pathname} />
-        <ReservationCta pathname={pathname} dictionary={dictionary} locale={locale} />
+        <ReservationCta dictionary={dictionary} locale={locale} />
       </div>
     </HeaderScrollShell>
   )

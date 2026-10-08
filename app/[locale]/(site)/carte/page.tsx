@@ -1,0 +1,104 @@
+import type { Metadata } from 'next'
+import Image from 'next/image'
+import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
+import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
+import { MenuCrossLink } from '@/components/menu-cross-link'
+import { MenuDayServicePricing } from '@/components/menu-day-service-pricing'
+import { MenuSection } from '@/src/components/organisms/menu-section'
+import { cloudinaryImage } from '@/lib/cloudinary'
+import { getI18n, localeHref, localizeMenu } from '@/lib/i18n'
+import { metadataForLocalePage, type LocalePageParams } from '@/lib/i18n/metadata-for-locale-page'
+
+export async function generateMetadata({ params }: LocalePageParams): Promise<Metadata> {
+  return metadataForLocalePage(params, 'carte')
+}
+
+export default async function Carte() {
+  const { dictionary, locale } = await getI18n()
+  const menu = localizeMenu(dictionary)
+  const breadcrumbItems = [
+    { name: dictionary.nav.home, path: '/' },
+    { name: dictionary.carte.title, path: '/carte' },
+  ]
+  return (
+    <>
+      <Header />
+      <MainContent>
+        <PageBreadcrumbs locale={locale} items={breadcrumbItems} />
+        <PageIntro
+          eyebrow={dictionary.carte.eyebrow}
+          title={dictionary.carte.title}
+          text={dictionary.carte.text}
+        />
+
+        {/* Hero Banner - Terrasse ambiance */}
+        <section
+          style={{
+            position: 'relative',
+            height: '400px',
+            overflow: 'hidden',
+          }}
+        >
+          <Image
+            src={cloudinaryImage('v1787938623/terasse-tifinagh-restaurant-pigalle_a6a58q.jpg', 900)}
+            alt={dictionary.carte.terraceAlt}
+            fill
+            style={{ objectFit: 'cover' }}
+            sizes="(max-width: 768px) 100vw, 800px"
+            unoptimized
+            priority
+          />
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'linear-gradient(135deg, rgba(17, 18, 16, 0.4) 0%, rgba(17, 18, 16, 0.2) 100%)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center',
+            }}
+          >
+            <div style={{ maxWidth: '600px', color: '#fff' }}>
+              <h2 style={{ fontSize: '48px', margin: '0 0 16px', fontFamily: 'Georgia, serif', fontWeight: '300' }}>
+                {dictionary.carte.bannerTitle}
+              </h2>
+              <p style={{ fontSize: '18px', margin: '0', color: 'rgba(255, 255, 255, 0.9)' }}>
+                {dictionary.carte.bannerText}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="menu-page section">
+          {menu.map((section) => (
+            <MenuSection key={section.title} title={section.title} items={section.items} />
+          ))}
+        </section>
+
+        <section className="section carte-formulas-section" aria-labelledby="menu-jour-pricing-title">
+          <MenuDayServicePricing copy={dictionary.dailyMenuPage} />
+        </section>
+
+        <MenuCrossLink
+          eyebrow={dictionary.carte.dailyInviteEyebrow}
+          title={dictionary.carte.dailyInviteTitle}
+          text={dictionary.carte.dailyInviteText}
+          href={localeHref('/menu-du-jour', locale)}
+          cta={dictionary.carte.dailyInviteCta}
+          variant="to-daily"
+        />
+
+        <MenuCrossLink
+          eyebrow={dictionary.carte.drinksInviteEyebrow}
+          title={dictionary.carte.drinksInviteTitle}
+          text={dictionary.carte.drinksInviteText}
+          href={localeHref('/carte/boissons', locale)}
+          cta={dictionary.carte.drinksInviteCta}
+          variant="to-drinks"
+        />
+      </MainContent>
+      <Footer />
+    </>
+  )
+}

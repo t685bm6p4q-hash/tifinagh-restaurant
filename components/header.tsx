@@ -1,9 +1,9 @@
-import { headers } from 'next/headers'
 import { HeaderShell } from '@/components/header-nav'
-import { getI18n } from '@/lib/i18n'
+import { getDictionary } from '@/lib/i18n/get-locale'
+import { getRequestLocale } from '@/lib/i18n/request-locale'
 
 export async function Header() {
-  const pathname = (await headers()).get('x-pathname') ?? '/'
-  const { locale, dictionary } = await getI18n()
-  return <HeaderShell pathname={pathname} locale={locale} dictionary={dictionary} />
+  const locale = getRequestLocale()
+  const dictionary = getDictionary(locale)
+  return <HeaderShell locale={locale} dictionary={dictionary} />
 }
