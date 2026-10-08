@@ -1,26 +1,21 @@
 'use client'
 
-import { MenuFloatingFullscreenBadges } from '@/components/menu/menu-floating-fullscreen-badges'
 import {
   MENU_IMAGE_LAYOUT_HEIGHT,
   MENU_IMAGE_LAYOUT_WIDTH,
   MENU_IMAGE_SIZES,
 } from '@/lib/menu-image-display'
 import type { MenuDayVariant, MenuMediaKind } from '@/lib/menu-pdf'
-import type { MenuFullscreenLabels } from '@/lib/menu-viewer-types'
-
 type MenuMediaPreviewProps = {
   displayKind: MenuMediaKind
   label: string
   embedUrl: string
   previewImageUrl: string
   previewSrcSet: string
-  pdfDownloadUrl: string
   servedVariant: MenuDayVariant
   servedRevision: string | null
   dishesDescribedBy?: string
   previewAriaLabel: string
-  fullscreenLabels: MenuFullscreenLabels
   onOpenLightbox: () => void
   /** Média déjà rendu en SSR : overlay + badges uniquement. */
   overlayOnly?: boolean
@@ -32,12 +27,10 @@ export function MenuMediaPreview({
   embedUrl,
   previewImageUrl,
   previewSrcSet,
-  pdfDownloadUrl,
   servedVariant,
   servedRevision,
   dishesDescribedBy,
   previewAriaLabel,
-  fullscreenLabels,
   onOpenLightbox,
   overlayOnly = false,
 }: MenuMediaPreviewProps) {
@@ -87,12 +80,6 @@ export function MenuMediaPreview({
           />
         </button>
       )}
-      <MenuFloatingFullscreenBadges
-        displayKind={displayKind}
-        pdfDownloadUrl={pdfDownloadUrl}
-        labels={fullscreenLabels}
-        onOpenLightbox={onOpenLightbox}
-      />
     </div>
   )
 }

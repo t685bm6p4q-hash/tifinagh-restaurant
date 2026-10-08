@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import { useEffect } from 'react'
 import { MenuDishesDetails } from '@/components/menu/menu-dishes-details'
 import { MenuLangSwitch } from '@/components/menu/menu-lang-switch'
+import { MenuFloatingFullscreenBadges } from '@/components/menu/menu-floating-fullscreen-badges'
 import { MenuMediaPreview } from '@/components/menu/menu-media-preview'
 import { useMenuViewerState } from '@/components/menu/use-menu-viewer-state'
 import { MenuShareButton } from '@/components/menu-share-button'
@@ -65,14 +66,18 @@ export function MenuPdfViewerClient(
           embedUrl={state.embedUrl}
           previewImageUrl={state.previewImageUrl}
           previewSrcSet={state.previewSrcSet}
-          pdfDownloadUrl={state.url}
           servedVariant={state.servedVariant}
           servedRevision={state.servedRevision}
           dishesDescribedBy={state.dishesId}
           previewAriaLabel={state.previewAriaLabel}
-          fullscreenLabels={state.fullscreenUi}
           onOpenLightbox={state.openFullscreen}
           overlayOnly={usesServerMedia}
+        />
+        <MenuFloatingFullscreenBadges
+          displayKind={state.displayKind}
+          pdfDownloadUrl={state.url}
+          labels={state.fullscreenUi}
+          onOpenLightbox={state.openFullscreen}
         />
       </div>
 

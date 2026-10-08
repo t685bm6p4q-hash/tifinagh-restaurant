@@ -3110,6 +3110,16 @@ select:focus-visible {
   grid-area: 1 / 1;
 }
 
+/* Plein écran au-dessus du média (FR/EN toggle, overlay SSR). */
+.menu-pdf-viewer-media-stack > .menu-pdf-float-actions {
+  position: relative;
+  z-index: 25;
+  align-self: end;
+  justify-self: end;
+  margin: 0 max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom));
+  pointer-events: none;
+}
+
 .menu-pdf-viewer-media-stack--client-media > [data-menu-ssr-preview] {
   display: none;
 }
@@ -3169,15 +3179,18 @@ select:focus-visible {
 }
 
 .menu-pdf-float-actions {
-  position: absolute;
-  right: max(12px, env(safe-area-inset-right));
-  bottom: max(12px, env(safe-area-inset-bottom));
-  z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 0;
   pointer-events: none;
+}
+
+.menu-pdf-viewer-wrap .menu-pdf-float-actions {
+  position: absolute;
+  right: max(12px, env(safe-area-inset-right));
+  bottom: max(12px, env(safe-area-inset-bottom));
+  z-index: 3;
 }
 
 .menu-pdf-preview-badge {
@@ -3232,10 +3245,12 @@ select:focus-visible {
 }
 
 @media (max-width: 900px) {
+  .menu-pdf-viewer-media-stack:has(.menu-pdf-viewer-wrap--pdf) .menu-pdf-preview-badge--lightbox,
   .menu-pdf-viewer-wrap--pdf .menu-pdf-preview-badge--lightbox {
     display: none;
   }
 
+  .menu-pdf-viewer-media-stack:has(.menu-pdf-viewer-wrap--pdf) .menu-pdf-preview-badge--native,
   .menu-pdf-viewer-wrap--pdf .menu-pdf-preview-badge--native {
     display: inline-flex;
   }
