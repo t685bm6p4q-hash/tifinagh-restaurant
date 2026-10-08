@@ -124,7 +124,8 @@ Objectif : servir les menus uniquement via `/api/menu-pdf`, sans repli sur d’a
 1. `/admin/menu-setup` → renvoyer **FR** et **EN**.
 2. Dans le bandeau **Sécurité Blob**, vérifier :
    - **lecture privée OK** pour FR et EN ;
-   - idéalement **pas de copie publique legacy**.
+   - idéalement **pas de copie publique détectée** (test HTTP anonyme sur l’URL `.public.blob.*`, pas le SDK `get` authentifié).
+3. Si un ancien store public existe encore, optionnel : `MENU_BLOB_LEGACY_PUBLIC_BASE_URL` = son URL de base (sans slash final).
 
 ### Étape C — Vérification intermédiaire (sans couper le repli)
 

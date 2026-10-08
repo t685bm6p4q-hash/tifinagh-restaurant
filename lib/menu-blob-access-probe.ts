@@ -22,15 +22,50 @@ async function blobReadable(pathname: string, access: 'private' | 'public'): Pro
   }
 }
 
+/**
+ * Détecte une vraie copie publique (URL .public.blob.* sans auth).
+ * `get(..., { access: 'public' })` avec token/OIDC sur un store privé renvoie souvent 200
+ * alors qu’aucun accès anonyme n’existe — d’où ce test HEAD sans Authorization.
+ */
+async function publicBlobAnonymousReadable(pathname: string): Promise<boolean> {
+  const bases = new Set<string>()
+  const legacy = process.env.MENU_BLOB_LEGACY_PUBLIC_BASE_URL?.replace(/\/$/, '')
+  if (legacy) bases.add(legacy)
+
+  const storeId = process.env.BLOB_STORE_ID?.replace(/^store_/i, '')
+  if (storeId) {
+    bases.add(`https://${storeId.toLowerCase()}.public.blob.vercel-storage.com`)
+  }
+
+  const encodedPath = pathname
+    .split('/')
+    .map((segment) => encodeURIComponent(segment))
+    .join('/')
+
+  for (const base of bases) {
+    try {
+      const res = await fetch(`${base}/${encodedPath}`, {
+        method: 'HEAD',
+        redirect: 'follow',
+        signal: AbortSignal.timeout(8_000),
+      })
+      if (res.ok) return true
+    } catch {
+      /* base suivante */
+    }
+  }
+  return false
+}
+
 export async function probeMenuBlobAccess(pathname: string): Promise<MenuBlobAccessProbe> {
-  const [privateReadable, publicReadable] = await Promise.all([
+  const [privateReadable, publicLegacyPresent] = await Promise.all([
     blobReadable(pathname, 'private'),
-    blobReadable(pathname, 'public'),
+    publicBlobAnonymousReadable(pathname),
   ])
   return {
     privateReadable,
-    publicReadable,
+    publicReadable: publicLegacyPresent,
     privateOnlyReady: privateReadable,
-    publicLegacyPresent: publicReadable,
+    publicLegacyPresent,
   }
 }
