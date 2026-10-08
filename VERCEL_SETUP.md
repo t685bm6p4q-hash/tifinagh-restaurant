@@ -141,8 +141,18 @@ Tant que le repli public est actif (`MENU_BLOB_ALLOW_PUBLIC_FALLBACK` absent ou 
 ### Étape D — Activation `MENU_BLOB_ALLOW_PUBLIC_FALLBACK=0`
 
 1. **Settings → Environment Variables → Production** → `MENU_BLOB_ALLOW_PUBLIC_FALLBACK` = `0`.
-2. **Redeploy** production.
-3. Re-tester : `npm run verify:menu-prod` + page `/menu-du-jour`.
+   - **Important** : ne pas la créer en **Sensitive** avec une valeur vide — le runtime la traite alors comme « repli autorisé » (`!== '0'`). Préférer une variable **non sensible** (valeur `0` lisible) ou saisir explicitement `0` dans le dashboard.
+   - CLI (non sensible) :
+     ```bash
+     vercel env add MENU_BLOB_ALLOW_PUBLIC_FALLBACK production --value 0 --no-sensitive --yes
+     ```
+2. **Redeploy** production (`vercel deploy --prod` ou push).
+3. Re-tester :
+   ```bash
+   vercel env pull .env.local --environment=production   # BLOB_STORE_ID pour la sonde anonyme
+   npm run verify:menu-prod
+   ```
+   Message attendu : `mode Blob strict (MENU_BLOB_ALLOW_PUBLIC_FALLBACK=0)`.
 
 ### Rollback (30 s)
 
