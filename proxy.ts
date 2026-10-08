@@ -11,16 +11,22 @@ import {
 } from '@/lib/admin-auth'
 import { buildContentSecurityPolicy, createCspNonce } from '@/lib/csp'
 import { canonicalHost } from '@/lib/seo'
-import { isLocale, localeCookieName } from '@/lib/i18n/config'
-import { cookieLocaleRedirectPath, stripLocalePrefix } from '@/lib/i18n/locale-path'
+import { defaultLocale, isLocale, localeCookieName, type Locale } from '@/lib/i18n/config'
+import {
+  cookieLocaleRedirectPath,
+  resolveRequestLocale,
+  stripLocalePrefix,
+} from '@/lib/i18n/locale-path'
 
 function withHtmlCsp(
   request: NextRequest,
+  locale: Locale,
   applyHeaders?: (response: NextResponse) => void,
 ): NextResponse {
   const nonce = createCspNonce()
   const requestHeaders = new Headers(request.headers)
   requestHeaders.set('x-nonce', nonce)
+  requestHeaders.set('x-locale', locale)
   const response = NextResponse.next({
     request: { headers: requestHeaders },
   })
@@ -46,10 +52,7 @@ function withPathname(
 ) {
   response.headers.set('x-pathname', pathname)
   if (options?.localeFromPath) {
-    response.headers.set('x-locale', options.localeFromPath)
     syncLocalePathCookie(response, options.localeFromPath)
-  } else {
-    response.headers.set('Vary', 'Cookie')
   }
   return response
 }
@@ -80,6 +83,10 @@ function canonicalRedirect(request: NextRequest, status: 301 | 308) {
 export function proxy(request: NextRequest) {
   const { pathname: rawPathname } = request.nextUrl
   const { pathname, localeFromPath } = stripLocalePrefix(rawPathname)
+  const localeCookie = request.cookies.get(localeCookieName)?.value
+  const siteLocale = pathname.startsWith('/admin')
+    ? defaultLocale
+    : resolveRequestLocale(localeFromPath, localeCookie)
   const host = requestHost(request)
 
   if (!isLocalHost(host) && host !== canonicalHost) {
@@ -90,7 +97,7 @@ export function proxy(request: NextRequest) {
       return canonicalRedirect(request, 301)
     }
     if (host.endsWith('.vercel.app')) {
-      const response = withHtmlCsp(request, (r) => {
+      const response = withHtmlCsp(request, siteLocale, (r) => {
         r.headers.set('X-Robots-Tag', 'noindex, nofollow')
       })
       return withPathname(response, pathname, { localeFromPath })
@@ -98,11 +105,7 @@ export function proxy(request: NextRequest) {
   }
 
   if (!pathname.startsWith('/admin')) {
-    const cookieRedirect = cookieLocaleRedirectPath(
-      pathname,
-      localeFromPath,
-      request.cookies.get(localeCookieName)?.value,
-    )
+    const cookieRedirect = cookieLocaleRedirectPath(pathname, localeFromPath, localeCookie)
     if (cookieRedirect && cookieRedirect !== rawPathname) {
       const url = request.nextUrl.clone()
       url.pathname = cookieRedirect
@@ -114,7 +117,7 @@ export function proxy(request: NextRequest) {
     const nonce = createCspNonce()
     const requestHeaders = new Headers(request.headers)
     requestHeaders.set('x-nonce', nonce)
-    requestHeaders.set('x-locale', localeFromPath)
+    requestHeaders.set('x-locale', siteLocale)
     const url = request.nextUrl.clone()
     url.pathname = pathname
     const response = NextResponse.rewrite(url, { request: { headers: requestHeaders } })
@@ -139,7 +142,7 @@ export function proxy(request: NextRequest) {
     }
 
     if (hasValidAdminSession(request, expected)) {
-      const response = withHtmlCsp(request, (r) => {
+      const response = withHtmlCsp(request, defaultLocale, (r) => {
         r.headers.set('X-Robots-Tag', 'noindex, nofollow')
         r.headers.set('Cache-Control', 'no-store')
       })
@@ -160,7 +163,7 @@ export function proxy(request: NextRequest) {
 
     const password = passwordFromRequestBasicAuth(request)
     if (password && safeEqual(password, expected)) {
-      const response = withHtmlCsp(request, (r) => {
+      const response = withHtmlCsp(request, defaultLocale, (r) => {
         r.headers.set('X-Robots-Tag', 'noindex, nofollow')
         r.headers.set('Cache-Control', 'no-store')
       })
@@ -179,7 +182,7 @@ export function proxy(request: NextRequest) {
     })
   }
 
-  return withPathname(withHtmlCsp(request), pathname, { localeFromPath })
+  return withPathname(withHtmlCsp(request, siteLocale), pathname, { localeFromPath })
 }
 
 export const config = {

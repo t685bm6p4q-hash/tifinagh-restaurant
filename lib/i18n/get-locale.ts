@@ -1,17 +1,12 @@
 import { cache } from 'react'
-import { cookies, headers } from 'next/headers'
-import { defaultLocale, isLocale, localeCookieName, type Locale } from './config'
+import { headers } from 'next/headers'
+import { defaultLocale, isLocale, type Locale } from './config'
 import { dictionaries } from './dictionaries'
 import type { Dictionary } from './types'
 
 export const getLocale = cache(async (): Promise<Locale> => {
-  const headerStore = await headers()
-  const fromPath = headerStore.get('x-locale')
-  if (isLocale(fromPath)) return fromPath
-
-  const cookieStore = await cookies()
-  const fromCookie = cookieStore.get(localeCookieName)?.value
-  if (isLocale(fromCookie)) return fromCookie
+  const fromRequest = (await headers()).get('x-locale')
+  if (isLocale(fromRequest)) return fromRequest
   return defaultLocale
 })
 

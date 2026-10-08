@@ -47,3 +47,13 @@ export function cookieLocaleRedirectPath(
   if (!isLocale(cookieValue) || cookieValue === defaultLocale) return null
   return localeHref(internalPath, cookieValue)
 }
+
+/** Locale effective pour le rendu (proxy → x-locale, sans cookies() côté RSC). */
+export function resolveRequestLocale(
+  localeFromPath: Locale | null,
+  cookieValue: string | undefined,
+): Locale {
+  if (localeFromPath) return localeFromPath
+  if (isLocale(cookieValue)) return cookieValue
+  return defaultLocale
+}

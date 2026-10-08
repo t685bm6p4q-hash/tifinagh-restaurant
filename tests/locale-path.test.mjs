@@ -50,6 +50,21 @@ function cookieLocaleRedirectPath(internalPath, localeFromPath, cookieValue) {
   return localeHref(internalPath, cookieValue)
 }
 
+function resolveRequestLocale(localeFromPath, cookieValue) {
+  if (localeFromPath) return localeFromPath
+  if (isLocale(cookieValue)) return cookieValue
+  return defaultLocale
+}
+
+describe('resolveRequestLocale', () => {
+  it('priorise le préfixe URL puis le cookie puis fr', () => {
+    assert.equal(resolveRequestLocale('en', 'de'), 'en')
+    assert.equal(resolveRequestLocale(null, 'de'), 'de')
+    assert.equal(resolveRequestLocale(null, undefined), 'fr')
+    assert.equal(resolveRequestLocale(null, 'fr'), 'fr')
+  })
+})
+
 describe('cookieLocaleRedirectPath', () => {
   it('redirige vers /en quand le cookie est anglais', () => {
     assert.equal(cookieLocaleRedirectPath('/carte', null, 'en'), '/en/carte')

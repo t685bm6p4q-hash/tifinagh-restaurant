@@ -15,7 +15,8 @@ export async function readMenuBlob(pathname: string): Promise<{
   uploadedAt: Date
   accessUsed: BlobAccess
 }> {
-  const order: BlobAccess[] = ['private', 'public']
+  const allowPublicFallback = process.env.MENU_BLOB_ALLOW_PUBLIC_FALLBACK !== '0'
+  const order: BlobAccess[] = allowPublicFallback ? ['private', 'public'] : ['private']
   for (const access of order) {
     try {
       const result = await get(pathname, { access, useCache: false })
