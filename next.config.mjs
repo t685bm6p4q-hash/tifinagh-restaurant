@@ -25,6 +25,15 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+  async redirects() {
+    return [
+      {
+        source: '/-',
+        destination: '/',
+        statusCode: 301,
+      },
+    ]
+  },
   async headers() {
     return [
       /* CSP HTML via middleware (nonce). Pas de CSP sur /api/* sauf PDF menu (route). */
