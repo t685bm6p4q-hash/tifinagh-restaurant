@@ -22,6 +22,8 @@ type MenuMediaPreviewProps = {
   previewAriaLabel: string
   fullscreenLabels: MenuFullscreenLabels
   onOpenLightbox: () => void
+  /** Média déjà rendu en SSR : overlay + badges uniquement. */
+  overlayOnly?: boolean
 }
 
 export function MenuMediaPreview({
@@ -37,12 +39,27 @@ export function MenuMediaPreview({
   previewAriaLabel,
   fullscreenLabels,
   onOpenLightbox,
+  overlayOnly = false,
 }: MenuMediaPreviewProps) {
+  const wrapClass = [
+    'menu-pdf-viewer-wrap',
+    displayKind === 'pdf' ? 'menu-pdf-viewer-wrap--pdf' : null,
+    overlayOnly ? 'menu-pdf-viewer-wrap--overlay' : null,
+  ]
+    .filter(Boolean)
+    .join(' ')
+
   return (
-    <div
-      className={`menu-pdf-viewer-wrap${displayKind === 'pdf' ? ' menu-pdf-viewer-wrap--pdf' : ''}`}
-    >
-      {displayKind === 'pdf' ? (
+    <div className={wrapClass}>
+      {overlayOnly ? (
+        <button
+          type="button"
+          className="menu-pdf-preview-trigger menu-pdf-preview-trigger--overlay"
+          onClick={onOpenLightbox}
+          aria-label={previewAriaLabel}
+          aria-describedby={dishesDescribedBy}
+        />
+      ) : displayKind === 'pdf' ? (
         <iframe
           className="menu-pdf-viewer menu-pdf-viewer--embed"
           src={embedUrl}

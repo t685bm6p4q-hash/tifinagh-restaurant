@@ -3,7 +3,7 @@ import { HeaderScrollShell } from '@/components/header-scroll-shell'
 import { navItems } from '@/lib/restaurant-data'
 import { isNavActive } from '@/lib/nav-active'
 import { LanguageSwitcher } from '@/components/language-switcher'
-import { defaultLocale, fr, type Dictionary, type Locale } from '@/lib/i18n'
+import { defaultLocale, fr, localeHref, type Dictionary, type Locale } from '@/lib/i18n'
 
 function CalendarDaysIcon() {
   return (
@@ -33,15 +33,17 @@ function CloseMenuIcon() {
 function ReservationCta({
   pathname,
   dictionary,
+  locale,
 }: {
   pathname: string
   dictionary: Dictionary
+  locale: Locale
 }) {
   const active = pathname === '/reservation'
   return (
     <Link
       className={`nav-cta${active ? ' nav-active' : ''}`}
-      href="/reservation"
+      href={localeHref('/reservation', locale)}
       prefetch={false}
       aria-current={active ? 'page' : undefined}
     >
@@ -54,9 +56,11 @@ function ReservationCta({
 function HeaderNav({
   pathname,
   dictionary,
+  locale,
 }: {
   pathname: string
   dictionary: Dictionary
+  locale: Locale
 }) {
   return (
     <nav id="main-nav" className="main-nav" aria-label={dictionary.nav.ariaMain}>
@@ -76,7 +80,7 @@ function HeaderNav({
         return (
           <Link
             key={item.href}
-            href={item.href}
+            href={localeHref(item.href, locale)}
             prefetch={false}
             className={className || undefined}
             aria-current={active ? 'page' : undefined}
@@ -101,7 +105,7 @@ export function HeaderShell({
   return (
     <HeaderScrollShell>
       <input type="checkbox" id="nav-toggle" className="nav-toggle-input" aria-controls="main-nav" />
-      <Link href="/" className="brand" prefetch={false}>
+      <Link href={localeHref('/', locale)} className="brand" prefetch={false}>
         <img
           className="brand-logo"
           src="/images/logo-tifinagh-detoure.webp"
@@ -113,7 +117,7 @@ export function HeaderShell({
         />
         <span>TIFINAGH</span>
       </Link>
-      <HeaderNav pathname={pathname} dictionary={dictionary} />
+      <HeaderNav pathname={pathname} dictionary={dictionary} locale={locale} />
       <div className="header-tools">
         <label htmlFor="nav-toggle" className="menu-toggle">
           <span className="menu-toggle-open" aria-hidden="true">
@@ -126,7 +130,7 @@ export function HeaderShell({
           <span className="sr-only">{dictionary.nav.toggleMenu}</span>
         </label>
         <LanguageSwitcher locale={locale} dictionary={dictionary} pathname={pathname} />
-        <ReservationCta pathname={pathname} dictionary={dictionary} />
+        <ReservationCta pathname={pathname} dictionary={dictionary} locale={locale} />
       </div>
     </HeaderScrollShell>
   )

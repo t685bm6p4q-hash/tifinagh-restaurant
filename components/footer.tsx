@@ -13,7 +13,7 @@ import { CalendarDaysIcon } from '@/components/icons'
 import { PagesJaunesIcon } from '@/components/pagesjaunes-logo'
 import { InstagramIcon, FacebookIcon } from '@/components/icons'
 import { CookieSettingsButton } from '@/components/cookie-settings-button'
-import { getI18n, getUxExtra, localizeMetro, localizeSeoLinks } from '@/lib/i18n'
+import { getI18n, getUxExtra, localeHref, localizeMetro, localizeSeoLinks } from '@/lib/i18n'
 
 function MapPinIcon() {
   return (
@@ -57,17 +57,17 @@ export async function Footer() {
   const metroStations = localizeMetro(dictionary)
   const seoLinks = localizeSeoLinks(dictionary)
   const exploreLinks = [
-    { href: '/carte', label: dictionary.nav.carte },
-    { href: '/carte/boissons', label: dictionary.nav.drinks },
-    { href: '/menu-du-jour', label: dictionary.nav.dailyMenu },
-    { href: '/reservation', label: dictionary.nav.book },
+    { href: localeHref('/carte', locale), label: dictionary.nav.carte },
+    { href: localeHref('/carte/boissons', locale), label: dictionary.nav.drinks },
+    { href: localeHref('/menu-du-jour', locale), label: dictionary.nav.dailyMenu },
+    { href: localeHref('/reservation', locale), label: dictionary.nav.book },
   ]
 
   return (
     <footer className="footer">
       <div className="footer-grid">
         <div>
-          <Link href="/" className="footer-brand" prefetch={false}>
+          <Link href={localeHref('/', locale)} className="footer-brand" prefetch={false}>
             Tifinagh Montmartre
           </Link>
           <p>
@@ -130,7 +130,7 @@ export async function Footer() {
                     ·
                   </span>
                 ) : null}
-                <Link href={link.href} prefetch={false} className="footer-link footer-link-inline">
+                <Link href={localeHref(link.href, locale)} prefetch={false} className="footer-link footer-link-inline">
                   {link.label}
                 </Link>
               </span>
@@ -193,7 +193,7 @@ export async function Footer() {
             <CalendarDaysIcon size={16} />
             {dictionary.footer.bookOnline}
           </a>
-          <Link href="/mentions-legales" prefetch={false} className="footer-link">
+          <Link href={localeHref('/mentions-legales', locale)} prefetch={false} className="footer-link">
             {dictionary.footer.legal}
           </Link>
           <CookieSettingsButton label={dictionary.footer.cookies} />

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import type { Locale } from './config'
 import { getDictionary, getLocale } from './get-locale'
+import { localeHref } from './locale-path'
 import type { Dictionary, SeoPageCopy } from './types'
 import { restaurant, siteUrl } from '@/lib/seo'
 
@@ -70,14 +71,12 @@ function buildSocialMetadata(
   }
 }
 
-/**
- * Pas de `alternates.languages` : la langue est choisie par cookie sur une URL unique,
- * des hreflang pointant tous vers la même URL seraient ignorés (ou contradictoires) par Google.
- */
+/** Canonique par locale (/en, /de, … ; français sans préfixe). */
 export async function buildSiteMetadata(): Promise<Metadata> {
   const locale = await getLocale()
   const dictionary = getDictionary(locale)
   const site = dictionary.seo.site
+  const canonical = new URL(localeHref('/', locale), siteUrl).href
 
   return {
     metadataBase: new URL(siteUrl),
@@ -96,12 +95,12 @@ export async function buildSiteMetadata(): Promise<Metadata> {
     description: site.description,
     keywords: site.keywords,
     alternates: {
-      canonical: siteUrl,
+      canonical,
     },
     openGraph: {
       type: 'website',
       locale: openGraphLocale[locale],
-      url: siteUrl,
+      url: canonical,
       siteName: restaurant.name,
       title: site.defaultTitle,
       description: site.ogDescription,
@@ -133,7 +132,7 @@ export async function buildPageMetadata(
   const dictionary = getDictionary(locale)
   const page = dictionary.seo.pages[pageId]
   const description = options?.description ?? page.description
-  const canonical = new URL(seoPagePaths[pageId], siteUrl).href
+  const canonical = new URL(localeHref(seoPagePaths[pageId], locale), siteUrl).href
   const documentTitle = formatDocumentTitle(dictionary, pageId)
 
   return {

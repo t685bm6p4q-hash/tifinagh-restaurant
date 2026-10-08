@@ -7,7 +7,7 @@ export type MenuFullscreenLabels = {
   back: string
 }
 
-export type MenuPdfViewerClientProps = {
+export type MenuPdfViewerStateProps = {
   defaultVariant: MenuDayVariant
   hasEnglish: boolean
   kindByVariant: { fr: MenuMediaKind; en: MenuMediaKind }
@@ -25,4 +25,8 @@ export type MenuPdfViewerClientProps = {
     shareTitle: string
     shareText: string
   }
+}
+
+export type MenuPdfViewerClientProps = MenuPdfViewerStateProps & {
+  initialSnapshotKey: string
 }

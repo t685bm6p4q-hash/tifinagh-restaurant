@@ -11,7 +11,7 @@ import {
   resolveDailyMenuIntroDisplay,
   resolveDailyMenuIntroText,
 } from '@/lib/daily-menu-intro-text'
-import { getI18n } from '@/lib/i18n'
+import { getI18n, localeHref } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
 /** Menu servi depuis Blob — pas de cache HTML statique. */
@@ -59,7 +59,7 @@ export default async function MenuDuJour() {
         <section className="section menu-jour-info">
           <div className="menu-jour-info-inner">
             <p className="menu-jour-info-note">{d.limitedNote}</p>
-            <Link className="button button-primary" href="/reservation" prefetch={false}>
+            <Link className="button button-primary" href={localeHref('/reservation', locale)} prefetch={false}>
               {d.bookNow}
             </Link>
           </div>
@@ -69,7 +69,7 @@ export default async function MenuDuJour() {
           eyebrow={d.carteInviteEyebrow}
           title={d.carteInviteTitle}
           text={d.carteInviteText}
-          href="/carte"
+          href={localeHref('/carte', locale)}
           cta={d.carteInviteCta}
           variant="to-carte"
         />
@@ -78,7 +78,7 @@ export default async function MenuDuJour() {
           eyebrow={dictionary.carte.drinksInviteEyebrow}
           title={dictionary.carte.drinksInviteTitle}
           text={dictionary.carte.drinksInviteText}
-          href="/carte/boissons"
+          href={localeHref('/carte/boissons', locale)}
           cta={dictionary.carte.drinksInviteCta}
           variant="to-drinks"
         />

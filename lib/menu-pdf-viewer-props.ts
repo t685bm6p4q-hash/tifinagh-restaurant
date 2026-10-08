@@ -3,11 +3,11 @@ import {
   menuPdfViewerLabels,
   type MenuPdfViewerContext,
 } from '@/lib/menu-pdf-viewer-context'
-import type { MenuPdfViewerClientProps } from '@/lib/menu-viewer-types'
+import type { MenuPdfViewerStateProps } from '@/lib/menu-viewer-types'
 
 export function buildMenuPdfViewerClientProps(
   ctx: MenuPdfViewerContext,
-): MenuPdfViewerClientProps {
+): MenuPdfViewerStateProps {
   const d = ctx.dictionary.dailyMenuPage
   const menuFr = getDictionary('fr').dailyMenuPage
   const menuEn = getDictionary('en').dailyMenuPage

@@ -31,6 +31,16 @@ const nextConfig = {
         destination: '/',
         statusCode: 301,
       },
+      {
+        source: '/fr',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/fr/:path*',
+        destination: '/:path*',
+        permanent: true,
+      },
     ]
   },
   async headers() {

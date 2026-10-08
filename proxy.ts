@@ -11,6 +11,7 @@ import {
 } from '@/lib/admin-auth'
 import { buildContentSecurityPolicy, createCspNonce } from '@/lib/csp'
 import { canonicalHost } from '@/lib/seo'
+import { stripLocalePrefix } from '@/lib/i18n/locale-path'
 
 function withHtmlCsp(
   request: NextRequest,
@@ -27,9 +28,17 @@ function withHtmlCsp(
   return response
 }
 
-function withPathname(response: NextResponse, pathname: string) {
+function withPathname(
+  response: NextResponse,
+  pathname: string,
+  options?: { localeFromPath?: string | null },
+) {
   response.headers.set('x-pathname', pathname)
-  response.headers.set('Vary', 'Cookie')
+  if (options?.localeFromPath) {
+    response.headers.set('x-locale', options.localeFromPath)
+  } else {
+    response.headers.set('Vary', 'Cookie')
+  }
   return response
 }
 
@@ -57,7 +66,8 @@ function canonicalRedirect(request: NextRequest, status: 301 | 308) {
 }
 
 export function proxy(request: NextRequest) {
-  const { pathname } = request.nextUrl
+  const { pathname: rawPathname } = request.nextUrl
+  const { pathname, localeFromPath } = stripLocalePrefix(rawPathname)
   const host = requestHost(request)
 
   if (!isLocalHost(host) && host !== canonicalHost) {
@@ -71,8 +81,20 @@ export function proxy(request: NextRequest) {
       const response = withHtmlCsp(request, (r) => {
         r.headers.set('X-Robots-Tag', 'noindex, nofollow')
       })
-      return withPathname(response, pathname)
+      return withPathname(response, pathname, { localeFromPath })
     }
+  }
+
+  if (localeFromPath && rawPathname !== pathname) {
+    const nonce = createCspNonce()
+    const requestHeaders = new Headers(request.headers)
+    requestHeaders.set('x-nonce', nonce)
+    requestHeaders.set('x-locale', localeFromPath)
+    const url = request.nextUrl.clone()
+    url.pathname = pathname
+    const response = NextResponse.rewrite(url, { request: { headers: requestHeaders } })
+    response.headers.set('Content-Security-Policy', buildContentSecurityPolicy(nonce))
+    return withPathname(response, pathname, { localeFromPath })
   }
 
   if (pathname.startsWith('/admin')) {
@@ -96,7 +118,7 @@ export function proxy(request: NextRequest) {
         r.headers.set('X-Robots-Tag', 'noindex, nofollow')
         r.headers.set('Cache-Control', 'no-store')
       })
-      return withPathname(response, pathname)
+      return withPathname(response, pathname, { localeFromPath })
     }
 
     if (isAdminRateLimited(request)) {
@@ -118,7 +140,7 @@ export function proxy(request: NextRequest) {
         r.headers.set('Cache-Control', 'no-store')
       })
       setAdminSessionCookie(response, expected)
-      return withPathname(response, pathname)
+      return withPathname(response, pathname, { localeFromPath })
     }
     if (password) recordAdminAuthFailure(request)
 
@@ -132,7 +154,7 @@ export function proxy(request: NextRequest) {
     })
   }
 
-  return withPathname(withHtmlCsp(request), pathname)
+  return withPathname(withHtmlCsp(request), pathname, { localeFromPath })
 }
 
 export const config = {

@@ -16,7 +16,7 @@ export function PageBreadcrumbs({ locale, items }: PageBreadcrumbsProps) {
     <>
       <BreadcrumbJsonLd siteUrl={siteUrl} items={items} />
       <div className="page-breadcrumb-wrap">
-        <BreadcrumbNav items={items} ariaLabel={a11y.breadcrumbNav} />
+        <BreadcrumbNav items={items} ariaLabel={a11y.breadcrumbNav} locale={locale} />
       </div>
     </>
   )

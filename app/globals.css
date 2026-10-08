@@ -1010,7 +1010,6 @@ a.nav-cta.nav-active {
     var(--gold-fill-cta) padding-box,
     var(--gold-edge) border-box !important;
   background-size: 100% 100%, 260% 260% !important;
-  animation: gold-edge-sheen var(--gold-sheen-duration) ease-in-out infinite;
   color: var(--gold-light) !important;
   font-family: Georgia, 'Times New Roman', serif;
   font-weight: 600;
@@ -1018,6 +1017,12 @@ a.nav-cta.nav-active {
   box-shadow:
     inset 0 1px 0 rgba(232, 197, 106, 0.14),
     0 3px 14px rgba(0, 0, 0, 0.35);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .button-primary:hover {
+    animation: gold-edge-sheen var(--gold-sheen-duration) ease-in-out infinite;
+  }
 }
 
 .button-primary:hover {
@@ -2575,7 +2580,6 @@ button.footer-link {
     linear-gradient(var(--surface), var(--surface)) padding-box,
     var(--menu-gold-edge, linear-gradient(125deg, #e8c56a, #d6ad45, #e8c56a)) border-box;
   background-size: 100% 100%, 260% 260%;
-  animation: menu-gold-sheen 8s ease-in-out infinite;
   color: inherit;
   font: inherit;
   cursor: pointer;
@@ -2621,7 +2625,6 @@ button.footer-link {
     linear-gradient(180deg, var(--wood-mid) 0%, var(--wood) 100%) padding-box,
     var(--menu-gold-edge, linear-gradient(125deg, #e8c56a, #d6ad45, #e8c56a)) border-box;
   background-size: 100% 100%, 260% 260%;
-  animation: menu-gold-sheen 6s ease-in-out infinite;
   box-shadow:
     inset 0 1px 0 rgba(232, 197, 106, 0.22),
     0 2px 14px rgba(0, 0, 0, 0.4);
@@ -3028,6 +3031,28 @@ select:focus-visible {
   }
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .menu-pdf-section .menu-pdf-viewer-wrap:not(.menu-pdf-viewer-wrap--overlay):hover {
+    animation: menu-gold-sheen 11s ease-in-out infinite;
+  }
+
+  .menu-pdf-viewer-wrap--pdf:hover {
+    animation: menu-gold-sheen 10s ease-in-out infinite;
+  }
+
+  .menu-pdf-preview-badge:hover {
+    animation: menu-gold-sheen 7s ease-in-out infinite;
+  }
+
+  .menu-lang-switch:hover {
+    animation: menu-gold-sheen 8s ease-in-out infinite;
+  }
+
+  .menu-lang-switch:hover .menu-lang-switch__thumb {
+    animation: menu-gold-sheen 6s ease-in-out infinite;
+  }
+}
+
 .menu-jour-page .menu-jour-info {
   padding-top: 8px;
   padding-bottom: 28px;
@@ -3041,6 +3066,43 @@ select:focus-visible {
 .menu-jour-page .menu-cross-link {
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+.menu-pdf-viewer-media-stack {
+  display: grid;
+  grid-template: 1fr / 1fr;
+  position: relative;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.menu-pdf-viewer-media-stack > * {
+  grid-area: 1 / 1;
+}
+
+.menu-pdf-viewer-media-stack--client-media > [data-menu-ssr-preview] {
+  display: none;
+}
+
+.menu-pdf-viewer-wrap--overlay {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  animation: none !important;
+  pointer-events: none;
+}
+
+.menu-pdf-preview-trigger--overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+  pointer-events: auto;
+  border-radius: inherit;
 }
 
 .menu-pdf-viewer-wrap {
@@ -3060,7 +3122,6 @@ select:focus-visible {
     linear-gradient(#fff, #fff) padding-box,
     var(--menu-gold-edge) border-box;
   background-size: 100% 100%, 280% 280%;
-  animation: menu-gold-sheen 11s ease-in-out infinite;
   box-shadow:
     0 10px 36px rgba(0, 0, 0, 0.32),
     0 0 0 1px rgba(214, 173, 69, 0.06);
@@ -3072,7 +3133,6 @@ select:focus-visible {
     linear-gradient(#fff, #fff) padding-box,
     var(--menu-gold-edge, linear-gradient(125deg, #e8c56a, #d6ad45, #e8c56a)) border-box;
   background-size: 100% 100%, 280% 280%;
-  animation: menu-gold-sheen 10s ease-in-out infinite;
   box-shadow:
     0 12px 40px rgba(0, 0, 0, 0.35),
     0 0 0 1px rgba(214, 173, 69, 0.08);
@@ -3104,7 +3164,6 @@ select:focus-visible {
     linear-gradient(rgba(17, 18, 16, 0.94), rgba(10, 10, 10, 0.96)) padding-box,
     var(--menu-gold-edge, linear-gradient(125deg, #e8c56a, #d6ad45, #e8c56a)) border-box;
   background-size: 100% 100%, 260% 260%;
-  animation: menu-gold-sheen 7s ease-in-out infinite;
   color: var(--gold-light);
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 14px;

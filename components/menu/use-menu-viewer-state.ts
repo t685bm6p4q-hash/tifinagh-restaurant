@@ -17,11 +17,11 @@ import {
   menuServedVariant,
   menuShowEnFallback,
 } from '@/lib/menu-viewer-derived'
-import type { MenuPdfViewerClientProps } from '@/lib/menu-viewer-types'
+import type { MenuPdfViewerStateProps } from '@/lib/menu-viewer-types'
 import { pulseUiHaptic } from '@/lib/ui-haptic'
 
 type UseMenuViewerStateInput = Pick<
-  MenuPdfViewerClientProps,
+  MenuPdfViewerStateProps,
   | 'defaultVariant'
   | 'hasEnglish'
   | 'kindByVariant'
@@ -75,6 +75,7 @@ export function useMenuViewerState({
     [dishesSource.text, dishesSource.variant],
   )
   const dishesId = dishesLines.length > 0 ? 'menu-du-jour-plats' : undefined
+  const mediaKey = `${servedVariant}-${servedRevision ?? 'default'}-${displayKind}`
 
   const openFullscreen = useCallback(() => {
     pulseUiHaptic()
@@ -110,5 +111,6 @@ export function useMenuViewerState({
     openFullscreen,
     closeFullscreen,
     toggleMenuLang,
+    mediaKey,
   }
 }
