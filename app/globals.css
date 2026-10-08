@@ -2353,6 +2353,11 @@ button.footer-link {
   margin-top: 36px;
 }
 
+.not-found-page .brand {
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
 .contact-local-links {
   margin-top: 16px;
 }

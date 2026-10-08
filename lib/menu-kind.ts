@@ -2,6 +2,7 @@ import { get, head, list } from '@vercel/blob'
 import { unstable_noStore as noStore } from 'next/cache'
 import { access, open, readFile, stat } from 'node:fs/promises'
 import path from 'node:path'
+import { cache } from 'react'
 import {
   menuBlobPathname,
   isBlobConfigured,
@@ -10,6 +11,12 @@ import {
   type MenuDayVariant,
   type MenuMediaKind,
 } from '@/lib/menu-pdf'
+
+/**
+ * `head()` mémoïsé par rendu serveur : la page menu interroge plusieurs fois les mêmes
+ * fichiers (statut, type, repli EN). Aucune persistance entre requêtes, donc jamais périmé.
+ */
+const headMenuBlob = cache((pathname: string) => head(pathname))
 
 async function readStaticMenuBytes(pathname: string): Promise<Uint8Array> {
   const filePath = path.join(process.cwd(), 'public', pathname)
@@ -93,11 +100,13 @@ export async function getMenuStorageOverview(): Promise<{
   return { fr, en }
 }
 
-export async function getMenuStorageStatus(variant: MenuDayVariant): Promise<MenuStorageStatus> {
+export const getMenuStorageStatus = cache(async function getMenuStorageStatus(
+  variant: MenuDayVariant,
+): Promise<MenuStorageStatus> {
   const pathname = menuBlobPathname(variant)
   if (isBlobConfigured()) {
     try {
-      const meta = await head(pathname)
+      const meta = await headMenuBlob(pathname)
       if (meta.pathname !== pathname) {
         return emptyMenuStorageStatus(variant)
       }
@@ -135,13 +144,13 @@ export async function getMenuStorageStatus(variant: MenuDayVariant): Promise<Men
     contentType,
     sizeBytes: fileStat.size,
   }
-}
+})
 
 export async function isPublicMenuAvailable(variant: MenuDayVariant): Promise<boolean> {
   const pathname = menuBlobPathname(variant)
   if (isBlobConfigured()) {
     try {
-      await head(pathname)
+      await headMenuBlob(pathname)
       return true
     } catch {
       return false
@@ -163,7 +172,7 @@ async function loadMenuFromStorage(
   pathname: string,
 ): Promise<{ bytes: Uint8Array; contentType: string; revision: string }> {
   if (isBlobConfigured()) {
-    const meta = await head(pathname)
+    const meta = await headMenuBlob(pathname)
     const result = await get(pathname, { access: 'public', useCache: false })
     if (!result || result.statusCode !== 200 || !result.stream) {
       throw new Error('Blob fetch failed')
@@ -246,7 +255,7 @@ async function sniffStaticMenuKind(pathname: string): Promise<MenuMediaKind | nu
 }
 
 async function sniffBlobMenuKind(pathname: string): Promise<MenuMediaKind | null> {
-  const meta = await head(pathname)
+  const meta = await headMenuBlob(pathname)
   const res = await fetch(meta.url, { headers: { Range: 'bytes=0-31' } })
   if (res.ok) {
     const bytes = new Uint8Array(await res.arrayBuffer())
@@ -268,7 +277,9 @@ function menuKindFromStorageStatus(status: MenuStorageStatus): MenuMediaKind {
 }
 
 /** Détecte PDF vs image (PNG/JPEG/WebP) — priorité au contenu réel, pas au nom `.pdf` sur Blob. */
-export async function getPublicMenuKind(variant: MenuDayVariant = 'fr'): Promise<MenuMediaKind> {
+export const getPublicMenuKind = cache(async function getPublicMenuKind(
+  variant: MenuDayVariant = 'fr',
+): Promise<MenuMediaKind> {
   const status = await getMenuStorageStatus(variant)
   if (!status.exists) {
     if (variant === 'en') return getPublicMenuKind('fr')
@@ -288,4 +299,4 @@ export async function getPublicMenuKind(variant: MenuDayVariant = 'fr'): Promise
   }
 
   return menuKindFromStorageStatus(status)
-}
+})
