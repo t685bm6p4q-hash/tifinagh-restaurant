@@ -549,9 +549,23 @@ a.nav-cta.nav-active {
   visibility: hidden;
 }
 
-.nav-toggle-input:focus-visible ~ .header-tools .menu-toggle {
+.nav-toggle-input:focus-visible ~ .header-tools .menu-toggle,
+.header-tools .menu-toggle:focus-visible {
   outline: 2px solid var(--gold-light);
   outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero .hero-reserve-cta,
+  .button-primary,
+  .menu-dishes,
+  .menu-pdf-fullscreen-close,
+  .menu-pdf-section .menu-pdf-viewer-wrap,
+  .menu-pdf-viewer-wrap--pdf,
+  .menu-pdf-preview-badge,
+  .menu-lang-switch {
+    animation: none !important;
+  }
 }
 
 .sr-only {
@@ -975,7 +989,6 @@ a.nav-cta.nav-active {
 
 .hero .hero-reserve-cta {
   animation:
-    gold-edge-sheen var(--gold-sheen-duration) ease-in-out infinite,
     hero-reserve-glow 3.2s ease-in-out infinite,
     hero-reserve-nudge 3.2s ease-in-out infinite;
 }
@@ -3033,6 +3046,21 @@ select:focus-visible {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .hero .hero-reserve-cta:hover {
+    animation:
+      gold-edge-sheen var(--gold-sheen-duration) ease-in-out infinite,
+      hero-reserve-glow 3.2s ease-in-out infinite,
+      hero-reserve-nudge 3.2s ease-in-out infinite;
+  }
+
+  .menu-dishes:hover {
+    animation: menu-gold-sheen 9s ease-in-out infinite;
+  }
+
+  .menu-pdf-fullscreen-close:hover {
+    animation: menu-gold-sheen 7s ease-in-out infinite;
+  }
+
   .menu-pdf-section .menu-pdf-viewer-wrap:not(.menu-pdf-viewer-wrap--overlay):hover {
     animation: menu-gold-sheen 11s ease-in-out infinite;
   }
@@ -3284,7 +3312,6 @@ select:focus-visible {
     linear-gradient(var(--surface), var(--surface)) padding-box,
     var(--menu-gold-edge, linear-gradient(125deg, #e8c56a, #d6ad45, #e8c56a)) border-box;
   background-size: 100% 100%, 260% 260%;
-  animation: menu-gold-sheen 9s ease-in-out infinite;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
@@ -3525,7 +3552,6 @@ select:focus-visible {
     linear-gradient(rgba(17, 18, 16, 0.92), rgba(10, 10, 10, 0.92)) padding-box,
     var(--menu-gold-edge, linear-gradient(125deg, #e8c56a, #d6ad45, #e8c56a)) border-box;
   background-size: 100% 100%, 260% 260%;
-  animation: menu-gold-sheen 7s ease-in-out infinite;
   color: var(--gold-light);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;

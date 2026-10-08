@@ -45,15 +45,31 @@ function syncLocalePathCookie(response: NextResponse, localeFromPath: string | n
   })
 }
 
+/** Pages marketing : hint CDN (locale = URL /en/… ; menu et admin restent frais). */
+const PUBLIC_HTML_EDGE_CACHE =
+  'public, s-maxage=3600, stale-while-revalidate=86400'
+
+function applyPublicHtmlEdgeCache(
+  response: NextResponse,
+  pathname: string,
+  method: string,
+) {
+  if (method !== 'GET' && method !== 'HEAD') return
+  if (pathname.startsWith('/admin') || pathname === '/menu-du-jour') return
+  response.headers.set('CDN-Cache-Control', PUBLIC_HTML_EDGE_CACHE)
+  response.headers.set('Vercel-CDN-Cache-Control', PUBLIC_HTML_EDGE_CACHE)
+}
+
 function withPathname(
   response: NextResponse,
   pathname: string,
-  options?: { localeFromPath?: string | null },
+  options?: { localeFromPath?: string | null; method?: string },
 ) {
   response.headers.set('x-pathname', pathname)
   if (options?.localeFromPath) {
     syncLocalePathCookie(response, options.localeFromPath)
   }
+  applyPublicHtmlEdgeCache(response, pathname, options?.method ?? 'GET')
   return response
 }
 
@@ -81,6 +97,7 @@ function canonicalRedirect(request: NextRequest, status: 301 | 308) {
 }
 
 export function proxy(request: NextRequest) {
+  const requestMethod = request.method
   const { pathname: rawPathname } = request.nextUrl
   const { pathname, localeFromPath } = stripLocalePrefix(rawPathname)
   const localeCookie = request.cookies.get(localeCookieName)?.value
@@ -100,7 +117,7 @@ export function proxy(request: NextRequest) {
       const response = withHtmlCsp(request, siteLocale, (r) => {
         r.headers.set('X-Robots-Tag', 'noindex, nofollow')
       })
-      return withPathname(response, pathname, { localeFromPath })
+      return withPathname(response, pathname, { localeFromPath, method: requestMethod })
     }
   }
 
@@ -122,7 +139,7 @@ export function proxy(request: NextRequest) {
     url.pathname = pathname
     const response = NextResponse.rewrite(url, { request: { headers: requestHeaders } })
     response.headers.set('Content-Security-Policy', buildContentSecurityPolicy(nonce))
-    return withPathname(response, pathname, { localeFromPath })
+    return withPathname(response, pathname, { localeFromPath, method: requestMethod })
   }
 
   if (pathname.startsWith('/admin')) {
@@ -146,7 +163,7 @@ export function proxy(request: NextRequest) {
         r.headers.set('X-Robots-Tag', 'noindex, nofollow')
         r.headers.set('Cache-Control', 'no-store')
       })
-      return withPathname(response, pathname, { localeFromPath })
+      return withPathname(response, pathname, { localeFromPath, method: requestMethod })
     }
 
     if (isAdminRateLimited(request)) {
@@ -168,7 +185,7 @@ export function proxy(request: NextRequest) {
         r.headers.set('Cache-Control', 'no-store')
       })
       setAdminSessionCookie(response, expected)
-      return withPathname(response, pathname, { localeFromPath })
+      return withPathname(response, pathname, { localeFromPath, method: requestMethod })
     }
     if (password) recordAdminAuthFailure(request)
 
@@ -182,7 +199,10 @@ export function proxy(request: NextRequest) {
     })
   }
 
-  return withPathname(withHtmlCsp(request, siteLocale), pathname, { localeFromPath })
+  return withPathname(withHtmlCsp(request, siteLocale), pathname, {
+    localeFromPath,
+    method: requestMethod,
+  })
 }
 
 export const config = {

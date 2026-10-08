@@ -55,7 +55,7 @@ export async function RestaurantSchema() {
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: restaurant.openingHours.days,
         opens: restaurant.openingHours.opens,
-        closes: restaurant.openingHours.closes,
+        closes: restaurant.openingHours.closesSchema,
       },
     ],
     hasMenu: [

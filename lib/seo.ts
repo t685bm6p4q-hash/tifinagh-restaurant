@@ -49,7 +49,10 @@ export const restaurant = {
   openingHours: {
     days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as const,
     opens: '10:00',
+    /** Affichage UI (minuit). */
     closes: '00:00',
+    /** Schema.org : fin de journée (évite « 00:00 » ambigu dans JSON-LD). */
+    closesSchema: '24:00',
     labelDays: 'Du lundi au dimanche',
     labelHours: '10h – 00h',
     labelFull: 'Ouvert tous les jours · 10h – 00h',

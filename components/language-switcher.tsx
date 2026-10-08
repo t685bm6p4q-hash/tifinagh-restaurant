@@ -1,3 +1,6 @@
+'use client'
+
+import { useState } from 'react'
 import { setLocaleAction } from '@/lib/i18n/actions'
 import { localeMeta, locales, type Locale } from '@/lib/i18n/config'
 import type { Dictionary } from '@/lib/i18n/types'
@@ -29,10 +32,18 @@ export function LanguageSwitcher({
   pathname?: string
 }) {
   const current = localeMeta[locale]
+  const [open, setOpen] = useState(false)
 
   return (
-    <details className="lang-switcher">
-      <summary className="lang-switcher-trigger" aria-label={dictionary.nav.chooseLanguage}>
+    <details
+      className="lang-switcher"
+      onToggle={(event) => setOpen((event.currentTarget as HTMLDetailsElement).open)}
+    >
+      <summary
+        className="lang-switcher-trigger"
+        aria-label={dictionary.nav.chooseLanguage}
+        aria-expanded={open}
+      >
         <GlobeIcon />
         <span className="lang-switcher-flag" aria-hidden="true">{current.flag}</span>
         <span className="lang-switcher-code">{current.short}</span>

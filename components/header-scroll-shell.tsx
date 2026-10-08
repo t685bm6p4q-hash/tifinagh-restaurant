@@ -32,7 +32,9 @@ export function HeaderScrollShell({ children }: { children: ReactNode }) {
       const toggle = node.querySelector<HTMLInputElement>('.nav-toggle-input')
       if (!toggle?.checked) return
       toggle.checked = false
-      toggle.focus()
+      toggle.dispatchEvent(new Event('change', { bubbles: true }))
+      const menuButton = node.querySelector<HTMLButtonElement>('.header-tools .menu-toggle')
+      menuButton?.focus()
     }
 
     node.addEventListener('pointerup', onPointerUp)

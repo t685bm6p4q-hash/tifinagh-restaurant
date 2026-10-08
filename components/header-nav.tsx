@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { HeaderScrollShell } from '@/components/header-scroll-shell'
 import { navItems } from '@/lib/restaurant-data'
 import { isNavActive } from '@/lib/nav-active'
+import { HeaderMenuToggle } from '@/components/header-menu-toggle'
 import { LanguageSwitcher } from '@/components/language-switcher'
 import { defaultLocale, fr, localeHref, type Dictionary, type Locale } from '@/lib/i18n'
 
@@ -10,22 +11,6 @@ function CalendarDaysIcon() {
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
       <rect width="18" height="18" x="3" y="4" rx="2" />
       <path d="M16 2v4M8 2v4M3 10h18" />
-    </svg>
-  )
-}
-
-function MenuIcon() {
-  return (
-    <svg className="menu-toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" aria-hidden="true">
-      <path d="M4 7h16M4 12h16M4 17h16" />
-    </svg>
-  )
-}
-
-function CloseMenuIcon() {
-  return (
-    <svg className="menu-toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" aria-hidden="true">
-      <path d="M6 6l12 12M18 6 6 18" />
     </svg>
   )
 }
@@ -104,7 +89,13 @@ export function HeaderShell({
 }) {
   return (
     <HeaderScrollShell>
-      <input type="checkbox" id="nav-toggle" className="nav-toggle-input" aria-controls="main-nav" />
+      <input
+        type="checkbox"
+        id="nav-toggle"
+        className="nav-toggle-input"
+        tabIndex={-1}
+        aria-hidden="true"
+      />
       <Link href={localeHref('/', locale)} className="brand" prefetch={false}>
         <img
           className="brand-logo"
@@ -119,16 +110,10 @@ export function HeaderShell({
       </Link>
       <HeaderNav pathname={pathname} dictionary={dictionary} locale={locale} />
       <div className="header-tools">
-        <label htmlFor="nav-toggle" className="menu-toggle">
-          <span className="menu-toggle-open" aria-hidden="true">
-            <span className="menu-toggle-label">{dictionary.nav.menuButton}</span>
-            <MenuIcon />
-          </span>
-          <span className="menu-toggle-close" aria-hidden="true">
-            <CloseMenuIcon />
-          </span>
-          <span className="sr-only">{dictionary.nav.toggleMenu}</span>
-        </label>
+        <HeaderMenuToggle
+          menuButton={dictionary.nav.menuButton}
+          toggleMenuLabel={dictionary.nav.toggleMenu}
+        />
         <LanguageSwitcher locale={locale} dictionary={dictionary} pathname={pathname} />
         <ReservationCta pathname={pathname} dictionary={dictionary} locale={locale} />
       </div>

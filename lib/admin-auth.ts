@@ -123,6 +123,7 @@ export function setAdminSessionCookie(response: NextResponse, expectedPassword: 
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
+    /** Path=/ requis : le cookie doit accompagner fetch() vers /api/upload-menu après login /admin. */
     path: '/',
     maxAge: ADMIN_SESSION_MAX_AGE_SEC,
   })
