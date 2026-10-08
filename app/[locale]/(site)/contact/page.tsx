@@ -5,15 +5,15 @@ import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { MapEmbedLazy } from '@/components/map-embed-lazy'
 import { googleMapsEmbedUrl, googleMapsUrl, phoneDisplay, phoneTel } from '@/lib/restaurant-data'
-import { getI18n, getUxExtra, localeHref, localizeMetro, localizeSeoLinks } from '@/lib/i18n'
+import { initPageI18n, getUxExtra, localeHref, localizeMetro, localizeSeoLinks } from '@/lib/i18n'
 import { metadataForLocalePage, type LocalePageParams } from '@/lib/i18n/metadata-for-locale-page'
 
 export async function generateMetadata({ params }: LocalePageParams): Promise<Metadata> {
   return metadataForLocalePage(params, 'contact')
 }
 
-export default async function Contact() {
-  const { dictionary, locale } = await getI18n()
+export default async function Contact({ params }: LocalePageParams) {
+  const { dictionary, locale } = await initPageI18n(params)
   const ux = getUxExtra(locale)
   const metroStations = localizeMetro(dictionary)
   const seoLinks = localizeSeoLinks(dictionary)

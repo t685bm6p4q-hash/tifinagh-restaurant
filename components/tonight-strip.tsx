@@ -3,7 +3,7 @@ import { getI18n } from '@/lib/i18n'
 
 /** Bandeau info — CSS pur, hors hero, zero JS / zero image. */
 export async function TonightStrip() {
-  const { dictionary, locale } = await getI18n()
+  const { dictionary, locale } = getI18n()
 
   return (
     <div className="tonight-strip" role="status">

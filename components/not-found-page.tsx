@@ -8,7 +8,7 @@ import { getNotFoundCopy } from '@/lib/i18n/not-found-copy'
  * son poids s'ajoute donc à tout le site.
  */
 export async function NotFoundPage() {
-  const { locale } = await getI18n()
+  const { locale } = getI18n()
   const copy = getNotFoundCopy(locale)
 
   return (

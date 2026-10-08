@@ -7,15 +7,15 @@ import { MenuCrossLink } from '@/components/menu-cross-link'
 import { DrinksMenuGrid } from '@/src/components/organisms/drinks-menu-grid'
 import { cloudinaryImage } from '@/lib/cloudinary'
 import { DRINKS_BANNER_CLOUDINARY_PATH } from '@/lib/drinks-banner'
-import { getI18n, localeHref, localizeDrinks } from '@/lib/i18n'
+import { initPageI18n, localeHref, localizeDrinks } from '@/lib/i18n'
 import { metadataForLocalePage, type LocalePageParams } from '@/lib/i18n/metadata-for-locale-page'
 
 export async function generateMetadata({ params }: LocalePageParams): Promise<Metadata> {
   return metadataForLocalePage(params, 'carteBoissons')
 }
 
-export default async function CarteBoissonsPage() {
-  const { dictionary, locale } = await getI18n()
+export default async function CarteBoissonsPage({ params }: LocalePageParams) {
+  const { dictionary, locale } = await initPageI18n(params)
   const drinks = localizeDrinks(dictionary)
   const d = dictionary.drinks.page
   const breadcrumbItems = [

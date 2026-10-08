@@ -2,7 +2,8 @@ export { defaultLocale, localeDirection, localeMeta } from './config'
 export { fr } from './fr'
 export type { Locale } from './config'
 export type { Dictionary } from './types'
-export { getI18n } from './get-locale'
+export { getDictionary, getI18n, resolveLocale } from './get-locale'
+export { initPageI18n } from './page-i18n'
 export {
   localizeDrinks,
   localizeMenu,

@@ -5,7 +5,7 @@ import { BookingChannels } from '@/components/booking-channels'
 import { LocalQuartierDetails } from '@/components/local-quartier-details'
 import { PageBannerImage } from '@/components/page-banner-image'
 import { cloudinaryImage } from '@/lib/cloudinary'
-import { getI18n } from '@/lib/i18n'
+import { initPageI18n } from '@/lib/i18n'
 import { metadataForLocalePage, type LocalePageParams } from '@/lib/i18n/metadata-for-locale-page'
 
 const AROUND_BANNER_PATH =
@@ -29,8 +29,8 @@ export async function generateMetadata({ params }: LocalePageParams): Promise<Me
   return metadataForLocalePage(params, 'autourDeNous')
 }
 
-export default async function AutourDeNous() {
-  const { dictionary, locale } = await getI18n()
+export default async function AutourDeNous({ params }: LocalePageParams) {
+  const { dictionary, locale } = await initPageI18n(params)
   const p = dictionary.pages.around
 
   return (

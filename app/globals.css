@@ -3633,10 +3633,6 @@ select:focus-visible {
     display: inline-flex;
   }
 
-  .nav-toggle-input {
-    visibility: visible;
-  }
-
   .main-nav {
     display: none;
     position: absolute;

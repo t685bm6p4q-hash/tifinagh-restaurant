@@ -5,7 +5,7 @@ import { getI18n } from '@/lib/i18n'
  * CTA flottant mobile — lien tel: natif, zero JS, masque sur desktop.
  */
 export async function StickyCallBar() {
-  const { dictionary } = await getI18n()
+  const { dictionary } = getI18n()
 
   return (
     <div className="sticky-call-bar" role="navigation" aria-label={dictionary.sticky.aria}>

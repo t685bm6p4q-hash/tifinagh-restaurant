@@ -4,10 +4,11 @@ import { BookingChannels } from '@/components/booking-channels'
 import { ReservationHashScroll } from '@/components/reservation-hash-scroll'
 import { ReservationWhatsAppForm } from '@/components/reservation-whatsapp-form'
 import { RESERVATION_WHATSAPP_FORM_ID } from '@/lib/restaurant-data'
-import { getI18n } from '@/lib/i18n'
+import { initPageI18n } from '@/lib/i18n'
+import { type LocalePageParams } from '@/lib/i18n/metadata-for-locale-page'
 
-export default async function Reservation() {
-  const { dictionary, locale } = await getI18n()
+export default async function Reservation({ params }: LocalePageParams) {
+  const { dictionary, locale } = await initPageI18n(params)
   const p = dictionary.reservationPage
   const breadcrumbItems = [
     { name: dictionary.nav.home, path: '/' },

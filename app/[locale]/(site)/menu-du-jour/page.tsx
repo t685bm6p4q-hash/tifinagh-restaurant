@@ -13,7 +13,8 @@ import {
   resolveDailyMenuIntroText,
 } from '@/lib/daily-menu-intro-text'
 import { bindPageLocale } from '@/lib/i18n/bind-page-locale'
-import { getI18n, localeHref } from '@/lib/i18n'
+import { getDictionary } from '@/lib/i18n/get-locale'
+import { initPageI18n, localeHref } from '@/lib/i18n'
 import { type LocalePageParams } from '@/lib/i18n/metadata-for-locale-page'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
@@ -21,14 +22,14 @@ import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }: LocalePageParams): Promise<Metadata> {
-  bindPageLocale((await params).locale)
-  const { dictionary, locale } = await getI18n()
+  const locale = bindPageLocale((await params).locale)
+  const dictionary = getDictionary(locale)
   const description = await resolveDailyMenuIntroText(locale, dictionary.dailyMenuPage)
   return buildPageMetadata('menuDuJour', undefined, { description })
 }
 
-export default async function MenuDuJour() {
-  const { dictionary, locale } = await getI18n()
+export default async function MenuDuJour({ params }: LocalePageParams) {
+  const { dictionary, locale } = await initPageI18n(params)
   const d = dictionary.dailyMenuPage
   const introDisplay = await resolveDailyMenuIntroDisplay(locale, d)
   const breadcrumbItems = [

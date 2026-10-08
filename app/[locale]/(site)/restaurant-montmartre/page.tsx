@@ -4,15 +4,15 @@ import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
 import { LocalQuartierDetails } from '@/components/local-quartier-details'
-import { getI18n } from '@/lib/i18n'
+import { initPageI18n } from '@/lib/i18n'
 import { metadataForLocalePage, type LocalePageParams } from '@/lib/i18n/metadata-for-locale-page'
 
 export async function generateMetadata({ params }: LocalePageParams): Promise<Metadata> {
   return metadataForLocalePage(params, 'restaurantMontmartre')
 }
 
-export default async function RestaurantMontmartre() {
-  const { dictionary, locale } = await getI18n()
+export default async function RestaurantMontmartre({ params }: LocalePageParams) {
+  const { dictionary, locale } = await initPageI18n(params)
   const p = dictionary.pages.montmartre
   const breadcrumbItems = [
     { name: dictionary.nav.home, path: '/' },

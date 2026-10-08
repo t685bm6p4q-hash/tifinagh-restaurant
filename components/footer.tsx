@@ -52,7 +52,7 @@ function GoogleGIcon({ size = 16 }: { size?: number }) {
 }
 
 export async function Footer() {
-  const { dictionary, locale } = await getI18n()
+  const { dictionary, locale } = getI18n()
   const ux = getUxExtra(locale)
   const metroStations = localizeMetro(dictionary)
   const seoLinks = localizeSeoLinks(dictionary)

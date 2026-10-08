@@ -1,12 +1,14 @@
 import type { Metadata } from 'next'
 import { HomeTemplate } from '@/src/components/templates/home-template'
+import { bindPageLocale } from '@/lib/i18n/bind-page-locale'
 import { metadataForLocalePage, type LocalePageParams } from '@/lib/i18n/metadata-for-locale-page'
 
 export async function generateMetadata({ params }: LocalePageParams): Promise<Metadata> {
   return metadataForLocalePage(params, 'home')
 }
 
-export default function Home() {
+export default async function Home({ params }: LocalePageParams) {
+  bindPageLocale((await params).locale)
   return (
     <>
       <link

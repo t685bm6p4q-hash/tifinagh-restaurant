@@ -21,8 +21,9 @@ export async function setLocaleAction(formData: FormData) {
 
   const returnTo = formData.get('returnTo')
   if (typeof returnTo === 'string' && returnTo.startsWith('/') && !returnTo.startsWith('//')) {
-    const { pathname } = stripLocalePrefix(returnTo)
-    redirect(localeHref(pathname, locale))
+    const pathOnly = returnTo.split('?')[0]?.split('#')[0] ?? '/'
+    const { pathname } = stripLocalePrefix(pathOnly)
+    redirect(localeHref(pathname || '/', locale))
   }
   redirect(localeHref('/', locale))
 }

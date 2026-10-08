@@ -7,15 +7,15 @@ import {
   galleryPhotoSrc,
   gallerySeoFileNameByPath,
 } from '@/lib/gallery-data'
-import { getI18n } from '@/lib/i18n'
+import { initPageI18n } from '@/lib/i18n'
 import { metadataForLocalePage, type LocalePageParams } from '@/lib/i18n/metadata-for-locale-page'
 
 export async function generateMetadata({ params }: LocalePageParams): Promise<Metadata> {
   return metadataForLocalePage(params, 'galerie')
 }
 
-export default async function Galerie() {
-  const { dictionary } = await getI18n()
+export default async function Galerie({ params }: LocalePageParams) {
+  const { dictionary } = await initPageI18n(params)
   const g = dictionary.pages.gallery
 
   return (

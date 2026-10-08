@@ -17,7 +17,7 @@ import { googleMapsEmbedUrl, googleMapsUrl } from '@/lib/restaurant-data'
 import { getI18n, getUxExtra, localizeMenu, localizeTestimonials } from '@/lib/i18n'
 
 export async function HomeTemplate() {
-  const { dictionary, locale } = await getI18n()
+  const { dictionary, locale } = getI18n()
   const ux = getUxExtra(locale)
   const menu = localizeMenu(dictionary)
   const reviews = localizeTestimonials(dictionary)

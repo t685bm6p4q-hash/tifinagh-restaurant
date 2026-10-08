@@ -6,7 +6,7 @@ import { BookingChannels } from '@/components/booking-channels'
 import { phoneDisplay, phoneTel, whatsappLink } from '@/lib/restaurant-data'
 import { PageBannerImage } from '@/components/page-banner-image'
 import { cloudinaryImage } from '@/lib/cloudinary'
-import { getI18n } from '@/lib/i18n'
+import { initPageI18n } from '@/lib/i18n'
 import { metadataForLocalePage, type LocalePageParams } from '@/lib/i18n/metadata-for-locale-page'
 
 const PRIVATISATION_BANNER_PATH = 'v1787946632/489A2436_gqgbkp.jpg'
@@ -23,8 +23,8 @@ export async function generateMetadata({ params }: LocalePageParams): Promise<Me
   return metadataForLocalePage(params, 'privatisation')
 }
 
-export default async function Privatisation() {
-  const { dictionary } = await getI18n()
+export default async function Privatisation({ params }: LocalePageParams) {
+  const { dictionary } = await initPageI18n(params)
   const p = dictionary.pages.privatisation
 
   return (

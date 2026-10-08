@@ -8,7 +8,7 @@ import {
 } from '@/lib/restaurant-data'
 import { CalendarDaysIcon } from '@/components/icons'
 import { PagesJaunesIcon } from '@/components/pagesjaunes-logo'
-import { getI18n, getUxExtra } from '@/lib/i18n'
+import { getI18n, getUxExtra, localeHref } from '@/lib/i18n'
 
 const CHIP_ICON_SIZE = 20
 
@@ -54,7 +54,7 @@ export async function BookingChannels({
   title,
   className = '',
 }: BookingChannelsProps) {
-  const { dictionary, locale } = await getI18n()
+  const { dictionary, locale } = getI18n()
   const ux = getUxExtra(locale)
   const heading = title ?? dictionary.booking.title
 
@@ -82,7 +82,10 @@ export async function BookingChannels({
           </span>
           <span className="booking-chip-label">{dictionary.booking.online}</span>
         </a>
-        <a className="booking-chip booking-chip-whatsapp" href={reservationWhatsAppFormHref}>
+        <a
+          className="booking-chip booking-chip-whatsapp"
+          href={localeHref(reservationWhatsAppFormHref, locale)}
+        >
           <span className="booking-chip-icon" aria-hidden="true">
             <WhatsAppIcon />
           </span>
@@ -94,7 +97,7 @@ export async function BookingChannels({
 }
 
 export async function GoogleReviewsBadge() {
-  const { dictionary } = await getI18n()
+  const { dictionary } = getI18n()
 
   return (
     <a

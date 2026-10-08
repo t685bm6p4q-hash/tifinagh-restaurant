@@ -3,15 +3,15 @@ import { LocalizedLink } from '@/components/localized-link'
 import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { BookingChannels } from '@/components/booking-channels'
-import { getI18n } from '@/lib/i18n'
+import { initPageI18n } from '@/lib/i18n'
 import { metadataForLocalePage, type LocalePageParams } from '@/lib/i18n/metadata-for-locale-page'
 
 export async function generateMetadata({ params }: LocalePageParams): Promise<Metadata> {
   return metadataForLocalePage(params, 'restaurantPigalle')
 }
 
-export default async function RestaurantPigalle() {
-  const { dictionary, locale } = await getI18n()
+export default async function RestaurantPigalle({ params }: LocalePageParams) {
+  const { dictionary, locale } = await initPageI18n(params)
   const p = dictionary.pages.pigalle
   const breadcrumbItems = [
     { name: dictionary.nav.home, path: '/' },

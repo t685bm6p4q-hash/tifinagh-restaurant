@@ -6,7 +6,8 @@ import { getA11yCopy } from '@/lib/i18n/a11y-copy'
 import { bindPageLocale } from '@/lib/i18n/bind-page-locale'
 import { buildSiteMetadata, localeDirection, localeMeta } from '@/lib/i18n'
 import { getDictionary } from '@/lib/i18n/get-locale'
-import { isLocale, locales } from '@/lib/i18n/config'
+import { isLocale, locales, type Locale } from '@/lib/i18n/config'
+import { LocaleContext } from '@/lib/i18n/locale-context'
 import { setRequestLocale } from '@/lib/i18n/request-locale'
 import { siteUrl } from '@/lib/seo'
 
@@ -33,12 +34,13 @@ export default async function LocaleRootLayout({ children, params }: LayoutProps
   const { locale: raw } = await params
   if (!isLocale(raw)) notFound()
 
-  setRequestLocale(raw)
-  const dictionary = getDictionary(raw)
-  const a11y = getA11yCopy(raw)
+  const locale = raw as Locale
+  setRequestLocale(locale)
+  const dictionary = getDictionary(locale)
+  const a11y = getA11yCopy(locale)
 
   return (
-    <html lang={localeMeta[raw].htmlLang} dir={localeDirection(raw)}>
+    <html lang={localeMeta[locale].htmlLang} dir={localeDirection(locale)}>
       <head>
         <link
           rel="ai-catalog"
@@ -46,12 +48,14 @@ export default async function LocaleRootLayout({ children, params }: LayoutProps
         />
       </head>
       <body>
-        <a className="skip-link" href="#main-content">
-          {a11y.skipToContent}
-        </a>
-        <RestaurantSchema />
-        <WebMcpTools locale={raw} whatsappCopy={dictionary.reservationPage} />
-        {children}
+        <LocaleContext.Provider value={locale}>
+          <a className="skip-link" href="#main-content">
+            {a11y.skipToContent}
+          </a>
+          <RestaurantSchema />
+          <WebMcpTools locale={locale} whatsappCopy={dictionary.reservationPage} />
+          {children}
+        </LocaleContext.Provider>
       </body>
     </html>
   )

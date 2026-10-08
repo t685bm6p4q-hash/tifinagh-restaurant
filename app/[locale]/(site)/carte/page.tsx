@@ -6,15 +6,15 @@ import { MenuCrossLink } from '@/components/menu-cross-link'
 import { MenuDayServicePricing } from '@/components/menu-day-service-pricing'
 import { MenuSection } from '@/src/components/organisms/menu-section'
 import { cloudinaryImage } from '@/lib/cloudinary'
-import { getI18n, localeHref, localizeMenu } from '@/lib/i18n'
+import { initPageI18n, localeHref, localizeMenu } from '@/lib/i18n'
 import { metadataForLocalePage, type LocalePageParams } from '@/lib/i18n/metadata-for-locale-page'
 
 export async function generateMetadata({ params }: LocalePageParams): Promise<Metadata> {
   return metadataForLocalePage(params, 'carte')
 }
 
-export default async function Carte() {
-  const { dictionary, locale } = await getI18n()
+export default async function Carte({ params }: LocalePageParams) {
+  const { dictionary, locale } = await initPageI18n(params)
   const menu = localizeMenu(dictionary)
   const breadcrumbItems = [
     { name: dictionary.nav.home, path: '/' },

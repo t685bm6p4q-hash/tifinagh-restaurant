@@ -4,18 +4,18 @@ import { dictionaries } from './dictionaries'
 import { peekRequestLocale } from './request-locale'
 import type { Dictionary } from './types'
 
-/** Locale courante (segment `[locale]` — pas de `headers()` sur le chemin marketing). */
+/** Locale fixée par `setRequestLocale` / `bindPageLocale` (layouts + pages). */
 export function resolveLocale(): Locale {
   return peekRequestLocale() ?? defaultLocale
 }
-
-export const getLocale = cache(async (): Promise<Locale> => resolveLocale())
 
 export function getDictionary(locale: Locale): Dictionary {
   return dictionaries[locale]
 }
 
-export const getI18n = cache(async () => {
+export function getI18n(): { locale: Locale; dictionary: Dictionary } {
   const locale = resolveLocale()
   return { locale, dictionary: getDictionary(locale) }
-})
+}
+
+export const getLocale = cache(async (): Promise<Locale> => resolveLocale())

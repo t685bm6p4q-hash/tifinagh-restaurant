@@ -1,5 +1,6 @@
 import { cache } from 'react'
-import { getI18n } from '@/lib/i18n'
+import { getDictionary } from '@/lib/i18n/get-locale'
+import type { Locale } from '@/lib/i18n/config'
 import {
   MENU_IMAGE_LCP_WIDTH,
   MENU_IMAGE_PREVIEW_WIDTHS,
@@ -18,8 +19,8 @@ import {
 } from '@/lib/menu-pdf'
 
 export type MenuPdfViewerContext = {
-  dictionary: Awaited<ReturnType<typeof getI18n>>['dictionary']
-  locale: Awaited<ReturnType<typeof getI18n>>['locale']
+  dictionary: ReturnType<typeof getDictionary>
+  locale: Locale
   defaultVariant: MenuDayVariant
   hasEnglish: boolean
   kindByVariant: { fr: MenuMediaKind; en: MenuMediaKind }
@@ -35,8 +36,8 @@ export type MenuPdfViewerContext = {
 }
 
 /** Données partagées menu du jour (une seule résolution par requête RSC). */
-export const getMenuPdfViewerContext = cache(async (): Promise<MenuPdfViewerContext> => {
-  const { dictionary, locale } = await getI18n()
+export const getMenuPdfViewerContext = cache(async (locale: Locale): Promise<MenuPdfViewerContext> => {
+  const dictionary = getDictionary(locale)
   const defaultVariant = menuDayVariantForLocale(locale)
   const [storageFr, storageEn, kindFr, kindEnResolved, dishesByVariant] = await Promise.all([
     getMenuStorageStatus('fr'),
