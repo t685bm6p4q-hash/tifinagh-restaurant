@@ -4,35 +4,54 @@
  *
  * Le navigateur n'envoie pas toujours Authorization sur fetch() vers /api/* après
  * un Basic Auth sur /admin — un cookie HttpOnly de session comble ce trou.
+ * Le cookie porte son expiration signée : changer le mot de passe révoque toutes les sessions.
  */
 
-import { createHmac } from 'node:crypto'
+import { createHash, createHmac, timingSafeEqual } from 'node:crypto'
 import type { NextResponse } from 'next/server'
 
 const ADMIN_SESSION_COOKIE = 'tifinagh_admin_session'
-const SESSION_MARKER = 'tifinagh-admin-v1'
+const SESSION_MARKER = 'tifinagh-admin-v2'
 /** 8 h — suffisant pour une mise à jour du menu, sans session permanente. */
 const ADMIN_SESSION_MAX_AGE_SEC = 8 * 60 * 60
+
+/** Mémoire par instance serverless : freine le brute-force sans remplacer un pare-feu. */
+const MAX_AUTH_FAILURES = 10
+const AUTH_FAILURE_WINDOW_MS = 15 * 60 * 1000
+const MAX_TRACKED_CLIENTS = 1000
+const authFailures = new Map<string, { count: number; resetAt: number }>()
 
 export function getAdminPassword(): string | null {
   const value = process.env.MENU_ADMIN_PASSWORD?.trim()
   return value ? value : null
 }
 
-/** Comparaison en temps constant pour limiter les fuites de timing. */
+/** Comparaison en temps constant (empreintes de même longueur, quelle que soit l'entrée). */
 export function safeEqual(a: string, b: string): boolean {
-  const max = Math.max(a.length, b.length)
-  let mismatch = a.length === b.length ? 0 : 1
-  for (let i = 0; i < max; i++) {
-    const ca = i < a.length ? a.charCodeAt(i) : 0
-    const cb = i < b.length ? b.charCodeAt(i) : 0
-    mismatch |= ca ^ cb
-  }
-  return mismatch === 0
+  const digestA = createHash('sha256').update(a).digest()
+  const digestB = createHash('sha256').update(b).digest()
+  return timingSafeEqual(digestA, digestB)
 }
 
-function adminSessionToken(expectedPassword: string): string {
-  return createHmac('sha256', expectedPassword).update(SESSION_MARKER).digest('base64url')
+function sessionSignature(expectedPassword: string, expiresAtSec: number): string {
+  return createHmac('sha256', expectedPassword)
+    .update(`${SESSION_MARKER}.${expiresAtSec}`)
+    .digest('base64url')
+}
+
+function createSessionToken(expectedPassword: string): string {
+  const expiresAtSec = Math.floor(Date.now() / 1000) + ADMIN_SESSION_MAX_AGE_SEC
+  return `${expiresAtSec}.${sessionSignature(expectedPassword, expiresAtSec)}`
+}
+
+function isSessionTokenValid(token: string, expectedPassword: string): boolean {
+  const dot = token.indexOf('.')
+  if (dot <= 0) return false
+  const expiresAtSec = Number(token.slice(0, dot))
+  const nowSec = Math.floor(Date.now() / 1000)
+  if (!Number.isInteger(expiresAtSec)) return false
+  if (expiresAtSec <= nowSec || expiresAtSec > nowSec + ADMIN_SESSION_MAX_AGE_SEC) return false
+  return safeEqual(token.slice(dot + 1), sessionSignature(expectedPassword, expiresAtSec))
 }
 
 function readCookieValue(cookieHeader: string | null, name: string): string | null {
@@ -48,7 +67,7 @@ function readCookieValue(cookieHeader: string | null, name: string): string | nu
 function passwordFromBasicAuth(header: string | null): string | null {
   if (!header?.startsWith('Basic ')) return null
   try {
-    const decoded = atob(authPayload(header))
+    const decoded = atob(header.slice(6))
     const colon = decoded.indexOf(':')
     if (colon < 0) return null
     return decoded.slice(colon + 1)
@@ -57,14 +76,42 @@ function passwordFromBasicAuth(header: string | null): string | null {
   }
 }
 
-function authPayload(header: string): string {
-  return header.slice(6)
+function clientKey(request: Request): string {
+  const forwarded = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+  return forwarded || request.headers.get('x-real-ip')?.trim() || 'unknown'
+}
+
+export function isAdminRateLimited(request: Request): boolean {
+  const entry = authFailures.get(clientKey(request))
+  if (!entry) return false
+  if (entry.resetAt <= Date.now()) {
+    authFailures.delete(clientKey(request))
+    return false
+  }
+  return entry.count >= MAX_AUTH_FAILURES
+}
+
+export function recordAdminAuthFailure(request: Request): void {
+  const key = clientKey(request)
+  const now = Date.now()
+  const entry = authFailures.get(key)
+  if (entry && entry.resetAt > now) {
+    entry.count += 1
+    return
+  }
+  if (authFailures.size >= MAX_TRACKED_CLIENTS) {
+    for (const [k, v] of authFailures) {
+      if (v.resetAt <= now) authFailures.delete(k)
+    }
+    if (authFailures.size >= MAX_TRACKED_CLIENTS) authFailures.clear()
+  }
+  authFailures.set(key, { count: 1, resetAt: now + AUTH_FAILURE_WINDOW_MS })
 }
 
 export function hasValidAdminSession(request: Request, expectedPassword: string): boolean {
   const token = readCookieValue(request.headers.get('cookie'), ADMIN_SESSION_COOKIE)
   if (!token) return false
-  return safeEqual(token, adminSessionToken(expectedPassword))
+  return isSessionTokenValid(token, expectedPassword)
 }
 
 export function passwordFromRequestBasicAuth(request: Request): string | null {
@@ -72,7 +119,7 @@ export function passwordFromRequestBasicAuth(request: Request): string | null {
 }
 
 export function setAdminSessionCookie(response: NextResponse, expectedPassword: string): void {
-  response.cookies.set(ADMIN_SESSION_COOKIE, adminSessionToken(expectedPassword), {
+  response.cookies.set(ADMIN_SESSION_COOKIE, createSessionToken(expectedPassword), {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
@@ -85,11 +132,13 @@ export function setAdminSessionCookie(response: NextResponse, expectedPassword: 
 export function isAdminAuthorized(request: Request): boolean {
   const expected = getAdminPassword()
   if (!expected) return false
+  if (isAdminRateLimited(request)) return false
 
   if (hasValidAdminSession(request, expected)) return true
 
   const fromBasic = passwordFromRequestBasicAuth(request)
   if (fromBasic && safeEqual(fromBasic, expected)) return true
+  if (fromBasic) recordAdminAuthFailure(request)
 
   return false
 }

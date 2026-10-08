@@ -1,4 +1,5 @@
 import { headers } from 'next/headers'
+import { serializeJsonLd } from '@/lib/json-ld'
 
 export type BreadcrumbItem = {
   name: string
@@ -27,7 +28,7 @@ export async function BreadcrumbJsonLd({ siteUrl, items }: BreadcrumbJsonLdProps
     <script
       type="application/ld+json"
       nonce={nonce}
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
     />
   )
 }

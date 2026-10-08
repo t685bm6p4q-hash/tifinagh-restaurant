@@ -1,9 +1,10 @@
 import sharp from 'sharp'
+import { MENU_IMAGE_MAX_INPUT_PIXELS } from '@/lib/menu-image-display'
 
 const MAX_MENU_WEBP_BYTES = 1024 * 1024
 
 async function encodeWebp(input: Buffer, width: number, quality: number): Promise<Buffer> {
-  const encoded = await sharp(input)
+  const encoded = await sharp(input, { limitInputPixels: MENU_IMAGE_MAX_INPUT_PIXELS })
     .rotate()
     .resize({
       width,

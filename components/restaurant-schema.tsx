@@ -1,4 +1,5 @@
 import { headers } from 'next/headers'
+import { serializeJsonLd } from '@/lib/json-ld'
 import { restaurant, siteUrl } from '@/lib/seo'
 
 /**
@@ -21,7 +22,7 @@ export async function RestaurantSchema() {
     priceRange: restaurant.priceRange,
     maximumAttendeeCapacity: restaurant.maximumAttendeeCapacity,
     currenciesAccepted: 'EUR',
-    acceptsReservations: 'True',
+    acceptsReservations: true,
     potentialAction: {
       '@type': 'ReserveAction',
       target: {
@@ -83,7 +84,7 @@ export async function RestaurantSchema() {
     url: siteUrl,
     name: restaurant.name,
     publisher: { '@id': `${siteUrl}/#restaurant` },
-    inLanguage: ['fr', 'en', 'es', 'it', 'zh', 'de', 'pt', 'ru', 'sv', 'ja', 'ko', 'ar'],
+    inLanguage: ['fr', 'en', 'es', 'it', 'zh', 'de', 'pt', 'ru', 'sv', 'ja', 'ko', 'ar', 'zgh'],
   }
 
   const schema = {
@@ -95,7 +96,7 @@ export async function RestaurantSchema() {
     <script
       type="application/ld+json"
       nonce={nonce}
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
     />
   )
 }

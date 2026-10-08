@@ -3,7 +3,9 @@ import type { NextRequest } from 'next/server'
 import {
   getAdminPassword,
   hasValidAdminSession,
+  isAdminRateLimited,
   passwordFromRequestBasicAuth,
+  recordAdminAuthFailure,
   safeEqual,
   setAdminSessionCookie,
 } from '@/lib/admin-auth'
@@ -97,6 +99,18 @@ export function proxy(request: NextRequest) {
       return withPathname(response, pathname)
     }
 
+    if (isAdminRateLimited(request)) {
+      return new NextResponse('Trop de tentatives — réessayez dans 15 minutes.', {
+        status: 429,
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Retry-After': '900',
+          'Cache-Control': 'no-store',
+          'X-Robots-Tag': 'noindex, nofollow',
+        },
+      })
+    }
+
     const password = passwordFromRequestBasicAuth(request)
     if (password && safeEqual(password, expected)) {
       const response = withHtmlCsp(request, (r) => {
@@ -106,6 +120,7 @@ export function proxy(request: NextRequest) {
       setAdminSessionCookie(response, expected)
       return withPathname(response, pathname)
     }
+    if (password) recordAdminAuthFailure(request)
 
     return new NextResponse('Authentification requise', {
       status: 401,
