@@ -76,23 +76,23 @@ function passwordFromBasicAuth(header: string | null): string | null {
   }
 }
 
-function clientKey(request: Request): string {
+export function requestClientKey(request: Request): string {
   const forwarded = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
   return forwarded || request.headers.get('x-real-ip')?.trim() || 'unknown'
 }
 
 export function isAdminRateLimited(request: Request): boolean {
-  const entry = authFailures.get(clientKey(request))
+  const entry = authFailures.get(requestClientKey(request))
   if (!entry) return false
   if (entry.resetAt <= Date.now()) {
-    authFailures.delete(clientKey(request))
+    authFailures.delete(requestClientKey(request))
     return false
   }
   return entry.count >= MAX_AUTH_FAILURES
 }
 
 export function recordAdminAuthFailure(request: Request): void {
-  const key = clientKey(request)
+  const key = requestClientKey(request)
   const now = Date.now()
   const entry = authFailures.get(key)
   if (entry && entry.resetAt > now) {

@@ -12,6 +12,7 @@ import { parseMenuDisplayWidth } from '@/lib/menu-image-display'
 import { applyMenuEmbedHeaders } from '@/lib/menu-subresource-headers'
 import { menuPdfImageCacheControl } from '@/lib/menu-pdf-response-cache'
 import { MENU_PUBLIC_CACHE_TAG } from '@/lib/menu-public-cache'
+import { isMenuPdfRateLimited } from '@/lib/menu-pdf-rate-limit'
 import { resizeMenuImageForDisplay } from '@/lib/resize-menu-image-display'
 
 export const dynamic = 'force-dynamic'
@@ -40,6 +41,19 @@ function menuDisplayEtag(
 }
 
 async function serveMenu(request: NextRequest, body: boolean) {
+  if (isMenuPdfRateLimited(request)) {
+    return NextResponse.json(
+      { error: 'Trop de requêtes — réessayez dans une minute.' },
+      {
+        status: 429,
+        headers: {
+          'Retry-After': '60',
+          'Cache-Control': 'no-store',
+        },
+      },
+    )
+  }
+
   const requested = parseMenuDayVariant(request.nextUrl.searchParams.get('variant'))
   const strict = request.nextUrl.searchParams.get('strict') === '1'
 

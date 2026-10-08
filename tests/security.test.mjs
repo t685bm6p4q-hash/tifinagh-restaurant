@@ -9,6 +9,7 @@ import {
 } from '../lib/admin-auth.ts'
 import { serializeJsonLd } from '../lib/json-ld.ts'
 import { parseMenuDisplayWidth } from '../lib/menu-image-display.ts'
+import { isMenuPdfRateLimited } from '../lib/menu-pdf-rate-limit.ts'
 
 const PASSWORD = 'mot-de-passe-test'
 
@@ -86,6 +87,19 @@ describe('parseMenuDisplayWidth', () => {
     assert.equal(parseMenuDisplayWidth('1601'), null)
     assert.equal(parseMenuDisplayWidth('abc'), null)
     assert.equal(parseMenuDisplayWidth(null), null)
+  })
+})
+
+describe('isMenuPdfRateLimited', () => {
+  it('bloque au-delà de 240 requêtes/minute par IP', () => {
+    const makeRequest = () =>
+      new Request('https://www.tifinagh.fr/api/menu-pdf', {
+        headers: { 'x-forwarded-for': '203.0.113.55' },
+      })
+    for (let i = 0; i < 240; i++) {
+      assert.equal(isMenuPdfRateLimited(makeRequest()), false)
+    }
+    assert.equal(isMenuPdfRateLimited(makeRequest()), true)
   })
 })
 

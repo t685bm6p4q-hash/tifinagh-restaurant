@@ -5,7 +5,7 @@ import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { MapEmbedLazy } from '@/components/map-embed-lazy'
 import { googleMapsEmbedUrl, googleMapsUrl, phoneDisplay, phoneTel } from '@/lib/restaurant-data'
-import { getI18n, getUxExtra, localizeMetro, localizeSeoLinks } from '@/lib/i18n'
+import { getI18n, getUxExtra, localeHref, localizeMetro, localizeSeoLinks } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/i18n/page-metadata'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -100,7 +100,7 @@ export default async function Contact() {
                       ·
                     </span>
                   ) : null}
-                  <Link className="text-link" href={link.href}>
+                  <Link className="text-link" href={localeHref(link.href, locale)}>
                     {link.label}
                   </Link>
                 </span>

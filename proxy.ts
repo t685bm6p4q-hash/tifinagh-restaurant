@@ -11,7 +11,7 @@ import {
 } from '@/lib/admin-auth'
 import { buildContentSecurityPolicy, createCspNonce } from '@/lib/csp'
 import { canonicalHost } from '@/lib/seo'
-import { localeCookieName } from '@/lib/i18n/config'
+import { isLocale, localeCookieName } from '@/lib/i18n/config'
 import { cookieLocaleRedirectPath, stripLocalePrefix } from '@/lib/i18n/locale-path'
 
 function withHtmlCsp(
@@ -29,6 +29,16 @@ function withHtmlCsp(
   return response
 }
 
+function syncLocalePathCookie(response: NextResponse, localeFromPath: string | null | undefined) {
+  if (!localeFromPath || !isLocale(localeFromPath)) return
+  response.cookies.set(localeCookieName, localeFromPath, {
+    path: '/',
+    maxAge: 60 * 60 * 24 * 365,
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production',
+  })
+}
+
 function withPathname(
   response: NextResponse,
   pathname: string,
@@ -37,6 +47,7 @@ function withPathname(
   response.headers.set('x-pathname', pathname)
   if (options?.localeFromPath) {
     response.headers.set('x-locale', options.localeFromPath)
+    syncLocalePathCookie(response, options.localeFromPath)
   } else {
     response.headers.set('Vary', 'Cookie')
   }
