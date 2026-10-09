@@ -4,24 +4,14 @@ import Link from 'next/link'
 import { useCallback, useEffect, useState } from 'react'
 import { AlertCircle, CheckCircle } from 'lucide-react'
 import { MainContent } from '@/components/main-content'
-import { prepareMenuFileForUpload } from '@/lib/compress-menu-browser'
-import { parseMenuUploadResponse } from '@/lib/menu-upload-api'
+import { MenuAdminUploadForm } from '@/components/menu-admin-upload-form'
 import {
   MAX_MENU_DISHES_CHARS,
   MENU_DISHES_ADMIN_PLACEHOLDER,
   type MenuDishesTexts,
 } from '@/lib/menu-dishes-format'
 import { formatMenuUploadedAt } from '@/lib/format-menu-uploaded-at'
-import {
-  isMenuSourceWithinLimit,
-  isMenuUploadWithinSizeLimit,
-  MENU_UPLOAD_ACCEPT,
-  MENU_UPLOAD_FORMATS_HINT,
-  menuUploadSourceTooLargeMessage,
-  menuUploadTooHeavyMessage,
-  resolveMenuUpload,
-  type MenuDayVariant,
-} from '@/lib/menu-pdf'
+import { MENU_UPLOAD_FORMATS_HINT, type MenuDayVariant } from '@/lib/menu-pdf'
 
 type MenuBlobAccessRow = {
   privateReadable: boolean
@@ -50,13 +40,13 @@ type MenuStorageOverview = {
 
 export default function MenuSetupAdmin() {
   const [message, setMessage] = useState<{ type: 'success' | 'error' | 'info'; text: string } | null>(null)
-  const [uploadingVariant, setUploadingVariant] = useState<MenuDayVariant | null>(null)
   const [chef, setChef] = useState<string>('')
   const [storage, setStorage] = useState<MenuStorageOverview | null>(null)
   const [menuPreviewHref, setMenuPreviewHref] = useState<string | null>(null)
   const [dishes, setDishes] = useState<MenuDishesTexts>({ fr: '', en: '' })
   const [savedDishes, setSavedDishes] = useState<MenuDishesTexts>({ fr: '', en: '' })
   const [savingDishes, setSavingDishes] = useState<MenuDayVariant | null>(null)
+
   useEffect(() => {
     void (async () => {
       try {
@@ -119,178 +109,10 @@ export default function MenuSetupAdmin() {
     void refreshStorage()
   }, [refreshStorage])
 
-  const UPLOAD_TIMEOUT_MS = 120_000
-
-  const handleFileUpload = async (variant: MenuDayVariant, e: React.ChangeEvent<HTMLInputElement>) => {
-    if (uploadingVariant !== null) {
-      e.target.value = ''
-      return
-    }
-
-    const input = e.target
-    const file = input.files?.[0]
-    if (!file) return
-
-    const resolved = resolveMenuUpload(file)
-    if (!resolved) {
-      setMessage({
-        type: 'error',
-        text: '❌ Formats acceptés : PDF, JPEG ou PNG. Les photos iPhone (HEIC) : exportez d’abord en JPEG.',
-      })
-      input.value = ''
-      return
-    }
-
-    const isPdf = resolved.contentType === 'application/pdf'
-
-    if (!isMenuSourceWithinLimit(file.size)) {
-      setMessage({
-        type: 'error',
-        text: menuUploadSourceTooLargeMessage(file.size),
-      })
-      input.value = ''
-      return
-    }
-
-    setUploadingVariant(variant)
-    setMessage({
-      type: 'info',
-      text: isPdf ? '⏳ Conversion du PDF en image…' : '⏳ Compression puis mise en ligne…',
-    })
-
-    try {
-      const uploadFile = await Promise.race([
-        prepareMenuFileForUpload(file, variant, isPdf),
-        new Promise<File>((_, reject) => {
-          window.setTimeout(() => reject(new Error('UPLOAD_TIMEOUT')), UPLOAD_TIMEOUT_MS)
-        }),
-      ])
-      if (!isMenuUploadWithinSizeLimit(uploadFile.size)) {
-        setMessage({
-          type: 'error',
-          text: menuUploadTooHeavyMessage(uploadFile.size),
-        })
-        return
-      }
-      const formData = new FormData()
-      formData.append('file', uploadFile)
-      formData.append('variant', variant)
-
-      const response = await fetch(`/api/upload-menu?variant=${variant}`, {
-        method: 'POST',
-        body: formData,
-        credentials: 'same-origin',
-      })
-
-      const parsed = await parseMenuUploadResponse(response)
-
-      if (response.status === 401) {
-        setMessage({
-          type: 'error',
-          text:
-            '❌ Accès refusé : rechargez la page (F5). Si le problème continue, fermez l’onglet, rouvrez /admin/menu-setup et entrez à nouveau le mot de passe admin.',
-        })
-        return
-      }
-
-      if (parsed.kind === 'success') {
-        const label = variant === 'en' ? 'Menu anglais' : 'Menu français'
-        setMessage({
-          type: 'success',
-          text: `✅ ${label} mis en ligne sur le site${chef ? ` — ${chef}` : ''}`,
-        })
-        setMenuPreviewHref(`/menu-du-jour?m=${Date.now()}`)
-        void refreshStorage()
-        return
-      }
-
-      if (parsed.kind === 'error') {
-        setMessage({ type: 'error', text: `❌ ${parsed.body.error}` })
-        return
-      }
-
-      setMessage({ type: 'error', text: '❌ Réponse serveur invalide' })
-    } catch (error: unknown) {
-      const reason = error instanceof Error ? error.message : 'Erreur inconnue'
-      if (reason === 'IMAGE_TOO_HEAVY') {
-        setMessage({ type: 'error', text: menuUploadTooHeavyMessage(file.size) })
-        return
-      } else if (reason === 'PDF_RENDER') {
-        setMessage({
-          type: 'error',
-          text: '❌ Impossible de lire ce PDF. Essayez de l’exporter à nouveau ou envoyez une photo JPEG/PNG.',
-        })
-      } else if (reason === 'CANVAS' || reason === 'ENCODE') {
-        setMessage({
-          type: 'error',
-          text: '❌ Votre navigateur n’a pas pu préparer l’image. Essayez Chrome/Safari à jour ou un JPEG/PNG.',
-        })
-      } else if (reason === 'UPLOAD_TIMEOUT') {
-        setMessage({
-          type: 'error',
-          text: '❌ Délai dépassé (PDF lourd ou connexion lente). Réessayez avec une photo JPEG/PNG plus légère.',
-        })
-      } else {
-        setMessage({ type: 'error', text: '❌ Erreur : ' + reason })
-      }
-    } finally {
-      setUploadingVariant(null)
-      input.value = ''
-    }
-  }
-
-  const uploadButton = (variant: MenuDayVariant, label: string, hint: string) => {
-    const busy = uploadingVariant !== null
-    const isThis = uploadingVariant === variant
-    return (
-    <div style={{ marginBottom: '20px' }}>
-      <p style={{ color: 'var(--foreground)', fontSize: '14px', fontWeight: '600', margin: '0 0 8px' }}>
-        {label}
-      </p>
-      <p style={{ color: 'var(--muted)', fontSize: '12px', margin: '0 0 10px' }}>{hint}</p>
-      <label
-        style={{
-          position: 'relative',
-          display: 'block',
-          width: '100%',
-          minHeight: 48,
-          background: isThis ? 'var(--line)' : '#25d366',
-          color: '#000',
-          padding: '14px 20px',
-          borderRadius: '8px',
-          fontWeight: '600',
-          cursor: busy ? 'wait' : 'pointer',
-          textAlign: 'center',
-          fontSize: '15px',
-          opacity: busy && !isThis ? 0.5 : 1,
-          boxSizing: 'border-box',
-          pointerEvents: busy ? 'none' : 'auto',
-        }}
-      >
-        <input
-          type="file"
-          accept={MENU_UPLOAD_ACCEPT}
-          onChange={(e) => void handleFileUpload(variant, e)}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            margin: 0,
-            opacity: 0,
-            cursor: busy ? 'wait' : 'pointer',
-            fontSize: '16px',
-            zIndex: 1,
-          }}
-        />
-        <span style={{ display: 'block', pointerEvents: 'none' }}>
-          {isThis ? '⏳ Envoi…' : '📁 Choisir un fichier'}
-        </span>
-      </label>
-      {dishesEditor(variant)}
-    </div>
-    )
-  }
+  const onMenuUploaded = useCallback(() => {
+    setMenuPreviewHref(`/menu-du-jour?m=${Date.now()}`)
+    void refreshStorage()
+  }, [refreshStorage])
 
   const dishesEditor = (variant: MenuDayVariant) => {
     const dirty = dishes[variant] !== savedDishes[variant]
@@ -512,18 +334,25 @@ export default function MenuSetupAdmin() {
 
         {messageAlert}
 
-        {uploadButton(
-          'fr',
-          'Menu du jour (français)',
-          'Fichier affiché aux visiteurs en français.',
-        )}
-        {uploadButton(
-          'en',
-          'Daily menu (English)',
-          'Fichier affiché aux visiteurs en anglais.',
-        )}
+        <MenuAdminUploadForm
+          variant="fr"
+          title="Menu du jour (français)"
+          hint="Fichier affiché aux visiteurs en français."
+          onUploaded={onMenuUploaded}
+        />
+        {dishesEditor('fr')}
 
-        <p style={{ color: 'var(--muted)', fontSize: '12px', textAlign: 'center', marginTop: '4px' }}>
+        <div style={{ marginTop: '28px' }}>
+          <MenuAdminUploadForm
+            variant="en"
+            title="Daily menu (English)"
+            hint="Fichier affiché aux visiteurs en anglais."
+            onUploaded={onMenuUploaded}
+          />
+          {dishesEditor('en')}
+        </div>
+
+        <p style={{ color: 'var(--muted)', fontSize: '12px', textAlign: 'center', marginTop: '16px' }}>
           {MENU_UPLOAD_FORMATS_HINT}
         </p>
 

@@ -20,6 +20,9 @@ const securityHeaders = [
 const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react'],
+    serverActions: {
+      bodySizeLimit: '11mb',
+    },
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
