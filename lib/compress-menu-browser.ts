@@ -80,6 +80,17 @@ async function encodeMenuSourceUnderLimit(
   return new File([blob], menuFileName(variant, ext), { type, lastModified: Date.now() })
 }
 
+/** PDF → image, ou compression si > 1 Mo ; sinon envoi direct au serveur (sharp). */
+export async function prepareMenuFileForUpload(
+  file: File,
+  variant: 'fr' | 'en',
+  isPdf: boolean,
+): Promise<File> {
+  if (isPdf) return convertMenuPdfToImageInBrowser(file, variant)
+  if (file.size <= MAX_WEBP_BYTES) return file
+  return compressMenuImageInBrowser(file, variant)
+}
+
 /** Compresse une photo de menu dans le navigateur (WebP ≤ 1 Mo, JPEG en repli). */
 export async function compressMenuImageInBrowser(
   file: File,

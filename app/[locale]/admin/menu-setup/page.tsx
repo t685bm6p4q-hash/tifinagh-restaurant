@@ -4,10 +4,7 @@ import Link from 'next/link'
 import { useCallback, useEffect, useState } from 'react'
 import { AlertCircle, CheckCircle } from 'lucide-react'
 import { MainContent } from '@/components/main-content'
-import {
-  compressMenuImageInBrowser,
-  convertMenuPdfToImageInBrowser,
-} from '@/lib/compress-menu-browser'
+import { prepareMenuFileForUpload } from '@/lib/compress-menu-browser'
 import { parseMenuUploadResponse } from '@/lib/menu-upload-api'
 import {
   MAX_MENU_DISHES_CHARS,
@@ -122,7 +119,14 @@ export default function MenuSetupAdmin() {
     void refreshStorage()
   }, [refreshStorage])
 
+  const UPLOAD_TIMEOUT_MS = 120_000
+
   const handleFileUpload = async (variant: MenuDayVariant, e: React.ChangeEvent<HTMLInputElement>) => {
+    if (uploadingVariant !== null) {
+      e.target.value = ''
+      return
+    }
+
     const input = e.target
     const file = input.files?.[0]
     if (!file) return
@@ -155,9 +159,12 @@ export default function MenuSetupAdmin() {
     })
 
     try {
-      const uploadFile = isPdf
-        ? await convertMenuPdfToImageInBrowser(file, variant)
-        : await compressMenuImageInBrowser(file, variant)
+      const uploadFile = await Promise.race([
+        prepareMenuFileForUpload(file, variant, isPdf),
+        new Promise<File>((_, reject) => {
+          window.setTimeout(() => reject(new Error('UPLOAD_TIMEOUT')), UPLOAD_TIMEOUT_MS)
+        }),
+      ])
       if (!isMenuUploadWithinSizeLimit(uploadFile.size)) {
         setMessage({
           type: 'error',
@@ -218,6 +225,11 @@ export default function MenuSetupAdmin() {
           type: 'error',
           text: '❌ Votre navigateur n’a pas pu préparer l’image. Essayez Chrome/Safari à jour ou un JPEG/PNG.',
         })
+      } else if (reason === 'UPLOAD_TIMEOUT') {
+        setMessage({
+          type: 'error',
+          text: '❌ Délai dépassé (PDF lourd ou connexion lente). Réessayez avec une photo JPEG/PNG plus légère.',
+        })
       } else {
         setMessage({ type: 'error', text: '❌ Erreur : ' + reason })
       }
@@ -230,50 +242,50 @@ export default function MenuSetupAdmin() {
   const uploadButton = (variant: MenuDayVariant, label: string, hint: string) => {
     const busy = uploadingVariant !== null
     const isThis = uploadingVariant === variant
-    const inputId = variant === 'en' ? 'menu-upload-input-en' : 'menu-upload-input-fr'
     return (
     <div style={{ marginBottom: '20px' }}>
       <p style={{ color: 'var(--foreground)', fontSize: '14px', fontWeight: '600', margin: '0 0 8px' }}>
         {label}
       </p>
       <p style={{ color: 'var(--muted)', fontSize: '12px', margin: '0 0 10px' }}>{hint}</p>
-      <input
-        id={inputId}
-        type="file"
-        accept={MENU_UPLOAD_ACCEPT}
-        onChange={(e) => void handleFileUpload(variant, e)}
-        disabled={isThis}
-        style={{
-          position: 'absolute',
-          width: 1,
-          height: 1,
-          padding: 0,
-          margin: -1,
-          overflow: 'hidden',
-          clip: 'rect(0, 0, 0, 0)',
-          whiteSpace: 'nowrap',
-          border: 0,
-        }}
-      />
       <label
-        htmlFor={inputId}
         style={{
+          position: 'relative',
           display: 'block',
           width: '100%',
+          minHeight: 48,
           background: isThis ? 'var(--line)' : '#25d366',
           color: '#000',
           padding: '14px 20px',
           borderRadius: '8px',
           fontWeight: '600',
-          cursor: isThis ? 'wait' : busy ? 'not-allowed' : 'pointer',
+          cursor: busy ? 'wait' : 'pointer',
           textAlign: 'center',
           fontSize: '15px',
           opacity: busy && !isThis ? 0.5 : 1,
-          pointerEvents: isThis ? 'none' : 'auto',
           boxSizing: 'border-box',
+          pointerEvents: busy ? 'none' : 'auto',
         }}
       >
-        {isThis ? '⏳ Envoi…' : '📁 Choisir un fichier'}
+        <input
+          type="file"
+          accept={MENU_UPLOAD_ACCEPT}
+          onChange={(e) => void handleFileUpload(variant, e)}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            margin: 0,
+            opacity: 0,
+            cursor: busy ? 'wait' : 'pointer',
+            fontSize: '16px',
+            zIndex: 1,
+          }}
+        />
+        <span style={{ display: 'block', pointerEvents: 'none' }}>
+          {isThis ? '⏳ Envoi…' : '📁 Choisir un fichier'}
+        </span>
       </label>
       {dishesEditor(variant)}
     </div>

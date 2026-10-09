@@ -88,7 +88,7 @@ export const MAX_MENU_SOURCE_BYTES = 10 * 1024 * 1024
 
 /** Formats acceptés à l’upload admin (PDF + images). */
 export const MENU_UPLOAD_ACCEPT =
-  '.pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp'
+  'image/jpeg,image/png,image/webp,application/pdf,.pdf,.jpg,.jpeg,.png,.webp,image/*'
 
 export const MENU_UPLOAD_FORMATS_HINT =
   "Formats acceptés : PDF, JPEG, PNG (jusqu'à 10 Mo). Le site optimise et allège automatiquement votre fichier."
