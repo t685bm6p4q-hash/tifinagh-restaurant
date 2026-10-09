@@ -35,7 +35,7 @@ export function MenuAdminUploadPanel({
   const [feedback, setFeedback] = useState<{ type: 'error' | 'success' | 'hint'; text: string } | null>(
     {
       type: 'hint',
-      text: '1) Parcourir · 2) Choisir la photo · 3) Mettre en ligne (⏳ pendant l’envoi).',
+      text: 'Jusqu’à 10 Mo à la sélection (ex. ~5 Mo) : le site allège automatiquement avant l’envoi. Puis Parcourir → Mettre en ligne.',
     },
   )
 
@@ -45,9 +45,13 @@ export function MenuAdminUploadPanel({
     const file = inputRef.current?.files?.[0] ?? null
     setPicked(file)
     if (file) {
+      const sizeNote =
+        file.size > 1024 * 1024
+          ? ' — sera compressé automatiquement (normal pour 4–5 Mo).'
+          : ''
       setFeedback({
         type: 'hint',
-        text: `Fichier sélectionné : ${file.name} (${formatMenuUploadFileSize(file.size)}). Cliquez sur « Mettre en ligne ».`,
+        text: `Fichier sélectionné : ${file.name} (${formatMenuUploadFileSize(file.size)}${sizeNote}) Cliquez sur « Mettre en ligne ».`,
       })
     }
   }
@@ -92,6 +96,11 @@ export function MenuAdminUploadPanel({
         setFeedback({
           type: 'error',
           text: '❌ Impossible de lire ce PDF ici. Exportez la 1ʳᵉ page en JPEG/PNG depuis Aperçu ou Acrobat.',
+        })
+      } else if (code === 'IMAGE_DECODE') {
+        setFeedback({
+          type: 'error',
+          text: '❌ Impossible d’ouvrir cette image (HEIC ?). Enregistrez en JPEG depuis Photos, ou réduisez la taille.',
         })
       } else {
         setFeedback({

@@ -80,15 +80,36 @@ async function encodeMenuSourceUnderLimit(
   return new File([blob], menuFileName(variant, ext), { type, lastModified: Date.now() })
 }
 
-/** PDF → image, ou compression si > 1 Mo ; sinon envoi direct au serveur (sharp). */
+/**
+ * PDF → image WebP ; photos toujours recompressées (≤ 1 Mo) pour passer la limite Vercel (~4,5 Mo).
+ * Vous pouvez choisir jusqu’à 10 Mo : l’envoi réseau reste léger.
+ */
 export async function prepareMenuFileForUpload(
   file: File,
   variant: 'fr' | 'en',
   isPdf: boolean,
 ): Promise<File> {
   if (isPdf) return convertMenuPdfToImageInBrowser(file, variant)
-  if (file.size <= MAX_WEBP_BYTES) return file
   return compressMenuImageInBrowser(file, variant)
+}
+
+async function loadMenuImageBitmap(file: File): Promise<ImageBitmap> {
+  try {
+    return await createImageBitmap(file)
+  } catch {
+    const url = URL.createObjectURL(file)
+    try {
+      const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+        const el = new Image()
+        el.onload = () => resolve(el)
+        el.onerror = () => reject(new Error('IMAGE_DECODE'))
+        el.src = url
+      })
+      return await createImageBitmap(img)
+    } finally {
+      URL.revokeObjectURL(url)
+    }
+  }
 }
 
 /** Compresse une photo de menu dans le navigateur (WebP ≤ 1 Mo, JPEG en repli). */
@@ -96,7 +117,7 @@ export async function compressMenuImageInBrowser(
   file: File,
   variant: 'fr' | 'en' = 'fr',
 ): Promise<File> {
-  const bitmap = await createImageBitmap(file)
+  const bitmap = await loadMenuImageBitmap(file)
   try {
     return await encodeMenuSourceUnderLimit(bitmap, bitmap.width, bitmap.height, variant)
   } finally {

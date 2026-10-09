@@ -91,7 +91,7 @@ export const MENU_UPLOAD_ACCEPT =
   'image/jpeg,image/png,image/webp,application/pdf,.pdf,.jpg,.jpeg,.png,.webp,image/*'
 
 export const MENU_UPLOAD_FORMATS_HINT =
-  "Formats acceptés : PDF, JPEG, PNG (jusqu'à 10 Mo). Le site optimise et allège automatiquement votre fichier."
+  "Formats : PDF, JPEG, PNG — jusqu'à 10 Mo à la sélection (5 Mo OK). Envoi réseau allégé automatiquement (~1 Mo)."
 
 export function formatMenuUploadFileSize(bytes: number): string {
   const mo = bytes / (1024 * 1024)
