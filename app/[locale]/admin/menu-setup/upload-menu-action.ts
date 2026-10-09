@@ -2,6 +2,7 @@
 
 import { headers } from 'next/headers'
 import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 import { isAdminAuthorized } from '@/lib/admin-auth'
 import { processMenuUploadFile } from '@/lib/menu-upload-process'
 import { resolveMenuUploadVariant } from '@/lib/menu-pdf'
@@ -60,3 +61,13 @@ export async function uploadMenuAction(
 }
 
 export { emptyState as menuUploadActionInitialState }
+
+/** Formulaire HTML sans JavaScript (noscript) — redirection avec message. */
+export async function uploadMenuPlainFormAction(formData: FormData): Promise<void> {
+  const result = await uploadMenuAction(emptyState, formData)
+  if (result.success) {
+    redirect('/admin/menu-setup?menuUpload=ok')
+  }
+  const msg = encodeURIComponent(result.error ?? 'Erreur inconnue')
+  redirect(`/admin/menu-setup?menuUpload=err&msg=${msg}`)
+}

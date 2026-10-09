@@ -2,8 +2,11 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const root = process.cwd()
-const adminPath = join(root, 'app/[locale]/admin/menu-setup/page.tsx')
-const admin = readFileSync(adminPath, 'utf8')
+const adminPaths = [
+  join(root, 'app/[locale]/admin/menu-setup/page.tsx'),
+  join(root, 'app/[locale]/admin/menu-setup/menu-setup-client.tsx'),
+]
+const admin = adminPaths.map((p) => readFileSync(p, 'utf8')).join('\n')
 
 const forbiddenInAdmin = [
   { pattern: /formatMenuRevision\s*\(/, message: 'formatMenuRevision supprimé — utiliser formatMenuUploadedAt + uploadedAt' },
@@ -15,7 +18,7 @@ const forbiddenInAdmin = [
 
 for (const { pattern, message } of forbiddenInAdmin) {
   if (pattern.test(admin)) {
-    console.error(`[check:menu-storage] ${adminPath}\n  → ${message}`)
+    console.error(`[check:menu-storage] menu-setup admin\n  → ${message}`)
     process.exit(1)
   }
 }
