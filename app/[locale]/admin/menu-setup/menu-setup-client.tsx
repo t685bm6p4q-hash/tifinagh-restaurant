@@ -310,41 +310,14 @@ export function MenuSetupAdminClient({ frUpload, enUpload }: MenuSetupAdminClien
                 <strong>English</strong> — {formatMenuUploadedAt(storage.en.uploadedAt)}
               </p>
             ) : null}
-            {storage.blobPrivateOnlyReady != null ? (
-              <div
-                style={{
-                  marginTop: '12px',
-                  paddingTop: '10px',
-                  borderTop: '1px solid rgba(37, 211, 102, 0.25)',
-                  fontSize: '12px',
-                }}
-              >
-                <p style={{ margin: '0 0 6px', fontWeight: 600 }}>
-                  Sécurité Blob{' '}
-                  {storage.blobPrivateOnlyReady ? (
-                    <span style={{ color: '#25d366' }}>— lecture privée OK (store compatible)</span>
-                  ) : (
-                    <span style={{ color: '#ffb347' }}>
-                      — store public Vercel : upload OK en public, pas de mode privé seul tant que le
-                      store n’est pas migré
-                    </span>
-                  )}
-                </p>
-                {(['fr', 'en'] as const).map((variant) => {
-                  const row = storage[variant]
-                  const access = row.blobAccess
-                  if (!row.exists || !access) return null
-                  return (
-                    <p key={variant} style={{ margin: '4px 0 0', color: 'var(--muted)' }}>
-                      {variant === 'fr' ? 'FR' : 'EN'} : lecture privée{' '}
-                      {access.privateReadable ? 'OK' : 'KO'}
-                      {access.publicLegacyPresent
-                        ? ' · copie publique legacy encore présente (supprimer sur Vercel Storage)'
-                        : ' · pas de copie publique détectée'}
-                    </p>
-                  )
-                })}
-              </div>
+            {storage.blobPrivateOnlyReady === true ? (
+              <p style={{ margin: '10px 0 0', fontSize: '12px', color: '#25d366', fontWeight: 600 }}>
+                Sécurité : OK
+              </p>
+            ) : storage.blobPrivateOnlyReady === false ? (
+              <p style={{ margin: '10px 0 0', fontSize: '12px', color: '#ffb347', fontWeight: 600 }}>
+                Sécurité : à vérifier
+              </p>
             ) : null}
           </div>
         ) : null}
