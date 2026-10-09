@@ -2709,6 +2709,29 @@ button.footer-link {
   line-height: 1.45;
 }
 
+@media (max-width: 700px) {
+  .menu-lang-switch__panel {
+    min-height: 42px;
+    padding: 3px;
+  }
+
+  .menu-lang-switch__thumb {
+    top: 3px;
+    bottom: 3px;
+    left: 3px;
+    width: calc(50% - 4.5px);
+  }
+
+  .menu-lang-switch__panel[data-variant='en'] .menu-lang-switch__thumb {
+    left: calc(50% + 1.5px);
+  }
+
+  .menu-lang-switch__label {
+    font-size: 14px;
+    padding: 7px 8px;
+  }
+}
+
 .reservation-form-section {
   padding-top: 8px;
 }
@@ -4148,27 +4171,6 @@ select:focus-visible {
   .menu-jour-hours h2 {
     margin-bottom: 10px;
     font-size: 20px;
-  }
-
-  .menu-lang-switch__panel {
-    min-height: 56px;
-    padding: 6px;
-  }
-
-  .menu-lang-switch__thumb {
-    top: 6px;
-    bottom: 6px;
-    left: 6px;
-    width: calc(50% - 9px);
-  }
-
-  .menu-lang-switch__panel[data-variant='en'] .menu-lang-switch__thumb {
-    left: calc(50% + 3px);
-  }
-
-  .menu-lang-switch__label {
-    font-size: 17px;
-    padding: 14px 12px;
   }
 
   .reservation-page .page-intro--reservation h1 {
