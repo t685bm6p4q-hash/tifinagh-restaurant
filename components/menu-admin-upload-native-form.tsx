@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import { MENU_UPLOAD_ACCEPT } from '@/lib/menu-pdf'
 import type { MenuDayVariant } from '@/lib/menu-pdf'
 import { mintAdminMenuUploadToken } from '@/lib/mint-admin-upload-token'
+import { MenuAdminUploadPanel } from '@/components/menu-admin-upload-panel'
 
 type MenuAdminUploadNativeFormProps = {
   variant: MenuDayVariant
@@ -10,8 +10,7 @@ type MenuAdminUploadNativeFormProps = {
 }
 
 /**
- * Upload menu — formulaire HTML natif (POST /api/upload-menu).
- * Jeton signé inclus : fonctionne même si le cookie HttpOnly n’accompagne pas le POST.
+ * Upload menu — jeton serveur + envoi fetch côté client (compression + retour ⏳/✅).
  */
 export async function MenuAdminUploadNativeForm({
   variant,
@@ -33,34 +32,6 @@ export async function MenuAdminUploadNativeForm({
   }
 
   return (
-    <div className="menu-admin-upload">
-      <p className="menu-admin-upload__title">{title}</p>
-      <p className="menu-admin-upload__hint">{hint}</p>
-      <form
-        action="/api/upload-menu?redirect=1"
-        method="POST"
-        encType="multipart/form-data"
-        className="menu-admin-upload__form"
-      >
-        <input type="hidden" name="variant" value={variant} />
-        <input type="hidden" name="uploadToken" value={uploadToken} />
-        <label className="menu-admin-upload__file-field">
-          <span className="menu-admin-upload__file-field-label">Fichier (JPEG, PNG ou PDF — max 4 Mo ici)</span>
-          <input
-            className="menu-admin-upload__file-native"
-            type="file"
-            name="file"
-            accept={MENU_UPLOAD_ACCEPT}
-            required
-          />
-        </label>
-        <button type="submit" className="menu-admin-upload__submit-native">
-          📁 Choisir un fichier et mettre en ligne
-        </button>
-        <p className="menu-admin-upload__feedback menu-admin-upload__feedback--hint" role="note">
-          1) Parcourir · 2) Choisir la photo · 3) Bouton vert. Session valide 10 min après chargement de la page.
-        </p>
-      </form>
-    </div>
+    <MenuAdminUploadPanel variant={variant} title={title} hint={hint} uploadToken={uploadToken} />
   )
 }

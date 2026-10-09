@@ -11,6 +11,7 @@ import {
   type MenuDishesTexts,
 } from '@/lib/menu-dishes-format'
 import { formatMenuUploadedAt } from '@/lib/format-menu-uploaded-at'
+import { MENU_UPLOAD_SUCCESS_EVENT } from '@/lib/menu-upload-events'
 import { MENU_UPLOAD_FORMATS_HINT, type MenuDayVariant } from '@/lib/menu-pdf'
 
 type MenuBlobAccessRow = {
@@ -85,6 +86,16 @@ export function MenuSetupAdminClient({ frUpload, enUpload }: MenuSetupAdminClien
 
   useEffect(() => {
     void refreshStorage()
+  }, [refreshStorage])
+
+  useEffect(() => {
+    const onUploaded = () => {
+      setMessage({ type: 'success', text: '✅ Menu mis en ligne sur le site.' })
+      setMenuPreviewHref(`/menu-du-jour?m=${Date.now()}`)
+      void refreshStorage()
+    }
+    window.addEventListener(MENU_UPLOAD_SUCCESS_EVENT, onUploaded)
+    return () => window.removeEventListener(MENU_UPLOAD_SUCCESS_EVENT, onUploaded)
   }, [refreshStorage])
 
   useEffect(() => {
