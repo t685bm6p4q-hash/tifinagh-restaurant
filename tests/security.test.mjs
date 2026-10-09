@@ -8,6 +8,7 @@ import {
   isAdminRateLimited,
   safeEqual,
   setAdminSessionCookie,
+  setAdminUploadGateCookie,
   verifyAdminUploadToken,
 } from '../lib/admin-auth.ts'
 import { serializeJsonLd } from '../lib/json-ld.ts'
@@ -73,6 +74,17 @@ describe('session admin', () => {
   it('refuse tout sans mot de passe configuré (fail-closed)', () => {
     delete process.env.MENU_ADMIN_PASSWORD
     assert.equal(isAdminAuthorized(request({ basic: PASSWORD })), false)
+  })
+
+  it('accepte le cookie gate upload pour les API admin', () => {
+    let gate = ''
+    setAdminUploadGateCookie({ cookies: { set: (_name, v) => (gate = v) } }, PASSWORD)
+    assert.equal(
+      isAdminAuthorized(
+        request({ cookie: `tifinagh_admin_upload_gate=${gate}` }),
+      ),
+      true,
+    )
   })
 
   it('accepte un jeton upload signé dans le formulaire sans cookie', () => {

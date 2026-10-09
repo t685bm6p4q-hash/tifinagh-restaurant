@@ -11,6 +11,10 @@ import { createHash, createHmac, timingSafeEqual } from 'node:crypto'
 import type { NextResponse } from 'next/server'
 
 const ADMIN_SESSION_COOKIE = 'tifinagh_admin_session'
+/** Cookie signé (10 min) posé par le proxy après login — secours si Authorization absent côté RSC/API. */
+export const ADMIN_UPLOAD_GATE_COOKIE = 'tifinagh_admin_upload_gate'
+/** En-tête interne (proxy → RSC), jamais accepté depuis le client sans vérification HMAC. */
+export const ADMIN_UPLOAD_TOKEN_HEADER = 'x-tifinagh-admin-upload-token'
 const SESSION_MARKER = 'tifinagh-admin-v2'
 /** 8 h — suffisant pour une mise à jour du menu, sans session permanente. */
 const ADMIN_SESSION_MAX_AGE_SEC = 8 * 60 * 60
@@ -152,6 +156,27 @@ export function setAdminSessionCookie(response: NextResponse, expectedPassword: 
   })
 }
 
+export function setAdminUploadGateCookie(response: NextResponse, expectedPassword: string): void {
+  response.cookies.set(ADMIN_UPLOAD_GATE_COOKIE, createAdminUploadToken(expectedPassword), {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
+    maxAge: ADMIN_UPLOAD_TOKEN_MAX_AGE_SEC,
+  })
+}
+
+export function setAdminAuthCookies(response: NextResponse, expectedPassword: string): void {
+  setAdminSessionCookie(response, expectedPassword)
+  setAdminUploadGateCookie(response, expectedPassword)
+}
+
+function hasValidAdminUploadGateCookie(request: Request, expectedPassword: string): boolean {
+  const token = readCookieValue(request.headers.get('cookie'), ADMIN_UPLOAD_GATE_COOKIE)
+  if (!token) return false
+  return verifyAdminUploadToken(token, expectedPassword)
+}
+
 /** True uniquement si le mot de passe env est défini ET fourni correctement. */
 export function isAdminAuthorized(request: Request): boolean {
   const expected = getAdminPassword()
@@ -159,6 +184,7 @@ export function isAdminAuthorized(request: Request): boolean {
   if (isAdminRateLimited(request)) return false
 
   if (hasValidAdminSession(request, expected)) return true
+  if (hasValidAdminUploadGateCookie(request, expected)) return true
 
   const fromBasic = passwordFromRequestBasicAuth(request)
   if (fromBasic && safeEqual(fromBasic, expected)) return true

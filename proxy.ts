@@ -1,13 +1,15 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import {
+  ADMIN_UPLOAD_TOKEN_HEADER,
+  createAdminUploadToken,
   getAdminPassword,
   hasValidAdminSession,
   isAdminRateLimited,
   passwordFromRequestBasicAuth,
   recordAdminAuthFailure,
   safeEqual,
-  setAdminSessionCookie,
+  setAdminAuthCookies,
 } from '@/lib/admin-auth'
 import { buildContentSecurityPolicy, createCspNonce } from '@/lib/csp'
 import { canonicalHost } from '@/lib/seo'
@@ -22,9 +24,12 @@ function withHtmlCsp(
   request: NextRequest,
   locale: Locale,
   applyHeaders?: (response: NextResponse) => void,
+  requestHeaderPatch?: (headers: Headers) => void,
 ): NextResponse {
   const nonce = createCspNonce()
   const requestHeaders = new Headers(request.headers)
+  requestHeaders.delete(ADMIN_UPLOAD_TOKEN_HEADER)
+  requestHeaderPatch?.(requestHeaders)
   requestHeaders.set('x-nonce', nonce)
   const response = NextResponse.next({
     request: { headers: requestHeaders },
@@ -69,6 +74,79 @@ function withMarketingResponse(
   }
   applyPublicHtmlEdgeCache(response, pathname, options?.method ?? 'GET')
   return response
+}
+
+function decorateAdminHtmlResponse(response: NextResponse, expectedPassword: string): NextResponse {
+  response.headers.set('X-Robots-Tag', 'noindex, nofollow')
+  response.headers.set('Cache-Control', 'no-store')
+  setAdminAuthCookies(response, expectedPassword)
+  return response
+}
+
+type AdminGateOk = { ok: true; expectedPassword: string }
+type AdminGateFail = { ok: false; response: NextResponse }
+
+function adminGate(request: NextRequest): AdminGateOk | AdminGateFail {
+  const expected = getAdminPassword()
+  if (!expected) {
+    return {
+      ok: false,
+      response: new NextResponse(
+        'Espace admin indisponible : configurez MENU_ADMIN_PASSWORD sur Vercel.',
+        {
+          status: 503,
+          headers: {
+            'Content-Type': 'text/plain; charset=utf-8',
+            'Cache-Control': 'no-store',
+            'X-Robots-Tag': 'noindex, nofollow',
+          },
+        },
+      ),
+    }
+  }
+
+  if (hasValidAdminSession(request, expected)) {
+    return { ok: true, expectedPassword: expected }
+  }
+
+  if (isAdminRateLimited(request)) {
+    return {
+      ok: false,
+      response: new NextResponse('Trop de tentatives — réessayez dans 15 minutes.', {
+        status: 429,
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Retry-After': '900',
+          'Cache-Control': 'no-store',
+          'X-Robots-Tag': 'noindex, nofollow',
+        },
+      }),
+    }
+  }
+
+  const password = passwordFromRequestBasicAuth(request)
+  if (password && safeEqual(password, expected)) {
+    return { ok: true, expectedPassword: expected }
+  }
+  if (password) recordAdminAuthFailure(request)
+
+  return {
+    ok: false,
+    response: new NextResponse('Authentification requise', {
+      status: 401,
+      headers: {
+        'WWW-Authenticate': 'Basic realm="Tifinagh Admin", charset="UTF-8"',
+        'Cache-Control': 'no-store',
+        'X-Robots-Tag': 'noindex, nofollow',
+      },
+    }),
+  }
+}
+
+function adminRequestHeaderPatch(expectedPassword: string) {
+  return (headers: Headers) => {
+    headers.set(ADMIN_UPLOAD_TOKEN_HEADER, createAdminUploadToken(expectedPassword))
+  }
 }
 
 /**
@@ -138,83 +216,57 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(url, 308)
   }
 
+  if (pathname.startsWith('/admin')) {
+    const gate = adminGate(request)
+    if (!gate.ok) return gate.response
+
+    const internalLocalePath = (locale: Locale, internalPath: string) => {
+      const suffix = internalPath === '/' ? '' : internalPath
+      return `/${locale}${suffix}`
+    }
+
+    const routedPathname = internalLocalePath(defaultLocale, pathname)
+    const patch = adminRequestHeaderPatch(gate.expectedPassword)
+
+    if (routedPathname !== rawPathname) {
+      const nonce = createCspNonce()
+      const requestHeaders = new Headers(request.headers)
+      requestHeaders.delete(ADMIN_UPLOAD_TOKEN_HEADER)
+      patch(requestHeaders)
+      requestHeaders.set('x-nonce', nonce)
+      const url = request.nextUrl.clone()
+      url.pathname = routedPathname
+      const response = NextResponse.rewrite(url, { request: { headers: requestHeaders } })
+      response.headers.set('Content-Security-Policy', buildContentSecurityPolicy(nonce))
+      decorateAdminHtmlResponse(response, gate.expectedPassword)
+      return withMarketingResponse(response, pathname, { localeFromPath, method: requestMethod })
+    }
+
+    const response = withHtmlCsp(request, defaultLocale, undefined, patch)
+    decorateAdminHtmlResponse(response, gate.expectedPassword)
+    return withMarketingResponse(response, pathname, { localeFromPath, method: requestMethod })
+  }
+
   const internalLocalePath = (locale: Locale, internalPath: string) => {
     const suffix = internalPath === '/' ? '' : internalPath
     return `/${locale}${suffix}`
   }
 
   const routedPathname =
-    pathname.startsWith('/admin') || !localeFromPath
-      ? internalLocalePath(pathname.startsWith('/admin') ? defaultLocale : siteLocale, pathname)
+    !localeFromPath
+      ? internalLocalePath(siteLocale, pathname)
       : rawPathname
 
   if (routedPathname !== rawPathname) {
     const nonce = createCspNonce()
     const requestHeaders = new Headers(request.headers)
+    requestHeaders.delete(ADMIN_UPLOAD_TOKEN_HEADER)
     requestHeaders.set('x-nonce', nonce)
     const url = request.nextUrl.clone()
     url.pathname = routedPathname
     const response = NextResponse.rewrite(url, { request: { headers: requestHeaders } })
     response.headers.set('Content-Security-Policy', buildContentSecurityPolicy(nonce))
     return withMarketingResponse(response, pathname, { localeFromPath, method: requestMethod })
-  }
-
-  if (pathname.startsWith('/admin')) {
-    const expected = getAdminPassword()
-    if (!expected) {
-      return new NextResponse(
-        'Espace admin indisponible : configurez MENU_ADMIN_PASSWORD sur Vercel.',
-        {
-          status: 503,
-          headers: {
-            'Content-Type': 'text/plain; charset=utf-8',
-            'Cache-Control': 'no-store',
-            'X-Robots-Tag': 'noindex, nofollow',
-          },
-        },
-      )
-    }
-
-    if (hasValidAdminSession(request, expected)) {
-      const response = withHtmlCsp(request, defaultLocale, (r) => {
-        r.headers.set('X-Robots-Tag', 'noindex, nofollow')
-        r.headers.set('Cache-Control', 'no-store')
-      })
-      setAdminSessionCookie(response, expected)
-      return withMarketingResponse(response, pathname, { localeFromPath, method: requestMethod })
-    }
-
-    if (isAdminRateLimited(request)) {
-      return new NextResponse('Trop de tentatives — réessayez dans 15 minutes.', {
-        status: 429,
-        headers: {
-          'Content-Type': 'text/plain; charset=utf-8',
-          'Retry-After': '900',
-          'Cache-Control': 'no-store',
-          'X-Robots-Tag': 'noindex, nofollow',
-        },
-      })
-    }
-
-    const password = passwordFromRequestBasicAuth(request)
-    if (password && safeEqual(password, expected)) {
-      const response = withHtmlCsp(request, defaultLocale, (r) => {
-        r.headers.set('X-Robots-Tag', 'noindex, nofollow')
-        r.headers.set('Cache-Control', 'no-store')
-      })
-      setAdminSessionCookie(response, expected)
-      return withMarketingResponse(response, pathname, { localeFromPath, method: requestMethod })
-    }
-    if (password) recordAdminAuthFailure(request)
-
-    return new NextResponse('Authentification requise', {
-      status: 401,
-      headers: {
-        'WWW-Authenticate': 'Basic realm="Tifinagh Admin", charset="UTF-8"',
-        'Cache-Control': 'no-store',
-        'X-Robots-Tag': 'noindex, nofollow',
-      },
-    })
   }
 
   return withMarketingResponse(withHtmlCsp(request, siteLocale), pathname, {
