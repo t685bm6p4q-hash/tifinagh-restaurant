@@ -4370,6 +4370,29 @@ select:focus-visible {
   gap: 10px;
 }
 
+.menu-admin-upload__pick-wrap {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 52px;
+  margin: 0;
+  padding: 14px 20px;
+  border-radius: 8px;
+  background: #25d366;
+  color: #000;
+  font-weight: 600;
+  font-size: 15px;
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.menu-admin-upload__pick-wrap--busy {
+  cursor: wait;
+  opacity: 0.88;
+}
+
 .menu-admin-upload__pick {
   position: relative;
   display: block;
@@ -4395,22 +4418,39 @@ select:focus-visible {
 .menu-admin-upload__pick-text {
   display: block;
   pointer-events: none;
+  position: relative;
+  z-index: 0;
+}
+
+.menu-admin-upload__file-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0.001;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 2;
+}
+
+.menu-admin-upload__pick-wrap--busy .menu-admin-upload__file-overlay {
+  cursor: wait;
+  pointer-events: none;
 }
 
 .menu-admin-upload__file-native {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.menu-admin-upload--enhanced .menu-admin-upload__form {
-  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  font-size: 16px;
+  box-sizing: border-box;
+  cursor: pointer;
 }
 
 .menu-admin-upload__validate {

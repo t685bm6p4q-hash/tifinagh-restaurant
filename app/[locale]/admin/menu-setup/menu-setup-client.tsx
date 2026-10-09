@@ -2,10 +2,15 @@
 
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { AlertCircle, CheckCircle } from 'lucide-react'
 import { MainContent } from '@/components/main-content'
-import { MenuAdminUploadForm } from '@/components/menu-admin-upload-form'
+import { MenuAdminUploadZone } from '@/components/menu-admin-upload-zone'
+import {
+  menuAdminUploadUiInitial,
+  runMenuAdminUpload,
+  type MenuAdminUploadUi,
+} from '@/lib/menu-admin-upload-client'
 import {
   MAX_MENU_DISHES_CHARS,
   MENU_DISHES_ADMIN_PLACEHOLDER,
@@ -47,6 +52,11 @@ export function MenuSetupAdminClient() {
   const [dishes, setDishes] = useState<MenuDishesTexts>({ fr: '', en: '' })
   const [savedDishes, setSavedDishes] = useState<MenuDishesTexts>({ fr: '', en: '' })
   const [savingDishes, setSavingDishes] = useState<MenuDayVariant | null>(null)
+  const [uploadUi, setUploadUi] = useState<Record<MenuDayVariant, MenuAdminUploadUi>>({
+    fr: { ...menuAdminUploadUiInitial, hydrated: true },
+    en: { ...menuAdminUploadUiInitial, hydrated: true },
+  })
+  const uploadBusyRef = useRef<Record<MenuDayVariant, boolean>>({ fr: false, en: false })
 
   useEffect(() => {
     void (async () => {
@@ -131,6 +141,75 @@ export function MenuSetupAdminClient() {
     setMenuPreviewHref(`/menu-du-jour?m=${Date.now()}`)
     void refreshStorage()
   }, [refreshStorage])
+
+  useEffect(() => {
+    const onFileChange = (event: Event) => {
+      const target = event.target
+      if (!(target instanceof HTMLInputElement) || target.type !== 'file') return
+      const variant = target.dataset.menuUploadInput
+      if (variant !== 'fr' && variant !== 'en') return
+
+      if (uploadBusyRef.current[variant]) {
+        target.value = ''
+        return
+      }
+
+      const file = target.files?.[0]
+      if (!file) return
+
+      uploadBusyRef.current[variant] = true
+      void runMenuAdminUpload(file, variant, target, (patch) => {
+        setUploadUi((prev) => ({
+          ...prev,
+          [variant]: { ...prev[variant], ...patch, hydrated: true },
+        }))
+        if (patch.success) onMenuUploaded()
+      }).finally(() => {
+        uploadBusyRef.current[variant] = false
+      })
+    }
+
+    document.addEventListener('change', onFileChange, true)
+    return () => document.removeEventListener('change', onFileChange, true)
+  }, [onMenuUploaded])
+
+  const uploadZoneProps = (variant: MenuDayVariant) => {
+    const ui = uploadUi[variant]
+    const busy = ui.phase !== 'idle'
+    const pickLabel =
+      ui.phase === 'preparing'
+        ? '⏳ Préparation de l’image…'
+        : ui.phase === 'uploading'
+          ? '⏳ Mise en ligne…'
+          : ui.success
+            ? '📁 Choisir un autre fichier'
+            : '📁 Choisir un fichier'
+
+    const statusMessage =
+      ui.phase === 'preparing'
+        ? '⏳ Compression sur votre appareil…'
+        : ui.phase === 'uploading'
+          ? '⏳ Envoi au serveur…'
+          : ui.error ??
+            ui.success ??
+            'Touchez le bouton vert pour ouvrir vos photos (JPEG, PNG) ou PDF.'
+
+    const statusTone: 'hint' | 'info' | 'error' | 'success' = ui.error
+      ? 'error'
+      : ui.success
+        ? 'success'
+        : ui.phase !== 'idle'
+          ? 'info'
+          : 'hint'
+
+    return {
+      pickLabel,
+      statusMessage,
+      statusTone,
+      pickedName: ui.pickedName,
+      busy,
+    }
+  }
 
   const dishesEditor = (variant: MenuDayVariant) => {
     const dirty = dishes[variant] !== savedDishes[variant]
@@ -342,20 +421,20 @@ export function MenuSetupAdminClient() {
 
         {messageAlert}
 
-        <MenuAdminUploadForm
+        <MenuAdminUploadZone
           variant="fr"
           title="Menu du jour (français)"
           hint="Fichier affiché aux visiteurs en français."
-          onUploaded={onMenuUploaded}
+          {...uploadZoneProps('fr')}
         />
         {dishesEditor('fr')}
 
         <div style={{ marginTop: '28px' }}>
-          <MenuAdminUploadForm
+          <MenuAdminUploadZone
             variant="en"
             title="Daily menu (English)"
             hint="Fichier affiché aux visiteurs en anglais."
-            onUploaded={onMenuUploaded}
+            {...uploadZoneProps('en')}
           />
           {dishesEditor('en')}
         </div>
