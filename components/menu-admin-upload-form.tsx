@@ -1,14 +1,17 @@
 'use client'
 
-import { useActionState, useEffect } from 'react'
-import { useFormStatus } from 'react-dom'
+import { useCallback, useEffect, useState } from 'react'
+import { prepareMenuFileForUpload } from '@/lib/compress-menu-browser'
+import { parseMenuUploadResponse } from '@/lib/menu-upload-api'
 import {
-  menuUploadActionInitialState,
-  uploadMenuAction,
-  type MenuUploadActionState,
-} from '@/app/[locale]/admin/menu-setup/upload-menu-action'
-import { MENU_UPLOAD_ACCEPT } from '@/lib/menu-pdf'
-import type { MenuDayVariant } from '@/lib/menu-pdf'
+  isMenuSourceWithinLimit,
+  isMenuUploadWithinSizeLimit,
+  MENU_UPLOAD_ACCEPT,
+  menuUploadSourceTooLargeMessage,
+  menuUploadTooHeavyMessage,
+  resolveMenuUpload,
+  type MenuDayVariant,
+} from '@/lib/menu-pdf'
 
 type MenuAdminUploadFormProps = {
   variant: MenuDayVariant
@@ -17,61 +20,147 @@ type MenuAdminUploadFormProps = {
   onUploaded?: () => void
 }
 
-function SubmitButton() {
-  const { pending } = useFormStatus()
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="menu-admin-upload__submit"
-    >
-      {pending ? '⏳ Mise en ligne…' : '📁 Choisir un fichier et envoyer'}
-    </button>
-  )
-}
+type Phase = 'idle' | 'preparing' | 'uploading'
 
-function FormFeedback({ state }: { state: MenuUploadActionState }) {
-  const { pending } = useFormStatus()
-  if (pending) {
-    return (
-      <p className="menu-admin-upload__feedback menu-admin-upload__feedback--info" role="status">
-        ⏳ Optimisation et envoi en cours…
-      </p>
-    )
-  }
-  if (state.error) {
-    return (
-      <p className="menu-admin-upload__feedback menu-admin-upload__feedback--error" role="alert">
-        {state.error}
-      </p>
-    )
-  }
-  if (state.success) {
-    return (
-      <p className="menu-admin-upload__feedback menu-admin-upload__feedback--success" role="status">
-        {state.success}
-      </p>
-    )
-  }
-  return (
-    <p className="menu-admin-upload__feedback menu-admin-upload__feedback--hint" role="note">
-      JPEG, PNG ou WebP — le serveur optimise automatiquement (max 10 Mo).
-    </p>
-  )
-}
+const UPLOAD_TIMEOUT_MS = 120_000
 
 export function MenuAdminUploadForm({ variant, title, hint, onUploaded }: MenuAdminUploadFormProps) {
-  const [state, formAction] = useActionState(uploadMenuAction, menuUploadActionInitialState)
+  const [phase, setPhase] = useState<Phase>('idle')
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState<string | null>(null)
+
+  const busy = phase !== 'idle'
 
   useEffect(() => {
-    if (state.success) onUploaded?.()
-  }, [state.success, onUploaded])
+    if (success) onUploaded?.()
+  }, [success, onUploaded])
+
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+      if (busy) return
+
+      setError(null)
+      setSuccess(null)
+
+      const form = e.currentTarget
+      const input = form.elements.namedItem('file')
+      if (!(input instanceof HTMLInputElement)) {
+        setError('❌ Champ fichier introuvable — rechargez la page.')
+        return
+      }
+
+      const file = input.files?.[0]
+      if (!file) {
+        setError('❌ Choisissez un fichier avant d’envoyer.')
+        return
+      }
+
+      const resolved = resolveMenuUpload(file)
+      if (!resolved) {
+        setError(
+          '❌ Formats acceptés : PDF, JPEG ou PNG. iPhone (HEIC) : exportez d’abord en JPEG depuis Photos.',
+        )
+        input.value = ''
+        return
+      }
+
+      if (!isMenuSourceWithinLimit(file.size)) {
+        setError(`❌ ${menuUploadSourceTooLargeMessage(file.size)}`)
+        input.value = ''
+        return
+      }
+
+      const isPdf = resolved.contentType === 'application/pdf'
+      setPhase('preparing')
+
+      try {
+        const uploadFile = await Promise.race([
+          prepareMenuFileForUpload(file, variant, isPdf),
+          new Promise<File>((_, reject) => {
+            window.setTimeout(() => reject(new Error('UPLOAD_TIMEOUT')), UPLOAD_TIMEOUT_MS)
+          }),
+        ])
+
+        if (!isMenuUploadWithinSizeLimit(uploadFile.size)) {
+          setError(`❌ ${menuUploadTooHeavyMessage(uploadFile.size)}`)
+          return
+        }
+
+        setPhase('uploading')
+
+        const formData = new FormData()
+        formData.append('file', uploadFile)
+        formData.append('variant', variant)
+
+        const response = await fetch(`/api/upload-menu?variant=${variant}`, {
+          method: 'POST',
+          body: formData,
+          credentials: 'same-origin',
+        })
+
+        if (response.status === 413) {
+          setError(
+            '❌ Fichier encore trop lourd pour l’hébergement. Réessayez avec une photo plus petite ou recadrez l’image.',
+          )
+          return
+        }
+
+        const parsed = await parseMenuUploadResponse(response)
+
+        if (response.status === 401) {
+          setError(
+            '❌ Session admin expirée — rechargez la page (F5) et reconnectez-vous avec le mot de passe.',
+          )
+          return
+        }
+
+        if (parsed.kind === 'success') {
+          const label = variant === 'en' ? 'Menu anglais' : 'Menu français'
+          setSuccess(`✅ ${label} mis en ligne sur le site.`)
+          input.value = ''
+          return
+        }
+
+        if (parsed.kind === 'error') {
+          setError(`❌ ${parsed.body.error}`)
+          return
+        }
+
+        setError('❌ Réponse serveur invalide — réessayez ou contactez le support.')
+      } catch (err: unknown) {
+        const reason = err instanceof Error ? err.message : 'Erreur inconnue'
+        if (reason === 'IMAGE_TOO_HEAVY') {
+          setError(`❌ ${menuUploadTooHeavyMessage(file.size)}`)
+        } else if (reason === 'PDF_RENDER') {
+          setError(
+            '❌ Impossible de lire ce PDF. Exportez-le en JPEG ou envoyez une photo du menu.',
+          )
+        } else if (reason === 'CANVAS' || reason === 'ENCODE') {
+          setError(
+            '❌ Votre navigateur n’a pas pu préparer l’image. Essayez Safari/Chrome à jour ou un JPEG.',
+          )
+        } else if (reason === 'UPLOAD_TIMEOUT') {
+          setError('❌ Délai dépassé (PDF lourd ou connexion lente). Essayez une photo JPEG plus légère.')
+        } else {
+          setError(`❌ Erreur : ${reason}`)
+        }
+      } finally {
+        setPhase('idle')
+      }
+    },
+    [busy, variant],
+  )
 
   return (
     <div className="menu-admin-upload">
       <p className="menu-admin-upload__title">{title}</p>
       <p className="menu-admin-upload__hint">{hint}</p>
-      <form action={formAction} encType="multipart/form-data" className="menu-admin-upload__form">
+      <form
+        onSubmit={(e) => void handleSubmit(e)}
+        encType="multipart/form-data"
+        className="menu-admin-upload__form"
+      >
         <input type="hidden" name="variant" value={variant} />
         <label className="menu-admin-upload__file-label">
           <span className="menu-admin-upload__file-label-text">Fichier menu</span>
@@ -81,10 +170,37 @@ export function MenuAdminUploadForm({ variant, title, hint, onUploaded }: MenuAd
             name="file"
             accept={MENU_UPLOAD_ACCEPT}
             required
+            disabled={busy}
           />
         </label>
-        <SubmitButton />
-        <FormFeedback state={state} />
+        <button type="submit" disabled={busy} className="menu-admin-upload__submit">
+          {phase === 'preparing'
+            ? '⏳ Préparation de l’image…'
+            : phase === 'uploading'
+              ? '⏳ Mise en ligne…'
+              : '📁 Choisir un fichier et envoyer'}
+        </button>
+        {phase === 'preparing' ? (
+          <p className="menu-admin-upload__feedback menu-admin-upload__feedback--info" role="status">
+            ⏳ Compression sur votre appareil (évite la limite Vercel 4 Mo)…
+          </p>
+        ) : phase === 'uploading' ? (
+          <p className="menu-admin-upload__feedback menu-admin-upload__feedback--info" role="status">
+            ⏳ Envoi au serveur…
+          </p>
+        ) : error ? (
+          <p className="menu-admin-upload__feedback menu-admin-upload__feedback--error" role="alert">
+            {error}
+          </p>
+        ) : success ? (
+          <p className="menu-admin-upload__feedback menu-admin-upload__feedback--success" role="status">
+            {success}
+          </p>
+        ) : (
+          <p className="menu-admin-upload__feedback menu-admin-upload__feedback--hint" role="note">
+            PDF, JPEG, PNG ou WebP (max 10 Mo à la source). L’image est réduite ici avant envoi (~1 Mo max).
+          </p>
+        )}
       </form>
     </div>
   )
