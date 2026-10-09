@@ -2,15 +2,9 @@
 
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState, type ReactNode } from 'react'
 import { AlertCircle, CheckCircle } from 'lucide-react'
 import { MainContent } from '@/components/main-content'
-import { MenuAdminUploadZone } from '@/components/menu-admin-upload-zone'
-import {
-  menuAdminUploadUiInitial,
-  runMenuAdminUpload,
-  type MenuAdminUploadUi,
-} from '@/lib/menu-admin-upload-client'
 import {
   MAX_MENU_DISHES_CHARS,
   MENU_DISHES_ADMIN_PLACEHOLDER,
@@ -43,7 +37,12 @@ type MenuStorageOverview = {
   publicFallbackEnabled?: boolean
 }
 
-export function MenuSetupAdminClient() {
+type MenuSetupAdminClientProps = {
+  frUpload: ReactNode
+  enUpload: ReactNode
+}
+
+export function MenuSetupAdminClient({ frUpload, enUpload }: MenuSetupAdminClientProps) {
   const searchParams = useSearchParams()
   const [message, setMessage] = useState<{ type: 'success' | 'error' | 'info'; text: string } | null>(null)
   const [chef, setChef] = useState<string>('')
@@ -52,12 +51,6 @@ export function MenuSetupAdminClient() {
   const [dishes, setDishes] = useState<MenuDishesTexts>({ fr: '', en: '' })
   const [savedDishes, setSavedDishes] = useState<MenuDishesTexts>({ fr: '', en: '' })
   const [savingDishes, setSavingDishes] = useState<MenuDayVariant | null>(null)
-  const [uploadUi, setUploadUi] = useState<Record<MenuDayVariant, MenuAdminUploadUi>>({
-    fr: { ...menuAdminUploadUiInitial, hydrated: true },
-    en: { ...menuAdminUploadUiInitial, hydrated: true },
-  })
-  const uploadBusyRef = useRef<Record<MenuDayVariant, boolean>>({ fr: false, en: false })
-
   useEffect(() => {
     void (async () => {
       try {
@@ -134,80 +127,6 @@ export function MenuSetupAdminClient() {
       setMessage({ type: 'error', text: '❌ Erreur : ' + (error instanceof Error ? error.message : 'inconnue') })
     } finally {
       setSavingDishes(null)
-    }
-  }
-
-  const onMenuUploaded = useCallback(() => {
-    setMenuPreviewHref(`/menu-du-jour?m=${Date.now()}`)
-    void refreshStorage()
-  }, [refreshStorage])
-
-  useEffect(() => {
-    const onFileChange = (event: Event) => {
-      const target = event.target
-      if (!(target instanceof HTMLInputElement) || target.type !== 'file') return
-      const variant = target.dataset.menuUploadInput
-      if (variant !== 'fr' && variant !== 'en') return
-
-      if (uploadBusyRef.current[variant]) {
-        target.value = ''
-        return
-      }
-
-      const file = target.files?.[0]
-      if (!file) return
-
-      uploadBusyRef.current[variant] = true
-      void runMenuAdminUpload(file, variant, target, (patch) => {
-        setUploadUi((prev) => ({
-          ...prev,
-          [variant]: { ...prev[variant], ...patch, hydrated: true },
-        }))
-        if (patch.success) onMenuUploaded()
-      }).finally(() => {
-        uploadBusyRef.current[variant] = false
-      })
-    }
-
-    document.addEventListener('change', onFileChange, true)
-    return () => document.removeEventListener('change', onFileChange, true)
-  }, [onMenuUploaded])
-
-  const uploadZoneProps = (variant: MenuDayVariant) => {
-    const ui = uploadUi[variant]
-    const busy = ui.phase !== 'idle'
-    const pickLabel =
-      ui.phase === 'preparing'
-        ? '⏳ Préparation de l’image…'
-        : ui.phase === 'uploading'
-          ? '⏳ Mise en ligne…'
-          : ui.success
-            ? '📁 Choisir un autre fichier'
-            : '📁 Choisir un fichier'
-
-    const statusMessage =
-      ui.phase === 'preparing'
-        ? '⏳ Compression sur votre appareil…'
-        : ui.phase === 'uploading'
-          ? '⏳ Envoi au serveur…'
-          : ui.error ??
-            ui.success ??
-            'Touchez le bouton vert pour ouvrir vos photos (JPEG, PNG) ou PDF.'
-
-    const statusTone: 'hint' | 'info' | 'error' | 'success' = ui.error
-      ? 'error'
-      : ui.success
-        ? 'success'
-        : ui.phase !== 'idle'
-          ? 'info'
-          : 'hint'
-
-    return {
-      pickLabel,
-      statusMessage,
-      statusTone,
-      pickedName: ui.pickedName,
-      busy,
     }
   }
 
@@ -421,21 +340,11 @@ export function MenuSetupAdminClient() {
 
         {messageAlert}
 
-        <MenuAdminUploadZone
-          variant="fr"
-          title="Menu du jour (français)"
-          hint="Fichier affiché aux visiteurs en français."
-          {...uploadZoneProps('fr')}
-        />
+        {frUpload}
         {dishesEditor('fr')}
 
         <div style={{ marginTop: '28px' }}>
-          <MenuAdminUploadZone
-            variant="en"
-            title="Daily menu (English)"
-            hint="Fichier affiché aux visiteurs en anglais."
-            {...uploadZoneProps('en')}
-          />
+          {enUpload}
           {dishesEditor('en')}
         </div>
 
