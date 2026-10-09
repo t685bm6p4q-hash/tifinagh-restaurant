@@ -15,6 +15,10 @@ import { buildContentSecurityPolicy, createCspNonce } from '@/lib/csp'
 import { canonicalHost } from '@/lib/seo'
 import { defaultLocale, isLocale, localeCookieName, type Locale } from '@/lib/i18n/config'
 import {
+  adminLocaleRewritePath,
+  isAdminInternalPath,
+} from '@/lib/admin-proxy-routing'
+import {
   cookieLocaleRedirectPath,
   resolveRequestLocale,
   stripLocalePrefix,
@@ -177,7 +181,7 @@ export function proxy(request: NextRequest) {
   const { pathname: rawPathname } = request.nextUrl
   const { pathname, localeFromPath } = stripLocalePrefix(rawPathname)
   const localeCookie = request.cookies.get(localeCookieName)?.value
-  const siteLocale = pathname.startsWith('/admin')
+  const siteLocale = isAdminInternalPath(pathname)
     ? defaultLocale
     : resolveRequestLocale(localeFromPath, localeCookie)
   const host = requestHost(request)
@@ -197,7 +201,7 @@ export function proxy(request: NextRequest) {
     }
   }
 
-  if (!pathname.startsWith('/admin')) {
+  if (!isAdminInternalPath(pathname)) {
     const cookieRedirect = cookieLocaleRedirectPath(pathname, localeFromPath, localeCookie)
     if (cookieRedirect && cookieRedirect !== rawPathname) {
       const url = request.nextUrl.clone()
@@ -216,16 +220,11 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(url, 308)
   }
 
-  if (pathname.startsWith('/admin')) {
+  if (isAdminInternalPath(pathname)) {
     const gate = adminGate(request)
     if (!gate.ok) return gate.response
 
-    const internalLocalePath = (locale: Locale, internalPath: string) => {
-      const suffix = internalPath === '/' ? '' : internalPath
-      return `/${locale}${suffix}`
-    }
-
-    const routedPathname = internalLocalePath(defaultLocale, pathname)
+    const routedPathname = adminLocaleRewritePath(pathname, defaultLocale)
     const patch = adminRequestHeaderPatch(gate.expectedPassword)
 
     if (routedPathname !== rawPathname) {

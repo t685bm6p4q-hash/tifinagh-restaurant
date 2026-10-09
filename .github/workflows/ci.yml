@@ -29,6 +29,9 @@ jobs:
       - name: Menu storage invariants
         run: npm run check:menu-storage
 
+      - name: Admin proxy invariants
+        run: npm run check:admin-proxy
+
       - name: ESLint
         run: npm run lint
 
@@ -40,3 +43,8 @@ jobs:
 
       - name: Production build
         run: npm run build
+
+      - name: Smoke admin prod (fail-closed)
+        run: npm run verify:admin-prod
+        env:
+          NEXT_PUBLIC_SITE_URL: https://www.tifinagh.fr
