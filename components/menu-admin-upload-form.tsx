@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { prepareMenuFileForUpload } from '@/lib/compress-menu-browser'
 import { parseMenuUploadResponse } from '@/lib/menu-upload-api'
 import {
@@ -25,9 +25,12 @@ type Phase = 'idle' | 'preparing' | 'uploading'
 const UPLOAD_TIMEOUT_MS = 120_000
 
 export function MenuAdminUploadForm({ variant, title, hint, onUploaded }: MenuAdminUploadFormProps) {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const busyRef = useRef(false)
   const [phase, setPhase] = useState<Phase>('idle')
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
+  const [pickedName, setPickedName] = useState<string | null>(null)
 
   const busy = phase !== 'idle'
 
@@ -35,26 +38,14 @@ export function MenuAdminUploadForm({ variant, title, hint, onUploaded }: MenuAd
     if (success) onUploaded?.()
   }, [success, onUploaded])
 
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-      if (busy) return
+  const runUpload = useCallback(
+    async (file: File, input: HTMLInputElement) => {
+      if (busyRef.current) return
+      busyRef.current = true
 
       setError(null)
       setSuccess(null)
-
-      const form = e.currentTarget
-      const input = form.elements.namedItem('file')
-      if (!(input instanceof HTMLInputElement)) {
-        setError('❌ Champ fichier introuvable — rechargez la page.')
-        return
-      }
-
-      const file = input.files?.[0]
-      if (!file) {
-        setError('❌ Choisissez un fichier avant d’envoyer.')
-        return
-      }
+      setPickedName(file.name)
 
       const resolved = resolveMenuUpload(file)
       if (!resolved) {
@@ -62,12 +53,16 @@ export function MenuAdminUploadForm({ variant, title, hint, onUploaded }: MenuAd
           '❌ Formats acceptés : PDF, JPEG ou PNG. iPhone (HEIC) : exportez d’abord en JPEG depuis Photos.',
         )
         input.value = ''
+        setPickedName(null)
+        busyRef.current = false
         return
       }
 
       if (!isMenuSourceWithinLimit(file.size)) {
         setError(`❌ ${menuUploadSourceTooLargeMessage(file.size)}`)
         input.value = ''
+        setPickedName(null)
+        busyRef.current = false
         return
       }
 
@@ -119,6 +114,7 @@ export function MenuAdminUploadForm({ variant, title, hint, onUploaded }: MenuAd
           const label = variant === 'en' ? 'Menu anglais' : 'Menu français'
           setSuccess(`✅ ${label} mis en ligne sur le site.`)
           input.value = ''
+          setPickedName(null)
           return
         }
 
@@ -147,42 +143,57 @@ export function MenuAdminUploadForm({ variant, title, hint, onUploaded }: MenuAd
         }
       } finally {
         setPhase('idle')
+        busyRef.current = false
       }
     },
-    [busy, variant],
+    [variant],
   )
+
+  const handleFileChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0]
+      if (!file) return
+      void runUpload(file, e.target)
+    },
+    [runUpload],
+  )
+
+  const pickLabel =
+    phase === 'preparing'
+      ? '⏳ Préparation de l’image…'
+      : phase === 'uploading'
+        ? '⏳ Mise en ligne…'
+        : success
+          ? '📁 Choisir un autre fichier'
+          : '📁 Choisir un fichier'
 
   return (
     <div className="menu-admin-upload">
       <p className="menu-admin-upload__title">{title}</p>
       <p className="menu-admin-upload__hint">{hint}</p>
-      <form
-        onSubmit={(e) => void handleSubmit(e)}
-        encType="multipart/form-data"
-        className="menu-admin-upload__form"
-      >
-        <input type="hidden" name="variant" value={variant} />
-        <label className="menu-admin-upload__file-label">
-          <span className="menu-admin-upload__file-label-text">Fichier menu</span>
+      <div className="menu-admin-upload__form">
+        <label
+          className={`menu-admin-upload__pick${busy ? ' menu-admin-upload__pick--busy' : ''}`}
+        >
           <input
-            className="menu-admin-upload__file-input"
+            ref={inputRef}
+            className="menu-admin-upload__file-native"
             type="file"
             name="file"
             accept={MENU_UPLOAD_ACCEPT}
-            required
             disabled={busy}
+            onChange={handleFileChange}
           />
+          <span className="menu-admin-upload__pick-text">{pickLabel}</span>
         </label>
-        <button type="submit" disabled={busy} className="menu-admin-upload__submit">
-          {phase === 'preparing'
-            ? '⏳ Préparation de l’image…'
-            : phase === 'uploading'
-              ? '⏳ Mise en ligne…'
-              : '📁 Choisir un fichier et envoyer'}
-        </button>
+        {pickedName && busy ? (
+          <p className="menu-admin-upload__picked" role="status">
+            {pickedName}
+          </p>
+        ) : null}
         {phase === 'preparing' ? (
           <p className="menu-admin-upload__feedback menu-admin-upload__feedback--info" role="status">
-            ⏳ Compression sur votre appareil (évite la limite Vercel 4 Mo)…
+            ⏳ Compression sur votre appareil…
           </p>
         ) : phase === 'uploading' ? (
           <p className="menu-admin-upload__feedback menu-admin-upload__feedback--info" role="status">
@@ -198,10 +209,10 @@ export function MenuAdminUploadForm({ variant, title, hint, onUploaded }: MenuAd
           </p>
         ) : (
           <p className="menu-admin-upload__feedback menu-admin-upload__feedback--hint" role="note">
-            PDF, JPEG, PNG ou WebP (max 10 Mo à la source). L’image est réduite ici avant envoi (~1 Mo max).
+            PDF, JPEG ou PNG (max 10 Mo). Dès la sélection, le menu est optimisé puis validé en ligne.
           </p>
         )}
-      </form>
+      </div>
     </div>
   )
 }

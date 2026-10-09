@@ -174,7 +174,11 @@ export function sniffMenuContentType(bytes: Uint8Array): string | null {
 
 export function resolveMenuUpload(file: File): { contentType: string; filename: string } | null {
   const name = file.name.toLowerCase()
-  const type = (file.type || '').toLowerCase()
+  const type = (file.type || '').toLowerCase().split(';')[0]?.trim() ?? ''
+
+  if (type.includes('heic') || type.includes('heif') || name.endsWith('.heic') || name.endsWith('.heif')) {
+    return null
+  }
 
   if (type.includes('pdf') || name.endsWith('.pdf')) {
     return { contentType: PDF, filename: 'menu-du-jour.pdf' }
@@ -187,6 +191,20 @@ export function resolveMenuUpload(file: File): { contentType: string; filename: 
   }
   if (type === WEBP || name.endsWith('.webp')) {
     return { contentType: WEBP, filename: 'menu-du-jour.webp' }
+  }
+  if (type.startsWith('image/')) {
+    return { contentType: type, filename: name || 'menu-du-jour.jpg' }
+  }
+  if (!type || type === 'application/octet-stream') {
+    if (name.endsWith('.jpg') || name.endsWith('.jpeg')) {
+      return { contentType: JPEG, filename: 'menu-du-jour.jpg' }
+    }
+    if (name.endsWith('.png')) {
+      return { contentType: PNG, filename: 'menu-du-jour.png' }
+    }
+    if (name.endsWith('.webp')) {
+      return { contentType: WEBP, filename: 'menu-du-jour.webp' }
+    }
   }
   return null
 }
