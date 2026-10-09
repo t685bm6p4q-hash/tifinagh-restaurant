@@ -7,12 +7,10 @@ import { isAdminAuthorized } from '@/lib/admin-auth'
 import { processMenuUploadFile } from '@/lib/menu-upload-process'
 import { resolveMenuUploadVariant } from '@/lib/menu-pdf'
 
-export type MenuUploadActionState = {
+type MenuUploadActionState = {
   error: string | null
   success: string | null
 }
-
-const emptyState: MenuUploadActionState = { error: null, success: null }
 
 function requestFromHeaders(h: Headers): Request {
   return new Request('https://www.tifinagh.fr/api/upload-menu', {
@@ -23,10 +21,7 @@ function requestFromHeaders(h: Headers): Request {
   })
 }
 
-export async function uploadMenuAction(
-  _prev: MenuUploadActionState,
-  formData: FormData,
-): Promise<MenuUploadActionState> {
+async function runUploadMenuAction(formData: FormData): Promise<MenuUploadActionState> {
   const h = await headers()
   if (!isAdminAuthorized(requestFromHeaders(h))) {
     return {
@@ -60,11 +55,9 @@ export async function uploadMenuAction(
   }
 }
 
-export { emptyState as menuUploadActionInitialState }
-
-/** Formulaire HTML sans JavaScript (noscript) — redirection avec message. */
+/** Formulaire HTML — redirection avec message (sans JavaScript). */
 export async function uploadMenuPlainFormAction(formData: FormData): Promise<void> {
-  const result = await uploadMenuAction(emptyState, formData)
+  const result = await runUploadMenuAction(formData)
   if (result.success) {
     redirect('/admin/menu-setup?menuUpload=ok')
   }
