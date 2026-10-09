@@ -3,20 +3,14 @@ import type { MenuDayVariant } from '@/lib/menu-pdf'
 import { mintAdminMenuUploadToken } from '@/lib/mint-admin-upload-token'
 import { MenuAdminUploadPanel } from '@/components/menu-admin-upload-panel'
 
-type MenuAdminUploadNativeFormProps = {
+type MenuAdminUploadGateProps = {
   variant: MenuDayVariant
   title: string
   hint: string
 }
 
-/**
- * Upload menu — jeton serveur + envoi fetch côté client (compression + retour ⏳/✅).
- */
-export async function MenuAdminUploadNativeForm({
-  variant,
-  title,
-  hint,
-}: MenuAdminUploadNativeFormProps) {
+/** Vérifie la session serveur et délègue l’upload au panneau client. */
+export async function MenuAdminUploadGate({ variant, title, hint }: MenuAdminUploadGateProps) {
   const uploadToken = await mintAdminMenuUploadToken()
 
   if (!uploadToken) {

@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState, type ReactNode } from 'react'
 import { AlertCircle, CheckCircle } from 'lucide-react'
 import { MainContent } from '@/components/main-content'
@@ -14,13 +13,6 @@ import { formatMenuUploadedAt } from '@/lib/format-menu-uploaded-at'
 import { MENU_UPLOAD_SUCCESS_EVENT } from '@/lib/menu-upload-events'
 import { MENU_UPLOAD_FORMATS_HINT, type MenuDayVariant } from '@/lib/menu-pdf'
 
-type MenuBlobAccessRow = {
-  privateReadable: boolean
-  publicReadable: boolean
-  privateOnlyReady: boolean
-  publicLegacyPresent: boolean
-}
-
 type MenuStorageRow = {
   pathname: string
   exists: boolean
@@ -28,14 +20,12 @@ type MenuStorageRow = {
   uploadedAt: string | null
   contentType: string | null
   sizeBytes: number | null
-  blobAccess?: MenuBlobAccessRow | null
 }
 
 type MenuStorageOverview = {
   fr: MenuStorageRow
   en: MenuStorageRow
   blobPrivateOnlyReady?: boolean | null
-  publicFallbackEnabled?: boolean
 }
 
 type MenuSetupAdminClientProps = {
@@ -44,7 +34,6 @@ type MenuSetupAdminClientProps = {
 }
 
 export function MenuSetupAdminClient({ frUpload, enUpload }: MenuSetupAdminClientProps) {
-  const searchParams = useSearchParams()
   const [message, setMessage] = useState<{ type: 'success' | 'error' | 'info'; text: string } | null>(null)
   const [chef, setChef] = useState<string>('')
   const [storage, setStorage] = useState<MenuStorageOverview | null>(null)
@@ -97,23 +86,6 @@ export function MenuSetupAdminClient({ frUpload, enUpload }: MenuSetupAdminClien
     window.addEventListener(MENU_UPLOAD_SUCCESS_EVENT, onUploaded)
     return () => window.removeEventListener(MENU_UPLOAD_SUCCESS_EVENT, onUploaded)
   }, [refreshStorage])
-
-  useEffect(() => {
-    const upload = searchParams.get('menuUpload')
-    if (!upload) return
-    if (upload === 'ok') {
-      setMessage({ type: 'success', text: '✅ Menu mis en ligne sur le site.' })
-      setMenuPreviewHref(`/menu-du-jour?m=${Date.now()}`)
-      void refreshStorage()
-    } else if (upload === 'err') {
-      const msg = searchParams.get('msg')
-      setMessage({
-        type: 'error',
-        text: msg ? decodeURIComponent(msg) : '❌ Échec de la mise en ligne.',
-      })
-    }
-    window.history.replaceState({}, '', '/admin/menu-setup')
-  }, [searchParams, refreshStorage])
 
   const saveDishes = async (variant: MenuDayVariant) => {
     setSavingDishes(variant)
