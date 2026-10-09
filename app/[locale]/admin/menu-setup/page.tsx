@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { AlertCircle, CheckCircle } from 'lucide-react'
 import { MainContent } from '@/components/main-content'
 import {
@@ -60,9 +60,6 @@ export default function MenuSetupAdmin() {
   const [dishes, setDishes] = useState<MenuDishesTexts>({ fr: '', en: '' })
   const [savedDishes, setSavedDishes] = useState<MenuDishesTexts>({ fr: '', en: '' })
   const [savingDishes, setSavingDishes] = useState<MenuDayVariant | null>(null)
-  const fileInputFrRef = useRef<HTMLInputElement>(null)
-  const fileInputEnRef = useRef<HTMLInputElement>(null)
-
   useEffect(() => {
     void (async () => {
       try {
@@ -233,7 +230,7 @@ export default function MenuSetupAdmin() {
   const uploadButton = (variant: MenuDayVariant, label: string, hint: string) => {
     const busy = uploadingVariant !== null
     const isThis = uploadingVariant === variant
-    const inputRef = variant === 'en' ? fileInputEnRef : fileInputFrRef
+    const inputId = variant === 'en' ? 'menu-upload-input-en' : 'menu-upload-input-fr'
     return (
     <div style={{ marginBottom: '20px' }}>
       <p style={{ color: 'var(--foreground)', fontSize: '14px', fontWeight: '600', margin: '0 0 8px' }}>
@@ -241,26 +238,28 @@ export default function MenuSetupAdmin() {
       </p>
       <p style={{ color: 'var(--muted)', fontSize: '12px', margin: '0 0 10px' }}>{hint}</p>
       <input
-        ref={inputRef}
+        id={inputId}
         type="file"
         accept={MENU_UPLOAD_ACCEPT}
         onChange={(e) => void handleFileUpload(variant, e)}
-        disabled={busy}
-        style={{ display: 'none' }}
-        aria-hidden="true"
-        tabIndex={-1}
-      />
-      <button
-        type="button"
-        disabled={busy}
-        onClick={() => {
-          if (busy) return
-          inputRef.current?.click()
+        disabled={isThis}
+        style={{
+          position: 'absolute',
+          width: 1,
+          height: 1,
+          padding: 0,
+          margin: -1,
+          overflow: 'hidden',
+          clip: 'rect(0, 0, 0, 0)',
+          whiteSpace: 'nowrap',
+          border: 0,
         }}
+      />
+      <label
+        htmlFor={inputId}
         style={{
           display: 'block',
           width: '100%',
-          border: 'none',
           background: isThis ? 'var(--line)' : '#25d366',
           color: '#000',
           padding: '14px 20px',
@@ -270,10 +269,12 @@ export default function MenuSetupAdmin() {
           textAlign: 'center',
           fontSize: '15px',
           opacity: busy && !isThis ? 0.5 : 1,
+          pointerEvents: isThis ? 'none' : 'auto',
+          boxSizing: 'border-box',
         }}
       >
         {isThis ? '⏳ Envoi…' : '📁 Choisir un fichier'}
-      </button>
+      </label>
       {dishesEditor(variant)}
     </div>
     )
