@@ -180,6 +180,7 @@ export function proxy(request: NextRequest) {
         r.headers.set('X-Robots-Tag', 'noindex, nofollow')
         r.headers.set('Cache-Control', 'no-store')
       })
+      setAdminSessionCookie(response, expected)
       return withMarketingResponse(response, pathname, { localeFromPath, method: requestMethod })
     }
 

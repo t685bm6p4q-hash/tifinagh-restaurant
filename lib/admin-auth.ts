@@ -14,6 +14,8 @@ const ADMIN_SESSION_COOKIE = 'tifinagh_admin_session'
 const SESSION_MARKER = 'tifinagh-admin-v2'
 /** 8 h — suffisant pour une mise à jour du menu, sans session permanente. */
 const ADMIN_SESSION_MAX_AGE_SEC = 8 * 60 * 60
+/** Jeton one-shot dans le formulaire (cookie parfois absent sur POST Server Action). */
+export const ADMIN_UPLOAD_TOKEN_MAX_AGE_SEC = 10 * 60
 
 /** Mémoire par instance serverless : freine le brute-force sans remplacer un pare-feu. */
 const MAX_AUTH_FAILURES = 10
@@ -42,6 +44,27 @@ function sessionSignature(expectedPassword: string, expiresAtSec: number): strin
 function createSessionToken(expectedPassword: string): string {
   const expiresAtSec = Math.floor(Date.now() / 1000) + ADMIN_SESSION_MAX_AGE_SEC
   return `${expiresAtSec}.${sessionSignature(expectedPassword, expiresAtSec)}`
+}
+
+function uploadTokenSignature(expectedPassword: string, expiresAtSec: number): string {
+  return createHmac('sha256', expectedPassword)
+    .update(`${SESSION_MARKER}.upload.${expiresAtSec}`)
+    .digest('base64url')
+}
+
+export function createAdminUploadToken(expectedPassword: string): string {
+  const expiresAtSec = Math.floor(Date.now() / 1000) + ADMIN_UPLOAD_TOKEN_MAX_AGE_SEC
+  return `${expiresAtSec}.${uploadTokenSignature(expectedPassword, expiresAtSec)}`
+}
+
+export function verifyAdminUploadToken(token: string, expectedPassword: string): boolean {
+  const dot = token.indexOf('.')
+  if (dot <= 0) return false
+  const expiresAtSec = Number(token.slice(0, dot))
+  const nowSec = Math.floor(Date.now() / 1000)
+  if (!Number.isInteger(expiresAtSec)) return false
+  if (expiresAtSec <= nowSec || expiresAtSec > nowSec + ADMIN_UPLOAD_TOKEN_MAX_AGE_SEC) return false
+  return safeEqual(token.slice(dot + 1), uploadTokenSignature(expectedPassword, expiresAtSec))
 }
 
 function isSessionTokenValid(token: string, expectedPassword: string): boolean {
@@ -141,5 +164,18 @@ export function isAdminAuthorized(request: Request): boolean {
   if (fromBasic && safeEqual(fromBasic, expected)) return true
   if (fromBasic) recordAdminAuthFailure(request)
 
+  return false
+}
+
+/** Upload menu : cookie, Basic Auth ou jeton signé du formulaire. */
+export function isAdminAuthorizedForMenuUpload(
+  request: Request,
+  formData: FormData,
+): boolean {
+  if (isAdminAuthorized(request)) return true
+  const expected = getAdminPassword()
+  if (!expected) return false
+  const raw = formData.get('uploadToken')
+  if (typeof raw === 'string' && verifyAdminUploadToken(raw, expected)) return true
   return false
 }

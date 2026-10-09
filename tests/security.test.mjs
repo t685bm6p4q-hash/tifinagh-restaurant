@@ -1,11 +1,14 @@
 import assert from 'node:assert/strict'
 import { beforeEach, describe, it } from 'node:test'
 import {
+  createAdminUploadToken,
   hasValidAdminSession,
   isAdminAuthorized,
+  isAdminAuthorizedForMenuUpload,
   isAdminRateLimited,
   safeEqual,
   setAdminSessionCookie,
+  verifyAdminUploadToken,
 } from '../lib/admin-auth.ts'
 import { serializeJsonLd } from '../lib/json-ld.ts'
 import { parseMenuDisplayWidth } from '../lib/menu-image-display.ts'
@@ -70,6 +73,14 @@ describe('session admin', () => {
   it('refuse tout sans mot de passe configuré (fail-closed)', () => {
     delete process.env.MENU_ADMIN_PASSWORD
     assert.equal(isAdminAuthorized(request({ basic: PASSWORD })), false)
+  })
+
+  it('accepte un jeton upload signé dans le formulaire sans cookie', () => {
+    const uploadToken = createAdminUploadToken(PASSWORD)
+    assert.equal(verifyAdminUploadToken(uploadToken, PASSWORD), true)
+    const form = new FormData()
+    form.set('uploadToken', uploadToken)
+    assert.equal(isAdminAuthorizedForMenuUpload(request(), form), true)
   })
 })
 
