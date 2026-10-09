@@ -81,6 +81,13 @@ const nextConfig = {
         ],
       },
       {
+        source: '/pdf.worker.min.mjs',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=86400, must-revalidate' },
+          { key: 'Content-Type', value: 'text/javascript; charset=utf-8' },
+        ],
+      },
+      {
         source: '/:file(icon.webp|icon.png|favicon.ico|apple-touch-icon.png)',
         headers: [
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },

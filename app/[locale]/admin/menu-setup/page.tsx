@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { AlertCircle, CheckCircle } from 'lucide-react'
 import { MainContent } from '@/components/main-content'
 import {
@@ -60,6 +60,8 @@ export default function MenuSetupAdmin() {
   const [dishes, setDishes] = useState<MenuDishesTexts>({ fr: '', en: '' })
   const [savedDishes, setSavedDishes] = useState<MenuDishesTexts>({ fr: '', en: '' })
   const [savingDishes, setSavingDishes] = useState<MenuDayVariant | null>(null)
+  const fileInputFrRef = useRef<HTMLInputElement>(null)
+  const fileInputEnRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     void (async () => {
@@ -104,6 +106,13 @@ export default function MenuSetupAdmin() {
   const refreshStorage = useCallback(async () => {
     try {
       const res = await fetch('/api/upload-menu', { credentials: 'same-origin' })
+      if (res.status === 401) {
+        setMessage({
+          type: 'error',
+          text: '❌ Session admin expirée — rechargez la page (F5) et reconnectez-vous avec le mot de passe.',
+        })
+        return
+      }
       if (!res.ok) return
       const data = (await res.json()) as MenuStorageOverview
       setStorage(data)
@@ -123,7 +132,10 @@ export default function MenuSetupAdmin() {
 
     const resolved = resolveMenuUpload(file)
     if (!resolved) {
-      setMessage({ type: 'error', text: '❌ Formats acceptés : PDF, JPEG ou PNG.' })
+      setMessage({
+        type: 'error',
+        text: '❌ Formats acceptés : PDF, JPEG ou PNG. Les photos iPhone (HEIC) : exportez d’abord en JPEG.',
+      })
       input.value = ''
       return
     }
@@ -204,6 +216,11 @@ export default function MenuSetupAdmin() {
           type: 'error',
           text: '❌ Impossible de lire ce PDF. Essayez de l’exporter à nouveau ou envoyez une photo JPEG/PNG.',
         })
+      } else if (reason === 'CANVAS' || reason === 'ENCODE') {
+        setMessage({
+          type: 'error',
+          text: '❌ Votre navigateur n’a pas pu préparer l’image. Essayez Chrome/Safari à jour ou un JPEG/PNG.',
+        })
       } else {
         setMessage({ type: 'error', text: '❌ Erreur : ' + reason })
       }
@@ -216,41 +233,47 @@ export default function MenuSetupAdmin() {
   const uploadButton = (variant: MenuDayVariant, label: string, hint: string) => {
     const busy = uploadingVariant !== null
     const isThis = uploadingVariant === variant
+    const inputRef = variant === 'en' ? fileInputEnRef : fileInputFrRef
     return (
     <div style={{ marginBottom: '20px' }}>
       <p style={{ color: 'var(--foreground)', fontSize: '14px', fontWeight: '600', margin: '0 0 8px' }}>
         {label}
       </p>
       <p style={{ color: 'var(--muted)', fontSize: '12px', margin: '0 0 10px' }}>{hint}</p>
-      <label
+      <input
+        ref={inputRef}
+        type="file"
+        accept={MENU_UPLOAD_ACCEPT}
+        onChange={(e) => void handleFileUpload(variant, e)}
+        disabled={busy}
+        style={{ display: 'none' }}
+        aria-hidden="true"
+        tabIndex={-1}
+      />
+      <button
+        type="button"
+        disabled={busy}
+        onClick={() => {
+          if (busy) return
+          inputRef.current?.click()
+        }}
         style={{
-          cursor: isThis ? 'wait' : busy ? 'not-allowed' : 'pointer',
           display: 'block',
+          width: '100%',
+          border: 'none',
+          background: isThis ? 'var(--line)' : '#25d366',
+          color: '#000',
+          padding: '14px 20px',
+          borderRadius: '8px',
+          fontWeight: '600',
+          cursor: isThis ? 'wait' : busy ? 'not-allowed' : 'pointer',
+          textAlign: 'center',
+          fontSize: '15px',
+          opacity: busy && !isThis ? 0.5 : 1,
         }}
       >
-        <input
-          type="file"
-          accept={MENU_UPLOAD_ACCEPT}
-          onChange={(e) => handleFileUpload(variant, e)}
-          disabled={busy}
-          style={{ display: 'none' }}
-        />
-        <div
-          style={{
-            background: isThis ? 'var(--line)' : '#25d366',
-            color: '#000',
-            padding: '14px 20px',
-            borderRadius: '8px',
-            fontWeight: '600',
-            cursor: isThis ? 'wait' : busy ? 'not-allowed' : 'pointer',
-            textAlign: 'center',
-            fontSize: '15px',
-            opacity: busy && !isThis ? 0.5 : 1,
-          }}
-        >
-          {isThis ? '⏳ Envoi…' : '📁 Choisir un fichier'}
-        </div>
-      </label>
+        {isThis ? '⏳ Envoi…' : '📁 Choisir un fichier'}
+      </button>
       {dishesEditor(variant)}
     </div>
     )
@@ -314,6 +337,53 @@ export default function MenuSetupAdmin() {
       </div>
     )
   }
+
+  const messageAlert =
+    message ? (
+      <div
+        role="status"
+        style={{
+          display: 'flex',
+          alignItems: 'flex-start',
+          gap: '12px',
+          padding: '14px',
+          borderRadius: '5px',
+          marginBottom: '20px',
+          background:
+            message.type === 'success'
+              ? 'rgba(37, 211, 102, 0.1)'
+              : message.type === 'error'
+                ? 'rgba(255, 100, 100, 0.1)'
+                : 'rgba(212, 173, 69, 0.1)',
+          border:
+            message.type === 'success'
+              ? '1px solid #25d366'
+              : message.type === 'error'
+                ? '1px solid #ff6464'
+                : '1px solid var(--gold)',
+        }}
+      >
+        {message.type === 'success' ? (
+          <CheckCircle size={18} color="#25d366" style={{ flexShrink: 0, marginTop: '1px' }} />
+        ) : (
+          <AlertCircle
+            size={18}
+            color={message.type === 'error' ? '#ff6464' : 'var(--gold)'}
+            style={{ flexShrink: 0, marginTop: '1px' }}
+          />
+        )}
+        <p
+          style={{
+            color: message.type === 'error' ? '#ff6464' : 'var(--foreground)',
+            margin: 0,
+            fontSize: '14px',
+            lineHeight: 1.45,
+          }}
+        >
+          {message.text}
+        </p>
+      </div>
+    ) : null
 
   return (
     <MainContent style={{ background: 'var(--background)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -427,6 +497,8 @@ export default function MenuSetupAdmin() {
           </div>
         ) : null}
 
+        {messageAlert}
+
         {uploadButton(
           'fr',
           'Menu du jour (français)',
@@ -441,47 +513,6 @@ export default function MenuSetupAdmin() {
         <p style={{ color: 'var(--muted)', fontSize: '12px', textAlign: 'center', marginTop: '4px' }}>
           {MENU_UPLOAD_FORMATS_HINT}
         </p>
-
-        {message && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'flex-start',
-              gap: '12px',
-              padding: '14px',
-              borderRadius: '5px',
-              marginTop: '20px',
-              background:
-                message.type === 'success'
-                  ? 'rgba(37, 211, 102, 0.1)'
-                  : message.type === 'error'
-                    ? 'rgba(255, 100, 100, 0.1)'
-                    : 'rgba(212, 173, 69, 0.1)',
-              border:
-                message.type === 'success'
-                  ? '1px solid #25d366'
-                  : message.type === 'error'
-                    ? '1px solid #ff6464'
-                    : '1px solid var(--gold)',
-            }}
-          >
-            {message.type === 'success' ? (
-              <CheckCircle size={18} color="#25d366" style={{ flexShrink: 0, marginTop: '1px' }} />
-            ) : (
-              <AlertCircle size={18} color={message.type === 'error' ? '#ff6464' : 'var(--gold)'} style={{ flexShrink: 0, marginTop: '1px' }} />
-            )}
-            <p
-              style={{
-                color: message.type === 'error' ? '#ff6464' : 'var(--foreground)',
-                margin: 0,
-                fontSize: '14px',
-                lineHeight: 1.45,
-              }}
-            >
-              {message.text}
-            </p>
-          </div>
-        )}
 
         {menuPreviewHref ? (
           <p style={{ margin: '14px 0 0', textAlign: 'center' }}>

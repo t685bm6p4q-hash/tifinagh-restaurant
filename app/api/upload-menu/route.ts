@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
     }
 
     const resolved = resolveMenuUpload(file)
-    if (!resolved || resolved.contentType === 'application/pdf') {
+    if (resolved?.contentType === 'application/pdf') {
       return NextResponse.json(
         { error: 'Le serveur attend une image optimisée (WebP, JPEG ou PNG). Rechargez la page admin.' },
         { status: 400 },
@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
 
     let buffer = Buffer.from(await file.arrayBuffer())
     const sniffed = sniffMenuContentType(new Uint8Array(buffer))
-    if (!sniffed || sniffed !== resolved.contentType) {
+    if (!sniffed || !sniffed.startsWith('image/')) {
       return NextResponse.json(
         { error: 'Le fichier ne correspond pas à une image JPEG, PNG ou WebP valide' },
         { status: 400 },

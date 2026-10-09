@@ -2,6 +2,13 @@ const MAX_WEBP_BYTES = 1024 * 1024
 const MAX_SIDE = 1600
 const MIN_SIDE = 720
 
+const MENU_PDF_WORKER_PATH = '/pdf.worker.min.mjs'
+
+function menuPdfWorkerSrc(): string {
+  if (typeof window === 'undefined') return MENU_PDF_WORKER_PATH
+  return new URL(MENU_PDF_WORKER_PATH, window.location.origin).href
+}
+
 function canvasToBlob(
   canvas: HTMLCanvasElement,
   type: string,
@@ -92,10 +99,7 @@ export async function convertMenuPdfToImageInBrowser(
   variant: 'fr' | 'en' = 'fr',
 ): Promise<File> {
   const pdfjs = await import('pdfjs-dist')
-  pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-    'pdfjs-dist/build/pdf.worker.min.mjs',
-    import.meta.url,
-  ).toString()
+  pdfjs.GlobalWorkerOptions.workerSrc = menuPdfWorkerSrc()
 
   const loadingTask = pdfjs.getDocument({ data: new Uint8Array(await file.arrayBuffer()) })
   const pdf = await loadingTask.promise
