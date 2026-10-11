@@ -7,9 +7,6 @@ export function GET() {
     })
   }
 
-  const aiCatalogUrl = new URL('/.well-known/ai-catalog.json', siteUrl).href
-  const ardUrl = new URL('/.well-known/ard.json', siteUrl).href
-
   const body = [
     'User-Agent: *',
     'Allow: /',
@@ -18,8 +15,6 @@ export function GET() {
     'Disallow: /admin',
     '',
     `Sitemap: ${new URL('/sitemap.xml', siteUrl).href}`,
-    `Agentmap: ${aiCatalogUrl}`,
-    `Agentmap: ${ardUrl}`,
     '',
   ].join('\n')
 

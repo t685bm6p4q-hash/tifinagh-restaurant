@@ -42,7 +42,7 @@ export function HomeTemplate({ locale, dictionary }: HomeTemplateProps) {
             <source media="(max-width: 768px)" srcSet="/images/hero-salle-480.webp" type="image/webp" />
             <img
               className="hero-image"
-              src="/images/hero-salle-480.webp"
+              src="/images/hero-salle-480.avif"
               alt={dictionary.home.heroImageAlt}
               width={480}
               height={320}
