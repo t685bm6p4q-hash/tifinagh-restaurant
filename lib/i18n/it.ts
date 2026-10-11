@@ -181,6 +181,8 @@ export const it: Dictionary = {
     langToggleFr: 'Français',
     langToggleEn: 'English',
     enFallbackNote: 'Il menu in inglese non è ancora online — viene mostrata la versione francese.',
+    localSeoFootnote:
+      'Le Tifinagh, bistrot tradizionale parigino e cucina 100 % fatta in casa nel Paris 18. Godetevi la terrazza a due passi dal cimitero di Montmartre, dal Moulin Rouge e da Place de Clichy.',
   },
   reservationPage: {
     introEyebrow: 'Il vostro tavolo',

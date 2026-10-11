@@ -328,6 +328,8 @@ export type Dictionary = {
     langToggleFr: string
     langToggleEn: string
     enFallbackNote: string
+    /** Paragraphe SEO discret en bas de page (menu du jour). */
+    localSeoFootnote: string
   }
   reservationPage: {
     introEyebrow: string

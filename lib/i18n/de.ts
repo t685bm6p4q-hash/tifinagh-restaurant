@@ -182,6 +182,8 @@ export const de: Dictionary = {
     langToggleFr: 'Français',
     langToggleEn: 'English',
     enFallbackNote: 'Englische Speisekarte noch nicht online — französische Version wird angezeigt.',
+    localSeoFootnote:
+      'Le Tifinagh, traditionelles Pariser Bistrot und 100 % hausgemachte Küche im 18. Arrondissement. Terrasse nur wenige Schritte vom Friedhof Montmartre, Moulin Rouge und Place de Clichy.',
   },
   reservationPage: {
     introEyebrow: 'Ihr Tisch',

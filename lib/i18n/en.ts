@@ -180,6 +180,8 @@ export const en: Dictionary = {
     langToggleFr: 'Français',
     langToggleEn: 'English',
     enFallbackNote: 'English menu not uploaded yet — showing the French version.',
+    localSeoFootnote:
+      'Le Tifinagh, your traditional Paris bistro with 100% homemade cooking in the 18th arrondissement. Enjoy our terrace steps from Montmartre Cemetery, the Moulin Rouge and Place de Clichy.',
   },
   reservationPage: {
     introEyebrow: 'Your table',

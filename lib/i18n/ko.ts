@@ -181,6 +181,8 @@ export const ko: Dictionary = {
     langToggleFr: 'Français',
     langToggleEn: 'English',
     enFallbackNote: '영문 메뉴가 아직 업로드되지 않았습니다 — 프랑스어 버전이 표시됩니다.',
+    localSeoFootnote:
+      'Le Tifinagh — 파리 18구의 전통 비스트로, 100% 수제 요리. 몽마르트르 묘지, 물랑 루주, 클리시 광장 바로 옆 테라스를 즐기세요.',
   },
   reservationPage: {
     introEyebrow: '당신의 테이블',

@@ -181,6 +181,8 @@ export const ja: Dictionary = {
     langToggleFr: 'Français',
     langToggleEn: 'English',
     enFallbackNote: '英語メニューはまだアップロードされていません — フランス語版を表示しています。',
+    localSeoFootnote:
+      'Le Tifinagh — パリ18区の伝統的ビストロ、100％手作りの料理。モンマルトル墓地、ムーラン・ルージュ、クリシー広場のすぐそばのテラスをお楽しみください。',
   },
   reservationPage: {
     introEyebrow: 'お席',

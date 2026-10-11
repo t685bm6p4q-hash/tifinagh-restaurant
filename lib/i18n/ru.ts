@@ -181,6 +181,8 @@ export const ru: Dictionary = {
     langToggleFr: 'Français',
     langToggleEn: 'English',
     enFallbackNote: 'Английское меню ещё не загружено — показана французская версия.',
+    localSeoFootnote:
+      'Le Tifinagh — традиционное парижское бistro и кухня полностью домашняя в 18-м округе. Терраса в двух шагах от кладбища Монмартра, Moulin Rouge и Place de Clichy.',
   },
   reservationPage: {
     introEyebrow: 'Ваш стол',

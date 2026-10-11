@@ -218,7 +218,7 @@ export function PageIntro({
   belowTitle,
   className,
 }: {
-  eyebrow: string
+  eyebrow?: string
   title: string
   text?: string
   belowTitle?: ReactNode
@@ -227,7 +227,7 @@ export function PageIntro({
   const introClass = className ? `page-intro ${className}` : 'page-intro'
   return (
     <section className={introClass}>
-      <p className="eyebrow">{eyebrow}</p>
+      {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
       <h1>{title}</h1>
       {belowTitle ?? (text ? <p>{text}</p> : null)}
     </section>

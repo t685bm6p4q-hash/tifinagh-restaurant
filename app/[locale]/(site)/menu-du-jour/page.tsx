@@ -45,13 +45,12 @@ export default async function MenuDuJour({ params }: LocalePageParams) {
         <PageBreadcrumbs locale={locale} items={breadcrumbItems} />
         <PageIntro
           className="page-intro--menu-jour"
-          eyebrow={d.introEyebrow}
           title={d.introTitle}
           belowTitle={
             introDisplay.kind === 'updated' ? (
               <p className="menu-jour-updated-at">{introDisplay.line}</p>
             ) : (
-              <p>{introDisplay.line}</p>
+              <p className="menu-jour-intro-fallback">{introDisplay.line}</p>
             )
           }
         />
@@ -101,6 +100,10 @@ export default async function MenuDuJour({ params }: LocalePageParams) {
               </a>
             </p>
           </div>
+        </section>
+
+        <section className="menu-jour-seo-footnote" aria-label={d.introTitle}>
+          <p>{d.localSeoFootnote}</p>
         </section>
       </MainContent>
       <Footer />

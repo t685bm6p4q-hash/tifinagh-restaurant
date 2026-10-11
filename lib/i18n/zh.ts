@@ -172,6 +172,8 @@ export const zh: Dictionary = {
     langToggleFr: 'Français',
     langToggleEn: 'English',
     enFallbackNote: '英文菜单尚未上传 — 现显示法语版本。',
+    localSeoFootnote:
+      'Le Tifinagh，巴黎十八区传统小酒馆，100% 自制美食。露台距蒙马特公墓、红磨坊与克利希广场仅几步之遥。',
   },
   reservationPage: {
     introEyebrow: '您的餐桌',

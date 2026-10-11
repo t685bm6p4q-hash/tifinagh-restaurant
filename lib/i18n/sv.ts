@@ -181,6 +181,8 @@ export const sv: Dictionary = {
     langToggleFr: 'Français',
     langToggleEn: 'English',
     enFallbackNote: 'Engelsk meny är inte uppladdad än — franska versionen visas.',
+    localSeoFootnote:
+      'Le Tifinagh, traditionellt parisiskt bistro och 100 % hemlagad mat i Paris 18. Njut av terrassen ett stenkast från Montmartre-kyrkogården, Moulin Rouge och Place de Clichy.',
   },
   reservationPage: {
     introEyebrow: 'Ditt bord',

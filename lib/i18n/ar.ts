@@ -181,6 +181,8 @@ export const ar: Dictionary = {
     langToggleFr: 'Français',
     langToggleEn: 'English',
     enFallbackNote: 'القائمة بالإنجليزية غير متوفرة بعد — تُعرض النسخة الفرنسية.',
+    localSeoFootnote:
+      'Le Tifinagh، بistro parisien تقليدي ومطبخ 100% منزلي في باريس 18. استمتع بتراسنا على خطوات من مقبرة Montmartre وMoulin Rouge وساحة Place de Clichy.',
   },
   reservationPage: {
     introEyebrow: 'مائدتكم',
