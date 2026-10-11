@@ -2368,11 +2368,11 @@ button.footer-link {
 }
 
 .menu-jour-page .page-breadcrumb-wrap {
-  padding: 80px 8vw 2px;
+  padding: 6px 8vw 0;
 }
 
 .menu-jour-page .page-breadcrumb-wrap + .page-intro {
-  padding-top: 6px;
+  padding-top: 2px;
 }
 
 .menu-jour-page .breadcrumb-list {
@@ -2391,13 +2391,13 @@ button.footer-link {
 }
 
 .menu-jour-page .page-intro--menu-jour {
-  padding: 8px 8vw 6px;
+  padding: 2px 8vw 0;
 }
 
 .menu-jour-page .page-intro--menu-jour h1 {
-  font-size: clamp(34px, 7vw, 48px);
-  margin: 0 0 4px;
-  line-height: 1.12;
+  font-size: clamp(28px, 6vw, 40px);
+  margin: 0 0 2px;
+  line-height: 1.08;
 }
 
 .menu-jour-page .page-intro--menu-jour .menu-jour-intro-fallback {
@@ -2417,9 +2417,18 @@ button.footer-link {
   max-width: 100%;
 }
 
-.menu-jour-page .menu-pdf-section {
-  padding-top: 4px;
-  padding-bottom: 28px;
+.menu-jour-page .menu-pdf-section.section {
+  padding-top: 0;
+  padding-bottom: 20px;
+}
+
+.menu-jour-page .menu-lang-toggle {
+  margin-bottom: 6px;
+}
+
+.menu-jour-page .menu-lang-fallback {
+  margin-bottom: 4px;
+  font-size: 12px;
 }
 
 .menu-jour-seo-footnote {
@@ -4170,33 +4179,55 @@ select:focus-visible {
   }
 
   .menu-jour-page .page-breadcrumb-wrap {
-    padding: 58px 7vw 0;
+    padding: 0 7vw;
   }
 
   .menu-jour-page .page-breadcrumb-wrap + .page-intro {
-    padding-top: 4px;
+    padding-top: 0;
   }
 
   .menu-jour-page .breadcrumb-list {
-    font-size: 11px;
+    font-size: 10px;
+    line-height: 1.25;
   }
 
   .menu-jour-page .page-intro--menu-jour {
-    padding: 4px 7vw 2px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0 6px;
+    padding: 0 7vw 2px;
   }
 
   .menu-jour-page .page-intro--menu-jour h1 {
-    font-size: clamp(28px, 8vw, 34px);
-    margin-bottom: 2px;
+    font-size: clamp(20px, 5.5vw, 26px);
+    margin: 0;
   }
 
-  .menu-jour-page .page-intro--menu-jour .menu-jour-updated-at {
-    font-size: 13px;
+  .menu-jour-page .page-intro--menu-jour .menu-jour-updated-at,
+  .menu-jour-page .page-intro--menu-jour .menu-jour-intro-fallback {
+    font-size: 11px;
+    line-height: 1.25;
+    margin: 0;
   }
 
-  .menu-jour-page .menu-pdf-section {
-    padding-top: 0;
-    padding-bottom: 10px;
+  .menu-jour-page .menu-pdf-section.section {
+    padding: 0 5vw 8px;
+  }
+
+  .menu-jour-page .menu-lang-toggle {
+    width: 56%;
+    margin-bottom: 4px;
+  }
+
+  .menu-jour-page .menu-pdf-viewer-wrap {
+    border-radius: 1.25rem;
+  }
+
+  .menu-jour-page .menu-pdf-viewer--embed {
+    height: min(calc(100dvh - 9rem), 720px);
+    min-height: min(52dvh, 440px);
   }
 
   .menu-jour-seo-footnote {
