@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { connection } from 'next/server'
 import { notFound } from 'next/navigation'
 import { RestaurantSchema } from '@/components/restaurant-schema'
 import { WebMcpTools } from '@/components/web-mcp-tools'
@@ -30,20 +31,22 @@ export async function generateMetadata({ params }: LayoutProps): Promise<Metadat
 }
 
 export default async function LocaleRootLayout({ children, params }: LayoutProps) {
+  await connection()
+
   const { locale: raw } = await params
   if (!isLocale(raw)) notFound()
 
   const locale = raw as Locale
   const dictionary = getDictionary(locale)
   const a11y = getA11yCopy(locale)
+  const aiCatalogUrl = new URL('/.well-known/ai-catalog.json', siteUrl).href
+  const ardCatalogUrl = new URL('/.well-known/ard.json', siteUrl).href
 
   return (
     <html lang={localeMeta[locale].htmlLang} dir={localeDirection(locale)}>
       <head>
-        <link
-          rel="ai-catalog"
-          href={new URL('/.well-known/ai-catalog.json', siteUrl).href}
-        />
+        <link rel="ai-catalog" href={aiCatalogUrl} />
+        <link rel="ard" href={ardCatalogUrl} />
       </head>
       <body>
         <SiteLocaleProvider locale={locale}>

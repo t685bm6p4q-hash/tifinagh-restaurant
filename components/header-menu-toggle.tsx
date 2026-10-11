@@ -45,9 +45,15 @@ type HeaderMenuToggleProps = {
   toggleMenuLabel: string
 }
 
+function toggleNavCheckbox() {
+  const input = document.getElementById(NAV_TOGGLE_ID)
+  if (!(input instanceof HTMLInputElement)) return
+  input.checked = !input.checked
+  input.dispatchEvent(new Event('change', { bubbles: true }))
+}
+
 /**
- * Label natif → bascule `#nav-toggle` sans attendre l’hydratation (mobile fiable).
- * Le checkbox pilote l’ouverture CSS (sibling ~ .main-nav).
+ * Bouton ARIA valide — pilote le checkbox `#nav-toggle` (CSS sibling) sans label interdit.
  */
 export function HeaderMenuToggle({ menuButton, toggleMenuLabel }: HeaderMenuToggleProps) {
   const [open, setOpen] = useState(false)
@@ -66,12 +72,13 @@ export function HeaderMenuToggle({ menuButton, toggleMenuLabel }: HeaderMenuTogg
   }, [syncFromInput])
 
   return (
-    <label
-      htmlFor={NAV_TOGGLE_ID}
+    <button
+      type="button"
       className="menu-toggle"
       aria-expanded={open}
       aria-controls="main-nav"
       aria-label={toggleMenuLabel}
+      onClick={toggleNavCheckbox}
     >
       <span className="menu-toggle-open" aria-hidden="true">
         <span className="menu-toggle-label">{menuButton}</span>
@@ -80,6 +87,6 @@ export function HeaderMenuToggle({ menuButton, toggleMenuLabel }: HeaderMenuTogg
       <span className="menu-toggle-close" aria-hidden="true">
         <CloseMenuIcon />
       </span>
-    </label>
+    </button>
   )
 }

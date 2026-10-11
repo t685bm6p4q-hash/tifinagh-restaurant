@@ -27,7 +27,7 @@ export function adminNeedsLocaleRewrite(rawPathname: string, pathname: string, l
  */
 export function assertAdminProxyRoutingOrder(source: string): { ok: true } | { ok: false; reason: string } {
   const adminGateNeedle = 'if (isAdminInternalPath(pathname))'
-  const marketingRewriteNeedle = 'const routedPathname =\n    !localeFromPath'
+  const marketingRewriteNeedle = 'const routedPathname = isMarketingPublicPath(pathname)'
 
   const effectiveAdminIdx = source.indexOf(adminGateNeedle)
   const marketingIdx = source.indexOf(marketingRewriteNeedle)

@@ -23,6 +23,15 @@ import {
   resolveRequestLocale,
   stripLocalePrefix,
 } from '@/lib/i18n/locale-path'
+import { isMarketingPublicPath } from '@/lib/marketing-public-paths'
+
+function applyCspNonceToHeaders(requestHeaders: Headers, nonce: string): string {
+  const policy = buildContentSecurityPolicy(nonce)
+  requestHeaders.set('x-nonce', nonce)
+  /** Next.js extrait le nonce depuis l’en-tête CSP de la requête (App Router). */
+  requestHeaders.set('Content-Security-Policy', policy)
+  return policy
+}
 
 function withHtmlCsp(
   request: NextRequest,
@@ -34,11 +43,11 @@ function withHtmlCsp(
   const requestHeaders = new Headers(request.headers)
   requestHeaders.delete(ADMIN_UPLOAD_TOKEN_HEADER)
   requestHeaderPatch?.(requestHeaders)
-  requestHeaders.set('x-nonce', nonce)
+  const policy = applyCspNonceToHeaders(requestHeaders, nonce)
   const response = NextResponse.next({
     request: { headers: requestHeaders },
   })
-  response.headers.set('Content-Security-Policy', buildContentSecurityPolicy(nonce))
+  response.headers.set('Content-Security-Policy', policy)
   applyHeaders?.(response)
   return response
 }
@@ -201,7 +210,7 @@ export function proxy(request: NextRequest) {
     }
   }
 
-  if (!isAdminInternalPath(pathname)) {
+  if (!isAdminInternalPath(pathname) && !isMarketingPublicPath(pathname)) {
     const cookieRedirect = cookieLocaleRedirectPath(pathname, localeFromPath, localeCookie)
     if (cookieRedirect && cookieRedirect !== rawPathname) {
       const url = request.nextUrl.clone()
@@ -232,11 +241,11 @@ export function proxy(request: NextRequest) {
       const requestHeaders = new Headers(request.headers)
       requestHeaders.delete(ADMIN_UPLOAD_TOKEN_HEADER)
       patch(requestHeaders)
-      requestHeaders.set('x-nonce', nonce)
+      const policy = applyCspNonceToHeaders(requestHeaders, nonce)
       const url = request.nextUrl.clone()
       url.pathname = routedPathname
       const response = NextResponse.rewrite(url, { request: { headers: requestHeaders } })
-      response.headers.set('Content-Security-Policy', buildContentSecurityPolicy(nonce))
+      response.headers.set('Content-Security-Policy', policy)
       decorateAdminHtmlResponse(response, gate.expectedPassword)
       return withMarketingResponse(response, pathname, { localeFromPath, method: requestMethod })
     }
@@ -251,8 +260,9 @@ export function proxy(request: NextRequest) {
     return `/${locale}${suffix}`
   }
 
-  const routedPathname =
-    !localeFromPath
+  const routedPathname = isMarketingPublicPath(pathname)
+    ? rawPathname
+    : !localeFromPath
       ? internalLocalePath(siteLocale, pathname)
       : rawPathname
 
@@ -260,11 +270,11 @@ export function proxy(request: NextRequest) {
     const nonce = createCspNonce()
     const requestHeaders = new Headers(request.headers)
     requestHeaders.delete(ADMIN_UPLOAD_TOKEN_HEADER)
-    requestHeaders.set('x-nonce', nonce)
+    const policy = applyCspNonceToHeaders(requestHeaders, nonce)
     const url = request.nextUrl.clone()
     url.pathname = routedPathname
     const response = NextResponse.rewrite(url, { request: { headers: requestHeaders } })
-    response.headers.set('Content-Security-Policy', buildContentSecurityPolicy(nonce))
+    response.headers.set('Content-Security-Policy', policy)
     return withMarketingResponse(response, pathname, { localeFromPath, method: requestMethod })
   }
 
