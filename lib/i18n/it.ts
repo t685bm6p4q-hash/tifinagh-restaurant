@@ -161,7 +161,7 @@ export const it: Dictionary = {
     eveningFormulaPrice: '25 €',
     limitedNote:
       'I posti sono limitati — consigliamo di prenotare per garantire il vostro tavolo.',
-    bookNow: 'Prenota ora',
+    bookNow: 'Prenota',
     hoursTitle: 'Orari di apertura',
     hoursLine: 'Tutti i giorni: 10h – 00h',
     phoneLabel: 'Tel.:',

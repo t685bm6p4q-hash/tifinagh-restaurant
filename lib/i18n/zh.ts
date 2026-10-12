@@ -153,7 +153,7 @@ export const zh: Dictionary = {
     eveningFormulaDetail: '全套餐 — 前菜 + 主菜 + 甜品',
     eveningFormulaPrice: '25 €',
     limitedNote: '座位有限 — 建议预订以确保您的桌位。',
-    bookNow: '立即预订',
+    bookNow: '预订',
     hoursTitle: '营业时间',
     hoursLine: '每天：10:00 – 00:00',
     phoneLabel: '电话：',

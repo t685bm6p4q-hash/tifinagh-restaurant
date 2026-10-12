@@ -161,7 +161,7 @@ export const ar: Dictionary = {
     eveningFormulaDetail: 'قائمة كاملة — مقبلات + طبق رئيسي + حلوى',
     eveningFormulaPrice: '25 €',
     limitedNote: 'عدد المقاعد محدود — ننصح بالحجز لتأمين مائدتكم.',
-    bookNow: 'احجز الآن',
+    bookNow: 'احجز',
     hoursTitle: 'أوقات العمل',
     hoursLine: 'كل يوم: 10:00 – 00:00',
     phoneLabel: 'هاتف:',

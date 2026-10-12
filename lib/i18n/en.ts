@@ -160,7 +160,7 @@ export const en: Dictionary = {
     eveningFormulaDetail: 'Full set menu — Starter + Main + Dessert',
     eveningFormulaPrice: '€25',
     limitedNote: 'Seating is limited — we recommend booking to secure your table.',
-    bookNow: 'Book now',
+    bookNow: 'Book',
     hoursTitle: 'Opening hours',
     hoursLine: 'Every day: 10am – 12am',
     phoneLabel: 'Tel.:',

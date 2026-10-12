@@ -160,7 +160,7 @@ export const zgh: Dictionary = {
     eveningFormulaDetail: 'Formule complète — Entrée + Plat + Dessert',
     eveningFormulaPrice: '25 €',
     limitedNote: 'ⵉⵎⴷⴷⴰⵏ ⵉⵎⵙⵙⴰⵏ — ⵙⵙⵖⵔ ⴰⵙⴳⴳⵯⴰⵙ.',
-    bookNow: 'ⴰⵙⴳⴳⵯⴰⵙ ⴷⵖⵉ',
+    bookNow: 'ⴰⵙⴳⴳⵯⴰⵙ',
     hoursTitle: 'ⵉⵙⵔⴰⴳⵏ ⵏ ⵓⵙⵙⵓⵎⵔ',
     hoursLine: 'ⴽⵓⵍ ⵉⵙ: 10:00 – 00:00',
     phoneLabel: 'ⵜⵉⵍⵉⴼⵓⵏ:',

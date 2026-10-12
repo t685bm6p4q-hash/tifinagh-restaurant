@@ -161,7 +161,7 @@ export const sv: Dictionary = {
     eveningFormulaDetail: 'Komplett meny — Förrätt + Huvudrätt + Dessert',
     eveningFormulaPrice: '25 €',
     limitedNote: 'Antal platser är begränsat — vi rekommenderar bokning för att säkra ditt bord.',
-    bookNow: 'Boka nu',
+    bookNow: 'Boka',
     hoursTitle: 'Öppettider',
     hoursLine: 'Varje dag: 10:00 – 00:00',
     phoneLabel: 'Tel.:',

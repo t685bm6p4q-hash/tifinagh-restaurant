@@ -1,6 +1,7 @@
 
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { CalendarDaysIcon } from '@/components/icons'
 import { PageBreadcrumbs } from '@/components/page-breadcrumbs'
 import { Header, Footer, PageIntro, MainContent } from '@/components/site-shell'
 import { MenuCrossLink } from '@/components/menu-cross-link'
@@ -64,6 +65,7 @@ export default async function MenuDuJour({ params }: LocalePageParams) {
           <div className="menu-jour-info-inner">
             <p className="menu-jour-info-note">{d.limitedNote}</p>
             <Link className="button button-primary" href={localeHref('/reservation', locale)} prefetch={false}>
+              <CalendarDaysIcon size={16} aria-hidden="true" />
               {d.bookNow}
             </Link>
           </div>

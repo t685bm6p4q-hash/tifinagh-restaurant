@@ -161,7 +161,7 @@ export const ko: Dictionary = {
     eveningFormulaDetail: '풀 코스 — 전채 + 메인 + 디저트',
     eveningFormulaPrice: '25 €',
     limitedNote: '좌석이 제한되어 있습니다 — 테이블 확보를 위해 예약을 권장합니다.',
-    bookNow: '지금 예약',
+    bookNow: '예약',
     hoursTitle: '운영 시간',
     hoursLine: '매일: 10:00 – 00:00',
     phoneLabel: '전화:',

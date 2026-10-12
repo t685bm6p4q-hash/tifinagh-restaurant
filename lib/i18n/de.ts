@@ -162,7 +162,7 @@ export const de: Dictionary = {
     eveningFormulaPrice: '25 €',
     limitedNote:
       'Die Plätze sind begrenzt — wir empfehlen eine Reservierung, um Ihren Tisch zu sichern.',
-    bookNow: 'Jetzt reservieren',
+    bookNow: 'Reservieren',
     hoursTitle: 'Öffnungszeiten',
     hoursLine: 'Jeden Tag: 10h – 00h',
     phoneLabel: 'Tel.:',

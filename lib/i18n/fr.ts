@@ -163,7 +163,7 @@ export const fr: Dictionary = {
     eveningFormulaPrice: '25 €',
     limitedNote:
       'Les places sont limitées — nous vous conseillons de réserver pour garantir votre table.',
-    bookNow: 'Réserver maintenant',
+    bookNow: 'Réserver',
     hoursTitle: "Horaires d'ouverture",
     hoursLine: 'Tous les jours : 10h – 00h',
     phoneLabel: 'Tél. :',

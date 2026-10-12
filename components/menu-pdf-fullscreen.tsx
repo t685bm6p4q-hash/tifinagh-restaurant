@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
+import { CalendarDaysIcon } from '@/components/icons'
 import { useDialogFocus } from '@/components/use-dialog-focus'
 import type { MenuMediaKind } from '@/lib/menu-pdf'
 
@@ -89,6 +90,7 @@ export function MenuPdfFullscreen({
         onClick={(event) => event.stopPropagation()}
       >
         <Link className="button button-primary" href={reservationHref} prefetch={false}>
+          <CalendarDaysIcon size={16} aria-hidden="true" />
           {reserveLabel}
         </Link>
       </div>

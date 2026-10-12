@@ -161,7 +161,7 @@ export const ja: Dictionary = {
     eveningFormulaDetail: 'フルコース — 前菜＋メイン＋デザート',
     eveningFormulaPrice: '25 €',
     limitedNote: '席数に限りがあります — ご予約をおすすめします。',
-    bookNow: '今すぐ予約',
+    bookNow: '予約する',
     hoursTitle: '営業時間',
     hoursLine: '毎日：10:00 – 00:00',
     phoneLabel: 'Tel.：',
