@@ -62,21 +62,6 @@ function syncLocalePathCookie(response: NextResponse, localeFromPath: string | n
   })
 }
 
-/** Pages marketing : hint CDN (locale = URL /en/… ; menu et admin restent frais). */
-const PUBLIC_HTML_EDGE_CACHE =
-  'public, s-maxage=3600, stale-while-revalidate=86400'
-
-function applyPublicHtmlEdgeCache(
-  response: NextResponse,
-  pathname: string,
-  method: string,
-) {
-  if (method !== 'GET' && method !== 'HEAD') return
-  if (pathname.startsWith('/admin') || pathname === '/menu-du-jour') return
-  response.headers.set('CDN-Cache-Control', PUBLIC_HTML_EDGE_CACHE)
-  response.headers.set('Vercel-CDN-Cache-Control', PUBLIC_HTML_EDGE_CACHE)
-}
-
 function withMarketingResponse(
   response: NextResponse,
   pathname: string,
@@ -85,7 +70,9 @@ function withMarketingResponse(
   if (options?.localeFromPath) {
     syncLocalePathCookie(response, options.localeFromPath)
   }
-  applyPublicHtmlEdgeCache(response, pathname, options?.method ?? 'GET')
+  /** Pas de cache HTML edge : le nonce CSP est par requête (HTML + en-tête doivent correspondre). */
+  void pathname
+  void options?.method
   return response
 }
 
