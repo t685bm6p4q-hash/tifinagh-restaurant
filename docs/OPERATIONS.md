@@ -1,5 +1,13 @@
 # Opérations — tifinagh.fr
 
+## Dev local
+
+```bash
+npm run dev
+```
+
+Site : [http://localhost:3000](http://localhost:3000) (admin : `/admin/menu-setup`).
+
 Routine après déploiement ISR / Blob privé (réf. commits `f29c329`, `f5618a1`).
 
 ## Menu du jour (Blob)

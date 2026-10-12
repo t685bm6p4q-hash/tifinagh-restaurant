@@ -34,8 +34,28 @@ export function HomeTemplate({ locale, dictionary }: HomeTemplateProps) {
       <MainContent>
 
         {/* ── Hero (LCP) — avant le bandeau info pour decouverte HTML prioritaire ── */}
-        <section className="hero">
-          <picture>
+        <section
+          className="hero"
+          style={{
+            position: 'relative',
+            overflow: 'hidden',
+            background: '#17211d',
+            display: 'flex',
+            alignItems: 'center',
+            minHeight: '620px',
+            padding: '80px 7vw',
+          }}
+        >
+          <picture
+            style={{
+              position: 'absolute',
+              inset: 0,
+              display: 'block',
+              width: '100%',
+              height: '100%',
+              margin: 0,
+            }}
+          >
             <source media="(min-width: 769px)" srcSet="/images/hero-salle-640.avif" type="image/avif" />
             <source media="(min-width: 769px)" srcSet="/images/hero-salle-640.webp" type="image/webp" />
             <source media="(max-width: 768px)" srcSet="/images/hero-salle-480.avif" type="image/avif" />
@@ -50,6 +70,14 @@ export function HomeTemplate({ locale, dictionary }: HomeTemplateProps) {
               fetchPriority="high"
               loading="eager"
               decoding="async"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'center',
+              }}
             />
           </picture>
           <div className="hero-overlay" />

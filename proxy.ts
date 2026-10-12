@@ -23,6 +23,7 @@ import {
   resolveRequestLocale,
   stripLocalePrefix,
 } from '@/lib/i18n/locale-path'
+import { appendHomeHeroEarlyHints, isHomeMarketingPath } from '@/lib/home-lcp-early-hints'
 import { isMarketingPublicPath } from '@/lib/marketing-public-paths'
 
 function applyCspNonceToHeaders(requestHeaders: Headers, nonce: string): string {
@@ -71,7 +72,9 @@ function withMarketingResponse(
     syncLocalePathCookie(response, options.localeFromPath)
   }
   /** Pas de cache HTML edge : le nonce CSP est par requête (HTML + en-tête doivent correspondre). */
-  void pathname
+  if (isHomeMarketingPath(pathname)) {
+    appendHomeHeroEarlyHints(response)
+  }
   void options?.method
   return response
 }

@@ -1021,9 +1021,7 @@ a.nav-cta.nav-active {
 
 @media (prefers-reduced-motion: no-preference) {
   .button-primary:hover,
-  .home-menu-choice-btn--daily:hover,
-  .button-menu-jour:hover,
-  .menu-share__button:hover {
+  .home-menu-choice-btn--daily:hover {
     animation: gold-edge-sheen var(--gold-sheen-duration) ease-in-out infinite;
   }
 }
@@ -2248,10 +2246,6 @@ button.footer-link {
   border-radius: 0 2px 2px 0;
 }
 
-.menu-cross-link--to-daily .menu-cross-link-inner {
-  border-color: rgba(214, 173, 69, 0.4);
-}
-
 .menu-cross-link-icon {
   flex-shrink: 0;
   width: 48px;
@@ -2285,27 +2279,6 @@ button.footer-link {
   color: var(--muted);
   font-size: 15px;
   max-width: 540px;
-}
-
-.button-menu-jour {
-  border: 2px solid transparent !important;
-  background:
-    var(--gold-fill-soft) padding-box,
-    var(--gold-edge) border-box !important;
-  background-size: 100% 100%, 260% 260% !important;
-  color: #faf0c8 !important;
-  font-weight: 700;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.button-menu-jour:hover {
-  background:
-    var(--gold-fill-soft-hover) padding-box,
-    var(--gold-edge) border-box !important;
-  background-size: 100% 100%, 280% 280% !important;
-  color: #fff !important;
-  transform: translateY(-1px);
 }
 
 .button-carte-link {
@@ -3521,22 +3494,20 @@ select:focus-visible {
   min-width: 190px;
   min-height: 48px;
   padding: 12px 22px;
-  border: 2px solid transparent;
+  border: 2px solid var(--gold);
   border-radius: 2rem;
-  background:
-    var(--gold-fill-soft) padding-box,
-    var(--gold-edge) border-box;
-  background-size: 100% 100%, 260% 260%;
-  color: #faf0c8;
+  background: #0a0a0a;
+  color: var(--gold-light);
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.03em;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
-  backdrop-filter: blur(4px);
-  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
+  box-shadow:
+    inset 0 1px 0 rgba(232, 197, 106, 0.08),
+    0 4px 18px rgba(0, 0, 0, 0.45);
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
 }
 
 .menu-share__button svg {
@@ -3545,14 +3516,13 @@ select:focus-visible {
 }
 
 .menu-share__button:hover {
-  background:
-    var(--gold-fill-soft-hover) padding-box,
-    var(--gold-edge) border-box;
-  background-size: 100% 100%, 280% 280%;
-  color: #fff;
+  background: #141210;
+  border-color: var(--gold-light);
+  color: #faf0c8;
   box-shadow:
-    0 6px 22px rgba(0, 0, 0, 0.3),
-    0 0 24px rgba(214, 173, 69, 0.22);
+    inset 0 1px 0 rgba(232, 197, 106, 0.14),
+    0 6px 22px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(214, 173, 69, 0.12);
   transform: translateY(-1px);
 }
 
@@ -3563,15 +3533,12 @@ select:focus-visible {
 
 .menu-share__button--copied,
 .menu-share__button--copied:hover {
-  background:
-    linear-gradient(
-      rgba(214, 173, 69, 0.48) 0%,
-      rgba(232, 197, 106, 0.38) 100%
-    )
-    padding-box,
-    var(--gold-edge) border-box;
-  background-size: 100% 100%, 280% 280%;
-  color: #fff;
+  background: #0a0a0a;
+  border-color: var(--gold-light);
+  color: #faf0c8;
+  box-shadow:
+    inset 0 1px 0 rgba(232, 197, 106, 0.16),
+    0 0 0 1px rgba(214, 173, 69, 0.35);
   transform: none;
 }
 

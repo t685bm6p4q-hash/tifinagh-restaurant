@@ -6,13 +6,23 @@
 export const canonicalHost = 'www.tifinagh.fr'
 const canonicalOrigin = `https://${canonicalHost}`
 
+function devSiteOrigin(): string {
+  const port = process.env.PORT?.trim() || '3000'
+  return `http://localhost:${port}`
+}
+
 function resolveSiteUrl(): string {
   const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim()
-  if (!raw) return canonicalOrigin
+  if (!raw) {
+    return process.env.NODE_ENV === 'development' ? devSiteOrigin() : canonicalOrigin
+  }
 
   try {
     const origin = new URL(raw).origin
     const hostname = new URL(origin).hostname
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      return origin
+    }
     if (
       hostname === 'tifinagh.fr' ||
       hostname === canonicalHost ||
@@ -22,7 +32,7 @@ function resolveSiteUrl(): string {
     }
     return origin
   } catch {
-    return canonicalOrigin
+    return process.env.NODE_ENV === 'development' ? devSiteOrigin() : canonicalOrigin
   }
 }
 

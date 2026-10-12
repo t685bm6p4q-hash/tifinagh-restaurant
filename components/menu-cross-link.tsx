@@ -32,9 +32,7 @@ export function MenuCrossLink({
         <Link
           href={href}
           prefetch={false}
-          className={
-            variant === 'to-daily' ? 'button button-menu-jour' : 'button button-carte-link'
-          }
+          className="button button-carte-link"
         >
           {cta}
           <ArrowRightIcon size={14} />
