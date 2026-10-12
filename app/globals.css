@@ -1021,7 +1021,8 @@ a.nav-cta.nav-active {
 
 @media (prefers-reduced-motion: no-preference) {
   .button-primary:hover,
-  .home-menu-choice-btn--daily:hover {
+  .home-menu-choice-btn--daily:hover,
+  .menu-share__button:hover {
     animation: gold-edge-sheen var(--gold-sheen-duration) ease-in-out infinite;
   }
 }
@@ -3494,20 +3495,22 @@ select:focus-visible {
   min-width: 190px;
   min-height: 48px;
   padding: 12px 22px;
-  border: 2px solid var(--gold);
+  border: 2px solid transparent;
   border-radius: 2rem;
-  background: #0a0a0a;
-  color: var(--gold-light);
+  background:
+    var(--gold-fill-soft) padding-box,
+    var(--gold-edge) border-box;
+  background-size: 100% 100%, 260% 260%;
+  color: #0a0a0a;
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.03em;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  box-shadow:
-    inset 0 1px 0 rgba(232, 197, 106, 0.08),
-    0 4px 18px rgba(0, 0, 0, 0.45);
-  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(4px);
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
 }
 
 .menu-share__button svg {
@@ -3516,13 +3519,14 @@ select:focus-visible {
 }
 
 .menu-share__button:hover {
-  background: #141210;
-  border-color: var(--gold-light);
-  color: #faf0c8;
+  background:
+    var(--gold-fill-soft-hover) padding-box,
+    var(--gold-edge) border-box;
+  background-size: 100% 100%, 280% 280%;
+  color: #0a0a0a;
   box-shadow:
-    inset 0 1px 0 rgba(232, 197, 106, 0.14),
-    0 6px 22px rgba(0, 0, 0, 0.5),
-    0 0 20px rgba(214, 173, 69, 0.12);
+    0 6px 22px rgba(0, 0, 0, 0.3),
+    0 0 24px rgba(214, 173, 69, 0.22);
   transform: translateY(-1px);
 }
 
@@ -3533,12 +3537,15 @@ select:focus-visible {
 
 .menu-share__button--copied,
 .menu-share__button--copied:hover {
-  background: #0a0a0a;
-  border-color: var(--gold-light);
-  color: #faf0c8;
-  box-shadow:
-    inset 0 1px 0 rgba(232, 197, 106, 0.16),
-    0 0 0 1px rgba(214, 173, 69, 0.35);
+  background:
+    linear-gradient(
+      rgba(214, 173, 69, 0.48) 0%,
+      rgba(232, 197, 106, 0.38) 100%
+    )
+    padding-box,
+    var(--gold-edge) border-box;
+  background-size: 100% 100%, 280% 280%;
+  color: #0a0a0a;
   transform: none;
 }
 
