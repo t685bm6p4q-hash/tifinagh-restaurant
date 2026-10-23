@@ -233,6 +233,8 @@ export function menuInlineResponseHeaders(
   }
 }
 
+/** `MENU_STORAGE=static` : menu servi depuis `/public` (0 opération Vercel Blob). */
 export function isBlobConfigured(): boolean {
+  if (process.env.MENU_STORAGE === 'static') return false
   return Boolean(process.env.BLOB_READ_WRITE_TOKEN)
 }

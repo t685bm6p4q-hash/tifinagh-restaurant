@@ -15,8 +15,6 @@ import { MENU_PUBLIC_CACHE_TAG } from '@/lib/menu-public-cache'
 import { isMenuPdfRateLimited } from '@/lib/menu-pdf-rate-limit'
 import { resizeMenuImageForDisplay } from '@/lib/resize-menu-image-display'
 
-export const dynamic = 'force-dynamic'
-
 async function resizeMenuImageCached(
   input: Uint8Array,
   displayWidth: number,

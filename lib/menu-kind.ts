@@ -1,6 +1,6 @@
-import { head, list } from '@vercel/blob'
+import { head } from '@vercel/blob'
 import { readMenuBlob, readMenuBlobPrefix } from '@/lib/menu-blob-store'
-import { unstable_cache, unstable_noStore as noStore } from 'next/cache'
+import { unstable_cache } from 'next/cache'
 import { MENU_PUBLIC_CACHE_TAG } from '@/lib/menu-public-cache'
 import { access, open, readFile, stat } from 'node:fs/promises'
 import path from 'node:path'
@@ -62,49 +62,16 @@ function emptyMenuStorageStatus(variant: MenuDayVariant): MenuStorageStatus {
   }
 }
 
-async function menuBlobStatusesFromList(): Promise<{
-  fr: MenuStorageStatus
-  en: MenuStorageStatus
-}> {
-  const { blobs } = await list({ prefix: 'menu-du-jour' })
-  const byPath = new Map(blobs.map((blob) => [blob.pathname, blob]))
-
-  const fromBlob = (variant: MenuDayVariant): MenuStorageStatus => {
-    const pathname = menuBlobPathname(variant)
-    const blob = byPath.get(pathname)
-    if (!blob || blob.pathname !== pathname) {
-      return emptyMenuStorageStatus(variant)
-    }
-    return {
-      variant,
-      pathname,
-      exists: true,
-      revision: blob.etag || blob.uploadedAt.toISOString(),
-      uploadedAt: blob.uploadedAt.toISOString(),
-      contentType: null,
-      sizeBytes: blob.size,
-    }
-  }
-
-  return { fr: fromBlob('fr'), en: fromBlob('en') }
-}
-
-/** Statut FR + EN en une lecture (liste Blob exacte par pathname). */
+/** Statut FR + EN — deux `head()` max (plus de `list()` coûteux). */
 export async function getMenuStorageOverview(): Promise<{
   fr: MenuStorageStatus
   en: MenuStorageStatus
 }> {
-  noStore()
-  if (isBlobConfigured()) {
-    return menuBlobStatusesFromList()
-  }
   const [fr, en] = await Promise.all([getMenuStorageStatus('fr'), getMenuStorageStatus('en')])
   return { fr, en }
 }
 
-export const getMenuStorageStatus = cache(async function getMenuStorageStatus(
-  variant: MenuDayVariant,
-): Promise<MenuStorageStatus> {
+async function resolveMenuStorageStatus(variant: MenuDayVariant): Promise<MenuStorageStatus> {
   const pathname = menuBlobPathname(variant)
   if (isBlobConfigured()) {
     try {
@@ -146,6 +113,19 @@ export const getMenuStorageStatus = cache(async function getMenuStorageStatus(
     contentType,
     sizeBytes: fileStat.size,
   }
+}
+
+const menuStorageStatusCrossRequest = (variant: MenuDayVariant) =>
+  unstable_cache(
+    () => resolveMenuStorageStatus(variant),
+    ['menu-storage-status-v3', variant],
+    { tags: [MENU_PUBLIC_CACHE_TAG], revalidate: 86_400 },
+  )()
+
+export const getMenuStorageStatus = cache(async function getMenuStorageStatus(
+  variant: MenuDayVariant,
+): Promise<MenuStorageStatus> {
+  return menuStorageStatusCrossRequest(variant)
 })
 
 export async function isPublicMenuAvailable(variant: MenuDayVariant): Promise<boolean> {
@@ -200,16 +180,20 @@ function loadMenuFromBlobCached(pathname: string, revision: string) {
   }))
 }
 
+function menuVariantForPathname(pathname: string): MenuDayVariant {
+  return pathname === menuBlobPathname('en') ? 'en' : 'fr'
+}
+
 async function loadMenuFromStorage(
   pathname: string,
 ): Promise<{ bytes: Uint8Array; contentType: string; revision: string }> {
   if (isBlobConfigured()) {
-    const meta = await headMenuBlob(pathname)
-    if (meta.pathname !== pathname) {
-      throw new Error('Blob pathname mismatch')
+    const variant = menuVariantForPathname(pathname)
+    const status = await getMenuStorageStatus(variant)
+    if (!status.exists || status.pathname !== pathname || !status.revision) {
+      throw new Error('MENU_NOT_FOUND')
     }
-    const revision = meta.etag || meta.uploadedAt.toISOString()
-    return loadMenuFromBlobCached(pathname, revision)
+    return loadMenuFromBlobCached(pathname, status.revision)
   }
 
   const filePath = path.join(process.cwd(), 'public', pathname)
@@ -229,7 +213,6 @@ export async function loadPublicMenu(
   variant: MenuDayVariant = 'fr',
   options: LoadPublicMenuOptions = {},
 ): Promise<LoadedPublicMenu> {
-  noStore()
   const fallbackEnToFr = options.fallbackEnToFr ?? true
   const pathname = menuBlobPathname(variant)
 

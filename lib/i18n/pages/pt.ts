@@ -65,8 +65,7 @@ export const pagesPt: PagesCopy = {
     ],
     howTitle: '¿Cómo funciona?',
     howText:
-      'Llámenos o escríbanos con la fecha, el número de comensales y el tipo de evento. Le respondemos con una propuesta (menu, servicio, privatización parcial o total) — ',
-    howStrong: 'siempre con presupuesto',
+      'Llámenos o escríbanos con la fecha, el número de comensales y el tipo de evento. Le respondemos con una propuesta (menu, servicio, privatización parcial o total).',
     whatsappQuoteMessage: 'Olá, me gustaría un presupuesto de privatización en Tifinagh.',
     bookingTitle: 'Hablemos de su evento',
     photoAlts: [

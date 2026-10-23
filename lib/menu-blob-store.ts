@@ -19,7 +19,7 @@ export async function readMenuBlob(pathname: string): Promise<{
   const order: BlobAccess[] = allowPublicFallback ? ['private', 'public'] : ['private']
   for (const access of order) {
     try {
-      const result = await get(pathname, { access, useCache: false })
+      const result = await get(pathname, { access, useCache: true })
       if (result?.statusCode === 200 && result.stream) {
         return {
           stream: result.stream,
@@ -42,8 +42,23 @@ export async function readMenuBlobBytes(pathname: string): Promise<Uint8Array> {
 }
 
 export async function readMenuBlobPrefix(pathname: string, maxBytes: number): Promise<Uint8Array> {
-  const full = await readMenuBlobBytes(pathname)
-  return full.subarray(0, Math.min(maxBytes, full.length))
+  const { stream } = await readMenuBlob(pathname)
+  const reader = stream.getReader()
+  const out = new Uint8Array(maxBytes)
+  let offset = 0
+  try {
+    while (offset < maxBytes) {
+      const { done, value } = await reader.read()
+      if (done || !value?.length) break
+      const take = Math.min(value.length, maxBytes - offset)
+      out.set(value.subarray(0, take), offset)
+      offset += take
+      if (take < value.length) break
+    }
+  } finally {
+    await reader.cancel().catch(() => undefined)
+  }
+  return out.subarray(0, offset)
 }
 
 function isPublicOnlyBlobStoreError(error: unknown): boolean {

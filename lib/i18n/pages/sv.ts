@@ -64,8 +64,7 @@ export const pagesSv: PagesCopy = {
     ],
     howTitle: 'Hur fungerar det?',
     howText:
-      'Ring eller skriv till oss med datum, antal gäster och typ av evenemang. Vi svarar med ett förslag (meny, service, delvis eller hel privatisering) — ',
-    howStrong: 'alltid på offert',
+      'Ring eller skriv till oss med datum, antal gäster och typ av evenemang. Vi svarar med ett förslag (meny, service, delvis eller hel privatisering).',
     whatsappQuoteMessage: 'Hej, jag skulle vilja ha en offert för privatisering på Tifinagh.',
     bookingTitle: 'Låt oss prata om ert evenemang',
     photoAlts: [

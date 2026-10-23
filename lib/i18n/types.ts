@@ -54,7 +54,6 @@ export type PagesCopy = {
     formats: string[]
     howTitle: string
     howText: string
-    howStrong: string
     whatsappQuoteMessage: string
     bookingTitle: string
     photoAlts: [string, string]

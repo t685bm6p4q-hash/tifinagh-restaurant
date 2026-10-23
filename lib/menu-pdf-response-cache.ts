@@ -6,11 +6,11 @@ export function menuPdfImageCacheControl(
   displayWidth: number | null,
   isImage: boolean,
 ): string {
-  if (!isImage || !displayWidth) {
-    return 'no-store, must-revalidate'
-  }
   if (menuRevisionCacheKey(revision)) {
     return 'public, max-age=31536000, immutable'
   }
-  return 'public, max-age=120, stale-while-revalidate=86400'
+  if (isImage && displayWidth) {
+    return 'public, max-age=120, stale-while-revalidate=86400'
+  }
+  return 'public, max-age=300, stale-while-revalidate=86400'
 }

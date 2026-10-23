@@ -64,8 +64,7 @@ export const pagesKo: PagesCopy = {
     ],
     howTitle: '진행 방식',
     howText:
-      '날짜, 인원, 이벤트 유형을 알려주시면 전화 또는 메시지로 연락해 주세요. 메뉴, 서비스, 부분·전체 대관 제안을 드립니다 — ',
-    howStrong: '항상 견적 기준',
+      '날짜, 인원, 이벤트 유형을 알려주시면 전화 또는 메시지로 연락해 주세요. 메뉴, 서비스, 부분·전체 대관 제안을 드립니다.',
     whatsappQuoteMessage: '안녕하세요, Tifinagh 대관 견적을 문의드립니다.',
     bookingTitle: '이벤트 상담',
     photoAlts: [

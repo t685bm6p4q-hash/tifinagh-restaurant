@@ -102,7 +102,6 @@ export default async function Privatisation({ params }: LocalePageParams) {
               </h3>
               <p style={{ color: 'var(--muted)', margin: '0 0 18px', lineHeight: 1.7 }}>
                 {p.howText}
-                <strong style={{ color: 'var(--foreground)' }}>{p.howStrong}</strong>.
               </p>
               <p style={{ margin: 0 }}>
                 <a className="contact-phone-link" href={phoneTel}>

@@ -65,8 +65,7 @@ export const pagesDe: PagesCopy = {
     ],
     howTitle: 'Wie läuft es ab?',
     howText:
-      'Rufen Sie uns an oder schreiben Sie uns mit Datum, Gästezahl und Art der Veranstaltung. Wir melden uns mit einem Vorschlag (Menü, Service, teilweise oder komplette Anmietung) — ',
-    howStrong: 'immer auf Anfrage',
+      'Rufen Sie uns an oder schreiben Sie uns mit Datum, Gästezahl und Art der Veranstaltung. Wir melden uns mit einem Vorschlag (Menü, Service, teilweise oder komplette Anmietung).',
     whatsappQuoteMessage: 'Guten Tag, ich hätte gerne ein Angebot für eine exklusive Anmietung im Tifinagh.',
     bookingTitle: 'Über Ihre Veranstaltung sprechen',
     photoAlts: [

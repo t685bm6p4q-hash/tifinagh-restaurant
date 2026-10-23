@@ -74,8 +74,7 @@ const pagesFr: PagesCopy = {
     ],
     howTitle: 'Comment ça se passe ?',
     howText:
-      'Appelez-nous ou écrivez-nous avec la date, le nombre de convives et le type d’événement. Nous revenons avec une proposition (menu, service, privatisation partielle ou totale) — ',
-    howStrong: 'toujours sur devis',
+      'Appelez-nous ou écrivez-nous avec la date, le nombre de convives et le type d’événement. Nous revenons avec une proposition (menu, service, privatisation partielle ou totale).',
     whatsappQuoteMessage: 'Bonjour, je souhaite un devis de privatisation chez Tifinagh.',
     bookingTitle: 'Parler de votre événement',
     photoAlts: [
@@ -257,8 +256,7 @@ const pagesEn: PagesCopy = {
     ],
     howTitle: 'How does it work?',
     howText:
-      'Call or message us with the date, number of guests and type of event. We will reply with a proposal (menu, service, partial or full hire) — ',
-    howStrong: 'always on quote',
+      'Call or message us with the date, number of guests and type of event. We will reply with a proposal (menu, service, partial or full hire).',
     whatsappQuoteMessage: 'Hello, I would like a quote for private hire at Tifinagh.',
     bookingTitle: 'Talk about your event',
     photoAlts: [
@@ -440,8 +438,7 @@ const pagesEs: PagesCopy = {
     ],
     howTitle: '¿Cómo funciona?',
     howText:
-      'Llámenos o escríbanos con la fecha, el número de comensales y el tipo de evento. Le respondemos con una propuesta (menú, servicio, privatización parcial o total) — ',
-    howStrong: 'siempre con presupuesto',
+      'Llámenos o escríbanos con la fecha, el número de comensales y el tipo de evento. Le respondemos con una propuesta (menú, servicio, privatización parcial o total).',
     whatsappQuoteMessage: 'Hola, me gustaría un presupuesto de privatización en Tifinagh.',
     bookingTitle: 'Hablemos de su evento',
     photoAlts: [
@@ -623,8 +620,7 @@ const pagesIt: PagesCopy = {
     ],
     howTitle: 'Come funziona?',
     howText:
-      'Chiamateci o scriveteci con la data, il numero di ospiti e il tipo di evento. Vi rispondiamo con una proposta (menu, servizio, privatizzazione parziale o totale) — ',
-    howStrong: 'sempre su preventivo',
+      'Chiamateci o scriveteci con la data, il numero di ospiti e il tipo di evento. Vi rispondiamo con una proposta (menu, servizio, privatizzazione parziale o totale).',
     whatsappQuoteMessage: 'Buongiorno, vorrei un preventivo di privatizzazione da Tifinagh.',
     bookingTitle: 'Parliamo del vostro evento',
     photoAlts: [
@@ -802,8 +798,7 @@ const pagesZh: PagesCopy = {
     ],
     howTitle: '如何预订？',
     howText:
-      '请致电或留言，告知日期、人数与活动类型。我们会回复方案（菜单、服务、部分或全场包场）——',
-    howStrong: '一律按报价',
+      '请致电或留言，告知日期、人数与活动类型。我们会回复方案（菜单、服务、部分或全场包场）。',
     whatsappQuoteMessage: '您好，我想咨询 Tifinagh 的包场报价。',
     bookingTitle: '聊聊您的活动',
     photoAlts: [

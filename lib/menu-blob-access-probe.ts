@@ -11,7 +11,7 @@ export type MenuBlobAccessProbe = {
 
 async function blobReadable(pathname: string, access: 'private' | 'public'): Promise<boolean> {
   try {
-    const result = await get(pathname, { access, useCache: false })
+    const result = await get(pathname, { access, useCache: true })
     if (result?.statusCode !== 200 || !result.stream) return false
     const reader = result.stream.getReader()
     const first = await reader.read()
