@@ -1,3 +1,7 @@
+import { assertNodeEngine } from './scripts/assert-node-engine.mjs'
+
+if (process.argv.includes('build')) assertNodeEngine()
+
 /** @type {import('next').NextConfig} */
 const securityHeaders = [
   { key: 'X-Content-Type-Options', value: 'nosniff' },
