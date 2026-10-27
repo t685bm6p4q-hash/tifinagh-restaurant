@@ -229,7 +229,6 @@ export function menuInlineResponseHeaders(
   return {
     'Content-Type': contentType,
     'Content-Disposition': `inline; filename="${filename}"`,
-    'Cache-Control': 'no-store',
   }
 }
 

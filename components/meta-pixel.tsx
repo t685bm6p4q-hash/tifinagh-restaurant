@@ -31,6 +31,7 @@ function revokeMetaPixelCookies(): void {
 export function MetaPixel() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const searchQuery = searchParams.toString()
   const [consented, setConsented] = useState(false)
   const previousPath = useRef<string | null>(null)
 
@@ -59,12 +60,12 @@ export function MetaPixel() {
       previousPath.current = null
       return
     }
-    const pagePath = searchParams.toString() ? `${pathname}?${searchParams}` : pathname
+    const pagePath = searchQuery ? `${pathname}?${searchQuery}` : pathname
     const isSpaNavigation = previousPath.current !== null && previousPath.current !== pagePath
     previousPath.current = pagePath
     if (!isSpaNavigation || !window.fbq) return
     window.fbq('track', 'PageView')
-  }, [consented, pathname, searchParams])
+  }, [consented, pathname, searchQuery])
 
   if (!isMetaPixelConfigured || !consented) return null
 

@@ -2,6 +2,7 @@ import { unstable_cache } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 import {
   menuInlineResponseHeaders,
+  menuRevisionCacheKey,
   parseMenuDayVariant,
   sniffMenuContentType,
   type MenuDayVariant,
@@ -10,7 +11,11 @@ import type { LoadedPublicMenu } from '@/lib/menu-kind'
 import { loadPublicMenu } from '@/lib/menu-kind'
 import { parseMenuDisplayWidth } from '@/lib/menu-image-display'
 import { applyMenuEmbedHeaders } from '@/lib/menu-subresource-headers'
-import { menuPdfImageCacheControl } from '@/lib/menu-pdf-response-cache'
+import {
+  MENU_PDF_NO_STORE,
+  applyMenuPdfCacheHeaders,
+  menuPdfResponseCacheControl,
+} from '@/lib/menu-pdf-response-cache'
 import { MENU_PUBLIC_CACHE_TAG } from '@/lib/menu-public-cache'
 import { isMenuPdfRateLimited } from '@/lib/menu-pdf-rate-limit'
 import { resizeMenuImageForDisplay } from '@/lib/resize-menu-image-display'
@@ -46,7 +51,9 @@ async function serveMenu(request: NextRequest, body: boolean) {
         status: 429,
         headers: {
           'Retry-After': '60',
-          'Cache-Control': 'no-store',
+          'Cache-Control': MENU_PDF_NO_STORE,
+          'CDN-Cache-Control': MENU_PDF_NO_STORE,
+          'Vercel-CDN-Cache-Control': MENU_PDF_NO_STORE,
         },
       },
     )
@@ -74,9 +81,12 @@ async function serveMenu(request: NextRequest, body: boolean) {
 
     const headers = new Headers(menuInlineResponseHeaders(servedType, menu.variant))
     applyMenuEmbedHeaders(headers, servedType)
-    headers.set(
-      'Cache-Control',
-      menuPdfImageCacheControl(menu.revision, displayWidth, contentType.startsWith('image/')),
+    applyMenuPdfCacheHeaders(
+      headers,
+      menuPdfResponseCacheControl(
+        menuRevisionCacheKey(request.nextUrl.searchParams.get('r')),
+        menuRevisionCacheKey(menu.revision),
+      ),
     )
     if (displayWidth && contentType.startsWith('image/')) {
       const etag = menuDisplayEtag(menu, displayWidth, requested)
@@ -92,7 +102,17 @@ async function serveMenu(request: NextRequest, body: boolean) {
     }
     return new NextResponse(bytes, { headers })
   } catch {
-    return NextResponse.json({ error: 'Menu du jour indisponible' }, { status: 404 })
+    return NextResponse.json(
+      { error: 'Menu du jour indisponible' },
+      {
+        status: 404,
+        headers: {
+          'Cache-Control': MENU_PDF_NO_STORE,
+          'CDN-Cache-Control': MENU_PDF_NO_STORE,
+          'Vercel-CDN-Cache-Control': MENU_PDF_NO_STORE,
+        },
+      },
+    )
   }
 }
 

@@ -30,6 +30,7 @@ function revokeGaCookies(): void {
 export function GoogleAnalytics() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const searchQuery = searchParams.toString()
   const [consented, setConsented] = useState(false)
 
   const refreshConsent = useCallback(() => {
@@ -51,14 +52,13 @@ export function GoogleAnalytics() {
 
   useEffect(() => {
     if (!consented || !isGaConfigured || !window.gtag) return
-    const query = searchParams.toString()
-    const pagePath = query ? `${pathname}?${query}` : pathname
+    const pagePath = searchQuery ? `${pathname}?${searchQuery}` : pathname
     window.gtag('event', 'page_view', {
       page_path: pagePath,
       page_location: window.location.href,
       page_title: document.title,
     })
-  }, [consented, pathname, searchParams])
+  }, [consented, pathname, searchQuery])
 
   if (!isGaConfigured || !consented) return null
 
