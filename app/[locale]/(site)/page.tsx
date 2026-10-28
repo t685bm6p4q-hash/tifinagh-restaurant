@@ -1,3 +1,4 @@
+export const revalidate = 3600;
 import type { Metadata } from 'next'
 import { HomeHeroLcpPreloadLinks, preloadHomeHeroLcp } from '@/lib/hero-lcp-preload'
 import { HomeTemplate } from '@/src/components/templates/home-template'
