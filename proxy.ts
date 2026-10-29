@@ -11,7 +11,7 @@ import {
   safeEqual,
   setAdminAuthCookies,
 } from '@/lib/admin-auth'
-import { buildContentSecurityPolicy, createCspNonce } from '@/lib/csp'
+import { MARKETING_CSP, buildContentSecurityPolicy, createCspNonce } from '@/lib/csp'
 import { canonicalHost } from '@/lib/seo'
 import { defaultLocale, isLocale, localeCookieName, type Locale } from '@/lib/i18n/config'
 import {
@@ -53,6 +53,22 @@ function withHtmlCsp(
   return response
 }
 
+function marketingRequestHeaders(request: NextRequest): Headers {
+  const headers = new Headers(request.headers)
+  headers.delete(ADMIN_UPLOAD_TOKEN_HEADER)
+  headers.delete('x-nonce')
+  headers.delete('content-security-policy')
+  return headers
+}
+
+function withStaticMarketingCsp(request: NextRequest): NextResponse {
+  const response = NextResponse.next({
+    request: { headers: marketingRequestHeaders(request) },
+  })
+  response.headers.set('Content-Security-Policy', MARKETING_CSP)
+  return response
+}
+
 function syncLocalePathCookie(response: NextResponse, localeFromPath: string | null | undefined) {
   if (!localeFromPath || !isLocale(localeFromPath)) return
   response.cookies.set(localeCookieName, localeFromPath, {
@@ -71,7 +87,6 @@ function withMarketingResponse(
   if (options?.localeFromPath) {
     syncLocalePathCookie(response, options.localeFromPath)
   }
-  /** Pas de cache HTML edge : le nonce CSP est par requête (HTML + en-tête doivent correspondre). */
   if (isHomeMarketingPath(pathname)) {
     appendHomeHeroEarlyHints(response)
   }
@@ -156,7 +171,7 @@ function adminRequestHeaderPatch(expectedPassword: string) {
  * Redirige vers www (évite la boucle Google apex ↔ www) et l'alias *.vercel.app.
  * Gate HTTP Basic Auth sur /admin/* avant tout rendu HTML.
  * Sans MENU_ADMIN_PASSWORD → 503 (fail-closed, jamais d'admin ouvert).
- * Rewrite locale + CSP nonce ; hint CDN sur le HTML marketing.
+ * Rewrite locale + CSP (nonce admin, statique marketing) ; hint CDN sur le HTML marketing.
  */
 function requestHost(request: NextRequest): string {
   const [hostname] = (request.headers.get('host') ?? '').split(':')
@@ -257,18 +272,16 @@ export function proxy(request: NextRequest) {
       : rawPathname
 
   if (routedPathname !== rawPathname) {
-    const nonce = createCspNonce()
-    const requestHeaders = new Headers(request.headers)
-    requestHeaders.delete(ADMIN_UPLOAD_TOKEN_HEADER)
-    const policy = applyCspNonceToHeaders(requestHeaders, nonce)
     const url = request.nextUrl.clone()
     url.pathname = routedPathname
-    const response = NextResponse.rewrite(url, { request: { headers: requestHeaders } })
-    response.headers.set('Content-Security-Policy', policy)
+    const response = NextResponse.rewrite(url, {
+      request: { headers: marketingRequestHeaders(request) },
+    })
+    response.headers.set('Content-Security-Policy', MARKETING_CSP)
     return withMarketingResponse(response, pathname, { localeFromPath, method: requestMethod })
   }
 
-  return withMarketingResponse(withHtmlCsp(request, siteLocale), pathname, {
+  return withMarketingResponse(withStaticMarketingCsp(request), pathname, {
     localeFromPath,
     method: requestMethod,
   })

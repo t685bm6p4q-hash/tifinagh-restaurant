@@ -1,9 +1,14 @@
 import { SiteConsentLazy } from '@/components/site-consent-lazy'
 import { StickyCallBar } from '@/components/sticky-call-bar'
 import { bindPageLocale } from '@/lib/i18n/bind-page-locale'
+import { locales } from '@/lib/i18n/config'
 
 /** Pages marketing (hors /menu-du-jour) : régénération au plus toutes les heures si le runtime le permet. */
 export const revalidate = 3600
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }))
+}
 
 type SiteLayoutProps = Readonly<{
   children: React.ReactNode

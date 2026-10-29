@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next'
-import { connection } from 'next/server'
 import { notFound } from 'next/navigation'
 import { RestaurantSchema } from '@/components/restaurant-schema'
 import { WebMcpTools } from '@/components/web-mcp-tools'
@@ -31,8 +30,6 @@ export async function generateMetadata({ params }: LayoutProps): Promise<Metadat
 }
 
 export default async function LocaleRootLayout({ children, params }: LayoutProps) {
-  await connection()
-
   const { locale: raw } = await params
   if (!isLocale(raw)) notFound()
 
