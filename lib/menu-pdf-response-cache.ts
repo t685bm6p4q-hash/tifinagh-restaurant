@@ -1,9 +1,9 @@
 /**
- * Cache CDN pour `/api/menu-pdf` quand l’URL n’est pas épinglée à une révision.
- * `s-maxage` est ce que le CDN Vercel honore sur une Function (pas seulement `max-age`).
+ * Cache CDN pour `/api/menu-pdf` sans `?r=` (révision courante).
+ * Court TTL : évite de servir une ancienne révision si le HTML ISR n’est pas encore regénéré.
  */
 export const MENU_PDF_CDN_CACHE_CONTROL =
-  'public, s-maxage=3600, stale-while-revalidate=86400'
+  'public, s-maxage=60, stale-while-revalidate=300'
 
 /** URL `?r=<révision>` : le fichier ne change plus pour cette clé. */
 export const MENU_PDF_PINNED_CACHE_CONTROL =

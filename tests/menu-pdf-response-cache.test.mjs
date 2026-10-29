@@ -9,12 +9,12 @@ import {
 } from '../lib/menu-pdf-response-cache.ts'
 
 describe('menuPdfResponseCacheControl', () => {
-  it('met en cache CDN une heure les URL sans révision', () => {
+  it('met en cache CDN 60 s les URL sans révision', () => {
     assert.equal(menuPdfResponseCacheControl(null, 'etag-1'), MENU_PDF_CDN_CACHE_CONTROL)
     assert.equal(menuPdfResponseCacheControl(null, null), MENU_PDF_CDN_CACHE_CONTROL)
     assert.equal(
       MENU_PDF_CDN_CACHE_CONTROL,
-      'public, s-maxage=3600, stale-while-revalidate=86400',
+      'public, s-maxage=60, stale-while-revalidate=300',
     )
   })
 
