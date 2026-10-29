@@ -1226,13 +1226,18 @@ a.nav-cta.nav-active {
   padding: 28px;
 }
 
+@media (min-width: 701px) {
+  .review-card .review-card-body {
+    display: block !important;
+  }
+}
+
 .stars {
   color: var(--gold);
   letter-spacing: 4px;
 }
 
-.review-card-body p,
-.review-card-snippet {
+.review-card-body p {
   font-style: italic;
   color: #e5ded3;
 }
@@ -4048,18 +4053,7 @@ select:focus-visible {
     padding-bottom: 36px;
   }
 
-  .review-card-snippet {
-    margin: 0;
-    padding-right: 28px;
-    font-size: 14px;
-    line-height: 1.5;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-  }
-
-  .review-card[open] .review-card-snippet {
+  .review-card-body .stars {
     display: none;
   }
 

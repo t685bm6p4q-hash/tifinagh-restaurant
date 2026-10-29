@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 
 type Review = {
+  id?: string
   quote: string
   author: string
 }
@@ -30,7 +31,7 @@ export function ReviewsList({ reviews }: { reviews: Review[] }) {
     <div className="review-grid">
       {reviews.map((review, index) => (
         <details
-          key={review.author}
+          key={review.id ?? review.author}
           className="review-card"
           open={openIndex === index}
           onToggle={(e) => handleToggle(index, e.currentTarget)}
@@ -40,10 +41,10 @@ export function ReviewsList({ reviews }: { reviews: Review[] }) {
               <span className="stars" aria-hidden="true">★★★★★</span>
               <span className="review-card-summary-author">{review.author}</span>
             </span>
-            <p className="review-card-snippet">“{review.quote}”</p>
             <span className="review-card-chevron" aria-hidden="true" />
           </summary>
           <div className="review-card-body">
+            <span className="stars" aria-hidden="true">★★★★★</span>
             <p className="review-quote">“{review.quote}”</p>
             <cite>— {review.author}</cite>
           </div>

@@ -93,7 +93,6 @@ export function buildSiteMetadata(locale: Locale): Metadata {
       template: site.titleTemplate,
     },
     description: site.description,
-    keywords: site.keywords,
     alternates: {
       canonical,
       languages: languageAlternatesForPath('/'),
@@ -143,7 +142,6 @@ export function buildPageMetadata(
       canonical,
       languages: languageAlternatesForPath(seoPagePaths[pageId]),
     },
-    ...(page.keywords ? { keywords: page.keywords } : {}),
     ...buildSocialMetadata(
       locale,
       { ...page, description },
